@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^logout/$', logout_view, name="logout"),
     url(r'^check_username/$', check_username, name="check_username"),
     url(r'^register/$', RegistrationView.as_view(), name="register"),
-    url(r'^register/(?P<object_id>\d+)/$', RegistrationStepView.as_view(), name="register_step_2"),
+    # url(r'^register/(?P<object_id>\d+)/$', RegistrationStepView.as_view(), name="register_step_2"),
 ]
 

@@ -50,9 +50,9 @@ class RegistrationView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(RegistrationView, self).get_context_data(**kwargs)
-        context.update({
-            'form_action': reverse('register_step_2', args=(self.kwargs['object_id'],))
-        })
+        # context.update({
+        #     'form_action': reverse('register_step_2', args=(self.kwargs['object_id'],))
+        # })
         return context
 
     def form_valid(self, form):
