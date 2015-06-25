@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'media',
     'artist',
     'socialconnector',
+    'userprofile',
 
     'social.apps.django_app.default',  # http://psa.matiasaguirre.net/docs/index.html
 )
@@ -181,7 +182,8 @@ SOCIAL_AUTH_INSTAGRAM_SECRET = '678fb9423f1a400cb416bddc697052fb'
 
 SESSION_SERIALIZER ='django.contrib.sessions.serializers.PickleSerializer'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/user/login/'
+LOGIN_URL = '/user/login/'
 LOGIN_ERROR_URL = '/'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'

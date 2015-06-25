@@ -4,7 +4,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
-from .views import login, register
 from artist.views import single_artist, artist_settings, artist_insights
 
 urlpatterns = [
@@ -20,9 +19,10 @@ urlpatterns = [
     url(r'^connect/', include('socialconnector.urls')),
     url(r'^media/', include('media.urls')),
 
+    #  userprofile
+    url(r'^user/', include('userprofile.urls')),
+
     # static pages
-    url(r'^login/$', login, name="login"),
-    url(r'^register/$', register, name="register"),
     url(r'^profile/$', login_required(single_artist), {"display":"profile"}, name="profile"),
     url(r'^profile/insights/$', artist_insights, {"display":"profile"}, name="insights"),
     url(r'^settings/$', artist_settings, {"display":"profile"}, name="settings"),

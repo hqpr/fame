@@ -14,7 +14,7 @@
                     <div> <a href="{% url 'social:begin' 'facebook' %}" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span></a>
                         <p class="or-txt">OR</p>
 
-                        <p>Subscribe with your <a href="#">e-mail address</a></p>
+                        <p>Subscribe with your <a href="{% url 'register' %}">e-mail address</a></p>
                         <p class="terms">If you “Sign Up with Facebook” and you are not a Fame Music user, you will be automatically registered and you agree to the Fame Music <a href="#">Terms / Conditions</a> and <a href="#">Privacy Policy</a>.</p>
                         <p class="signin"> Do you have an account? <a href="#">Sign In</a></p>
                     </div>
@@ -39,6 +39,7 @@
                 <form action="{% url 'login' %}" method="post" id="login_form">
                     {% csrf_token %}
                   <div class="form-group">
+                      <p id="errors" style="color: #f10950"></p>
                     <div class="input-group"> <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-user"></i></span>
                       <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
                     </div>
@@ -69,8 +70,20 @@
         });
 
         $('#log_in').on('click', function(){
-            $('#login_form').ajaxSubmit()
+            $('#login_form').ajaxSubmit({
+                success: function(data){
+                    if (data.success){
+                        window.location.href = "/profile/";
+                        console.log(data.msg)
+                    } else {
+                        $('#errors').text(data.msg);
+                        console.log(data.msg)
+                    }
+                },
+                dataType: 'json'
+            });
         });
+
     </script>
 
 {% endblock %}
