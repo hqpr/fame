@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
+    <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    {% for p in photos %}
+        <ul>
+            <li><img src="{{ MEDIA_URL }}{{ p.image }}" alt="" width="100" height="100"/> - {{ p.added }}</li>
+        </ul>
+    {% endfor %}
+    <a href="//en.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="red" data-pin-height="28"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_28.png" /></a>
+    <!-- Please call pinit.js only once per page -->
+    <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    <br/>
+    <div class="dropzone" data-width="960" data-height="540" data-resize="true" data-url="{% url 'imageupload' %}" style="width: 100%;">
+        <input type="file" name="thumb" />
+    </div>
+
+
+
+    <script>
+        $('.dropzone').html5imageupload();
+    </script>
+{% endblock %}

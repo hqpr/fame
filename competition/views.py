@@ -1,0 +1,179 @@
+from datetime import datetime
+import pytz
+
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+from .models import Competition
+
+# Create your views here.
+def competitions(request, *args, **kwargs):
+    """View all competitions"""
+    # page setup
+    filters = setup_competition_filters_dictionary(request.GET)
+
+    # initial data setup
+    # active competitions
+    active_competitions = Competition.objects.filter(active=True,date_start__lte=datetime.now(tz=pytz.UTC),
+                                                     date_end__gte=datetime.now(tz=pytz.UTC))
+    # active_competitions = Competition.objects.filter(active=True,date_start__lte=datetime.now(tz=pytz.UTC))
+    # set up pagination
+    paginated_competitions = Paginator(active_competitions, filters["limit"])
+    try:
+        paginated_competitions_to_display = paginated_competitions.page(filters["page"])
+    except:
+        paginated_competitions_to_display = []
+
+    template_name = 'competitions.html'
+    template_data = {
+        'competitions': active_competitions,
+        "active_competitions": paginated_competitions_to_display,
+        "string": "All Competitions Page",
+        "paginator": paginated_competitions
+    }
+
+    return render_to_response(template_name,
+                              template_data,
+                              context_instance=RequestContext(request)
+    )
+
+def single_competition(request, *args, **kwargs):
+    """View single competition"""
+    try:
+        competition_slug = kwargs["slug"]
+        competition = Competition.objects.get(slug=competition_slug)
+    except:
+        return HttpResponse("Error")
+
+    competition_data = get_single_competition_data(competition, kwargs)
+
+    judges = competition.competitionjudge_set.all()
+    prizes = competition.competitionprize_set.all()
+    try:
+        terms = competition.competitionterms
+    except:
+        terms = ''
+    terms_summary = competition.competitiontermsummary_set.all()
+    countries = competition.competitioncountry_set.all()
+
+    template_name = competition_data["template_name"]
+    template_data = {
+        'prizes': prizes,
+        'judges': judges,
+        'terms': terms,
+        'terms_summary': terms_summary,
+        'countries': countries,
+        'competition': competition,
+        "page": competition_data["page"],
+        "competition_tracks": True
+    }
+
+    return render_to_response(template_name,
+                              template_data,
+                              context_instance=RequestContext(request)
+    )
+
+def single_competition_enter(request, *args, **kwargs):
+    """Enter a given competitions"""
+
+    template_name = 'enter-competition.html'
+    template_data = {
+        "string": "Enter Competition Page",
+    }
+
+    return render_to_response(template_name,
+                              template_data,
+                              context_instance=RequestContext(request)
+    )
+
+
+"""
+Supporting functions
+
+The below are all functions to support the above views. They do not necessarily belong here and can be moved elsewhere if required
+"""
+
+"""
+Functions for competitions view
+"""
+
+def setup_competition_filters_dictionary(dictionary):
+    """Setup dictionary for competition based on filters
+
+    Dictionary may, or may not, contain the following:
+        c - country (2 character string)
+        g - genre (list)
+        l - list length (int, < 50)
+        o - ordering (string)
+        p - page (integer)
+        q - search query (string)
+    """
+    #setup default dictionary
+    temp_dictionary = {
+        "page": 1,
+        "genre": "",
+        "country": "",
+        "ordering": "",
+        "title": "",
+        "limit": 4
+    }
+    if "p" in dictionary:
+        try:
+            page = int(dictionary["p"])
+            if page:
+                temp_dictionary["page"] = page
+        except:
+            pass
+
+    if "l" in dictionary:
+        try:
+            limit = int(dictionary["l"])
+            if limit and limit < 50:
+                temp_dictionary["limit"] = limit
+        except:
+            pass
+
+    return temp_dictionary
+
+"""
+Functions for single competition view
+"""
+
+def get_single_competition_data(competition, kwargs):
+    """Setup dictionary for single competition
+
+    The data below changes based on different screens. The possibilities are:
+        Overview (terms and conditions etc)
+        Chart
+        Single entry
+    """
+    # default dictionary
+    temp_dictionary = {
+        "page": "overview",
+        "template_name": 'single-competition.html'
+    }
+    page_to_display = "overview"
+
+    temp_dictionary["page"] = get_page_from_kwargs(kwargs)
+    if temp_dictionary["page"] != "overview":
+        temp_dictionary["template_name"] = 'single-competition-chart.html'
+
+
+    return temp_dictionary
+
+def get_page_from_kwargs(kwargs):
+    """get display information from kwargs"""
+    if not "display" in kwargs:
+        return "overview"
+
+    if kwargs["display"] == "chart":
+        if "entry_slug" in kwargs:
+            return "entry"
+        return "chart"
+
+    if kwargs["display"] == "terms":
+        return "terms"
+
+    return "overview"

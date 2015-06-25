@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-lg-4">
+        <h1>Welcome, {{ user }}</h1>
+        <a href="/back/dropbox-oauth2/">Dropbox tokens</a> <br/>
+        <a href="/back/soundcloud/">Soundcloud tokens</a> <br/>
+        <a href="/back/facebook/">Facebook tokens</a> <br/>
+        <a href="/back/twitter/">Twitter tokens</a> <br/>
+        <a href="/back/google-oauth2/">Google tokens</a> <br/>
+        <hr/>
+        <a href="/back/vimeo-oauth2/">Vimeo OAuth2 tokens</a> <br/>
+{#        <a href="/back/vimeo/">Vimeo tokens</a> <br/>#}
+        <a href="/back/spotify/">Spotify tokens</a> <br/>
+        <hr/>
+        <a href="/back/mixcloud/">Mixcloud tokens</a> <br/>
+        <a href="/back/instagram/">instagram tokens</a> <br/>
+        <hr/>
+        <br/>
+        <p><a href="{% url 'logout' %}">logout</a></p>
+    </div>
+
+{% endblock %}

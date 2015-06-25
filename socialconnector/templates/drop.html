@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block extrahead %}
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="zgmesprkza3psz9"></script>
+{% endblock %}
+{% block content %}
+    <div id="container"></div>
+    <a id="link"></a>
+
+    <script>
+        var button = Dropbox.createChooseButton({
+            success: function(files) {
+                var linkTag = document.getElementById('link');
+                linkTag.href = files[0].link;
+                linkTag.textContent = files[0].link;
+            },
+            linkType: 'direct'
+        });
+        document.getElementById('container').appendChild(button);
+    </script>
+
+    <hr/>
+    {{ folder_metadata }}
+
+{% endblock %}

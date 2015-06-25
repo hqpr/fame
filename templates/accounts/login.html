@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block sidebar-left %}{% endblock %}
+{% block sidebar-right %}{% endblock %}
+{% block header %}{% endblock %}
+
+{% block content %}
+    <div class="modal modal-absolute" style="display:block;" id="login_modal_step1">
+        <div class="modal-dialog fame-music-modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="fame-music-logo-block">
+                        <h3 class="fame-music-logo">Fame Music</h3>
+                    </div>
+                    <div> <a href="{% url 'social:begin' 'facebook' %}" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span></a>
+                        <p class="or-txt">OR</p>
+
+                        <p>Subscribe with your <a href="#">e-mail address</a></p>
+                        <p class="terms">If you “Sign Up with Facebook” and you are not a Fame Music user, you will be automatically registered and you agree to the Fame Music <a href="#">Terms / Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+                        <p class="signin"> Do you have an account? <a href="#">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div id="login_modal" class="modal modal-absolute">
+      <div class="modal-dialog fame-music-modal">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="fame-music-logo-block">
+              <h3 class="fame-music-logo">Fame Music</h3>
+            </div>
+            <div> <a href="{% url 'social:begin' 'facebook' %}" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span></a>
+              <p class="or-txt">OR</p>
+
+              <div>
+                <form action="{% url 'login' %}" method="post" id="login_form">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <div class="input-group"> <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-user"></i></span>
+                      <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group"> <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-lock"></i></span>
+                      <input type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+                  </div>
+                  <p>Did you forget the password? </p>
+                  <div class="text-center" style="padding-bottom:25px"><a href="#" id="log_in" class="btn pbtn"> LOG IN</a> </div>
+
+                  <p class="signin"> Do you have an account? <a href="#">Sign In</a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <script>
+        $('.signin').on('click',function(){
+            $('#login_modal').show();
+            $('#login_modal_step1').hide();
+        });
+
+        $('#log_in').on('click', function(){
+            $('#login_form').ajaxSubmit()
+        });
+    </script>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

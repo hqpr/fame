@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<!--Start: Bannner-->
+<div class="banner-container"><img src="{{MEDIA_URL}}images/banner.jpg" class="img-responsive" alt="" />
+
+<div class="message-wrap">The World Electronic Music Contest <br/>
+comes to France!</div>
+</div>
+<!--Start: Bannner-->
+{% endblock banner %}
+{% block banner-strip %}
+<ul class="after-banner-strip">
+<li><a href="#"><img src="{{MEDIA_URL}}images/music.png" width="20" height="20" alt=""> Electronic</a> &nbsp;&nbsp;<a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  width="20" height="20" alt=""> France</a></li>
+<li class="view-chart"><a href="#">View Chart</a></li>
+<li class="last"><a href="#">1837 ENTRIES</a></li>
+<li><a href="#"><span class="red-txt">NEWS:</span> THE COMPETITION STARTS NOW! <span class="grey-txt">#WEMCAU</span></a></li>
+</ul>
+{% endblock %}
+{% block content-wrapper %}<div class="col-lg-12 middle-wrap">{% endblock content-wrapper %}
+{% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
+
+{% block content %}
+<!--End: Left Container-->
+<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+<!--Strat: competition-->
+<div class="competition-wrap"><img src="{{MEDIA_URL}}images/com-overview.png" class="img-responsive" alt="" />
+<span class="com-btn-wrap"><a href="#">Competition Overview</a></span>
+</div>
+
+<div class="competition-wrap"><img src="{{MEDIA_URL}}images/enter-competition.png" class="img-responsive" alt="" />
+<span class="com-btn-wrap"><a href="#">Enter The Competition</a></span>
+</div>
+<!--End: competition-->
+
+
+
+  </div>
+  <!--End: Left Container-->
+
+  <!--Start: Right Container-->
+  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+
+
+<!--Start: Status-->
+<div class="frame">
+<h2>Status</h2>
+<hr/>
+<div class="range-wrap">
+<div class="fill-wrap"></div>
+</div>
+
+<ul class="about-ranger">
+<li>
+<img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+<p>Submission</p>
+</li>
+<li>
+<img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+<p>Voting</p>
+</li>
+<li>
+<img src="{{MEDIA_URL}}images/judging.png"  width="3" height="8" alt="" />
+<p>Judging</p>
+</li>
+
+</ul>
+
+
+<p><span class="red-txt">Voting:</span> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+</div>
+<!--End: Status-->
+</div>
+<div class="clear"></div>
+<!--End: Right Container-->
+<div class="col-lg-12">
+
+<div class="frame">
+
+{% if not competition_tracks %}
+<div class="no-tracks-now"><span class="no-track-txt">NO TRACKS FOR NOW</span><br />
+<span class="bit-of-time">(GIVE IT A BIT OF TIME)</span></div>
+{% else %}
+<div class="tab-header">
+            <div class="col-lg-8 col-sm-8 col-xs-12">
+              <ul class="tab-wrap clearfix">
+                <li><a href="#">Track Name</a></li>
+                <li><a href="#" class="active">Chart</a></li>
+                <li><a href="#">Play</a></li>
+                <li><a href="#">Date Added</a></li>
+                <li><a href="#">Popularity</a></li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+              <div class="search-bar">
+                <input type="text" placeholder="Search" class="search-input">
+                <input type="button" value="" class="search-btn">
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div id="contentDivImg4" style="display: block;">
+            <ul class="chart-wrap">
+              <li>
+                <div class="aside">1</div>
+                <div class="detail">
+                  <div class="figure"><a href="#" data-toggle="modal" data-target="#modal"><img src="{{MEDIA_URL}}images/top-img-1.jpg" alt="" /> <span class="playon"></span></a></div>
+                  <div class="figcaption">
+                    <h2><a href="#" data-toggle="modal" data-target="#modal">True Colors</a> <img src="{{MEDIA_URL}}images/electro.png" alt=""/></h2>
+                    <h4>ZEDD</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"><img src="{{MEDIA_URL}}images/top-1.png" alt=""></span></li>
+              <li>
+                <div class="aside">2</div>
+                <div class="detail">
+                  <div class="figure"><a href="#" data-toggle="modal" data-target="#modal"><img src="{{MEDIA_URL}}images/top-img-2.jpg" alt=""/> <span class="playon"></span></a></div>
+                  <div class="figcaption">
+                    <h2><a href="#" data-toggle="modal" data-target="#modal">Dragon </a><img src="{{MEDIA_URL}}images/electro.png" alt="" /></h2>
+                    <h4>Martin Garrix</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"> <img src="{{MEDIA_URL}}images/top-2.png" alt=""> </span> </li>
+              <li>
+                <div class="aside">3</div>
+                <div class="detail">
+                  <div class="figure"><a href="#" data-toggle="modal" data-target="#modal"><img src="{{MEDIA_URL}}images/top-img-2.jpg" alt=""> <span class="playon"></span></a></div>
+                   <div class="figcaption">
+                    <h2><a href="#" data-toggle="modal" data-target="#modal">Divine Sorrow</a> <img src="{{MEDIA_URL}}images/electro.png" alt="" /></h2>
+                    <h4>AVICII</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png" alt=""> </span> </li>
+              <li>
+                <div class="aside">4</div>
+                <div class="detail">
+                 <div class="figure"><a href="#" data-toggle="modal" data-target="#modal"><img src="{{MEDIA_URL}}images/top-img-1.jpg" alt=""> <span class="playon"></span></a></div>
+                  <div class="figcaption">
+                    <h2><a href="#" data-toggle="modal" data-target="#modal">Divine Sorrow</a> <img src="{{MEDIA_URL}}images/electro.png" alt="" /></h2>
+                    <h4>AVICII</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png"> </span> </li>
+            </ul>
+          </div>
+          <ul class="paging">
+            <li><a href="#">Prev</a></li>
+            <li><a href="#"  class="active">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">Next</a></li>
+          </ul>
+{% endif %}
+
+
+
+
+</div>
+<!--Enter The Competition-->
+
+<div class="col-lg-12">
+<div class="competition-wrap"><img src="{{MEDIA_URL}}images/com.png" class="img-responsive" alt="" />
+<span class="com-btn-wrap"><a href="#">Enter The Competition</a></span>
+</div>
+</div>
+<!--Enter The Competition-->
+</div>
+
+<div class="modal modal-track" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="z-index: 9990">
+        <div class="modal-content modal-contnet-bg">
+<div class="modal-body">
+                <div role="tabpanel">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#track" aria-controls="track" role="tab" data-toggle="tab">TRACK</a></li>
+                        <li role="presentation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">VIDEO</a></li>
+                        <li role="presentation"><a href="#mixtape" aria-controls="mixtape" role="tab" data-toggle="tab">MIXTAPE</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="track">
+                            <div class="track-plylist">
+                                <div class="track-thumb"><img src="{{MEDIA_URL}}images/mixtape-pic.jpg" class="img-responsive" alt=""></div>
+                                <div class="track-info">
+                                    <h3>My Mixtape</h3>
+                                    <p>ZEDD</p>
+                                    <ul class="pl-opt">
+                                        <li><a href="#" class="pl-icons like">like</a></li>
+                                        <li><a href="#" class="pl-icons comment">Comments</a></li>
+                                        <li><a href="#" class="pl-icons music">Music</a></li>
+                                        <li><a href="#" class="pl-icons share">Share</a></li>
+                                    </ul>
+                                    <ul class="pl-counts">
+                                        <li><span class="likes"></span>1356</li>
+                                        <li><span class="plays"></span>2594</li>
+                                        <li><span class="counts"></span>03:45</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sound-track">
+                                <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5>
+                                <div class="track-pic hidden-xs"><img src="{{MEDIA_URL}}images/track-selection.png" class="img-responsive" alt=""></div>
+                                <div  class="track-pic-small visible-xs"><img src="{{MEDIA_URL}}images/track-img-2.png" class="img-responsive" alt=""></div>
+                                <div class="row">
+                                    <div class="col-sm-6 hidden-xs">
+                                        <div class="tracklist">
+                                            <h5>Tracklist:</h5>
+                                            <ul>
+                                                <li>01) Jade Blue feat. Shane Blackshaw - Hardwired (Original Mix)</li>
+                                                <li>02) Loframes - Get Real (Can't Touch Your Love) (Original)</li>
+                                                <li>03) Lika Morgan - Cant Deny (Extended Mix)</li>
+                                                <li>04) Chocolate Puma - I Could Be Wrong (Original Mix)</li>
+                                                <li>05) Oliver Heldens - Bunnydance</li>
+                                                <li>06) Gregory Porter - Liquid Spirit (Claptone Remix)</li>
+                                                <li>07) Birdee - B-Love (Original Mix)</li>
+                                                <li>08) James Lock - Ruff N Tuff</li>
+                                                <li>09) Showtek - 90s By Nature (TV Noise Remix)</li>
+                                            </ul>
+                                            <span class="view-more-btn-track"><a href="">READ MORE</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">This track is amazing! Support!!</span></p>
+                                        </div>
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">Love the drop, just one thing to make this comment bigger bla bla bl, coconut.</span></p>
+                                        </div>
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">Bla bla bla, you got the idea.</span></p>
+                                        </div>
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">Love the drop, just one thing to make this comment bigger, bla bla.</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="video">
+                            <div class="track-plylist">
+                                <div class="track-info" style="margin:0">
+                                    <h3>My Presentation Video</h3>
+                                    <p>ZEDD</p>
+                                    <ul class="pl-opt">
+                                        <li><a href="#" class="pl-icons like">like</a></li>
+
+                                        <li><a href="#" class="pl-icons share">Share</a></li>
+                                    </ul>
+                                    <ul class="pl-counts">
+                                        <li><span class="likes"></span>1356</li>
+                                        <li><span class="plays"></span>2594</li>
+                                        <li><span class="counts"></span>03:45</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div><img src="{{MEDIA_URL}}images/video.png"  class="img-responsive" alt=""></div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="mixtape">
+                            <div class="track-plylist">
+                                <div class="track-thumb"><img src="{{MEDIA_URL}}images/clarity-thumb.png"  class="img-responsive" alt=""></div>
+                                <div class="track-info">
+                                    <h3>Clarity</h3>
+                                    <p>ZEDD</p>
+                                    <ul class="pl-opt">
+                                        <li><a href="#" class="pl-icons like">like</a></li>
+                                        <li><a href="#" class="pl-icons comment">Comments</a></li>
+                                        <li><a href="#" class="pl-icons music">Music</a></li>
+                                        <li><a href="#" class="pl-icons share">Share</a></li>
+                                    </ul>
+                                    <ul class="pl-counts">
+                                        <li><span class="likes"></span>1356</li>
+                                        <li><span class="plays"></span>2594</li>
+                                        <li><span class="counts"></span>03:45</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="sound-track">
+                                <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5>
+
+                                <div class="track-pic hidden-xs"><img src="{{MEDIA_URL}}images/track-selection.png" class="img-responsive" alt=""></div>
+                                <div  class="track-pic-small visible-xs"><img src="{{MEDIA_URL}}images/track-img-2.png" class="img-responsive" alt=""></div>
+                                <div class="row">
+                                    <div class="col-sm-6 hidden-xs">
+                                        <div class="tracklist">
+                                            <h5>Description:</h5>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.nesciunt. </p>
+                                            <span class="view-more-btn-track"><a href="">READ MORE</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">This track is amazing! Support!!</span></p>
+                                        </div>
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">Love the drop, just one thing to make this comment bigger bla bla bl, coconut.</span></p>
+                                        </div>
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">Bla bla bla, you got the idea.</span></p>
+                                        </div>
+                                        <div class="block-judge clearfix">
+                                            <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                            <span class="rate">9/10</span>
+                                            <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
+                                                <span class="track-text">Love the drop, just one thing to make this comment bigger, bla bla.</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+{% endblock content %}

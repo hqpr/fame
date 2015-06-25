@@ -1,0 +1,435 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>{% block title %}WEMC France{% endblock title %}</title>
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"  type="text/css">
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/jquery.sidr' %}.dark.css" rel="stylesheet" type="text/css" />
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#bttn").click(function(){
+        $("#slides").slideToggle();
+    });
+});
+</script>
+{% block extrahead %}{% endblock %}
+</head>
+
+<body>
+
+<div class="wrapper">
+{% block sidebar-left %}
+
+
+<div class="left-nav" id="sidr-left">
+    <h1 class="fame-logo"><a href="#">Fame Music</a></h1>
+    
+    <div class="input-group left-col-search"> 
+    
+    <span class="input-group-btn">
+      <button class="btn search-btn search-icon-mob" type="button"><span class="search-icon">Search</span></button>
+      </span>
+      <input type="text" class="form-control search-field hidden-field" placeholder="Search">
+    </div>
+    
+    <div class="left-menu">
+      <ul>
+        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Home</span></a></li>
+        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Competitions</span></a></li>
+        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Media</span></a></li>
+        <li><a href="#" class="active"><span class="gen-icon"></span> <span  class="hidden-md-link">Artists</span></a></li>
+      </ul>
+      
+      <ul class="left-bot-nav">
+        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Insights</span></a></li>
+        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Settings</span></a></li>
+        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Log Out</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock sidebar-left %}
+
+{% block container-main %}
+<!--Start: Main Container-->
+<div class="main-container"> 
+
+    {% comment "competitions need a wrapper" %}{% endcomment %}
+    {% block container-wrapper %}{% endblock container-wrapper %} 
+
+  
+  <!--Start: Inner Main Wrap-->
+  <div class="main-wrap {% block wrapper-class %}{% endblock wrapper-class %}"> 
+    
+    {% block header %}
+    <!--Start: Header-->
+    <div class="nav-top red-bg mobnav">
+      <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>  
+       <li class="hidden-xs">WEMC FRANCE</li>
+         <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+         <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+    </div>
+    {% endblock header %}
+    
+    <!--End: Header--> 
+    {% block banner %}{% endblock banner %}
+    {% block banner-strip %}{% endblock banner-strip %}
+    {% block content-wrapper %}{% endblock content-wrapper %}
+    {% block filter %}{% endblock filter %}
+    
+    {% block content %}
+    <div class="col-lg-12 middle-wrap"> 
+      
+      <!--End: Left Container-->
+      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12"> 
+        <!--Strat: competition-->
+        <div class="competition-wrap"><img src="{{MEDIA_URL}}images/com-overview.png" class="img-responsive" alt="" /> <span class="com-btn-wrap"><a href="#">Competition Overview</a></span> </div>
+        <div class="competition-wrap"><img src="{{MEDIA_URL}}images/enter-competition.png" class="img-responsive" alt="" /> <span class="com-btn-wrap"><a href="#">Enter The Competition</a></span> </div>
+        <!--End: competition--> 
+        
+      </div>
+      <!--End: Left Container--> 
+      
+      <!--Start: Right Container-->
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12"> 
+        
+        <!--Start: Status-->
+        <div class="frame">
+          <h2>Status</h2>
+          <hr/>
+          <div class="range-wrap">
+            <div class="fill-wrap"></div>
+          </div>
+          <ul class="about-ranger">
+            <li> <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+              <p>Submission</p>
+            </li>
+            <li> <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+              <p>Voting</p>
+            </li>
+            <li> <img src="{{MEDIA_URL}}images/judging.png"  width="3" height="8" alt="" />
+              <p>Judging</p>
+            </li>
+          </ul>
+          <p><span class="red-txt">Voting:</span> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+        </div>
+        <!--End: Status--> 
+      </div>
+      <div class="clear"></div>
+      <!--End: Right Container-->
+      <div class="col-lg-12">
+        <div class="frame">
+          <div class="tab-header">
+            <div class="col-lg-8 col-sm-8 col-xs-12">
+              <ul class="tab-wrap clearfix">
+                <li><a href="#">Track Name</a></li>
+                <li><a href="#" class="active">Chart</a></li>
+                <li><a href="#">Play</a></li>
+                <li><a href="#">Date Added</a></li>
+                <li><a href="#">Popularity</a></li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+              <div class="search-bar">
+                <input type="text" placeholder="Search" class="search-input">
+                <input type="button" value="" class="search-btn">
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div id="contentDivImg4" style="display: block;">
+            <ul class="chart-wrap">
+              <li>
+                <div class="aside">1</div>
+                <div class="detail">
+                  <div class="figure"><a href="#"><img src="{{MEDIA_URL}}images/top-img-1.jpg" alt="" /> <span class="playon"></span></a></div>
+                  <div class="figcaption">
+                    <h2><a href="#">True Colors</a> <img src="{{MEDIA_URL}}images/electro.png" alt=""/></h2>
+                    <h4>ZEDD</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"><img src="{{MEDIA_URL}}images/top-1.png" alt=""></span></li>
+              <li>
+                <div class="aside">2</div>
+                <div class="detail">
+                  <div class="figure"><a href="#"><img src="{{MEDIA_URL}}images/top-img-2.jpg" alt=""/> <span class="playon"></span></a></div>
+                  <div class="figcaption">
+                    <h2><a href="#">Dragon </a><img src="{{MEDIA_URL}}images/electro.png" alt="" /></h2>
+                    <h4>Martin Garrix</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"> <img src="{{MEDIA_URL}}images/top-2.png" alt=""> </span> </li>
+              <li>
+                <div class="aside">3</div>
+                <div class="detail">
+                  <div class="figure"><a href="#"><img src="{{MEDIA_URL}}images/top-img-2.jpg" alt=""> <span class="playon"></span></a></div>
+                   <div class="figcaption">
+                    <h2><a href="#">Divine Sorrow</a> <img src="{{MEDIA_URL}}images/electro.png" alt="" /></h2>
+                    <h4>AVICII</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png" alt=""> </span> </li>
+              <li>
+                <div class="aside">4</div>
+                <div class="detail">
+                 <div class="figure"><a href="#"><img src="{{MEDIA_URL}}images/top-img-1.jpg" alt=""> <span class="playon"></span></a></div>
+                  <div class="figcaption">
+                    <h2><a href="#">Divine Sorrow</a> <img src="{{MEDIA_URL}}images/electro.png" alt="" /></h2>
+                    <h4>AVICII</h4>
+                    <ul>
+                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png"> </span> </li>
+            </ul>
+          </div>
+          <ul class="paging">
+            <li><a href="#">Prev</a></li>
+            <li><a href="#"  class="active">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">Next</a></li>
+          </ul>
+        </div>
+        <!--Enter The Competition-->
+        
+        <div class="col-lg-12">
+          <div class="competition-wrap"><img src="{{MEDIA_URL}}images/com.png" class="img-responsive" alt="" /> <span class="com-btn-wrap"><a href="#">Enter The Competition</a></span> </div>
+        </div>
+        <!--Enter The Competition--> 
+      </div>
+    </div>
+    <div class="clear"></div>
+    {% endblock content %}
+    {% block adverts-bottom %}{% endblock adverts-bottom %}
+    {% block content-wrapper-close %}{% endblock content-wrapper-close %}
+    {% block container-wrapper-close %}{% endblock container-wrapper-close %}
+  </div>
+  <!--End: Inner Main Wrap--> 
+  
+  {% block footer %}
+  <!--Start: Footer-->
+  <div class="about-song-footer">
+    <div class="col-lg-3 col-sm-3 col-xs-12" >
+      <div class="row">
+        <ul class="song-wrap">
+          <li><img src="{{MEDIA_URL}}images/prev-arrow.png" alt=""></li>
+          <li><img src="{{MEDIA_URL}}images/top-img-2.jpg" alt=""></li>
+          <li>
+            <h2><a href="#">Divine Sorrow</a></h2>
+            <h4>AVAICL</h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-7 col-sm-7 col-xs-12">
+      <div class="row track-wrap">
+        <ul class="like-wrap">
+          <li><img src="{{MEDIA_URL}}images/like-1.png" alt=""></li>
+          <li>04:33</li>
+        </ul>
+        <div class="footer-range">
+          <div class="range-wrap">
+            <div class="fill-wrap"></div>
+            <span class="controler-widget"></span> </div>
+        </div>
+        <ul class="sound-wrap">
+          <li>04:33</li>
+          <li><img src="{{MEDIA_URL}}images/sound.png" alt=""></li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-sm-2 col-xs-12">
+      <div class="row">
+        <ul class="playing-wrap">
+          <li><a href="#"><img src="{{MEDIA_URL}}images/previous.png" alt=""></a></li>
+          <li><a href="#"><img src="{{MEDIA_URL}}images/play1.png" alt=""></a></li>
+          <li class="next"><a href="#"><img src="{{MEDIA_URL}}images/next.png" alt=""></a></li>
+          <li><a href="#"><img src="{{MEDIA_URL}}images/list.png" alt=""></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!--End: Footer--> 
+  {% endblock footer %}
+</div>
+<!--Start: End Container--> 
+{% endblock container-main %}
+
+{% block sidebar-right %}
+<div class="sidebar-right" id="sidr-right">
+    <div class="db-pic"> <img src="{{MEDIA_URL}}images/db-pic.png" class="img-responsive" alt=""> <span class="db-pic-circle"></span> </div>
+    <h3><a href="#">Fame position <span class="arrow-down"></span></a></h3>
+    <div class="fame-pos-block-container clearfix">
+      <div class="fame-position-block1"> <span class="lavel-text">LV. 6</span> <span class="prof-text">Professional</span> </div>
+      <div class="fame-position-block2">
+        <p class="fame-pos-txt">FAME POSITION</p>
+        <p class="fame-pos-value">12,450</p>
+        <div class="graph-new"><img src="{{MEDIA_URL}}images/db-now-img.png"  class="img-responsive center-block" alt=""></div>
+      </div>
+    </div>
+    <h3><a href="#">Tasks <span class="task-num">2</span> <span class="arrow-down"></span></a></h3>
+    <div>
+      <div class="last-list-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon1.png" class="img-responsive" alt=""></div>
+        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
+        <div class="task-details">
+          <h5>Complete your profile</h5>
+          <p>Lorem ipsum dolor sit amet</p>
+        </div>
+      </div>
+      <div class="last-list-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon2.png" class="img-responsive" alt=""></div>
+        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
+        <div class="task-details">
+          <h5>Complete your profile</h5>
+          <p>Lorem ipsum dolor sit amet</p>
+        </div>
+      </div>
+      <div class="last-list-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon3.png" class="img-responsive" alt=""></div>
+        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
+        <div class="task-details">
+          <h5>Complete your profile</h5>
+          <p>Lorem ipsum dolor sit amet</p>
+        </div>
+      </div>
+      <div class="last-list-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon4.png" class="img-responsive" alt=""></div>
+        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
+        <div class="task-details">
+          <h5>Complete your profile</h5>
+          <p>Lorem ipsum dolor sit amet</p>
+        </div>
+      </div>
+      <div class="last-list-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon5.png" class="img-responsive" alt=""></div>
+        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
+        <div class="task-details">
+          <h5>Complete your profile</h5>
+          <p>Lorem ipsum dolor sit amet</p>
+        </div>
+      </div>
+    </div>
+    <h3><a href="#">Feed <span class="arrow-down"></span></a></h3>
+    <div>
+      <div class="feed-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
+ 
+        <div class="task-details">
+         <span class="pull-right">20:34</span>
+          <p><span class="name-txt-blue">Alex Pluda</span> has reached <span class="name-txt-red">Level 5</span></p>
+        </div>
+      </div>
+      <div class="feed-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
+ 
+        <div class="task-details">
+         <span class="pull-right">20:34</span>
+          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp                  
+etition adoih aodsjd poaisj </p>
+        </div>
+        
+      </div>
+      <div class="feed-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
+ 
+        <div class="task-details">
+         <span class="pull-right">20:34</span>
+          <p><span class="name-txt-green">Dj Cosnic</span> has just won the comp     </p>
+        </div>
+      </div>
+      <div class="feed-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
+ 
+        <div class="task-details">
+         <span class="pull-right">20:34</span>
+          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp 
+etition adoih aodsjd poaisj     </p>
+        </div>
+      </div>
+      <div class="feed-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
+ 
+        <div class="task-details">
+         <span class="pull-right">20:34</span>
+          <p><span class="name-txt-blue"> Dj Cosnic</span> has just won the comp   
+etition adoih aodsjd poaisj </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock sidebar-right %}
+</div>
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+<script src="{% static 'js/html5shiv-printshiv.js' %}"></script> 
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script> 
+{#<script type="text/javascript" src="{% static 'js/retina.js' %}"></script> #}
+<script defer src="{% static 'js/scripts.js' %}"></script>
+<script defer src="{% static 'js/upload_file.js' %}"></script>
+<script defer src="{% static 'js/jquery.form.min.js' %}"></script>
+<script defer src="{% static 'js/jquery.sidr.min.js' %}"></script>
+<script defer src="{% static 'js/respond.src.js' %}"></script> 
+{% endblock script %}
+{% block extra-script %}
+<script>
+$(document).ready(function() {
+    $('#left-menu').sidr({
+      name: 'sidr-left',
+      side: 'left' // By default
+    });
+    $('#right-menu').sidr({
+      name: 'sidr-right',
+      side: 'right'
+    });
+});
+</script>
+{% endblock extra-script %}
+
+
+</body>
+</html>

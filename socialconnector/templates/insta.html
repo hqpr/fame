@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if instagram %}
+        {% for media in instagram %}
+            <img src="{{ media }}" alt=""/> <br/>
+        {% endfor %}
+        {% else %}
+        <div class="alert-warning alert">You should <a href="{% url 'social:begin' 'instagram' %}">log in</a> first</div>
+    {% endif %}
+
+{% endblock %}

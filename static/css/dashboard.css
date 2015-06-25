@@ -1,0 +1,441 @@
+body {
+	background-color: #232326
+}
+.wrapper {
+	width: 1440px;
+	margin: 0 auto;
+}
+.left-nav {
+	float: left;
+	width: 195px
+}
+.left-nav a:hover, .left-nav a:focus, .sidebar-right a:hover, .sidebar-right a:focus {
+	text-decoration: none
+}
+.fame-logo {
+	background: url(../images/fame-music-logo-left.png) no-repeat;
+	width: 120px;
+	height: 60px;
+	background-size: 100%;
+	text-indent: -9999px;
+	margin: 35px auto
+}
+.fame-logo a {
+	display: block;
+	width: 120px;
+	height: 60px;
+}
+.left-menu ul {
+	padding: 0;
+	margin: 0 0 0 35px;
+	list-style: none;
+	font-size: 17px
+}
+.left-menu ul li {
+	padding: 10px;
+	position: relative;
+	font-weight: 400
+}
+.left-menu ul li a {
+	color: #d7d7d7
+}
+.left-menu ul li a:hover, .left-menu ul li a.active {
+	color: #00a0ec
+}
+.form-control::-moz-placeholder {
+color:#999;
+opacity:1
+}
+ .left-nav .form-control:-ms-input-placeholder {
+color:#d7d7d7;
+opacity:1
+}
+.left-nav .form-control::-webkit-input-placeholder {
+color:#d7d7d7;
+opacity:1
+}
+.left-col-search {
+	margin: 10px 20px
+}
+.left-col-search .btn.search-btn {
+	background-color: #2e2e31;
+	border-color: #2e2e31;
+	padding-left: 5px;
+	padding-right: 5px
+}
+.left-col-search .btn.search-btn .search-icon {
+	background: url(../images/search-field-icon.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	background-size: 100%;
+	display: block;
+	text-indent: -9999px
+}
+.left-col-search .search-field {
+	background-color: #2e2e31;
+	border-color: #2e2e31;
+	font-size: 17px;
+	color: #d7d7d7;
+	padding-left: 0
+}
+.sidebar-right {
+	float: right;
+	width: 325px;
+	padding: 35px 20px 0 20px;
+	color: #d7d7d7
+}
+.db-pic {
+	width: 85px;
+	height: 85px;
+	border-radius: 50%;
+	margin: 0 auto 35px;
+	position: relative
+}
+.db-pic-circle {
+	position: absolute;
+	background: url(../images/pro-circle-img.png) no-repeat;
+	width: 99px;
+	height: 99px;
+	left: -7px;
+	top: -7px;
+	display: block;
+	background-size: 100%
+}
+.sidebar-right h3 {
+	background-color: #2e2e31;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	color: #d7d7d7;
+	font-size: 10px;
+	position: relative;
+	margin-top: 15px
+}
+.sidebar-right h3 a {
+	color: #d7d7d7;
+	display: block;
+	padding: 7px 10px;
+}
+span.arrow-down {
+	background: url(../images/arrow-toggle-down.png) no-repeat;
+	width: 10px;
+	height: 6px;
+	background-size: 100%;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+.task-icon {
+	float: left;
+	width: 42px;
+	height: 42px;
+}
+.fame-position-block1 {
+	width: 120px;
+	float: left;
+	color: #fff;
+	text-align: center;
+	padding: 30px 0;
+	border-right: solid 1px #d7d7d7
+}
+.fame-position-block1 .lavel-text {
+	font-size: 32px;
+	color: #d7d7d7;
+	display: block
+}
+.fame-position-block1 .prof-text {
+	font-size: 10px;
+	color: #f1c80b;
+	display: block
+}
+.fame-position-block2 {
+	float: right;
+	width: 150px;
+	padding-top: 20px;
+	text-align: center
+}
+.fame-position-block2 .fame-pos-txt {
+	padding: 0;
+	margin: 0;
+	font-size: 14px;
+	color: #d7d7d7;
+	line-height: 16px
+}
+.fame-position-block2 .fame-pos-value {
+	padding: 0;
+	margin: 0;
+	font-size: 37px;
+	color: #00a0ec;
+	line-height: 40px
+}
+.fame-position-block2 .graph-new {
+	width: 135px;
+	margin: 0 auto
+}
+h3 .task-num {
+	background-color: #00a0ec;
+	border-radius: 12px;
+	text-align: center;
+	color: #fff;
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+	position: relative;
+	top: -1px;
+	line-height: 15px
+}
+.last-list-block {
+	height: 65px;
+	padding: 12px 0;
+	border-bottom: solid 1px #5d5d5d
+}
+.last-list-block .task-circle-img, .feed-block .task-circle-img {
+	float: right;
+	margin-top: 15px
+}
+.last-list-block .task-details, .feed-block .task-details {
+	margin-left: 60px
+}
+.feed-block {
+	height: 65px;
+	padding: 12px 0;
+	border-bottom: solid 1px #5d5d5d
+}
+.gen-icon {
+	background: url(../images/object.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	background-size: 100%;
+	position: absolute;
+	left: -15px;
+	top: 15px
+}
+.fame-pos-block-container {
+	padding: 10px 0
+}
+.feed-block .name-txt-blue {
+	color: #00a0ec
+}
+.feed-block .name-txt-green {
+	color: #43cb83
+}
+.feed-block .name-txt-red {
+	color: #f10950
+}
+.nav-top li a.dashboard-icon {
+	background: url(../images/dashboard-icon.png) no-repeat;
+	width: 26px;
+	height: 26px;
+	text-indent: -9999px;
+	margin: 10px 0 0 20px;
+	padding:0
+}
+.mobnav li a.menu-icon {
+	background: url(../images/menu-icon.png) no-repeat;
+	width: 24px;
+	height: 24px;
+	float: left;
+	text-indent: -9999px;
+	margin: 10px 0 0 20px
+}
+.nav-top li a.dashboard-icon:hover, .nav-top li a.dashboard-icon:focus, .nav-top li a.menu-icon:hover, .nav-top li a.menu-icon:focus {
+	border-bottom: 0;
+}
+
+.left-menu ul.left-bot-nav{margin-top:200px}
+
+.mobnav li a.menu-icon {
+	display: none
+}
+.nav-top li a.dashboard-icon{display:none}
+
+.sidr.right {
+
+	text-align: left
+}
+
+.back-icon-headbar{margin:10px 10px 0 10px; font-size:21px; float:left}
+.back-icon-headbar a{color:#fff; }
+.badge-black{background-color:#232323}
+
+.badge-black h3 { color:#fff}
+.badge-big-icon{float:left; margin:14px 0  0 10px; width:105px}
+
+.profile-bg-copy{background:#000 url(../images/copy-bg.png) no-repeat top center; color:#fff}
+.profile-bg-copy .profile-head h3{color:#fff}
+.profile-bg-copy .profile-head p{color:#fff}
+
+.profile-landing-bg{background: url(../images/landing-bg.png) no-repeat top center;}
+
+
+.nav-top.red-bg{ background-color:#f10950 }
+
+.gen-icon{ display:none}
+.filterby-wrap{padding:50px 15px}
+
+.mid-section{width:920px; float:left; height:200px}
+
+.middle-wrap{margin-top:25px}
+
+ @media (min-width:768px) and (max-width:1024px) {
+	 .gen-icon{ display:block}
+.left-nav {
+	width: 50px;
+	float: left;
+	overflow: hidden
+}
+.wrapper {
+	width: 100%;
+	margin: 0 auto;
+}
+.main-container {
+	margin-left: 50px;
+	width: auto;
+	float: none
+}
+.fame-logo {
+	background: url(../images/fame-star-logo.png) no-repeat;
+	width: 35px;
+	height: 38px;
+	margin: 7px auto;
+	background-size: 100%
+}
+.fame-logo a {
+	display: block;
+	width: 35px;
+	height: 38px;
+}
+.left-col-search {
+	margin: 20px 0px 0 10px
+}
+.hidden-field, .hidden-md-link {
+	display: none !important
+}
+.left-col-search .btn.search-btn {
+	border-radius: 30px;
+	width: 30px;
+	height: 30px
+}
+.left-menu ul {
+	margin-left: 5px
+}
+.left-menu ul li {
+	left: 0;
+	top: 0;
+	margin-top: 15px;
+	padding: 5px 0 0 7px
+}
+.gen-icon {
+	background: #2e2e31 url(../images/object.png) no-repeat center;
+	width: 30px;
+	height: 30px;
+	background-size: 53%;
+	position: relative;
+	left: 0;
+	top: 0;
+	display: block;
+	border-radius: 30px
+}
+.sidebar-right {
+	display: none;
+	float: none
+}
+.main-wrap {
+	width: 100%;
+}
+.profile-bg-blue {
+	background-size: 100%
+}
+
+.sidr.left {
+	display: block
+}
+.left-nav.sidr {
+	width: 50px;
+	text-align: left
+}.mobnav ul {
+	float: block
+}.mobnav li a.menu-icon {
+    display: none;
+}
+}
+ @media (min-width:320px) and (max-width:767px) {
+	 .filterby-wrap{padding:0px 15px}
+.wrapper {
+	margin: 0 auto;
+	width: 100%;
+}
+.sidr {
+	display: none;
+	position: absolute;
+	position: fixed;
+	top: 0;
+	height: 100%;
+	z-index: 999999;
+	overflow-x: none;
+	overflow-y: auto;
+}
+.sidebar-right.sidr {
+	width: 325px;
+	text-align: left
+}
+.sidr .sidr-inner {
+	padding: 0 0 15px
+}
+.sidr .sidr-inner>p {
+	margin-left: 15px;
+	margin-right: 15px
+}
+.sidr.left {
+	left: -195px;
+	right: auto
+}
+.left-nav.sidr {
+	width: 195px;
+	text-align: left
+}.mobnav ul {
+	float: none
+}
+.mobnav li a.menu-icon {
+    display: block;
+}
+}
+ @media (min-width:320px) and (max-width:1024px) {
+.mobnav {
+	float: none
+}
+
+.mobnav {
+	display: block
+}
+.sidr {
+	display: none;
+	position: absolute;
+	position: fixed;
+	top: 0;
+	height: 100%;
+	z-index: 999999;
+	overflow-x: none;
+	overflow-y: auto;
+}
+.sidr .sidr-inner {
+	padding: 0 0 15px
+}
+.sidr .sidr-inner>p {
+	margin-left: 15px;
+	margin-right: 15px
+}
+.sidr.right {
+	left: auto;
+	right: -325px;
+	top: 0;
+	text-align: left
+}
+
+
+.nav-top li a.dashboard-icon{display:block}
+}
+
+
+.jpush.modal-backdrop.in{ opacity:0}
+.sidr-open .jpush.modal-backdrop.in{ opacity:.8}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="{% url 'create_playlist' %}" method="post" id="playlist_name_form">
+        {% csrf_token %}
+        <label for="playlist_title">Name of list</label>
+        <input type="text" name="title" id="playlist_title"/>
+        <button type="submit" class="btn btn-primary">Create playlist</button>
+    </form>
+
+    <script>
+    var inpt = $('#playlist_title');
+    $('#playlist_name_form').on('submit', function(e){
+        if (inpt.val() == '') {
+            e.preventDefault();
+            alert('Fill all fields')
+        }
+    })
+
+    </script>
+{% endblock %}
