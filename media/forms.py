@@ -17,7 +17,7 @@ class AudioForm(forms.ModelForm):
 
     user = forms.CharField()
     user.widget.attrs['class'] = 'form-control'
-    name.widget.attrs['placeholder'] = 'Madeon'
+    user.widget.attrs['placeholder'] = 'Madeon'
 
     type = forms.ChoiceField(choices=TRACK_CHOICES,
                              widget=forms.Select(attrs={
