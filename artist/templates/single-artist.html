@@ -69,35 +69,35 @@
                     </div>
                 </div>
 
-{#                {% for audio in audios %}#}
-{#                    <div class="frame clearfix">#}
-{#                        <div class="hover-frame" style="display: none" id="hover-{{ audio.id }}">#}
-{#                            <div class="hover-frame-contaiiner">#}
-{#                                <div class="hover-frame-cell"> <a href="#" class="btn btn-bdr-white"> Change Track</a> </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="pro-overview-thumb" style="overflow-y: hidden"><img src="{{ MEDIA_URL }}{{ audio.cover }}"  class="img-responsive" alt=""></div>#}
-{#                        <div class="music-track-block modal-music">#}
-{#                            <div class="track-info track-info-profile hidden-xs">#}
-{#                                <ul class="pl-opt">#}
-{#                                    <li><a href="#" class="pl-icons like active">like</a></li>#}
-{#                                    <li><a href="#" class="pl-icons comment">Comments</a></li>#}
-{#                                    <li><a href="#" class="pl-icons music">Music</a></li>#}
-{#                                    <li><a href="#" class="pl-icons share">Share</a></li>#}
-{#                                </ul>#}
-{#                            </div>#}
-{#                            <h4>{{ audio.name }}</h4>#}
-{#                            <p><span>{{ audio.description }}</span></p>#}
-{#                            <ul class="pl-counts">#}
-{#                                <li><span class="likes"></span>1356</li>#}
-{#                                <li><span class="plays"></span>2594</li>#}
-{#                                <li><span class="counts"></span>03:45</li>#}
-{#                            </ul>#}
-{#                            <p class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</p>#}
-{#                            <div class="pro-overvew-track hidden-xs"><img src="{{ MEDIA_URL }}images/adjust-track.png"  class="img-responsive" alt=""></div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                {% endfor %}#}
+                {% for audio in audios %}
+                    <div class="frame clearfix">
+                        <div class="hover-frame" style="display: none" id="hover-{{ audio.id }}">
+                            <div class="hover-frame-contaiiner">
+                                <div class="hover-frame-cell"> <a href="#" class="btn btn-bdr-white"> Change Track</a> </div>
+                            </div>
+                        </div>
+                        <div class="pro-overview-thumb" style="overflow-y: hidden"><img src="{{ MEDIA_URL }}{{ audio.cover }}"  class="img-responsive" alt=""></div>
+                        <div class="music-track-block modal-music">
+                            <div class="track-info track-info-profile hidden-xs">
+                                <ul class="pl-opt">
+                                    <li><a href="#" class="pl-icons like active">like</a></li>
+                                    <li><a href="#" class="pl-icons comment">Comments</a></li>
+                                    <li><a href="#" class="pl-icons music">Music</a></li>
+                                    <li><a href="#" class="pl-icons share">Share</a></li>
+                                </ul>
+                            </div>
+                            <h4>{{ audio.name }}</h4>
+                            <p><span>{{ audio.description }}</span></p>
+                            <ul class="pl-counts">
+                                <li><span class="likes"></span>1356</li>
+                                <li><span class="plays"></span>2594</li>
+                                <li><span class="counts"></span>03:45</li>
+                            </ul>
+                            <p class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</p>
+                            <div class="pro-overvew-track hidden-xs"><img src="{{ MEDIA_URL }}images/adjust-track.png"  class="img-responsive" alt=""></div>
+                        </div>
+                    </div>
+                {% endfor %}
 
 
                 <div class="row">
@@ -141,24 +141,24 @@
                 <div class="row mobpad">
                     <h2 class="title"> Music</h2>
 
-{#                    {% for audio in audios %}#}
-{#                        <div class="col-xs-6 col-sm-3">#}
-{#                            <div class="music-overview-block music_box">#}
-{#                                <div class="playlist-thumb-hover" style="display: none">#}
-{#                                    <ul class="pl-list">#}
-{#                                        <li><a href="#" class="heart">ddd</a></li>#}
-{#                                        <li><a href="#" class="comment">ddd</a></li>#}
-{#                                        <li><a href="#" class="playlist-play">ddd</a></li>#}
-{#                                        <li><a href="#" class="share">ddd</a></li>#}
-{#                                    </ul>#}
-{#                                    <div class="play-pl-cont"> <a href="#" class="play-pl">Play</a> </div>#}
-{#                                    <div class="hover-title">#}
-{#                                        <h5>{{ audio.name }}</h5>#}
-{#                                        <span class="subtxt">{{ audio.user }}</span> </div>#}
-{#                                </div>#}
-{#                                <img src="{{ MEDIA_URL }}{{ audio.cover }}" class="img-responsive" alt=""> </div>#}
-{#                        </div>#}
-{#                    {% endfor %}#}
+                    {% for audio in audios %}
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="music-overview-block music_box">
+                                <div class="playlist-thumb-hover" style="display: none">
+                                    <ul class="pl-list">
+                                        <li><a href="#" class="heart">ddd</a></li>
+                                        <li><a href="#" class="comment">ddd</a></li>
+                                        <li><a href="#" class="playlist-play">ddd</a></li>
+                                        <li><a href="#" class="share">ddd</a></li>
+                                    </ul>
+                                    <div class="play-pl-cont"> <a href="#" class="play-pl">Play</a> </div>
+                                    <div class="hover-title">
+                                        <h5>{{ audio.name }}</h5>
+                                        <span class="subtxt">{{ audio.user }}</span> </div>
+                                </div>
+                                <img src="{{ MEDIA_URL }}{{ audio.cover }}" class="img-responsive" alt=""> </div>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="row mobpad">
                     <h2 class="title"> Videos</h2>
@@ -185,23 +185,23 @@
                 <div class="row mobpad">
                     <h2 class="title">Playlist</h2>
 
-{#                    {% for p in playlists %}#}
-{#                        <div class="col-sm-3">#}
-{#                            <div class="music-overview-block"> <img src="{{ MEDIA_URL }}{{ p.cover }}" class="img-responsive" alt="">#}
-{#                                <div class="playlist-list">#}
-{#                                    <ol>#}
-{#                                        <li>Silent Skin<span class="subtext">Madeon</span></li>#}
-{#                                        <li>Mister J<span class="subtext">Madeon</span></li>#}
-{#                                        <li>Run Together (Black Country Mix)<span class="subtext">Madeon</span></li>#}
-{#                                        <li>A-Anon (QuickTime Video)<span class="subtext">Madeon</span></li>#}
-{#                                        <li>Mister J<span class="subtext">Madeon</span></li>#}
-{#                                        <li>Run Together (Cosnic Mix)<span class="subtext">Madeon</span></li>#}
-{#                                        <li>Run Together (Alex Mix)<span class="subtext">Madeon</span></li>#}
-{#                                    </ol>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    {% endfor %}#}
+                    {% for p in playlists %}
+                        <div class="col-sm-3">
+                            <div class="music-overview-block"> <img src="{{ MEDIA_URL }}{{ p.cover }}" class="img-responsive" alt="">
+                                <div class="playlist-list">
+                                    <ol>
+                                        <li>Silent Skin<span class="subtext">Madeon</span></li>
+                                        <li>Mister J<span class="subtext">Madeon</span></li>
+                                        <li>Run Together (Black Country Mix)<span class="subtext">Madeon</span></li>
+                                        <li>A-Anon (QuickTime Video)<span class="subtext">Madeon</span></li>
+                                        <li>Mister J<span class="subtext">Madeon</span></li>
+                                        <li>Run Together (Cosnic Mix)<span class="subtext">Madeon</span></li>
+                                        <li>Run Together (Alex Mix)<span class="subtext">Madeon</span></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
                 <h2 class="title">Instagram</h2>
                 <div class="frame clearfix">
