@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
 
 
-# Create your models here.
 class Genre(models.Model):
     name = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="genre/%y/%m/%d")
@@ -20,13 +19,6 @@ TRACK_CHOICES = (
     ('3', 'Relish'),
 )
 
-GENRE_CHOICES = (
-    ('rock', 'Rock'),
-    ('pop', 'Pop'),
-    ('classic', 'Classic'),
-    ('electro', 'Electro'),
-)
-
 PRIVACY_CHOICES = (
     ('private', 'private'),
     ('public', 'public'),
@@ -35,15 +27,16 @@ PRIVACY_CHOICES = (
 class Audio(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(User)
+    artist = models.CharField(max_length=255, default=None, blank=True, null=True)
     uid = models.CharField(max_length=11,unique=True,blank=True,null=True)
     type = models.CharField(max_length=255, choices=TRACK_CHOICES, default=1)
-    genre = models.CharField(max_length=255, choices=GENRE_CHOICES, default='pop')
+    genre = models.ForeignKey(Genre, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     bpm = models.CharField(max_length=255, blank=True, null=True)
     privacy = models.CharField(max_length=255, choices=PRIVACY_CHOICES, default='public')
-    audio = models.FileField(upload_to='audios', default='default.mp3')
+    audio = models.FileField(upload_to='audios/%y/%m/%d', default='default.mp3')
     added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    cover = models.FileField(upload_to='audios/covers', blank=True, null=True)
+    cover = models.FileField(upload_to='audios/covers/%y/%m/%d', blank=True, null=True)
     is_complete = models.BooleanField(default=False)
 
     def clean(self):
@@ -129,3 +122,18 @@ class Video(models.Model):
 
     class Meta:
         db_table = "media_video"
+
+
+class VideoPlaylist(models.Model):
+    title = models.CharField(max_length=255)
+    artist = models.CharField(max_length=255, default=None)
+    genre = models.ForeignKey(Genre, default=1)
+    privacy = models.CharField(max_length=100, default=None)
+    description = models.TextField(default=None)
+    cover = models.ImageField(upload_to='playlists/%y/%m/%d', blank=True, null=True)
+    videos = models.ManyToManyField(Video, blank=True, null=True)
+    user = models.ForeignKey(User)
+    added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __unicode__(self):
+        return u'%s - %s' % (self.user, self.title)

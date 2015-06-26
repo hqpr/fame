@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from social.apps.django_app.default.models import UserSocialAuth
-from media.models import Audio
+from media.models import Audio, VideoPlaylist
 from instagram.client import InstagramAPI
 from django.conf import settings
 
@@ -37,6 +37,8 @@ def single_artist(request, *args, **kwargs):
 
     string = get_profile_string(kwargs, user)
     audios = Audio.objects.filter(user=user, is_complete=True)
+    # playlists = VideoPlaylist.objects.filter(user=request.user)[:4]
+
     try:
         a = UserSocialAuth.objects.get(user_id=request.user.id, provider='instagram')
         access_token = a.access_token

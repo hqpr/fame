@@ -292,7 +292,13 @@ $(document).ready(function(){
     </div>
     <div class="clear"></div>
   </div>
-  <!--End: Footer--> 
+  <!--End: Footer-->
+      <script>
+          var valid = {{ valid }};
+          if (valid == 0 ) {
+              window.location = '/user/register/{{ user_id }}/';
+          }
+      </script>
   {% endblock footer %}
 </div>
 <!--Start: End Container--> 

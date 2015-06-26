@@ -2,6 +2,8 @@
 {% block extrahead %}
     <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
     <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
 {% endblock %}
 
 <div class="modal-body" id="audio_description">
@@ -10,8 +12,11 @@
     <form role="form" method="post" action="{{ form_action }}" id="audio_step2_form">
         <div class="row">
             <div class="col-sm-4">
-                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'imageupload' %}">
-                    <input type="file" name="id_cover" />
+{#                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'imageupload' %}">#}
+{#                    <input type="file" name="id_cover" />#}
+{#                </div>                #}
+                <div class="track-thumb upload-track-thumb" data-width="165" data-height="165" data-resize="true" data-url="{% url 'imageupload' %}">
+                    {{ form.cover }}
                 </div>
             </div>
             <div class="col-sm-8">
@@ -24,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label>Artist</label>
-                    {{ form.user }}
+                    {{ form.artist }}
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
@@ -66,20 +71,7 @@
     </form>
 </div>
 
-{#<div class="modal-body" id="social_music" style="display: none;">#}
-{#    <h3>Connect Social Network</h3>#}
-{#    <form role="form">#}
-{#        <br />#}
-{#        <div class="form-group has-info relative">#}
-{#            <label>Social Network Link</label>#}
-{#            <input type="text" class="form-control" placeholder="https://soundcloud.com/theplaceofficial">#}
-{#            <div class="cloud-icon" style="position:absolute; top:19px; right:10px"></div>#}
-{#        </div>#}
-{#        <div class="form-btn"><a href="#" class="btn btn-cancel">CANCEL</a><a href="#" class="btn btn-blue">CONNECT</a></div>#}
-{#    </form>#}
-{#</div>#}
-
-
 <script>
     $('.dropzone').html5imageupload();
+    $('.selectpicker').selectpicker();
 </script>

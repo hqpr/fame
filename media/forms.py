@@ -1,5 +1,5 @@
 from django import forms
-from .models import Audio, TRACK_CHOICES, GENRE_CHOICES, PRIVACY_CHOICES
+from .models import Audio, TRACK_CHOICES, Genre, PRIVACY_CHOICES, VideoPlaylist
 
 
 class AudioFileForm(forms.ModelForm):
@@ -15,16 +15,16 @@ class AudioForm(forms.ModelForm):
     name.widget.attrs['class'] = 'form-control'
     name.widget.attrs['placeholder'] = 'Technicolor (Original Mix)'
 
-    user = forms.CharField()
-    user.widget.attrs['class'] = 'form-control'
-    user.widget.attrs['placeholder'] = 'Madeon'
+    artist = forms.CharField()
+    artist.widget.attrs['class'] = 'form-control'
+    artist.widget.attrs['placeholder'] = 'Madeon'
 
     type = forms.ChoiceField(choices=TRACK_CHOICES,
                              widget=forms.Select(attrs={
                                  'class': 'selectpicker form-control',
                                  'data-style': 'btn-select'
                              }))
-    genre = forms.ChoiceField(choices=GENRE_CHOICES,
+    genre = forms.ModelChoiceField(queryset=Genre.objects.all(),
                              widget=forms.Select(attrs={
                                  'class': 'selectpicker form-control',
                                  'data-style': 'btn-select'
@@ -49,3 +49,32 @@ class AudioForm(forms.ModelForm):
     class Meta:
         model = Audio
         fields = ('name', 'type', 'genre', 'bpm', 'description', 'privacy', 'cover')
+
+
+class PlayListForm(forms.ModelForm):
+    title = forms.CharField()
+    title.widget.attrs['class'] = 'form-control'
+    title.widget.attrs['placeholder'] = 'Technicolor (Original Mix)'
+
+    artist = forms.CharField()
+    artist.widget.attrs['class'] = 'form-control'
+    artist.widget.attrs['placeholder'] = 'Madeon'
+
+    genre = forms.ModelChoiceField(queryset=Genre.objects.all(),
+                             widget=forms.Select(attrs={
+                                 'class': 'selectpicker form-control',
+                                 'data-style': 'btn-select'
+                             }))
+
+    privacy = forms.ChoiceField(choices=PRIVACY_CHOICES,
+                                widget=forms.Select(attrs={
+                                    'class': 'selectpicker form-control',
+                                    'data-style': 'btn-select'
+                                }))
+
+    description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Describe your track', 'rows': 3,
+                                                               'class': 'form-control'}))
+
+    class Meta:
+        model = VideoPlaylist
+        fields = ('title', 'artist', 'genre', 'privacy', 'description', 'cover')

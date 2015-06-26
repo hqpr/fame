@@ -54,12 +54,3 @@ class UserVideo(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.video
-
-
-class VideoPlaylist(models.Model):
-    title = models.CharField(max_length=255)
-    videos = models.ManyToManyField(UserVideo, blank=True, null=True)
-    user = models.ForeignKey(User)
-
-    def __unicode__(self):
-        return u'%s' % self.title

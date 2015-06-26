@@ -5,7 +5,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from social.apps.django_app.default.models import UserSocialAuth
 import soundcloud
-from .models import UserPhoto, UserAudio, UserVideo, VideoPlaylist
+from .models import UserPhoto, UserAudio, UserVideo
 from django.views.generic import FormView
 # from .forms import AudioForm, PhotoForm, VideoForm
 import gdata.youtube
@@ -79,82 +79,6 @@ def drop_ls(request):
     return render(request, 'drop.html', data)
 
 
-# class PhotoView(FormView):
-#     template_name = 'image_upload.html'
-#     form_class = PhotoForm
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(PhotoView, self).get_context_data(**kwargs)
-#         context['photos'] = UserPhoto.objects.filter(user=self.request.user)
-#         return context
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         form.save()
-#         return redirect('upload_photo')
-
-
-# SoundCloud
-# https://developers.soundcloud.com/docs/api/guide#uploading-files
-# class AudioView(FormView):
-#     template_name = 'sound_upload.html'
-#     form_class = AudioForm
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(AudioView, self).get_context_data(**kwargs)
-#         # context['audios'] = UserAudio.objects.filter(user=self.request.user)
-#         # token = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='soundcloud')
-#         # try:
-#             # client = soundcloud.Client(access_token=token.access_token)
-#             # context['current_user'] = client.get('/me/tracks')
-#             # context['suser'] = token.uid
-#         # except:
-#         #     context['current_user'] = None
-#         return context
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         form.save()
-#         return redirect('upload_sound')
-
-
-# class VideoView(FormView):
-#     template_name = 'video_upload.html'
-#     form_class = VideoForm
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(VideoView, self).get_context_data(**kwargs)
-#         context['videos'] = UserVideo.objects.filter(user=self.request.user)
-#         context['playlist'] = VideoPlaylist.objects.filter(user=self.request.user)
-#
-#         return context
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         form.save()
-#         return redirect('upload_video')
-
-
-def create_playlist(request):
-    if request.POST:
-        try:
-            playlist_name = request.POST['title']
-            print playlist_name
-            VideoPlaylist.objects.create(title=playlist_name, user=request.user)
-            return redirect('upload_video')
-        except:
-            return HttpResponse('error')
-    return render(request, 'create_playlist.html')
-
-
-def add_to_playlist(request):
-    if 'video_id' in request.GET:
-        video_id = request.GET.get('video_id', None)
-        playlist_id = request.GET.get('playlist_id', None)
-        pl = get_object_or_404(VideoPlaylist, id=playlist_id)
-        v = get_object_or_404(UserVideo, id=video_id)
-        pl.videos.add(v)
-        return redirect('upload_video')
 
 
 # http://stackoverflow.com/questions/16396433/django-oauth2-google-not-working-on-server
@@ -250,20 +174,6 @@ def imageupload(request):
     pass
 
 # https://github.com/vimeo/vimeo.py
-
-def insta(request):
-    try:
-        a = UserSocialAuth.objects.get(user_id=request.user.id, provider='instagram')
-        access_token = a.access_token
-        api = InstagramAPI(access_token=access_token, client_secret=settings.SOCIAL_AUTH_INSTAGRAM_SECRET)
-        recent_media, next_ = api.user_recent_media(user_id=int(a.uid), count=10)
-        imgs = []
-        for media in recent_media:
-            imgs.append(media.images['standard_resolution'].url)
-        data = {'instagram': imgs}
-        return render(request, 'insta.html', data)
-    except UserSocialAuth.DoesNotExist:
-        return render(request, 'insta.html', {})
 
 
 # https://github.com/emillon/mixcloud
