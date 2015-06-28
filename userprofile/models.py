@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     display_name = models.CharField(max_length=100)
     birthday = models.DateField(default=datetime.datetime.now())
     country = CountryField()
-    picture = models.ImageField(upload_to='avatars')
+    picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     artist_name = models.CharField(max_length=100, blank=True, null=True)
     is_complete = models.BooleanField(default=False)
     created = models.DateTimeField(editable=False, default=datetime.datetime.now())

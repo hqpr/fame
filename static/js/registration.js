@@ -79,25 +79,35 @@ $(document).ready(function(){
 
     // final step
     $('#reg_semistep').on('click', function(){
-        $('#reg_step_2_1').hide();
-        $('#reg_step_2_2').show();
-        $('#finish_registration').on('click', function(){
-            $('#reg_step_2').ajaxSubmit({
-                success: function(data){
-                    if (data.success){
-                        location.reload();
-                        if (window.location == data.redirect_to){
+
+        if (!$("input[name='account_type']:checked").val()) {
+           $('#error').css('color', '#f10950');
+            return false;
+        }
+        else {
+            $('#reg_step_2_1').hide();
+            $('#reg_step_2_2').show();
+            $('#finish_registration').on('click', function(){
+                $('#reg_step_2').ajaxSubmit({
+                    success: function(data){
+                        if (data.success){
                             location.reload();
+                            if (window.location == data.redirect_to){
+                                location.reload();
+                            }
+                            window.location = data.redirect_to;
+                        } else {
+                            $('#reg_step_2_2').html(data.html);
+                            console.log('reg errors')
                         }
-                        window.location = data.redirect_to;
-                    } else {
-                        $('#reg_step_2_2').html(data.html);
-                        console.log('reg errors')
-                    }
-                },
-                dataType: 'json'
+                    },
+                    dataType: 'json'
+                });
             });
-        });
+        }
+
+
+
 
     });
 

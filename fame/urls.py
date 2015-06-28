@@ -8,7 +8,7 @@ from artist.views import single_artist, artist_settings, artist_insights
 
 urlpatterns = [
     # Examples:
-    # url(r'^$', 'fame.views.home', name='home'),
+    url(r'^$', 'fame.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url('', include('social.apps.django_app.urls', namespace='social')),
 

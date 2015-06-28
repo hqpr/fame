@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'django_countries', # https://pypi.python.org/pypi/django-countries
     'timezone_field', # https://github.com/mfogel/django-timezone-field
     'suit_redactor', # http://django-suit.readthedocs.org/en/latest/wysiwyg.html
-
+    'fame',
     'competition',
     'media',
     'artist',

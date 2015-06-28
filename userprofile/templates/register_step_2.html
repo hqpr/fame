@@ -17,15 +17,14 @@
         <div class="modal-dialog fame-music-modal">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="fame-music-logo-block">
-                        <h3 class="fame-music-logo">Fame Music</h3>
-                    </div>
-
                     <form action="{{ form_action }}" method="post" id="reg_step_2">
                         {% csrf_token %}
 
                         <div id="reg_step_2_1">
-                            <label for="exampleInputEmail1">Choose an account type</label>
+                            <div class="fame-music-logo-block">
+                                <h3 class="fame-music-logo">Fame Music</h3>
+                            </div>
+                            <label for="exampleInputEmail1" id="error">Choose an account type</label>
                             {% for radio in form.account_type %}
                                 <div class="form-group">
                                     <div class="input-group">
@@ -45,6 +44,14 @@
                             {{ form.errors }}
                         {% endif %}
                         <div id="reg_step_2_2" style="display: none">
+                            <div class="fame-music-logo-block">
+                                <div class="drad-drop-picture">DRAG AND DROP<br/>
+                                    your <br/>
+                                    profile picture
+                                    {{ form.picture }}
+                                </div>
+
+                            </div>
                             <div class="form-group">
                                 <label for="id_display_name">Display Name</label>
                                 {{ form.display_name }}
@@ -79,7 +86,7 @@
         $('#id_birthday').datepicker({
             format: "yyyy-mm-dd"
         });
-{#        $('.dropzone').html5imageupload();#}
+        {#        $('.dropzone').html5imageupload();#}
     </script>
 
 {% endblock %}

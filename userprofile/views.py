@@ -10,6 +10,7 @@ from django.contrib.auth import logout
 from django.views.generic import FormView
 from .forms import UserForm, UserProfileForm
 from .models import UserProfile
+from django.core.exceptions import PermissionDenied
 
 
 def login_view(request):
@@ -68,7 +69,7 @@ class RegistrationView(FormView):
 
     def save(self, commit=True):
         user = super(RegistrationView, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
         return user
@@ -92,14 +93,21 @@ class RegistrationStepView(FormView):
 
     def form_valid(self, form, **kwargs):
         user = User.objects.get(id=self.kwargs['object_id'])
-        form.instance.user = user
-        form.instance.is_complete = True
-        form.save()
-        data = {
-            'success': True,
-            'redirect_to': reverse('profile')
-        }
-        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+        try:
+            UserProfile.objects.get(user_id=self.kwargs['object_id'])
+            raise PermissionDenied
+        except UserProfile.DoesNotExist:
+            form.instance.user = user
+            form.instance.is_complete = True
+            form.save()
+            # log user in
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(self.request, user)
+            data = {
+                'success': True,
+                'redirect_to': reverse('complete_registration')
+            }
+            return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
     def form_invalid(self, form):
         html = render_to_string(self.template_name, self.get_context_data(form=form))
@@ -125,9 +133,8 @@ def check_username(request):
                 success = True
     return HttpResponse(simplejson.dumps({'success': success}), content_type='application/json')
 
-
-
 def upload_avatar(request, object_id):
+    """ for drag-n-drop. Not using yet """
     if request.POST:
         picture = request.POST.get('id_picture', None)
         if picture:
@@ -135,6 +142,11 @@ def upload_avatar(request, object_id):
             u.picture = picture
             u.save()
 
+def complete_registration(request):
+    user = UserProfile.objects.get(user=request.user)
+    data = {'user': user}
+    return render(request, 'register_complete.html', data)
+
 def logout_view(request):
     logout(request)
-    return redirect('all_competitions')
+    return redirect('home')
