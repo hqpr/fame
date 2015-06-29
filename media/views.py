@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from django.views.generic import FormView
+from django.views.generic import FormView, UpdateView
 import simplejson
 from .forms import AudioForm, AudioFileForm, PlayListForm
 from .models import Audio
@@ -87,3 +87,36 @@ class PlayListView(FormView):
 def trackcard(request, track_id):
     track = Audio.objects.get(id=track_id)
     return render(request, 'trackcard.html', {'track': track})
+
+
+class AudioUpdateView(UpdateView):
+    model = Audio
+    template_name = 'edit_audio.html'
+    form_class = AudioForm
+
+    def get_context_data(self, **kwargs):
+        context = super(AudioUpdateView, self).get_context_data(**kwargs)
+        context['object_id'] = self.object.id
+        return context
+
+    def get_object(self, queryset=None):
+        obj = Audio.objects.get(id=self.kwargs['object_id'])
+        return obj
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        data = {
+            'success': True,
+            'redirect_to': reverse('profile')
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def form_invalid(self, form):
+        html = render_to_string(self.template_name, self.get_context_data(form=form))
+        data = {
+            'success': False,
+            'html': html
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')

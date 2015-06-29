@@ -48,7 +48,7 @@ class AudioForm(forms.ModelForm):
 
     class Meta:
         model = Audio
-        fields = ('name', 'type', 'genre', 'bpm', 'description', 'privacy', 'cover')
+        fields = ('name', 'artist', 'type', 'genre', 'bpm', 'description', 'privacy', 'cover')
 
 
 class PlayListForm(forms.ModelForm):

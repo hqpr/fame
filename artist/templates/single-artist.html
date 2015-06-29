@@ -73,7 +73,7 @@
                     <div class="frame clearfix">
                         <div class="hover-frame" style="display: none" id="hover-{{ audio.id }}">
                             <div class="hover-frame-contaiiner">
-                                <div class="hover-frame-cell"> <a href="#" class="btn btn-bdr-white"> Change Track</a> </div>
+                                <div class="hover-frame-cell"> <a href="{% url 'edit_audio' object_id=audio.id %}" data-toggle="modal" data-target="#upload_music_modal" class="btn btn-bdr-white"> Change Track</a> </div>
                             </div>
                         </div>
                         <div class="pro-overview-thumb" style="overflow-y: hidden"><img src="{{ MEDIA_URL }}{{ audio.cover }}"  class="img-responsive" alt=""></div>
@@ -98,7 +98,6 @@
                         </div>
                     </div>
                 {% endfor %}
-
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -238,10 +237,6 @@
         <div class="modal-dialog" style="z-index: 9991">
             <div class="modal-content modal-music">
                 <div class="modal-body">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
                 </div>
             </div>
         </div>

@@ -29,5 +29,23 @@ $(document).ready(function(){
         ,'autoplay' : 'off'
         ,'settings_ap':settings_ap
     });
+    $('#update_audio').on('click', function(){
+        $('#edit_audio_form').ajaxSubmit({
+            success: function(data){
+                if (data.success){
+                    window.location = '/profile/';
+
+                } else {
+                    console.log('error');
+                    $('.modal-body').html(data.html);
+                }
+            },
+            dataType: 'json'
+        });
+    });
+
+    $('.btn-cancel').on('click', function(){
+       $('#upload_music_modal').modal('hide');
+    });
 
 });
