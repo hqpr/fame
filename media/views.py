@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.views.generic import FormView
 import simplejson
 from .forms import AudioForm, AudioFileForm, PlayListForm
+from .models import Audio
 
 
 class AudioFileView(FormView):
@@ -81,3 +82,8 @@ class PlayListView(FormView):
 
     def render_to_response(self, context, **response_kwargs):
         return super(PlayListView, self).render_to_response(context, **response_kwargs)
+
+
+def trackcard(request, track_id):
+    track = Audio.objects.get(id=track_id)
+    return render(request, 'trackcard.html', {'track': track})

@@ -1,0 +1,44 @@
+{% load static from staticfiles %}
+
+
+<div class="modal-body">
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+
+    <!-- Nav tabs -->
+    <h3 class="trackcard-title"> Track Card</h3>
+    <!-- Tab panes -->
+
+    <div role="tabpanel" class="tab-pane" id="mixtape">
+        <div class="track-plylist">
+            <div class="track-thumb"><img src="{{ MEDIA_URL }}{{ track.cover }}"  class="img-responsive" alt=""></div>
+            <div class="track-info">
+                <h3>{{ track.name }}</h3>
+                <p>{{ track.artist }}</p>
+                <ul class="pl-opt">
+                    <li><a href="#" class="pl-icons like">like</a></li>
+                    <li><a href="#" class="pl-icons comment">Comments</a></li>
+                    <li><a href="#" class="pl-icons music">Music</a></li>
+                    <li><a href="#" class="pl-icons share">Share</a></li>
+                </ul>
+                <ul class="pl-counts">
+                    <li><span class="likes"></span>1356</li>
+                    <li><span class="plays"></span>2594</li>
+                    <li><span class="counts"></span>03:45</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sound-track">
+            <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5>
+            <div class="track-pic hidden-xs"><img src="{% static 'images/track-selection.png' %}" class="img-responsive" alt=""></div>
+            <div  class="track-pic-small visible-xs"><img src="{% static 'images/track-img-2.png' %}" class="img-responsive" alt=""></div>
+            <div class="row">
+                <div class="col-sm-12 hidden-xs">
+                    <div class="tracklist">
+                        <h5>Description:</h5>
+                        <p>{{ track.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

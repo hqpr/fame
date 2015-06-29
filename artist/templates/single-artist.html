@@ -151,7 +151,7 @@
                                         <li><a href="#" class="playlist-play">ddd</a></li>
                                         <li><a href="#" class="share">ddd</a></li>
                                     </ul>
-                                    <div class="play-pl-cont"> <a href="#" class="play-pl">Play</a> </div>
+                                    <div class="play-pl-cont"> <a href="{% url 'trackcard' track_id=audio.id %}" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
                                     <div class="hover-title">
                                         <h5>{{ audio.name }}</h5>
                                         <span class="subtxt">{{ audio.user }}</span> </div>
@@ -245,6 +245,13 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div class="modal modal-track modal-absolute" id="trackcard">
+        <div class="modal-dialog" style="z-index: 9991">
+            <div class="modal-content modal-contnet-bg">
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
