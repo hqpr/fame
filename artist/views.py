@@ -36,7 +36,7 @@ def single_artist(request, *args, **kwargs):
         user = request.user
 
     string = get_profile_string(kwargs, user)
-    audios = Audio.objects.filter(user=user, is_complete=True)
+    audios = Audio.objects.filter(user=user, is_complete=True).order_by('-added')
     playlists = VideoPlaylist.objects.filter(user=request.user)[:4]
 
     try:

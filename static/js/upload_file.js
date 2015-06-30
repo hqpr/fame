@@ -48,7 +48,6 @@
     $(document).on('submit', '#audio_step2_form', function (e) {
         e.preventDefault();
 
-        console.log('hmm');
         var form = $(this).closest('form');
         var modal = form.closest('.modal');
         form.ajaxSubmit({

@@ -22,7 +22,7 @@ class AudioFileView(FormView):
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
-class AudioView(FormView):
+class AudioView(UpdateView):
     template_name = 'add-audio-2.html'
     form_class = AudioForm
 
@@ -32,6 +32,10 @@ class AudioView(FormView):
             'form_action': reverse('add_audio_step2', args=(self.kwargs['object_id'],))
         })
         return context
+
+    def get_object(self, queryset=None):
+        obj = Audio.objects.get(id=self.kwargs['object_id'])
+        return obj
 
     def form_valid(self, form):
         form.instance.user = self.request.user
