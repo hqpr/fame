@@ -24,9 +24,9 @@ $(document).ready(function(){
         ,design_skin: 'skin-wave'
         ,skinwave_dynamicwaves:'on'
     };
-    dzsag_init('#ag1',{
+    dzsag_init('#mixtape',{
         'transition':'fade'
-        ,'autoplay' : 'off'
+        ,'autoplay' : 'щаа'
         ,'settings_ap':settings_ap
     });
     $('#update_audio').on('click', function(){
