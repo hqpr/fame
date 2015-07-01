@@ -43,8 +43,8 @@ class AudioForm(forms.ModelForm):
                                     'data-style': 'btn-select'
                                 }))
 
-    # cover = forms.FileField()
-    # cover.widget.attrs['style'] = 'opacity:0;width:100px;height:0;'
+    cover = forms.FileField()
+    cover.widget.attrs['style'] = 'opacity:0;width:100px;height:0;'
 
     class Meta:
         model = Audio
@@ -74,6 +74,9 @@ class PlayListForm(forms.ModelForm):
 
     description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Describe your track', 'rows': 3,
                                                                'class': 'form-control'}))
+
+    cover = forms.FileField()
+    cover.widget.attrs['style'] = 'opacity:0;width:100px;height:0;'
 
     class Meta:
         model = VideoPlaylist

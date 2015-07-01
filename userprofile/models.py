@@ -11,7 +11,7 @@ ACCOUNT_TYPES = (
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User, primary_key=True)
     account_type = models.CharField(choices=ACCOUNT_TYPES, max_length=100)
     display_name = models.CharField(max_length=100)
     birthday = models.DateField(default=datetime.datetime.now())

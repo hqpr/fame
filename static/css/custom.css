@@ -1,0 +1,17 @@
+.dropzone{
+    background-color: transparent!important;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+.dropzone:after{
+    content: "" !important;
+    position: absolute;
+    bottom: 60%; left: 0;
+    width: 100%; text-align: center; z-index:0;
+}
+.dropzone:before{
+    content: ''; font-family:"Glyphicons Halflings"; font-size: 60px;
+    color: #dbdbdb; position: absolute;
+    top: 40%; left: 0; width: 100%; text-align: center; z-index:0;
+}

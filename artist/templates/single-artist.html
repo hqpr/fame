@@ -14,9 +14,9 @@
         <ul>
             <li class="hidden-xs">{{ request.user|upper }}</li>
             <li  class="hidden-xs"><a href="#">ABOUT</a></li>
-            <li  class="hidden-xs"><a href="{% url 'add_audio_step1' %}" data-toggle="modal" data-target="#upload_music_modal">MUSIC</a></li>
-            <li  class="hidden-xs"><a href="#">VIDEO</a></li>
-            <li  class="hidden-xs"><a href="{% url 'add_playlist' %}" data-toggle="modal" data-target="#upload_music_modal">PLAYLIST</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_audio_step1' %}" data-toggle="modal" data-target="#upload_music_modal">MUSIC</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="#">VIDEO</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_playlist' %}" data-toggle="modal" data-target="#upload_music_modal">PLAYLIST</a></li>
             <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
             <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
         </ul>
@@ -33,11 +33,14 @@
 
             <div class="content profile-bg-blue profile-landing-bg">
                 <div  class="profile-head" style="min-height:450px">
-                    <div class="profile-pic"><img src="{{ MEDIA_URL }}images/profile-pic2.png" class="img-responsive img-circle"  alt=""></div>
-                    <h3>{{ request.user|capfirst }}</h3>
+                    <div class="profile-pic" style="overflow:hidden;"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.picture }}" class="img-responsive img-circle"  alt="">
+                        <div class="click-to-move" style="display: none">DRAG AND DROP <span class="or">OR</span> CLICK TO MOVE! </div>
+                    </div>
+
+                    <h3>{{ request.user.userprofile.display_name|capfirst }}</h3>
                     <p>Hey Guys, I just won the competition, I’m Amazing, follow meee!</p>
                     <ul>
-                        <li><a href="#" class="btn-pro">EDIT</a></li>
+                        <li><a href="#" class="btn-pro" id="edit_button">EDIT</a></li>
                     </ul>
                 </div>
 

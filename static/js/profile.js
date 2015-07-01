@@ -26,7 +26,7 @@ $(document).ready(function(){
     };
     dzsag_init('#mixtape',{
         'transition':'fade'
-        ,'autoplay' : 'щаа'
+        ,'autoplay' : 'off'
         ,'settings_ap':settings_ap
     });
     $('#update_audio').on('click', function(){
@@ -46,6 +46,11 @@ $(document).ready(function(){
 
     $('.btn-cancel').on('click', function(){
        $('#upload_music_modal').modal('hide');
+    });
+
+    $('#edit_button').one('click', function(){
+        $('.top-menu').append(' +');
+        $('.click-to-move').show()
     });
 
 });

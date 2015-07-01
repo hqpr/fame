@@ -2,10 +2,14 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, UpdateView
 import simplejson
 from .forms import AudioForm, AudioFileForm, PlayListForm
-from .models import Audio
+from .models import Audio, VideoPlaylist
+import datetime
+import time
+from base64 import decodestring
 
 
 class AudioFileView(FormView):
@@ -86,6 +90,22 @@ class PlayListView(FormView):
 
     def render_to_response(self, context, **response_kwargs):
         return super(PlayListView, self).render_to_response(context, **response_kwargs)
+
+@csrf_exempt
+def playlist_cover(request):
+    f_name = 'img_%s_%d.jpg' % (request.user.id, int(datetime.datetime.now().strftime("%s")))
+    if request.POST:
+        f = open("server_media/playlists/%s/%s/%s/%s" % (time.strftime("%y"),
+                                                         time.strftime("%m"),
+                                                         time.strftime("%d"), f_name), "w+")
+        _, b64data = request.POST['data'].split(',')
+        f.write(decodestring(b64data))
+        f.close()
+        VideoPlaylist.objects.create(user=request.user, cover='playlists/%s/%s/%s/%s' % (time.strftime("%y"),
+                                                                                         time.strftime("%m"),
+                                                                                         time.strftime("%d"), f_name))
+        return redirect('profile')
+    pass
 
 
 def trackcard(request, track_id):
