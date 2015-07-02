@@ -1,0 +1,72 @@
+{% load static from staticfiles %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
+    <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+{% endblock %}
+
+<div class="modal-body" id="audio_description">
+    <h3>Upload a video to Fame</h3>
+
+    <form role="form" method="post" action="{{ form_action }}" id="video_step2_form">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+                    <p style="position: relative !important;">or DRAG AND DROP</p>
+                    <input type="file" name="cover" id="id_cover" />
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    {% if form.errors %}
+                        {{ form.errors }}
+                    {% endif %}
+                    <label>Title</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label>Artist</label>
+                    {{ form.artist }}
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Video Type</label>
+                            {{ form.type }}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Genre</label>
+                            {{ form.genre }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Privacy</label>
+                    {{ form.privacy }}
+                </div>
+            </div>
+        </div>
+        <div class="clearfix form-btn">
+            <button type="submit" class="btn btn-default btn-green" id="submit-audio-2"><i class="fa fa-check"></i> SUBMIT</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('.dropzone').html5imageupload();
+    $('.selectpicker').selectpicker();
+</script>

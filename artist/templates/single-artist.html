@@ -15,7 +15,7 @@
             <li class="hidden-xs">{{ request.user|upper }}</li>
             <li  class="hidden-xs"><a href="#">ABOUT</a></li>
             <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_audio_step1' %}" data-toggle="modal" data-target="#upload_music_modal">MUSIC</a></li>
-            <li  class="hidden-xs"><a class=" top-menu" href="#">VIDEO</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_video_step1' %}" data-toggle="modal" data-target="#upload_music_modal">VIDEO</a></li>
             <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_playlist' %}" data-toggle="modal" data-target="#upload_music_modal">PLAYLIST</a></li>
             <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
             <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
@@ -73,8 +73,8 @@
                 </div>
 
                 {% for audio in audios %}
-                    <div class="frame clearfix">
-                        <div class="hover-frame" style="display: none" id="hover-{{ audio.id }}">
+                    <div class="frame clearfix audio_box">
+                        <div class="hover-frame" style="display: none">
                             <div class="hover-frame-contaiiner">
                                 <div class="hover-frame-cell"> <a href="{% url 'edit_audio' object_id=audio.id %}" data-toggle="modal" data-target="#upload_music_modal" class="btn btn-bdr-white"> Change Track</a> </div>
                             </div>
@@ -156,7 +156,7 @@
                                     <div class="play-pl-cont"> <a href="{% url 'trackcard' track_id=audio.id %}" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
                                     <div class="hover-title">
                                         <h5>{{ audio.name }}</h5>
-                                        <span class="subtxt">{{ audio.user }}</span> </div>
+                                        <span class="subtxt">{{ audio.artist }}</span> </div>
                                 </div>
                                 <img src="{{ MEDIA_URL }}{{ audio.cover }}" class="img-responsive" alt=""> </div>
                         </div>
@@ -164,25 +164,27 @@
                 </div>
                 <div class="row mobpad">
                     <h2 class="title"> Videos</h2>
-                    <div class="col-sm-6">
-                        <div class="music-overview-block">
-                            <div class="playlist-thumb-hover">
-                                <ul class="pl-list">
-                                    <li><a href="#" class="heart">ddd</a></li>
-                                    <li><a href="#" class="comment">ddd</a></li>
-                                    <li><a href="#" class="playlist-play">ddd</a></li>
-                                    <li><a href="#" class="share">ddd</a></li>
-                                </ul>
-                                <div class="play-pl-cont"> <a href="#" class="play-pl">Play</a> </div>
-                                <div class="hover-title">
-                                    <h5>Japan Only EP</h5>
-                                    <span class="subtxt">Madeon</span> </div>
-                            </div>
-                            <img src="{{ MEDIA_URL }}images/video-thumb-img01.png"  class="img-responsive" alt=""></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="music-overview-block"><img src="{{ MEDIA_URL }}images/video-thumb-img01.png"  class="img-responsive" alt=""></div>
-                    </div>
+
+                    {% for v in videos %}
+                        <div class="col-sm-6">
+                            <div class="music-overview-block video_box">
+                                <div class="playlist-thumb-hover" style="display: none">
+                                    <ul class="pl-list">
+                                        <li><a href="#" class="heart">ddd</a></li>
+                                        <li><a href="#" class="comment">ddd</a></li>
+                                        <li><a href="#" class="playlist-play">ddd</a></li>
+                                        <li><a href="#" class="share">ddd</a></li>
+                                    </ul>
+                                    <div class="play-pl-cont"> <a href="{% url 'videocard' video_id=v.id %}" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
+                                    <div class="hover-title">
+                                        <h5>{{ v.name }}</h5>
+                                        <span class="subtxt">{{ v.artist }}</span> </div>
+                                </div>
+                                <img src="{{ MEDIA_URL }}{{ v.cover }}"  class="img-responsive" alt=""></div>
+                        </div>
+                    {% endfor %}
+
+
                 </div>
                 <div class="row mobpad">
                     <h2 class="title">Playlist</h2>
@@ -208,10 +210,15 @@
                 <h2 class="title">Instagram</h2>
                 <div class="frame clearfix">
                     <ul class="instagram">
+                    {% if instagram %}
                         {% for i in instagram %}
                             <li><a href=""><img src="{{ i }}" class="img-responsive" alt=""/></a></li>
                         {% endfor %}
                         <li style="padding-top:30px"><a href="http://instagram.com/{{ nickname }}/" class="btn btn-more">View More</a></li>
+                        {% else %}
+                        <a href="{% url 'social:begin' 'instagram' %}">Connect to instagram</a>
+                    {% endif %}
+
                     </ul>
                 </div>
             </div>

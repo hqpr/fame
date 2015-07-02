@@ -70,5 +70,46 @@
         return false;
     });
 
+    $(document).on('change','#id_video' , function(){
+        $('#video_form_upload_step1').ajaxSubmit({
+            success: function(data){
+                if (data.success){
+                    var mw = $('#upload_music_modal');
+                    mw.modal('hide');
+                    mw.find('.modal-body').load(data.redirect_to);
+                    mw.find('.modal-body form').data('action', data.redirect_to);
+                    mw.modal('show');
+
+                }
+            },
+            dataType: 'json'
+        });
+    });
+
+    $(document).on('submit', '#video_step2_form', function (e) {
+        e.preventDefault();
+
+        var form = $(this).closest('form');
+        var modal = form.closest('.modal');
+        form.ajaxSubmit({
+            success: function(data){
+                if (data.success){
+                    console.log('Success');
+                    location.reload();
+                    if (window.location == data.redirect_to){
+                        location.reload();
+                    }
+                    window.location = data.redirect_to;
+
+                } else {
+                    modal.find('.modal-body').html(data.html);
+                }
+            },
+            dataType: 'json'
+        });
+
+        return false;
+    });
+
 
 })(jQuery);

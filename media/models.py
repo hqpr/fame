@@ -28,7 +28,7 @@ class Audio(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(User)
     artist = models.CharField(max_length=255, default=None, blank=True, null=True)
-    uid = models.CharField(max_length=11,unique=True,blank=True,null=True)
+    uid = models.CharField(max_length=11,unique=True, blank=True,null=True)
     type = models.CharField(max_length=255, choices=TRACK_CHOICES, default=1)
     genre = models.ForeignKey(Genre, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -97,7 +97,16 @@ class Image(models.Model):
 class Video(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(User)
-    uid = models.CharField(max_length=11,unique=True,blank=True,null=True)
+    uid = models.CharField(max_length=11,unique=True,blank=True, null=True)
+    artist = models.CharField(max_length=255, default=None, blank=True, null=True)
+    type = models.CharField(max_length=255, choices=TRACK_CHOICES, default=1)
+    genre = models.ForeignKey(Genre, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    privacy = models.CharField(max_length=255, choices=PRIVACY_CHOICES, default='public')
+    video = models.FileField(upload_to='videos/%y/%m/%d')
+    added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    cover = models.FileField(upload_to='videos/covers/%y/%m/%d', blank=True, null=True)
+    is_complete = models.BooleanField(default=False)
 
     def clean(self):
         if not self.uid:

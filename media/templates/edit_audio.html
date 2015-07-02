@@ -5,6 +5,7 @@
     <script src="{% static 'js/bootstrap-select.js' %}"></script>
     <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
     <script src="{% static 'js/profile.js' %}"></script>
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 {% endblock %}
 
 <div class="modal-body">
@@ -16,10 +17,12 @@
         {% endif %}
         <div class="row">
             <div class="col-sm-4">
-                <div class="track-thumb">
-                    {{ form.cover }}
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+                    <p style="position: relative !important;">or DRAG AND DROP</p>
+                    <input type="file" name="cover" id="id_cover" />
                     <img src="{{ MEDIA_URL }}{{ form.instance.cover }}" class="img-responsive"  alt="">
                 </div>
+
             </div>
             <div class="col-sm-8">
                 <div class="form-group">

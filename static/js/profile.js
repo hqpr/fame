@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $(".frame").hover(
+    $(".audio_box").hover(
       function () {
         $( this ).find('div').fadeIn(200);
       },
@@ -14,7 +14,16 @@ $(document).ready(function(){
         $( this ).find('div').fadeIn(200);
       },
       function () {
-        $('.playlist-thumb-hover').hide();
+          $( this ).find('div').fadeOut(200);
+      }
+    );
+
+    $(".video_box").hover(
+      function () {
+        $( this ).find('div').fadeIn(200);
+      },
+      function () {
+          $( this ).find('div').fadeOut(200);
       }
     );
 

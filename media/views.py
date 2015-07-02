@@ -5,8 +5,8 @@ from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, UpdateView
 import simplejson
-from .forms import AudioForm, AudioFileForm, PlayListForm
-from .models import Audio, VideoPlaylist
+from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm
+from .models import Audio, VideoPlaylist, Video
 import datetime
 import time
 from base64 import decodestring
@@ -25,6 +25,7 @@ class AudioFileView(FormView):
             'redirect_to': reverse('add_audio_step2', args=(fs.pk,))
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
 
 class AudioView(UpdateView):
     template_name = 'add-audio-2.html'
@@ -144,3 +145,61 @@ class AudioUpdateView(UpdateView):
             'html': html
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+
+class VideoFileView(FormView):
+    template_name = 'add-video-1.html'
+    form_class = VideoFileForm
+
+    def form_valid(self, form):
+
+        form.instance.user = self.request.user
+        fs = form.save()
+        data = {
+            'success': True,
+            'redirect_to': reverse('add_video_step2', args=(fs.pk,))
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+
+class VideoView(UpdateView):
+    template_name = 'add-video-2.html'
+    form_class = VideoForm
+
+    def get_context_data(self, **kwargs):
+        context = super(VideoView, self).get_context_data(**kwargs)
+        context.update({
+            'form_action': reverse('add_video_step2', args=(self.kwargs['object_id'],))
+        })
+        return context
+
+    def get_object(self, queryset=None):
+        obj = Video.objects.get(id=self.kwargs['object_id'])
+        return obj
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.is_complete = True
+        form.save()
+        data = {
+            'success': True,
+            'redirect_to': reverse('profile')
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def form_invalid(self, form):
+        html = render_to_string(self.template_name, self.get_context_data(form=form))
+        data = {
+            'success': False,
+            'html': html
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def render_to_response(self, context, **response_kwargs):
+        return super(VideoView, self).render_to_response(context, **response_kwargs)
+
+
+def videocard(request, video_id):
+    video = Video.objects.get(id=video_id)
+    data = {'video': video}
+    return render(request, 'videocard.html', data)

@@ -39,9 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_countries', # https://pypi.python.org/pypi/django-countries
-    'timezone_field', # https://github.com/mfogel/django-timezone-field
-    'suit_redactor', # http://django-suit.readthedocs.org/en/latest/wysiwyg.html
+    'django_countries',  # https://pypi.python.org/pypi/django-countries
+    'timezone_field',  # https://github.com/mfogel/django-timezone-field
+    'suit_redactor',  # http://django-suit.readthedocs.org/en/latest/wysiwyg.html
     'fame',
     'competition',
     'media',
@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'userprofile',
 
     'social.apps.django_app.default',  # http://psa.matiasaguirre.net/docs/index.html
+    'rest_framework',  # http://www.django-rest-framework.org/
 )
 
 MIDDLEWARE_CLASSES = (
@@ -195,6 +196,14 @@ SOCIAL_AUTH_BACKEND_ERROR_URL = '/'
 
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 try:
     from local_settings import *

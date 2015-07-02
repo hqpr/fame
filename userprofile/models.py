@@ -14,12 +14,12 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     account_type = models.CharField(choices=ACCOUNT_TYPES, max_length=100)
     display_name = models.CharField(max_length=100)
-    birthday = models.DateField(default=datetime.datetime.now())
+    birthday = models.DateField()
     country = CountryField()
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     artist_name = models.CharField(max_length=100, blank=True, null=True)
     is_complete = models.BooleanField(default=False)
-    created = models.DateTimeField(editable=False, default=datetime.datetime.now())
+    created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(default=datetime.datetime.now())
 
     def save(self, *args, **kwargs):

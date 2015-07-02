@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from social.apps.django_app.default.models import UserSocialAuth
-from media.models import Audio, VideoPlaylist
+from media.models import Audio, VideoPlaylist, Video
 from instagram.client import InstagramAPI
 from django.conf import settings
 
@@ -38,6 +38,7 @@ def single_artist(request, *args, **kwargs):
     string = get_profile_string(kwargs, user)
     audios = Audio.objects.filter(user=user, is_complete=True).order_by('-added')
     playlists = VideoPlaylist.objects.filter(user=request.user)[:4]
+    videos = Video.objects.filter(user=user, is_complete=True).order_by('-added')[:2]
 
     try:
         a = UserSocialAuth.objects.get(user_id=request.user.id, provider='instagram')
@@ -59,7 +60,8 @@ def single_artist(request, *args, **kwargs):
         'audios': audios,
         'instagram': instagram,
         'nickname': nickname,
-        'playlists': playlists
+        'playlists': playlists,
+        'videos': videos
     }
 
     return render_to_response(template_name,
