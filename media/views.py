@@ -161,6 +161,12 @@ class VideoFileView(FormView):
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
+    def form_invalid(self, form):
+        data = {
+            'success': False,
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
 
 class VideoView(UpdateView):
     template_name = 'add-video-2.html'

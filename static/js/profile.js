@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    // bootstrap modal reload
+    $(document).on('hidden.bs.modal', function (e) {
+        $(e.target).removeData('bs.modal');
+    });
+
     $(".audio_box").hover(
       function () {
         $( this ).find('div').fadeIn(200);
@@ -27,6 +32,7 @@ $(document).ready(function(){
       }
     );
 
+    // audio player
     var settings_ap = {
         disable_volume: 'off'
         ,disable_scrub: 'default'

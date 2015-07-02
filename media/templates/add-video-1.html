@@ -1,15 +1,18 @@
 <div class="modal-body" id="audio_uploader">
     <h3>Upload a video to Fame</h3>
-    <div class="drad-here-holder">
-        <a href="#" class="btn btn-bdr-blue">
-            <form action="{% url 'add_video_step1' %}" method="post" enctype="multipart/form-data" id="video_form_upload_step1">
-                {{ form.video }}
-                UPLOAD A VIDEO
-            </form>
-        </a>
-        {#                                <p>or DRAG AND DROP</p>#}
+    <div style="border:dashed 2px #d7d7d7; height:300px; border-radius:10px">
+        <div class="drad-here-holder">
+            <p style="color: #dc0949; display:none;" id="file_error">Only mp4 file allowed</p>
+            <a href="#" class="btn btn-bdr-blue">
+                <form action="{% url 'add_video_step1' %}" method="post" enctype="multipart/form-data" id="video_form_upload_step1">
+                    {{ form.video }}
+                    UPLOAD A VIDEO
+                </form>
+            </a>
+            {#                                <p>or DRAG AND DROP</p>#}
+        </div>
     </div>
-    <div class="import-links clearfix">
+{#    <div class="import-links clearfix">#}
 {#        <h5> or Import tracks from:</h5>#}
 {#        <ul>#}
 {#            <li><a href="{% url 'social:begin' 'spotify' %}"><img src="{{ MEDIA_URL }}images/impot-track-icon01.png" width="31" height="29" alt=""></a></li>#}
@@ -18,5 +21,5 @@
 {#            <li><a href="#"><img src="{{ MEDIA_URL }}images/impot-track-icon04.png" width="73" height="29" alt=""></a></li>#}
 {#            <li class="last"><a href="#"><img src="{{ MEDIA_URL }}images/impot-track-icon05.png" width="126" height="29" alt=""></a></li>#}
 {#        </ul>#}
-    </div>
+{#    </div>#}
 </div>

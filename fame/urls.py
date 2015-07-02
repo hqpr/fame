@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^api/test/', include(router.urls)),
 
     # static pages
-    url(r'^profile/$', login_required(single_artist), {"display":"profile"}, name="profile"),
+    url(r'^profile/$', login_required(single_artist), {"display": "profile"}, name="profile"),
     url(r'^profile/insights/$', artist_insights, {"display":"profile"}, name="insights"),
     url(r'^settings/$', artist_settings, {"display":"profile"}, name="settings"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

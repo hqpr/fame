@@ -33,12 +33,12 @@
 
             <div class="content profile-bg-blue profile-landing-bg">
                 <div  class="profile-head" style="min-height:450px">
-                    <div class="profile-pic" style="overflow:hidden;"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.picture }}" class="img-responsive img-circle"  alt="">
+                    <div class="profile-pic" style="overflow:hidden; width: 130px;height:130px;"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.picture }}" class="img-responsive img-circle"  alt="" width="130" height="130">
                         <div class="click-to-move" style="display: none">DRAG AND DROP <span class="or">OR</span> CLICK TO MOVE! </div>
                     </div>
 
                     <h3>{{ request.user.userprofile.display_name|capfirst }}</h3>
-                    <p>Hey Guys, I just won the competition, I’m Amazing, follow meee!</p>
+                    <p> Hey Guys, I just won the competition, I’m Amazing, follow meee!</p>
                     <ul>
                         <li><a href="#" class="btn-pro" id="edit_button">EDIT</a></li>
                     </ul>
@@ -90,7 +90,7 @@
                                 </ul>
                             </div>
                             <h4>{{ audio.name }}</h4>
-                            <p><span>{{ audio.description }}</span></p>
+                            <p><span>{{ audio.artist }}</span></p>
                             <ul class="pl-counts">
                                 <li><span class="likes"></span>1356</li>
                                 <li><span class="plays"></span>2594</li>

@@ -1,4 +1,10 @@
 (function($) {
+
+    // bootstrap modal reload
+    $(document).on('hidden.bs.modal', function (e) {
+        $(e.target).removeData('bs.modal');
+    });
+
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -29,6 +35,7 @@
         }
     });
 
+    // adding track, first step
     $(document).on('change','#id_audio' , function(){
         $('#form_upload_step1').ajaxSubmit({
             success: function(data){
@@ -44,7 +51,7 @@
             dataType: 'json'
         });
     });
-
+    // adding track, second step
     $(document).on('submit', '#audio_step2_form', function (e) {
         e.preventDefault();
 
@@ -70,6 +77,7 @@
         return false;
     });
 
+    // adding video
     $(document).on('change','#id_video' , function(){
         $('#video_form_upload_step1').ajaxSubmit({
             success: function(data){
@@ -80,6 +88,8 @@
                     mw.find('.modal-body form').data('action', data.redirect_to);
                     mw.modal('show');
 
+                } else {
+                    $('#file_error').hide().show()
                 }
             },
             dataType: 'json'

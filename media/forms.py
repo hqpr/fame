@@ -90,6 +90,13 @@ class VideoFileForm(forms.ModelForm):
         model = Video
         fields = ('video', )
 
+    def clean_video(self):
+        data = self.cleaned_data['video']
+        if not data.name.endswith('.mp4'):
+            raise forms.ValidationError("You have forgotten about Fred!")
+
+        return data
+
 class VideoForm(forms.ModelForm):
     name = forms.CharField()
     name.widget.attrs['class'] = 'form-control'

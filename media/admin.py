@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Audio, Genre, Image, Video
+from .models import Audio, Genre, Image, Video, VideoPlaylist
 
 # Register your models here.
 class GenreAdmin(admin.ModelAdmin):
@@ -19,7 +19,12 @@ class VideoAdmin(admin.ModelAdmin):
     """Handle Video"""
     model = Video
 
+class VideoPlaylistAdmin(admin.ModelAdmin):
+    """Handle Video"""
+    model = VideoPlaylist
+
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Audio, AudioAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Video, VideoAdmin)
+admin.site.register(VideoPlaylist, VideoPlaylistAdmin)
