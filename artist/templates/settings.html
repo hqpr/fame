@@ -1,5 +1,159 @@
 {% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block extrahead %}
+<link href="{% static "css/prettyCheckable.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block header %}
+<div class="nav-top red-bg mobnav">
+  <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+    <ul>  
+   <li class="hidden-xs">WEMC FRANCE</li>
+     <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+     <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+    </ul>
+  </div>
+{% endblock header %}
 
 {% block content %}
-{{string}}
+<div class="content account-settins">
+        <h4>Account Overview</h4>
+        <div class="frame">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="settings-block line-right">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" class="form-control" placeholder="hugopoirel">
+                </div>
+                <div class="form-group has-success">
+                  <label>E-mail</label>
+                  <input type="text" class="form-control" placeholder="madern@gmail.com">
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" placeholder="madern@gmail.com">
+                </div>
+                <div class="form-group">
+                  <label>Date of Birth</label>
+                  <input type="text" class="form-control" placeholder="03-04-1982">
+                </div>
+                <div class="form-group">
+                  <label>City and Country</label>
+                  <input type="text" class="form-control" placeholder="03-04-1982">
+                </div>
+                <div class="form-group">
+                  <label>State name</label>
+                  <input type="text" class="form-control" placeholder="Madeon">
+                </div>
+                <div class="form-group">
+                  <label>Language</label>
+                  <input type="text" class="form-control" placeholder="English">
+                </div>
+                <div class="form-group">
+                  <label>Custom URL</label>
+                  <input type="text" class="form-control" placeholder="famemusic.com/madeon">
+                </div>
+                <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green">SAVE</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="proplan-active-container">
+                <h3 class="pro-plan-active-title"> <span class="icon-check grn-check"></span> Pro Plan Active</h3>
+                <p class="pro-active-plan"> You currently have a <span class="pro-plan-txt">Pro Plan</span> account.<br />
+                  It will be renewed <span class="date"> 24th of May 2015</span>. <br />
+                  This plan includes: </p>
+                <ul class="checklist checklist-grn">
+                  <li>Free whatever forever and ever</li>
+                  <li>God mode</li>
+                  <li>Super insights!</li>
+                  <li>Win all the competitions without having event to take part to thhem</li>
+                </ul>
+                <a href="#" class="btn btn-grn-bdr">UNSUBSCRIBE</a></div>
+            </div>
+          </div>
+        </div>
+        <h4>Notification Settings</h4>
+        <div class="frame">
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="padding:10px 40px">
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 1</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 3</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 3</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 4</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 5</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 6</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Notification 7</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green">SAVE</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div style="padding:10px 40px">
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 1</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 3</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 3</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 4</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 5</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 6</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+                <div class="form-group notif">
+                  <div class="notif-label">Mail 7</div>
+                  <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" id="checkbox1" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 {% endblock %}
+
+{% block extra-script %}
+<script src="{% static "js/prettyCheckable.min.js" %}"></script> 
+<script>
+$().ready(function(){
+$('.myClass').prettyCheckable();
+ 
+
+});
+</script>
+{% endblock extra-script %}

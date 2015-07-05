@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block header %}
+<!--Start: Header-->
+      <div class="nav-top blue-bg mobnav">
+        <ul>
+          <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+          <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+      </div>
+      <!--End: Header-->
+
+{% endblock header %}
+{% block content %}
+<div class="content hall-of-fame ">
+     
+        <div class="search-filter-nav">
+          <ul>
+            <li><a href="#">WINNERS</a></li>
+            <li><a href="#">PATRONS</a></li>
+            <li><a href="#">SPONSORS</a></li>
+          </ul>
+        </div>
+        <div class="artists-search-section">
+          <div class="row">
+          <div class="col-sm-3">
+              <div class="music-overview-block widget-pro  hall-fame"><img alt="" class="img-responsive" src="{% static "images/artist-profile-bg.png" %}">
+              <div style=" position:relative" class="profile-head">
+                <div class="profile-pic"><img alt="" class="img-responsive img-circle" src="{% static "images/profile-pic2.png" %}"></div>
+                <div class="profile-circle-img">
+                  <div class="profile-circle profile-circle-green">
+                  </div>
+                </div>
+                <h3>Martin Scotner</h3>
+                <p>Artist</p>
+              </div>
+              <div class="profile-view-bar"> <a class="btn btn-sm btn-green" href="#">View More</a> </div>
+            </div>
+            </div>
+          
+          
+            <div class="col-sm-3">
+              <div class="music-overview-block widget-pro  hall-fame"><img alt="" class="img-responsive" src="{% static "images/artist-profile-bg.png" %}">
+              <div style=" position:relative" class="profile-head">
+                <div class="profile-pic"><img alt="" class="img-responsive img-circle" src="{% static "images/profile-pic2.png" %}"></div>
+                <div class="profile-circle-img">
+                  <div class="profile-circle profile-circle-yellow"></div>
+                </div>
+                <h3>Martin Scotner</h3>
+                <p>Artist</p>
+              </div>
+              <div class="profile-view-bar"> <a class="btn btn-sm btn-yellow" href="#">View More</a> </div>
+            </div>
+            </div>
+            
+            
+            
+            <div class="col-sm-3">
+             
+            <div class="music-overview-block widget-pro hall-fame"><img alt="" class="img-responsive" src="{% static "images/artist-profile-bg.png" %}">
+              <div style=" position:relative" class="profile-head">
+                <div class="profile-pic"><img alt="" class="img-responsive img-circle" src="{% static "images/profile-pic2.png" %}"></div>
+                <div class="profile-circle-img">
+                  <div class="profile-circle-blue"></div>
+                </div>
+                <h3>Dylan Dudele</h3>
+                <p>Artist</p>
+              </div>
+              <div class="profile-view-bar"> <a class="btn btn-sm btn-blue" href="#">View More</a> </div>
+            </div>
+         
+            </div>
+            
+            
+            
+          </div>
+          
+          
+          
+          
+          
+        </div>
+      </div>
+{% endblock content %}

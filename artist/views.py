@@ -126,3 +126,7 @@ def get_profile_string(kwargs, user):
                 string += " - ID %s" % (type_id,)
 
     return string
+
+def connections(request, *args, **kwargs):
+    """Return all connections following"""
+    return render(request, "connections.html",{})

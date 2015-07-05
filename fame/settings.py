@@ -51,6 +51,8 @@ INSTALLED_APPS = (
 
     'social.apps.django_app.default',  # http://psa.matiasaguirre.net/docs/index.html
     'rest_framework',  # http://www.django-rest-framework.org/
+    'blog',
+    'content',
 )
 
 MIDDLEWARE_CLASSES = (

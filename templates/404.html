@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static from staticfiles  %}
+
+{% block container-main %}
+<div class="full-right"> 
+ 
+    
+    <!--Start: Inner Main Wrap-->
+    <div class="main-wrap"> 
+      <!--Start: Header-->
+    
+      <div class="nav-top blue-bg mobnav">
+      <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>  
+         <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+    
+        </ul>
+      </div>
+      <!--End: Header-->
+      <div class="content faq-bg">
+        
+        
+    
+
+        
+        
+     <div class="not-found-block"> 
+     
+      <p>WELL, IT SEEMS YOU HAVE FOUND A</p>
+     
+     <img src="{% static "images/404-img.png" %}"  class="img-responsive" alt="">
+     
+     
+     <p>BUT, IF YOU PRESS THIS BUTTON...</p>
+     
+     
+     <a href="{% url "handler404_2" %}" class="btn btn-blue btn-lg">BUTTON</a> <Sdiv>
+     
+     
+     
+      </div>
+      
+      <!--Start: Bannner--> 
+      
+    </div>
+    <!--End: Inner Main Wrap--> 
+    
+    <!--Start: Footer-->
+    
+    <!--End: Footer--> 
+  </div>
+  
+  
+  
+</div>
+{% endblock container-main %}

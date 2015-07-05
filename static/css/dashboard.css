@@ -228,7 +228,7 @@ h3 .task-num {
 	height: 26px;
 	text-indent: -9999px;
 	margin: 10px 0 0 20px;
-	padding:0
+	padding: 0
 }
 .mobnav li a.menu-icon {
 	background: url(../images/menu-icon.png) no-repeat;
@@ -241,44 +241,621 @@ h3 .task-num {
 .nav-top li a.dashboard-icon:hover, .nav-top li a.dashboard-icon:focus, .nav-top li a.menu-icon:hover, .nav-top li a.menu-icon:focus {
 	border-bottom: 0;
 }
-
-.left-menu ul.left-bot-nav{margin-top:200px}
-
+.left-menu ul.left-bot-nav {
+	margin-top: 200px
+}
 .mobnav li a.menu-icon {
 	display: none
 }
-.nav-top li a.dashboard-icon{display:none}
-
+.nav-top li a.dashboard-icon {
+	display: none
+}
 .sidr.right {
-
 	text-align: left
 }
+.back-icon-headbar {
+	margin: 10px 10px 0 10px;
+	font-size: 21px;
+	float: left
+}
+.back-icon-headbar a {
+	color: #fff;
+}
+.badge-black {
+	background-color: #232323
+}
+.badge-black h3 {
+	color: #fff
+}
+.badge-big-icon {
+	float: left;
+	margin: 14px 0 0 10px;
+	width: 105px
+}
+.profile-bg-copy {
+	background: #000 url(../images/copy-bg.png) no-repeat top center;
+	color: #fff
+}
+.profile-bg-copy .profile-head h3 {
+	color: #fff
+}
+.profile-bg-copy .profile-head p {
+	color: #fff
+}
+.profile-landing-bg {
+	background: #000 url(../images/landing-bg.png) no-repeat top center;
+}
+.nav-top.red-bg {
+	background-color: #f10950
+}
+.gen-icon {
+	display: none
+}
+.filterby-wrap {
+	padding: 50px 15px
+}
+.mid-section {
+	width: 920px;
+	float: left;
+	height: 200px
+}
+.middle-wrap {
+	margin-top: 25px
+}
+.modal-mob {
+	display: none
+}
+.profile-tip {
+	position: absolute;
+	left: 0;
+	top: 50px;
+	height: 30px;
+	background-color: #fff;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	padding: 10px;
+	box-shadow: 2px 2px 5px rgb(0, 0, 0, .2);
+	line-height: 30px;
+	width: 120px;
+	z-index: 9999
+}
+ul.profile-tip {
+	padding: 0 10px;
+	margin: 0;
+	list-style: none;
+	display: none
+}
+ul.profile-tip li {
+	float: left
+}
+ul.profile-tip li a {
+	color: #37373a;
+	padding: 0 10px
+}
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid white;
+	position: absolute;
+	left: 20px;
+	top: -10px
+}
+.track-info h4 {
+	color: #fff
+}
+.frame.transparent-frame {
+	background-color: transparent;
+	box-shadow: none
+}
+.frame.transparent-frame .fame-position-block .fame-pos-txt {
+	color: #fff
+}
+.proplan-active-container {
+	padding: 150px 50px 0 50px;
+	text-align: center
+}
+.videocard-row {
+	height: 40px;
+	padding-top: 15px
+}
+.video-lsit {
+	padding-top: 20px
+}
+.modal.modal-absolute {
+	position: absolute
+}
+.social-share ul {
+	padding: 20px 0;
+	margin: 0;
+	list-style: none
+}
+.social-share ul li {
+	display: inline-block
+}
+.social-share ul li a {
+	display: inline-block;
+	background: url(../images/social-share-img.png) no-repeat;
+}
+.social-share ul li a.fb {
+	background-position: 0 0;
+	width: 20px;
+	height: 20px;
+}
+.share-profile .form-control {
+	height: 34px
+}
+.btn.share-btn {
+	background-color: #00a0ec;
+	color: #fff
+}
+.share-profile .share-sec {
+	padding: 15px 0;
+	border-bottom: solid 1px #d7d7d7
+}
+.share-profile .track-thumb2 {
+	width: 120px;
+	height: 120px;
+	float: left
+}
+.share-profile .track-thumb-details {
+	margin-left: 135px
+}
+.share-profile .track-thumb-details .time-row {
+	height: 40px;
+	margin-top: 10px
+}
+.share-profile h5 {
+	font-size: 15px;
+	padding-top: 15px
+}
+.share-profile .code-n-preview-section {
+	padding: 20px 0
+}
+.share-profile .widget-holder {
+	padding: 0px 0 30px;
+	text-align: center;
+	width: 300px;
+	margin: 0 auto
+}
+.share-profile .size-label {
+	margin-right: 10px
+}
+.profile-landing-cpy2 {
+	background: url(../images/porfile-bg2.png) no-repeat top center;
+}
+.profile-landing-cpy2 .profile-head h3 {
+	color: #fff;
+}
+.profile-landing-cpy2 .profile-head p {
+	color: #fff;
+}
+.widget-contest {
+}
+.widget-contest ul.top-three-wrap .aside {
+	color: #ec094e;
+	float: left;
+	font-size: 25px;
+	position: relative;
+	top: 0px;
+	width: 30px;
+	padding-top: 10px;
+	text-align: center
+}
+.widget-contest ul.top-three-wrap .detail {
+	float: left;
+	width: 76%;
+	margin: 0px 2%;
+	padding: 10px 0
+}
+.widget-contest ul.top-three-wrap .rank {
+	float: right;
+	margin-top: 20px;
+}
+.widget-contest ul.top-three-wrap .detail .figure {
+	float: left;
+	margin-right: 8px;
+	width: 40px;
+	height: 40px;
+}
+.widget-contest ul.top-three-wrap .detail .figure img {
+	width: 100%;
+}
+.widget-contest ul.top-three-wrap .detail .figcaption {
+	float: left
+}
+.widget-contest ul.top-three-wrap .detail .figcaption ul > li {
+	float: left;
+	border-bottom: 0px;
+	font-size: 10px;
+	padding: 0px;
+	display: inline-block;
+	margin-right: 5px;
+	margin: 0px!important;
+	margin-right: 5px!important;
+}
+.widget-contest ul.top-three-wrap .detail .figcaption ul > li .like a {
+	background: url(../images/like.png) no-repeat left;
+	text-indent: -999999px!important;
+	width: 10px;
+	height: 10px;
+	color: #fff;
+	padding-left: 10px;
+}
+.widget-contest ul.top-three-wrap .detail .figcaption ul > li .like a:hover {
+	background: url(../images/like-hover.png) no-repeat left;
+	text-decoration: none;
+}
+.widget-contest ul.top-three-wrap .detail .figcaption ul > li .play a {
+	background: url(../images/play.png) no-repeat left;
+	text-indent: -999999px!important;
+	width: 10px;
+	height: 10px;
+	color: #fff;
+	padding-left: 10px;
+}
+.widget-contest ul.top-three-wrap. detail .figcaption ul > li .play a:hover {
+background:url(../images/play-hover.png) no-repeat left;
+text-decoration:none;
+}
+.widget-contest ul.top-three-wrap .detail .figcaption ul > li .time a {
+	background: url(../images/time.png) no-repeat left;
+	text-indent: -999999px!important;
+	width: 10px;
+	height: 10px;
+	color: #fff;
+	padding-left: 10px;
+}
+.widget-contest ul.top-three-wrap .detail .figcaption ul > li .time a:hover {
+	background: url(../images/time-hover.png) no-repeat left;
+	text-decoration: none;
+}
+.widget-contest ul.top-three-wrap h2 {
+	font-size: 12px
+}
+.widget-contest ul.top-three-wrap h4 {
+	font-size: 10px
+}
+.widget-contest ul.top-three-wrap li {
+	margin-bottom: 0 !important
+}
+.modal.modal-widget {
+	float: left;
+	left: 0;
+	position: static;
+	top: 0;
+}
+.widget-pro .profile-head {
+	padding: 0;
+	margin: -50px 0 0 0
+}
+.widget-pro .profile-head .profile-pic {
+	width: 125px
+}
+.widget-pro .profile-head h3 {
+	color: #232326;
+	font-size: 18px;
+}
+.widget-pro .profile-circle-img {
+	position: absolute;
+	left: 0;
+	top: -10px;
+	width: 100%
+}
+.widget-pro .profile-circle {
+	background: url(../images/profile-bdr.png) no-repeat;
+	background-size: 100%;
+	width: 140px;
+	height: 140px;
+	margin: 0 auto;
+	text-align: center
+}
+.widget-pro .profile-circle.off-bg {
+	background-color: rgba(0,0,0,.6);
+	overflow: hidden;
+	border-radius: 70px
+}
+.widget-pro .profile-view-bar {
+	border-top: solid 1px #d7d7d7;
+	padding: 20px 0;
+	text-align: center
+}
+.widget-pro .profile-circle .title-value {
+	font-size: 22px;
+	text-transform: uppercase;
+	color: #fff;
+	padding-top: 40px;
+	display: block
+}
+.widget-pro .profile-circle .vlaue {
+	font-size: 11px;
+	color: #ff7773
+}
+.mobcard .scroll-pane {
+	height: 300px
+}
 
-.back-icon-headbar{margin:10px 10px 0 10px; font-size:21px; float:left}
-.back-icon-headbar a{color:#fff; }
-.badge-black{background-color:#232323}
 
-.badge-black h3 { color:#fff}
-.badge-big-icon{float:left; margin:14px 0  0 10px; width:105px}
-
-.profile-bg-copy{background:#000 url(../images/copy-bg.png) no-repeat top center; color:#fff}
-.profile-bg-copy .profile-head h3{color:#fff}
-.profile-bg-copy .profile-head p{color:#fff}
-
-.profile-landing-bg{background: url(../images/landing-bg.png) no-repeat top center;}
+.bar-menu-icon{ background: url(../images/nav-circle.png) no-repeat; width:22px; height:22px; background-size:100%; display:block; margin-left:15px; margin-top:2px}
 
 
-.nav-top.red-bg{ background-color:#f10950 }
+.track-info.track-info-profile.track-profile-artist{ margin-top:30px}
 
-.gen-icon{ display:none}
-.filterby-wrap{padding:50px 15px}
 
-.mid-section{width:920px; float:left; height:200px}
+.pro-overview-thumb-artist{width:165px; height:165px; float:left; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; overflow:hidden; box-shadow:0px 0px 5px 1px rgba(0,0,0,.5)}
 
-.middle-wrap{margin-top:25px}
+
+
+
+
+.main-container .music-track-block h4.title{ padding-top:15px}
+
+
+
+.modal-music .track-info.track-info-profile.track-profile-artist .pl-icons { margin-right:10px
+ 
+}
+
+
+.about-artist-section{margin-top:50px}
+
+
+.modal-music .track-info.track-profile-artist .pl-icons{background-image: url(../images/playlist-iconsmb-white.png);}
+
+
+.main-container .transparent-frame .music-track-block h4{color:#fff}
+
+.transparent-frame .modal-music  .pl-counts li{color:#fff}
+
+.transparent-frame .modal-music .pl-counts li span.likes{  background: url(../images/like-counts.png) no-repeat; background-size:100%
+}
+
+.transparent-frame  .modal-music .pl-counts li span.plays {
+  background: url(../images/play-counts.png) no-repeat;
+  background-size: 100%;
+}
+
+.transparent-frame .modal-music .pl-counts li span.counts {
+  background: url(../images/time-count.png) no-repeat;
+  background-size: 100%;
+}
+
+
+.search-filter-page {
+	background:url(../images/search-page-bg.jpg) no-repeat top center;
+}
+
+.see-artist-page {
+	background:url(../images/see-artist-bg.jpg) no-repeat top center;
+}
+
+.search-filter-nav { height:70px}
+
+.search-filter-nav ul{ list-style:none; padding:0; margin:0; text-align:center}
+
+
+.search-filter-nav ul li{ display:inline-block;}
+
+.search-filter-nav ul li a{ color:#fff; background-color:#657584; border-radius:12px;  -moz-border-radius:12px; -moz-border-radius:12px; display:block; padding:5px 10px; font-size:13px; margin:0 5px; text-transform:uppercase}
+
+.search-filter-nav ul li a:hover, .search-filter-nav ul li a:focus{ text-decoration:none}
+
+.artists-search-section{}
+
+
+
+
+
+
+.pad5{padding-left:5px; padding-right:5px}
+
+
+.artists-search-section h3, .competition-search-section h3, .tracks-search-section h3{font-size:16px; color:#fff; padding:0; margin:20px 0}
+
+.artists-search-section .widget-pro .profile-circle {
+
+  width: 70px;
+  height: 70px;
+
+}
+
+
+.artists-search-section .profile-head .profile-pic {
+  width: 60px;
+  height:60px;
+
+}
+
+
+
+
+.artists-search-section .widget-pro .profile-circle-img {
+  top: -5px;
+}
+
+
+.artists-search-section .widget-pro .profile-head h3 {
+  font-size: 14px; padding-top:10px; margin-bottom:0
+}
+
+.artists-search-section  .profile-head p {
+  font-size: 11px; margin-bottom:10px
+
+}
+
+.widget-pro .profile-head {
+  padding:0px;
+  text-align: center;
+  min-height: 100px;
+}
+.artists-search-section  .btn-sm {padding:2px 10px}
+
+
+
+.competition-search-section {}
+
+
+
+.competition-search-section  ul.com-bottom li {
+
+  font-size: 9px; padding:2px 2px
+}
+
+
+
+.competition-search-section  ul.com-bottom li .view-more{width:auto}
+
+
+.competition-search-section ul.com-bottom {
+  padding: 10px 5px;
+
+}
+
+
+.competition-search-section  ul.com-bottom li:last-child > time {
+  font-size: 12px;
+}
+
+.tracks-search-thumb { border-radius:6px; -moz-border-radius:6px;  -webkit-border-radius:6px; overflow:hidden; box-shadow:1px 1px 5px rgba(0,0,0,.3);}
+
+
+.see-artist-page h2{ border-bottom:solid 1px #fff; font-size:22px; color:#fff; margin-top:30px}
+
+
+
+
+
+
+
+
+.search-filter-page .widget-pro .profile-view-bar {
+
+  padding: 15px 0;
+
+}
+
+
+
+
+
+.widget-pro .profile-circle-blue {
+	background: url(../images/profile-bdr-blue.png) no-repeat;
+	background-size: 100%;
+	width: 140px;
+	height: 140px;
+	margin: 0 auto;
+	text-align: center
+}
+
+
+.widget-pro .profile-circle-green {
+	background: url(../images/profile-bdr-grn.png) no-repeat;
+	background-size: 100%;
+
+}
+
+.widget-pro .profile-circle-yellow {
+	background: url(../images/profile-bdr-yellow.png) no-repeat;
+	background-size: 100%;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.widget-pro.widget-pro-hr .profile-head .profile-pic {
+	width: 90px
+}
+
+.widget-pro.widget-pro-hr .profile-circle {
+
+	width: 100px;
+	height: 100px;
+	
+}
+
+
+.widget-pro.widget-pro-hr  .profile-circle-img {
+
+  top: -6px;
+
+}
+
+
+
+
+.widget-pro.widget-pro-hr  .profile-head .profile-pic{margin:0 0 0 30px}
+
+
+
+
+
+.widget-pro.widget-pro-hr   .profile-circle-img{
+  position: absolute;
+
+   width: auto;
+  left: 25px;
+}
+
+
+.widget-pro.widget-pro-hr  .profile-pic{height:95px}
+
+
+
+
+
+
+.widget-pro.widget-pro-hr .widget-pro-hr-title {
+ 
+  position: relative;
+  margin:-60px 0 0 140px;
+}
+
+
+
+
+
+
+
+.widget-pro.widget-pro-hr  .profile-view-bar{border:0; padding:0 0 15px 0}
+
+
+
+
+
+.widget-pro.widget-pro-hr .profile-head h3{font-size:14px; margin:0}
+
+
+
+
+
+.artists-search-section .widget-pro.hall-fame .profile-circle {
+    height: 90px;
+    width: 90px;
+}
+
+
+
+
+
+
+
+
 
  @media (min-width:768px) and (max-width:1024px) {
-	 .gen-icon{ display:block}
+.gen-icon {
+	display: block
+}
 .left-nav {
 	width: 50px;
 	float: left;
@@ -346,21 +923,41 @@ h3 .task-num {
 .profile-bg-blue {
 	background-size: 100%
 }
-
 .sidr.left {
 	display: block
 }
 .left-nav.sidr {
 	width: 50px;
 	text-align: left
-}.mobnav ul {
+}
+.mobnav ul {
 	float: block
-}.mobnav li a.menu-icon {
-    display: none;
+}
+.mobnav li a.menu-icon {
+	display: none;
 }
 }
  @media (min-width:320px) and (max-width:767px) {
-	 .filterby-wrap{padding:0px 15px}
+	 
+	 .search-filter-nav ul li a{font-size:11px;}
+.search-filter-nav ul li{margin-bottom:10px}
+.track-plylist .track-info h4 {
+	color: #333;
+}
+.proplan-active-container {
+	padding: 50px 20px 0 20px;
+}
+.account-settins h4 {
+	padding-left: 15px;
+	padding-right: 15px
+}
+.modal-music .modal-body .track-thumb {
+	width: 100%;
+	float: none
+}
+.filterby-wrap {
+	padding: 0px 15px
+}
 .wrapper {
 	margin: 0 auto;
 	width: 100%;
@@ -371,12 +968,13 @@ h3 .task-num {
 	position: fixed;
 	top: 0;
 	height: 100%;
-	z-index: 999999;
+	z-index: 99999999 !important;
 	overflow-x: none;
 	overflow-y: auto;
+	background-color: #232323
 }
 .sidebar-right.sidr {
-	width: 325px;
+	width: 85%;
 	text-align: left
 }
 .sidr .sidr-inner {
@@ -387,24 +985,30 @@ h3 .task-num {
 	margin-right: 15px
 }
 .sidr.left {
-	left: -195px;
+	left: -80%;
 	right: auto
 }
 .left-nav.sidr {
-	width: 195px;
+	width: 80%;
 	text-align: left
-}.mobnav ul {
+}
+.mobnav ul {
 	float: none
 }
 .mobnav li a.menu-icon {
-    display: block;
+	display: block;
+}
+.fame-position-block1 {
+	width: 80px;
+}
+.fame-position-block1 .lavel-text {
+	font-size: 24px;
 }
 }
  @media (min-width:320px) and (max-width:1024px) {
 .mobnav {
 	float: none
 }
-
 .mobnav {
 	display: block
 }
@@ -427,15 +1031,17 @@ h3 .task-num {
 }
 .sidr.right {
 	left: auto;
-	right: -325px;
+	right: -85%;
 	top: 0;
 	text-align: left
 }
-
-
-.nav-top li a.dashboard-icon{display:block}
+.nav-top li a.dashboard-icon {
+	display: block
 }
-
-
-.jpush.modal-backdrop.in{ opacity:0}
-.sidr-open .jpush.modal-backdrop.in{ opacity:.8}
+}
+.jpush.modal-backdrop.in {
+	opacity: 0
+}
+.sidr-open .jpush.modal-backdrop.in {
+	opacity: .8
+}

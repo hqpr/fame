@@ -1,0 +1,11 @@
+@media (min-width: 1025px) {
+    .wrapper {
+        max-width: 100%;
+    }
+    .main-container {
+        width: calc(100% - 520px);
+    }
+    .main-container.logged-out {
+        width: calc(100% - 195px);
+    }
+}

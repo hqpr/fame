@@ -24,7 +24,7 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """
-        if not self.id:
+        if not self.user_id:
             self.created = datetime.datetime.today()
         self.modified = datetime.datetime.today()
         return super(UserProfile, self).save(*args, **kwargs)

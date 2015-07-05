@@ -209,3 +209,6 @@ def videocard(request, video_id):
     video = Video.objects.get(id=video_id)
     data = {'video': video}
     return render(request, 'videocard.html', data)
+
+def all_media(request):
+    return render(request, 'hall-of-fame.html', {})

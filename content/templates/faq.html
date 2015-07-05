@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static from staticfiles  %}
+
+{% block header %}
+<div class="nav-top blue-bg mobnav">
+      <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>  
+       <li class="hidden-xs">FAQ</li>
+         <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+         <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+      </div>
+{% endblock header %}
+
+{% block content %}
+
+<div class="content faq-bg">
+        
+        <div class="pull-right faq-seach-block">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><img src="{% static "images/search-faq.png" %}"  class="search-faq-icon" alt="">
+        </button>
+      </span>
+    
+  </div><!-- /.col-lg-6 --></div>
+     <h2>Frequently Asked Questions</h2>
+
+        
+        
+        <div class="faq-block">
+        
+        <h5>Insert profile picture</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        
+        
+        </div>
+        
+        <div class="faq-block">
+        
+        <h5>Check your insights </h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        
+        
+        </div>
+        
+        <div class="faq-block">
+        
+        <h5>Disconnect with a user</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        
+        
+        </div>
+        
+        <div class="faq-block">
+        
+        <h5>Enter competition</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        
+        
+        </div>
+        
+        
+        
+        <div class="submit-question">
+        
+        <h3>Can’t find what you are looking for?</h3>
+        
+        
+        <p>Submit your question and we’ll get back to you.</p>
+        
+        <div style="text-align:center">
+        
+        <div class="form-group">
+        <input name="" type="text"  class="form-control" placeholder="Full Name">
+        
+        </div>
+        <div class="form-group">
+        <input name="" type="text"  class="form-control" placeholder="Email">
+        
+        </div>
+        <div class="form-group"><textarea name="" cols="" rows="" class="form-control">Question</textarea>
+        
+        
+        </div>
+        
+          <div class="form-group">
+        <a href="#" class="btn btn-blue btn-lg">Submit</a>
+        
+        </div>
+        
+        </div>
+        
+        
+        
+        </div>
+        
+        
+        
+        
+      </div>
+
+{% endblock content %}

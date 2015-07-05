@@ -1,5 +1,506 @@
 {% extends "base.html" %}
+{% load static from staticfiles %}
 
+{% block header %}
+<div class="nav-top blue-bg mobnav">
+    <ul>
+      <li class="hidden-xs">SEARCH</li>
+      <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+      <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+    </ul>
+</div>
+{% endblock header %}
 {% block content %}
-{{string}}
+    <div class="content profile-bg-blue see-artist-page">
+        <h2 class="title">All Artists</h2>
+        <div class="search-filter-nav">
+          <ul>
+            <li><a href="#">genres <span class="caret"></span></a></li>
+            <li><a href="#">popularity <span class="caret"></span></a></li>
+            <li><a href="#">country <span class="caret"></span></a> </li>
+          </ul>
+        </div>
+        <div class="artists-search-section">
+          <div class="row">
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-green">View More</a> </div>
+              </div>
+            </div>
+            <div class="col-sm-2 pad5">
+              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                <div  class="profile-head" style=" position:relative">
+                  <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="profile-circle-img">
+                    <div class="profile-circle"></div>
+                  </div>
+                  <h3>Martin Scotner</h3>
+                  <p>Artist</p>
+                </div>
+                <div class="profile-view-bar"> <a href="#" class="btn btn-sm btn-blue">View More</a> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 {% endblock %}

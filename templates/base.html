@@ -14,6 +14,7 @@
 <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/jquery.sidr' %}.dark.css" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/style-custom.css' %}" rel="stylesheet" type="text/css" />
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -50,16 +51,22 @@ $(document).ready(function(){
     
     <div class="left-menu">
       <ul>
-        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Home</span></a></li>
-        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Competitions</span></a></li>
-        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Media</span></a></li>
-        <li><a href="#" class="active"><span class="gen-icon"></span> <span  class="hidden-md-link">Artists</span></a></li>
+        <li><a href="{% url "home" %}"{% if request.get_full_path == "/" %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Home</span></a></li>
+        <li><a href="{% url "all_competitions" %}"{% if "competitions" in request.build_absolute_uri %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Competitions</span></a></li>
+        <li><a href="{% url "all_media" %}"{% if "media" in request.build_absolute_uri %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Media</span></a></li>
+        <li><a href="{% url "all_artists" %}"{% if "artists" in request.build_absolute_uri %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Artists</span></a></li>
+        <li><a href="{% url "all_blogs" %}"{% if "blog/" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Blog</span></a></li>
       </ul>
       
       <ul class="left-bot-nav">
-        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">{{ valid }}</span></a></li>
-        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Settings</span></a></li>
-        <li><a href="#"><span class="gen-icon"></span> <span  class="hidden-md-link">Log Out</span></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url "home" %}"><span class="gen-icon"></span> <span  class="hidden-md-link">Insights</span></a></li>
+        <li><a href="{% url "connections" %}" {% if "/connections" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Connections</span></a></li>
+        <li><a href="{% url "settings" %}" {% if request.get_full_path == "/settings/" %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Settings</span></a></li>
+        <li><a href="{% url "logout" %}"><span class="gen-icon"></span> <span  class="hidden-md-link">Log Out</span></a></li>
+        {% else %}
+        <li><a href="{% url "login" %}"><span class="gen-icon"></span> <span  class="hidden-md-link">Log In</span></a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
@@ -68,7 +75,7 @@ $(document).ready(function(){
 
 {% block container-main %}
 <!--Start: Main Container-->
-<div class="main-container"> 
+<div class="main-container{% if not user.is_authenticated %} logged-out{% endif %}"> 
 
     {% comment "competitions need a wrapper" %}{% endcomment %}
     {% block container-wrapper %}{% endblock container-wrapper %} 
@@ -249,49 +256,7 @@ $(document).ready(function(){
   
   {% block footer %}
   <!--Start: Footer-->
-  <div class="about-song-footer">
-    <div class="col-lg-3 col-sm-3 col-xs-12" >
-      <div class="row">
-        <ul class="song-wrap">
-          <li><img src="{{MEDIA_URL}}images/prev-arrow.png" alt=""></li>
-          <li><img src="{{MEDIA_URL}}images/top-img-2.jpg" alt=""></li>
-          <li>
-            <h2><a href="#">Divine Sorrow</a></h2>
-            <h4>AVAICL</h4>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-lg-7 col-sm-7 col-xs-12">
-      <div class="row track-wrap">
-        <ul class="like-wrap">
-          <li><img src="{{MEDIA_URL}}images/like-1.png" alt=""></li>
-          <li>04:33</li>
-        </ul>
-        <div class="footer-range">
-          <div class="range-wrap">
-            <div class="fill-wrap"></div>
-            <span class="controler-widget"></span> </div>
-        </div>
-        <ul class="sound-wrap">
-          <li>04:33</li>
-          <li><img src="{{MEDIA_URL}}images/sound.png" alt=""></li>
-        </ul>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div class="col-lg-2 col-sm-2 col-xs-12">
-      <div class="row">
-        <ul class="playing-wrap">
-          <li><a href="#"><img src="{{MEDIA_URL}}images/previous.png" alt=""></a></li>
-          <li><a href="#"><img src="{{MEDIA_URL}}images/play1.png" alt=""></a></li>
-          <li class="next"><a href="#"><img src="{{MEDIA_URL}}images/next.png" alt=""></a></li>
-          <li><a href="#"><img src="{{MEDIA_URL}}images/list.png" alt=""></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="clear"></div>
-  </div>
+  
   <!--End: Footer-->
   {% endblock footer %}
 </div>
@@ -300,6 +265,7 @@ $(document).ready(function(){
 
 {% block sidebar-right %}
 <div class="sidebar-right" id="sidr-right">
+  {% if user.is_authenticated %}
     <div class="db-pic"> <img src="{{MEDIA_URL}}images/db-pic.png" class="img-responsive" alt=""> <span class="db-pic-circle"></span> </div>
     <h3><a href="#">Fame position <span class="arrow-down"></span></a></h3>
     <div class="fame-pos-block-container clearfix">
@@ -400,6 +366,7 @@ etition adoih aodsjd poaisj </p>
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
   {% endblock sidebar-right %}
 </div>
@@ -414,8 +381,6 @@ etition adoih aodsjd poaisj </p>
 <script defer src="{% static 'js/jquery.form.min.js' %}"></script>
 <script defer src="{% static 'js/jquery.sidr.min.js' %}"></script>
 <script defer src="{% static 'js/respond.src.js' %}"></script> 
-{% endblock script %}
-{% block extra-script %}
 <script>
 $(document).ready(function() {
     $('#left-menu').sidr({
@@ -428,6 +393,9 @@ $(document).ready(function() {
     });
 });
 </script>
+{% endblock script %}
+{% block extra-script %}
+
 {% endblock extra-script %}
 
 

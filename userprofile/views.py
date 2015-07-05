@@ -100,6 +100,7 @@ class RegistrationStepView(FormView):
             form.instance.user = user
             form.instance.is_complete = True
             form.save()
+
             # log user in
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(self.request, user)

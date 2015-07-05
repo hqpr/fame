@@ -12,6 +12,7 @@
     <div class="nav-top blue-bg mobnav">
         <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
         <ul>
+
             <li class="hidden-xs">{{ request.user|upper }}</li>
             <li  class="hidden-xs"><a href="#">ABOUT</a></li>
             <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_audio_step1' %}" data-toggle="modal" data-target="#upload_music_modal">MUSIC</a></li>
@@ -24,8 +25,6 @@
 {% endblock header %}
 
 {% block content %}
-
-    <div class="main-container">
 
 
         <!--Start: Inner Main Wrap-->
@@ -228,20 +227,6 @@
         </div>
         <!--End: Inner Main Wrap-->
 
-        <!--Start: Footer-->
-        <div id="footer">
-            <div class="time">
-                <p>SUBMISSION OPEN</p>
-                <span>00:54:14:12</span> </div>
-            <ul>
-                <li class="none"><a href="#">View Chart</a></li>
-                <li><a href="#">Enter Now</a></li>
-                </li>
-            </ul>
-        </div>
-        <!--End: Footer-->
-    </div>
-
 
     <div class="modal modal-absolute" id="upload_music_modal">
         <div class="modal-dialog" style="z-index: 9991">
@@ -258,5 +243,10 @@
             </div>
         </div>
     </div>
+{#    {% if not valid %}#}
+{#        <script>#}
+{#            window.location.href = "/user/register/{{ user_id }}/";#}
+{#        </script>#}
+{#    {% endif %}#}
 
 {% endblock %}
