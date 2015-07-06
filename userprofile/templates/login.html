@@ -2,6 +2,13 @@
 {% block sidebar-left %}{% endblock %}
 {% block sidebar-right %}{% endblock %}
 {% block header %}{% endblock %}
+{% load static from staticfiles %}
+{% block extrahead %}
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet">
+
+{% endblock %}
 
 {% block content %}
     <div class="modal modal-absolute" style="display:block;" id="login_modal_step1">
@@ -11,7 +18,37 @@
                     <div class="fame-music-logo-block">
                         <h3 class="fame-music-logo">Fame Music</h3>
                     </div>
-                    <div> <a href="{% url 'social:begin' 'facebook' %}" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span></a>
+                    <div>
+                        <a onclick="return false" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span>
+                        </a>
+
+                        <div style="display: none" id="social_networks">
+
+                            <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook" style="color: #ffffff;">
+                                <i class="fa fa-facebook"></i> SIGN UP WITH FACEBOOK
+                            </a>
+
+                            <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-block btn-social btn-twitter" style="color: #ffffff;">
+                                <i class="fa fa-twitter"></i> SIGN UP WITH TWITTER
+                            </a>
+                            <a href="{% url 'social:begin' 'dropbox-oauth2' %}" class="btn btn-block btn-social btn-dropbox" style="color: #ffffff;">
+                                <i class="fa fa-dropbox"></i> SIGN UP WITH DROPBOX
+                            </a>
+                            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google" style="color: #ffffff;">
+                                <i class="fa fa-google"></i> SIGN UP WITH GOOGLE
+                            </a>
+                            <a href="{% url 'social:begin' 'instagram' %}" class="btn btn-block btn-social btn-instagram" style="color: #ffffff;">
+                                <i class="fa fa-instagram"></i> SIGN UP WITH INSTAGRAM
+                            </a>
+                            <a href="{% url 'social:begin' 'soundcloud' %}" class="btn btn-block btn-social btn-soundcloud" style="color: #ffffff;">
+                                <i class="fa fa-soundcloud"></i> SIGN UP WITH SOUNDCLOUD
+                            </a>
+                            <a href="{% url 'social:begin' 'vimeo-oauth2' %}" class="btn btn-block btn-social btn-vimeo" style="color: #ffffff;">
+                                <i class="fa fa-vimeo"></i> SIGN UP WITH VIMEO
+                            </a>
+
+
+                        </div>
                         <p class="or-txt">OR</p>
 
                         <p>Subscribe with your <a href="{% url 'register' %}">e-mail address</a></p>
@@ -83,6 +120,11 @@
                 dataType: 'json'
             });
         });
+        $('.facebook-btn').on('click', function() {
+            $(this).hide();
+            $('#social_networks').slideDown();
+        });
+        $('.selectpicker').selectpicker();
 
     </script>
 

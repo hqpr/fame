@@ -94,6 +94,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
     'django.template.context_processors.media',
     'social.apps.django_app.context_processors.backends',
+    'social.backends.twitter',
     'social.apps.django_app.context_processors.login_redirect',
 )
 
@@ -142,31 +143,28 @@ STATIC_ROOT = 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 AUTHENTICATION_BACKENDS = (
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.dropbox.DropboxOAuth2',
     'social.backends.open_id.OpenIdAuth',
     'social.backends.google.GoogleOpenId',
     'social.backends.google.GoogleOAuth2',
     'social.backends.dropbox.DropboxOAuth2',
     'social.backends.soundcloud.SoundcloudOAuth2',
     'social.backends.google.GoogleOAuth',
-    'social.backends.twitter.TwitterOAuth',
     'social.backends.facebook.FacebookOAuth2',
     'social.backends.vimeo.VimeoOAuth2',
     'social.backends.spotify.SpotifyOAuth2',
     'social.backends.mixcloud.MixcloudOAuth2',
     'social.backends.instagram.InstagramOAuth2',
-
     'django.contrib.auth.backends.ModelBackend',
-)
-SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
-    'social.backends.dropbox.DropboxOAuth2',
 )
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '535030322236-k5s1pcagr92d63m7kolei8j9rarcm4sq.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '6upMaUQjc2a64ZXiITl0yVyA'
-SOCIAL_AUTH_TWITTER_KEY = 'rj3AxmjrcWT06n0sbCj5GdSr4'
-SOCIAL_AUTH_TWITTER_SECRET = 'lwFInmiSRHcOtqOYRxkvEDCJuEsFfHK7qMY332zWM12IOeAW6B'
+SOCIAL_AUTH_TWITTER_KEY = 'miBYJOOJEFKgSKd6eGcHxk3bu'
+SOCIAL_AUTH_TWITTER_SECRET = 'eKkt0AimnHoQaod5Vulz1WqkNCF0KY2OayinbVPMEcYPjerjYM'
 SOCIAL_AUTH_FACEBOOK_KEY = '896661813714026'
 SOCIAL_AUTH_FACEBOOK_SECRET = '2192c3a1b4fcdc5e0f7747372faaca45'
 SOCIAL_AUTH_SOUNDCLOUD_KEY = 'a8ec4ade20001df3f84f7e3655e98f50'
