@@ -365,7 +365,7 @@ ul.profile-tip li a {
 	padding-top: 20px
 }
 .modal.modal-absolute {
-	position: absolute
+	/*position: absolute*/
 }
 .social-share ul {
 	padding: 20px 0;

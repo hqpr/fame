@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load media_tags %}
 {% block extrahead %}
     <script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
     <link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
@@ -8,11 +9,10 @@
 
 {% block header %}
     <!--Start: Header-->
-
     <div class="nav-top blue-bg mobnav">
         <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        {% if display == "profile" %}
         <ul>
-
             <li class="hidden-xs">{{ request.user|upper }}</li>
             <li  class="hidden-xs"><a href="#">ABOUT</a></li>
             <li  class="hidden-xs"><a class=" top-menu" href="{% url 'add_audio_step1' %}" data-toggle="modal" data-target="#upload_music_modal">MUSIC</a></li>
@@ -21,6 +21,17 @@
             <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
             <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
         </ul>
+        {% else %}
+        <ul>
+            <li class="hidden-xs">{{ user|upper }}</li>
+            <li  class="hidden-xs"><a href="#about">ABOUT</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="#music">MUSIC</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="#video">VIDEO</a></li>
+            <li  class="hidden-xs"><a class=" top-menu" href="#playlist">PLAYLIST</a></li>
+            <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+            <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+        {% endif %}
     </div>
 {% endblock header %}
 
@@ -32,19 +43,26 @@
 
             <div class="content profile-bg-blue profile-landing-bg">
                 <div  class="profile-head" style="min-height:450px">
-                    <div class="profile-pic" style="overflow:hidden; width: 130px;height:130px;"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.picture }}" class="img-responsive img-circle"  alt="" width="130" height="130">
+                    <div class="profile-pic" id="blurpoint" style="overflow:hidden; width: 130px;height:130px;"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.picture }}" class="img-responsive img-circle"  alt="" width="130" height="130">
                         <div class="click-to-move" style="display: none">DRAG AND DROP <span class="or">OR</span> CLICK TO MOVE! </div>
                     </div>
 
-                    <h3>{{ request.user.userprofile.display_name|capfirst }}</h3>
+                    <h3>{{ user.userprofile.display_name|capfirst }}</h3>
                     <p> Hey Guys, I just won the competition, I’m Amazing, follow meee!</p>
+                    {% if display == "profile" %}
                     <ul>
                         <li><a href="#" class="btn-pro" id="edit_button">EDIT</a></li>
                     </ul>
+                    {% endif %}
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    {% if audios %}
+                    <div class="frame clearfix audio_box col-sm-6">
+                        {% audio audios.0 request.user display "large" %}
+                    </div>
+                    {% endif %}
+                    <!-- <div class="col-sm-6">
                         <div class="frame clearfix transparent-frame">
                             <div class="lv-emerging"></div>
                             <div class="fame-position-block">
@@ -52,7 +70,7 @@
                                 <div class="fame-pos-now"><img src="{{ MEDIA_URL }}images/graph-now.png"  class="img-responsive" alt=""></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-sm-6">
                         <div class="frame badges badge-black clearfix transparent-frame">
                             <h3>Badges</h3>
@@ -71,37 +89,13 @@
                     </div>
                 </div>
 
-                {% for audio in audios %}
+                {% for audio in audios2 %}
                     <div class="frame clearfix audio_box">
-                        <div class="hover-frame" style="display: none">
-                            <div class="hover-frame-contaiiner">
-                                <div class="hover-frame-cell"> <a href="{% url 'edit_audio' object_id=audio.id %}" data-toggle="modal" data-target="#upload_music_modal" class="btn btn-bdr-white"> Change Track</a> </div>
-                            </div>
-                        </div>
-                        <div class="pro-overview-thumb" style="overflow-y: hidden"><img src="{{ MEDIA_URL }}{{ audio.cover }}"  class="img-responsive" alt=""></div>
-                        <div class="music-track-block modal-music">
-                            <div class="track-info track-info-profile hidden-xs">
-                                <ul class="pl-opt">
-                                    <li><a href="#" class="pl-icons like active">like</a></li>
-                                    <li><a href="#" class="pl-icons comment">Comments</a></li>
-                                    <li><a href="#" class="pl-icons music">Music</a></li>
-                                    <li><a href="#" class="pl-icons share">Share</a></li>
-                                </ul>
-                            </div>
-                            <h4>{{ audio.name }}</h4>
-                            <p><span>{{ audio.artist }}</span></p>
-                            <ul class="pl-counts">
-                                <li><span class="likes"></span>1356</li>
-                                <li><span class="plays"></span>2594</li>
-                                <li><span class="counts"></span>03:45</li>
-                            </ul>
-                            <p class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</p>
-                            <div class="pro-overvew-track hidden-xs"><img src="{{ MEDIA_URL }}images/adjust-track.png"  class="img-responsive" alt=""></div>
-                        </div>
+                        {% audio audios.0 request.user display "large" %}
                     </div>
                 {% endfor %}
 
-                <div class="row">
+                <div class="row" id="about">
                     <div class="col-sm-6">
                         <div class="overview-about">
                             <h3>About</h3>
@@ -139,29 +133,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mobpad">
+                <div class="row mobpad" id="music">
                     <h2 class="title"> Music</h2>
 
                     {% for audio in audios %}
                         <div class="col-xs-6 col-sm-3">
-                            <div class="music-overview-block music_box">
-                                <div class="playlist-thumb-hover" style="display: none">
-                                    <ul class="pl-list">
-                                        <li><a href="#" class="heart">ddd</a></li>
-                                        <li><a href="#" class="comment">ddd</a></li>
-                                        <li><a href="#" class="playlist-play">ddd</a></li>
-                                        <li><a href="#" class="share">ddd</a></li>
-                                    </ul>
-                                    <div class="play-pl-cont"> <a href="{% url 'trackcard' track_id=audio.id %}" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
-                                    <div class="hover-title">
-                                        <h5>{{ audio.name }}</h5>
-                                        <span class="subtxt">{{ audio.artist }}</span> </div>
-                                </div>
-                                <img src="{{ MEDIA_URL }}{{ audio.cover }}" class="img-responsive" alt=""> </div>
+                            {% audio audio request.user display "small" %}
                         </div>
                     {% endfor %}
                 </div>
-                <div class="row mobpad">
+                <div class="row mobpad" id="video">
                     <h2 class="title"> Videos</h2>
 
                     {% for v in videos %}
@@ -185,7 +166,7 @@
 
 
                 </div>
-                <div class="row mobpad">
+                <div class="row mobpad" id="playlist">
                     <h2 class="title">Playlist</h2>
 
                     {% for p in playlists %}
@@ -193,14 +174,10 @@
                             <div class="music-overview-block"> <img src="{{ MEDIA_URL }}{{ p.cover }}" class="img-responsive" alt="">
                                 <div class="playlist-list">
                                     <ol>
-                                        <li>Silent Skin<span class="subtext">Madeon</span></li>
-                                        <li>Mister J<span class="subtext">Madeon</span></li>
-                                        <li>Run Together (Black Country Mix)<span class="subtext">Madeon</span></li>
-                                        <li>A-Anon (QuickTime Video)<span class="subtext">Madeon</span></li>
-                                        <li>Mister J<span class="subtext">Madeon</span></li>
-                                        <li>Run Together (Cosnic Mix)<span class="subtext">Madeon</span></li>
-                                        <li>Run Together (Alex Mix)<span class="subtext">Madeon</span></li>
-                                    </ol>
+                                        {% for obj in p.files %}
+                                            <li>{{ obj.audio.name }}<span class="subtext">{{ obj.audio.artist }}</span></li>
+                                        {% endfor %}
+                                     </ol>
                                 </div>
                             </div>
                         </div>
@@ -209,15 +186,20 @@
                 <h2 class="title">Instagram</h2>
                 <div class="frame clearfix">
                     <ul class="instagram">
-                    {% if instagram %}
-                        {% for i in instagram %}
-                            <li><a href=""><img src="{{ i }}" class="img-responsive" alt=""/></a></li>
-                        {% endfor %}
-                        <li style="padding-top:30px"><a href="http://instagram.com/{{ nickname }}/" class="btn btn-more">View More</a></li>
+                        {% if instagram %}
+                            {% for i in instagram %}
+                                <li><a href=""><img src="{{ i }}" class="img-responsive" alt=""/></a></li>
+                            {% endfor %}
+                            <li style="padding-top:30px"><a href="http://instagram.com/{{ nickname }}/" class="btn btn-more">View More</a></li>
                         {% else %}
-                        <a href="{% url 'social:begin' 'instagram' %}">Connect to instagram</a>
-                    {% endif %}
+                            {% if display == "profile" %}
+                                <a href="{% url 'social:begin' 'instagram' %}">Connect to instagram</a>
+                            {% endif %}
+                        {% endif %}
 
+                        {% if display == "profile" %}
+                            {% csrf_token %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -250,3 +232,20 @@
 {#    {% endif %}#}
 
 {% endblock %}
+
+{% block extra-script %}
+<script src="{% static "js/jquery.waypoints.min.js" %}"></script>
+<script>
+$(function() {
+$('#blurpoint').waypoint({
+  handler: function(direction) {
+    if (direction == "down") {
+        $(".profile-landing-bg").addClass("fading");
+    } else {
+        $(".profile-landing-bg").removeClass("fading");
+    }
+  }
+})
+});
+</script>
+{% endblock extra-script %}

@@ -17,60 +17,32 @@
      
         <div class="search-filter-nav">
           <ul>
-            <li><a href="#">WINNERS</a></li>
-            <li><a href="#">PATRONS</a></li>
-            <li><a href="#">SPONSORS</a></li>
+            <li><a href="?type=winners">WINNERS</a></li>
+            <li><a href="?type=patrons">PATRONS</a></li>
+            <li><a href="?type=sponsors">SPONSORS</a></li>
           </ul>
         </div>
         <div class="artists-search-section">
           <div class="row">
-          <div class="col-sm-3">
+            {% if hall_of_famers %}
+            {% for hall_of_famer in hall_of_famers %}
+            <div class="col-sm-3">
               <div class="music-overview-block widget-pro  hall-fame"><img alt="" class="img-responsive" src="{% static "images/artist-profile-bg.png" %}">
               <div style=" position:relative" class="profile-head">
                 <div class="profile-pic"><img alt="" class="img-responsive img-circle" src="{% static "images/profile-pic2.png" %}"></div>
                 <div class="profile-circle-img">
-                  <div class="profile-circle profile-circle-green">
+                  <div class="profile-circle profile-circle-{% cycle 'green' 'yellow' 'blue' %}">
                   </div>
                 </div>
-                <h3>Martin Scotner</h3>
+                <h3>{{hall_of_famer.user.display_name}}</h3>
                 <p>Artist</p>
               </div>
-              <div class="profile-view-bar"> <a class="btn btn-sm btn-green" href="#">View More</a> </div>
+              <div class="profile-view-bar"> <a class="btn btn-sm btn-{% cycle 'green' 'yellow' 'blue' %}" href="{% url "single_artist" hall_of_famer.user.user.username %}">View More</a> </div>
             </div>
             </div>
-          
-          
-            <div class="col-sm-3">
-              <div class="music-overview-block widget-pro  hall-fame"><img alt="" class="img-responsive" src="{% static "images/artist-profile-bg.png" %}">
-              <div style=" position:relative" class="profile-head">
-                <div class="profile-pic"><img alt="" class="img-responsive img-circle" src="{% static "images/profile-pic2.png" %}"></div>
-                <div class="profile-circle-img">
-                  <div class="profile-circle profile-circle-yellow"></div>
-                </div>
-                <h3>Martin Scotner</h3>
-                <p>Artist</p>
-              </div>
-              <div class="profile-view-bar"> <a class="btn btn-sm btn-yellow" href="#">View More</a> </div>
-            </div>
-            </div>
+            {% endfor %}
+            {% endif %}
             
-            
-            
-            <div class="col-sm-3">
-             
-            <div class="music-overview-block widget-pro hall-fame"><img alt="" class="img-responsive" src="{% static "images/artist-profile-bg.png" %}">
-              <div style=" position:relative" class="profile-head">
-                <div class="profile-pic"><img alt="" class="img-responsive img-circle" src="{% static "images/profile-pic2.png" %}"></div>
-                <div class="profile-circle-img">
-                  <div class="profile-circle-blue"></div>
-                </div>
-                <h3>Dylan Dudele</h3>
-                <p>Artist</p>
-              </div>
-              <div class="profile-view-bar"> <a class="btn btn-sm btn-blue" href="#">View More</a> </div>
-            </div>
-         
-            </div>
             
             
             

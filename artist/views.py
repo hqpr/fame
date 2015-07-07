@@ -3,9 +3,12 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from social.apps.django_app.default.models import UserSocialAuth
-from media.models import Audio, VideoPlaylist, Video
+from media.models import Audio, Video, AudioPlaylist, PlaylistItem
 from instagram.client import InstagramAPI
 from django.conf import settings
+
+from .models import UserRoles
+from userprofile.models import UserProfile
 
 
 # Create your views here.
@@ -13,8 +16,13 @@ def artists(request):
     """View all artists"""
 
     template_name = 'artists.html'
+    artists = UserProfile.objects.filter(user__in=[i.user for i in UserRoles.objects.filter(roles=1,user__in=User.objects.all())])
+    print User.objects.all()
+    print artists
+
     template_data = {
         "string": "All Artists Page",
+        "artists": artists
     }
 
     return render_to_response(template_name,
@@ -28,20 +36,22 @@ def single_artist(request, *args, **kwargs):
         try:
             username = kwargs["slug"]
             user = User.objects.get(username=username)
+            display = "artist"
         except:
             return HttpResponse("Error")
     else:
         if not request.user.is_authenticated:
             return HttpResponse("Error")
         user = request.user
+        display = "profile"
 
     string = get_profile_string(kwargs, user)
     audios = Audio.objects.filter(user=user, is_complete=True).order_by('-added')
-    playlists = VideoPlaylist.objects.filter(user=request.user)[:4]
+    playlists = AudioPlaylist.objects.filter(user=user)[:4]
     videos = Video.objects.filter(user=user, is_complete=True).order_by('-added')[:2]
 
     try:
-        a = UserSocialAuth.objects.get(user_id=request.user.id, provider='instagram')
+        a = UserSocialAuth.objects.get(user_id=user.id, provider='instagram')
         access_token = a.access_token
         api = InstagramAPI(access_token=access_token, client_secret=settings.SOCIAL_AUTH_INSTAGRAM_SECRET)
         recent_media, next_ = api.user_recent_media(user_id=int(a.uid), count=23)
@@ -61,7 +71,9 @@ def single_artist(request, *args, **kwargs):
         'instagram': instagram,
         'nickname': nickname,
         'playlists': playlists,
-        'videos': videos
+        'videos': videos,
+        'user': user,
+        'display': display
     }
 
     return render_to_response(template_name,

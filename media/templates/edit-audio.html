@@ -1,0 +1,80 @@
+{% load static from staticfiles %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
+    <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
+    <script src="{% static 'js/profile.js' %}"></script>
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+{% endblock %}
+
+<div class="modal-body">
+    <h3>Edit the track</h3>
+    <form role="form" action="{% url 'edit_audio' object_id=object_id %}" method="post" id="edit_audio_form">
+        {% csrf_token %}
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+                    <p style="position: relative !important;">or DRAG AND DROP</p>
+                    <input type="file" name="cover" id="id_cover" />
+                    <img src="{{ MEDIA_URL }}{{ form.instance.cover }}" class="img-responsive"  alt="">
+                </div>
+
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label>Title</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label>Artist</label>
+                    {{ form.artist }}
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Track Type</label>
+                            {{ form.type }}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Genre</label>
+                            {{ form.genre }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Privacy</label>
+                    {{ form.bpm }}
+                </div>
+              <div class="form-group">
+                <label>Key</label>
+                {{ form.privacy }}
+              </div>
+            </div>
+        </div>
+        <div class="form-btn clearfix">
+            <button type="submit" class="btn btn-default btn-cancel" onclick="return false">CANCEL</button>
+            <button type="submit" class="btn btn-default btn-blue" id="update_audio" onclick="return false">UPDATE</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('.dropzone').html5imageupload();
+    $('.selectpicker').selectpicker();
+</script>

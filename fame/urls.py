@@ -42,8 +42,8 @@ urlpatterns = [
     url(r'^user/', include('userprofile.urls')),
 
     # api
-    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/test/', include(router.urls)),
+    # url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include('api_rest.urls')),
 
     # static pages
     url(r'^profile/$', login_required(single_artist), {"display": "profile"}, name="profile"),

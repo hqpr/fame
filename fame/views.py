@@ -1,11 +1,27 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 
+from userprofile.models import HallOfFameArtists
+
 def home(request):
     return render(request, 'home.html', {})
 
 def hall_of_fame(request):
-    return render(request, 'hall-of-fame.html', {})
+    args = {
+        "hall_of_fame__id": 1
+    }
+    try:
+        args["type"] = request.GET["type"]
+    except:
+        pass
+
+    hall_of_famers = HallOfFameArtists.objects.filter(**args).order_by('ordering')
+    
+    template_data = {
+        "hall_of_famers": hall_of_famers
+    }
+
+    return render(request, 'hall-of-fame.html', template_data)
 
 def search(request):
     return render(request, 'search.html', {})

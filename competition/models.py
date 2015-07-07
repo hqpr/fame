@@ -724,6 +724,11 @@ class CompetitionEntryLike(models.Model):
         db_table = "competition_entry_likes"
         unique_together = ('competition_entry', 'fan',)
 
+    def save(self, *args, **kwargs):
+        print self.competition_entry, self.fan
+        assert False
+        super(CompetitionEntryLike).save(*args, **kwargs)
+
 
 class CompetitionEntryComment(models.Model):
     """Competition entry comment"""

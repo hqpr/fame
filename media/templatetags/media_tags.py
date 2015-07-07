@@ -1,0 +1,20 @@
+from django import template
+from ..models import Audio, AudioLike
+register = template.Library()
+
+@register.inclusion_tag('rating-large.html')
+def audio(audio, user, display, size):
+    if user:
+        liked_audio = ""
+        try:
+            AudioLike.objects.get(fan=user,audio=audio)
+            liked_audio = " active"
+        except:
+            pass
+    # poll = Choice.objects.all()
+    return { 
+        'audio': audio,
+        'display': display,
+        'liked_audio' : liked_audio,
+        'size': size
+    }

@@ -18,6 +18,7 @@
 {% block content %}
 
 <div class="content faq-bg news-page">
+    {% if featured_blogs %}
       <div class="news-banner-bg">
         <div class="row">
           <div class="col-sm-7 pad5 relative"> <img src="{% static "images/news-banner-pic.png" %}" class="img-responsive" alt="">
@@ -26,40 +27,29 @@
           <div class="col-sm-5 pad5">
             <div class="news-banner-content">
               <div class="fire-icon"></div>
-              <div class="news-block active">
+              <div class="news-block {% if forloop.counter == 1 %}active{% endif %}">
                 <h4>Hot News</h4>
+              {% for blog in featured_blogs %}
                 <ul class="news-date">
                   <li class="hot">HOT</li>
                   <li>|</li>
-                  <li class="date">12 Jun 2015</li>
+                  <li class="date">{{blog.publish_date|date:"d M Y"}}</li>
                 </ul>
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</p>
-              </div>
-              <div class="news-block">
-                <ul class="news-date">
-                  <li class="hot">HOT</li>
-                  <li>|</li>
-                  <li class="date">12 Jun 2015</li>
-                </ul>
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</p>
-              </div>
-              <div class="news-block">
-                <ul class="news-date">
-                  <li class="hot">HOT</li>
-                  <li>|</li>
-                  <li class="date">12 Jun 2015</li>
-                </ul>
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</p>
+                <p><a href="{% url "single_blog" blog.slug %}">{{blog.snippet}}</a></p>
+              {% endfor %}
               </div>
             </div>
           </div>
         </div>
       </div>
+      {% endif %}
+      {% if blogs %}
       <div class="hot-news-section clearfix">
         <h3>Latest Articles</h3>
         <div class="row">
+          {% for blog in blogs %}
           <div class="col-sm-3 news-section">
-            <div class="news-thumb relative"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a>
+            <div class="news-thumb relative"><a href="{% url "single_blog" blog.slug %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a>
               <div class="banner-sticker-hot-small"></div>
             </div>
             <div class="news-block active">
@@ -68,172 +58,16 @@
                 <li>|</li>
                 <li class="date">12 Jun 2015</li>
               </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+              <h5>{{blog.title}}</h5>
               <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
+                <p>{{blog.snippet}}</p>
               </div>
             </div>
           </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3 news-section">
-            <div class="news-thumb"><a href="{% url "single_blog" "example" %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a></div>
-            <div class="news-block active">
-              <ul class="news-date">
-                <li class="hot">HOT</li>
-                <li>|</li>
-                <li class="date">12 Jun 2015</li>
-              </ul>
-              <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-              <div class="news-details">
-                <p>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi alkadoij aoifjad fpoasjf apojdf pod ali </p>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
+      {% endif %}
       
       <!--Start: Bannner--> 
       

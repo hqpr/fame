@@ -32,3 +32,20 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return "%s" % self.user
 
+class HallOfFame(models.Model):
+    title = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255)
+
+
+HALL_OF_FAME_TYPES = (
+    ("winners","Winners"),
+    ("patrons","Patrons"),
+    ("sponsors","Sponsors"),
+)
+
+
+class HallOfFameArtists(models.Model):
+    hall_of_fame = models.ForeignKey(HallOfFame)
+    user = models.OneToOneField(UserProfile)
+    type = models.CharField(max_length=10,choices=HALL_OF_FAME_TYPES, default="winners")
+    ordering = models.IntegerField()

@@ -40,3 +40,4 @@ whitenoise==1.0.6
 djangorestframework
 markdown
 django-filter
+djangular

@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import Audio, Genre, Image, Video, VideoPlaylist
+from suit.admin import SortableTabularInline
+
+from .models import Audio, Genre, Image, Video, AudioPlaylist, PlaylistItem
 
 # Register your models here.
 class GenreAdmin(admin.ModelAdmin):
@@ -19,12 +21,17 @@ class VideoAdmin(admin.ModelAdmin):
     """Handle Video"""
     model = Video
 
-class VideoPlaylistAdmin(admin.ModelAdmin):
-    """Handle Video"""
-    model = VideoPlaylist
+class PlaylistItemInline(SortableTabularInline):
+    model = PlaylistItem
+    sortable = "ordering"
+
+class AudioPlaylistAdmin(admin.ModelAdmin):
+    """Handle Audio"""
+    model = AudioPlaylist
+    inlines = [PlaylistItemInline]
 
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Audio, AudioAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Video, VideoAdmin)
-admin.site.register(VideoPlaylist, VideoPlaylistAdmin)
+admin.site.register(AudioPlaylist, AudioPlaylistAdmin)

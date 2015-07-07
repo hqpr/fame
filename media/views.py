@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
@@ -6,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, UpdateView
 import simplejson
 from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm
-from .models import Audio, VideoPlaylist, Video
+from .models import Audio, AudioPlaylist, Video, PlaylistItem
 import datetime
 import time
 from base64 import decodestring
@@ -65,7 +66,7 @@ class AudioView(UpdateView):
 
 
 class PlayListView(FormView):
-    template_name = 'create_playlist.html'
+    template_name = 'create-playlist.html'
     form_class = PlayListForm
 
     def get_context_data(self, **kwargs):
@@ -102,7 +103,7 @@ def playlist_cover(request):
         _, b64data = request.POST['data'].split(',')
         f.write(decodestring(b64data))
         f.close()
-        VideoPlaylist.objects.create(user=request.user, cover='playlists/%s/%s/%s/%s' % (time.strftime("%y"),
+        AudioPlaylist.objects.create(user=request.user, cover='playlists/%s/%s/%s/%s' % (time.strftime("%y"),
                                                                                          time.strftime("%m"),
                                                                                          time.strftime("%d"), f_name))
         return redirect('profile')
@@ -116,7 +117,7 @@ def trackcard(request, track_id):
 
 class AudioUpdateView(UpdateView):
     model = Audio
-    template_name = 'edit_audio.html'
+    template_name = 'edit-audio.html'
     form_class = AudioForm
 
     def get_context_data(self, **kwargs):
@@ -212,3 +213,33 @@ def videocard(request, video_id):
 
 def all_media(request):
     return render(request, 'hall-of-fame.html', {})
+
+def add_to_playlist(request, track_id):
+    lists = AudioPlaylist.objects.filter(user=request.user)
+    audio = Audio.objects.get(id=track_id)
+    data = {'lists': lists, 'audio': audio}
+    if request.method == 'POST':
+        playlist_id = request.POST.get('playlist_name', None)
+        if playlist_id and track_id:
+            try:
+                exist = PlaylistItem.objects.order_by('-pk')[0]
+                try:
+                    PlaylistItem.objects.create(playlist_id=playlist_id, audio_id=track_id, ordering=exist.ordering+1)
+                except IntegrityError:
+                    data = {
+                        'success': False,
+                        'msg': 'Track is already in that list!'
+                    }
+                    return HttpResponse(simplejson.dumps(data), content_type='application/json')
+            except IndexError:
+                PlaylistItem.objects.create(playlist_id=playlist_id, audio_id=track_id, ordering=1)
+                data = {
+                    'success': True
+                }
+                return HttpResponse(simplejson.dumps(data), content_type='application/json')
+        data = {
+            'success': False
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    return render(request, 'add-to-playlist.html', data)

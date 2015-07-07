@@ -68,4 +68,36 @@ $(document).ready(function(){
         $('.click-to-move').show()
     });
 
+
+    // playlist
+    $('#create_playlist').on('click', function () {
+        $('#playlist_form').ajaxSubmit({
+            success: function(data){
+                if (data.success) {
+                    $('#upload_music_modal').modal('hide');
+                    window.location.href = "/profile/";
+                } else {
+                    console.log('error');
+                    $('.modal-body').html(data.html);
+                }
+            }
+            //dataType: 'json'
+        });
+    });
+    // add track to playlist
+    $('#connect_to_playlist').on('click', function () {
+        $('#add_to_playlist_form').ajaxSubmit({
+            success: function(data){
+                if (data.success) {
+                    $('#upload_music_modal').modal('hide');
+                    window.location.href = "/profile/";
+                } else {
+                    console.log(data.msg);
+                    $('#playlist_error').text(data.msg);
+                }
+            },
+            dataType: 'json'
+        });
+    });
+
 });

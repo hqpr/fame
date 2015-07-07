@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
@@ -133,16 +134,72 @@ class Video(models.Model):
         db_table = "media_video"
 
 
-class VideoPlaylist(models.Model):
+class AudioPlaylist(models.Model):
     title = models.CharField(max_length=255)
-    artist = models.CharField(max_length=255, default=None)
-    genre = models.ForeignKey(Genre, default=1)
-    privacy = models.CharField(max_length=100, default=None)
     description = models.TextField(default=None)
     cover = models.ImageField(upload_to='playlists/%y/%m/%d', blank=True, null=True)
-    videos = models.ManyToManyField(Video, blank=True, null=True)
     user = models.ForeignKey(User)
     added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __unicode__(self):
         return u'%s - %s' % (self.user, self.title)
+
+    def files(self):
+        return self.playlistitem_set.order_by('ordering')
+
+
+class PlaylistItem(models.Model):
+    playlist = models.ForeignKey(AudioPlaylist)
+    audio = models.ForeignKey(Audio)
+    ordering = models.IntegerField()
+
+    class Meta:
+        db_table = "playlist_item"
+        unique_together = ('playlist', 'audio',)
+
+
+class AudioLike(models.Model):
+    audio = models.ForeignKey(Audio)
+    fan = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.fan:
+            if self.fan == self.audio.user:
+                raise ValidationError({"fan": "Cannot like your own track."})
+        """Clean before saving"""
+        if not self.is_unique_entry:
+            raise ValidationError({"audio": "You have already liked this track"})
+
+    def is_unique_entry(self):
+        audio_like = AudioLike.objects.filter(audio=self.audio, fan=self.fan).exclude(id=self.id)
+        if len(audio_like):
+            return False
+        return True
+
+    def __unicode__(self):
+        return "%s: %s" % (self.audio, self.fan)
+
+    class Meta:
+        db_table = "audio_likes"
+        unique_together = ('audio', 'fan',)
+
+class AudioComment(models.Model):
+    audio = models.ForeignKey(Audio)
+    fan = models.ForeignKey(User)
+    comment = models.TextField()
+    time_specific = models.BooleanField(default=False)
+    time = models.IntegerField() # the time in seconds
+    approved = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.fan:
+            if self.fan == self.audio.user:
+                raise ValidationError({"fan": "Cannot like your own track."})
+
+    def __unicode__(self):
+        return "%s: %s" % (self.audio, self.fan)
+
+    class Meta:
+        db_table = "audio_comments"

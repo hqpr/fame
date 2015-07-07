@@ -9,3 +9,48 @@
         width: calc(100% - 195px);
     }
 }
+.news2-banner-bg .quote {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.profile-landing-bg {
+    position: relative;
+    overflow: hidden;
+    background-attachment: fixed;
+    background: none;
+}
+.main-wrap .profile-landing-bg::before {
+    -webkit-transition: all 0.3s;
+    /*transition: all 2s;*/
+    content: "";
+    background: #FFF url(../images/landing-bg.png) no-repeat top center;
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    display: block;
+    /*top: 0;*/
+    /*left: 0;*/
+    z-index:0;
+    top: -30px;
+    left: -30px;
+    background-size: contain;
+}
+.main-wrap .profile-landing-bg.fading::before {
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+
+}
+.profile-bg-blue > .row {
+    position: relative;
+}
+.music-track-block {
+    position: relative;
+}
+.music-track-block .track-info.track-info-profile {
+    float: left;
+    position: absolute;
+    top: 145px;
+}
