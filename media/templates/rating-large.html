@@ -6,7 +6,7 @@
         </div>
     </div>
     {% endif %}
-    <div class="pro-overview-thumb" style="overflow-y: hidden"><img src="/media/{{ audio.cover }}"  class="img-responsive" alt=""></div>
+    <div class="pro-overview-thumb" style="overflow-y: hidden"><img src="{{ MEDIA_URL }}{{ audio.cover }}"  class="img-responsive" alt=""></div>
     <div class="music-track-block modal-music">
         <h4>{{ audio.name }}</h4>
         <p><span>{{ audio.artist }}</span></p>
@@ -38,5 +38,5 @@
             <h5>{{ audio.name }}</h5>
             <span class="subtxt">{{ audio.artist }}</span> </div>
     </div>
-<img src="/media/{{ audio.cover }}" class="img-responsive" alt=""> </div>
+<img src="{{ MEDIA_URL }}{{ audio.cover }}" class="img-responsive" alt=""> </div>
 {% endif %}

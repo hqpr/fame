@@ -225,11 +225,14 @@
             </div>
         </div>
     </div>
-{#    {% if not valid %}#}
-{#        <script>#}
-{#            window.location.href = "/user/register/{{ user_id }}/";#}
-{#        </script>#}
-{#    {% endif %}#}
+
+    <!--Start: Check if profile is valid-->
+    {% if not valid %}
+        <script>
+            window.location.href = "/user/register/{{ user_id }}/";
+        </script>
+    {% endif %}
+    <!--End: Check if profile is valid-->
 
 {% endblock %}
 

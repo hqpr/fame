@@ -82,7 +82,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                # 'userprofile.context_processors.check_profile'
+                'userprofile.context_processors.check_profile'
             ],
         },
     },
@@ -128,13 +128,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'fame')
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, "static"),
-    # '/var/www/static/',
-# )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'server_media')
 MEDIA_URL = '/media/'
 

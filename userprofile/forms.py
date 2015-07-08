@@ -44,6 +44,8 @@ class UserProfileForm(forms.ModelForm):
         'class': 'selectpicker form-control',
         'data-style': 'btn-select'
     }))
+    picture = forms.FileField()
+    picture.widget.attrs['style'] = 'opacity:0;width:100px;height:0;'
 
     class Meta:
         model = UserProfile

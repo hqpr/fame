@@ -9,6 +9,7 @@
     <link href="{% static 'datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
     <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -45,10 +46,11 @@
                         {% endif %}
                         <div id="reg_step_2_2" style="display: none">
                             <div class="fame-music-logo-block">
-                                <div class="drad-drop-picture">DRAG AND DROP<br/>
+                                <div class="drad-drop-picture dropzone" style="margin-left: 80px;" data-width="165" data-height="165" data-resize="true">DRAG AND DROP<br/>
                                     your <br/>
                                     profile picture
-                                    {{ form.picture }}
+{#                                    {{ form.picture }}#}
+                                    <input type="file" name="picture" id="id_picture" />
                                 </div>
 
                             </div>
@@ -86,7 +88,7 @@
         $('#id_birthday').datepicker({
             format: "yyyy-mm-dd"
         });
-        {#        $('.dropzone').html5imageupload();#}
+        $('.dropzone').html5imageupload();
     </script>
 
 {% endblock %}

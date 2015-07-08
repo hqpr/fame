@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from ..models import Audio, AudioLike
 register = template.Library()
 
@@ -7,14 +8,15 @@ def audio(audio, user, display, size):
     if user:
         liked_audio = ""
         try:
-            AudioLike.objects.get(fan=user,audio=audio)
+            AudioLike.objects.get(fan=user, audio=audio)
             liked_audio = " active"
         except:
             pass
     # poll = Choice.objects.all()
-    return { 
+    return {
+        'MEDIA_URL': settings.MEDIA_URL,
         'audio': audio,
         'display': display,
-        'liked_audio' : liked_audio,
+        'liked_audio': liked_audio,
         'size': size
     }
