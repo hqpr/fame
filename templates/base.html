@@ -21,7 +21,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
 $(document).ready(function(){
     $("#bttn").click(function(){
@@ -60,7 +60,7 @@ $(document).ready(function(){
       
       <ul class="left-bot-nav">
         {% if user.is_authenticated %}
-        <li><a href="{% url "home" %}"><span class="gen-icon"></span> <span  class="hidden-md-link">Insights</span></a></li>
+        <li><a href="{% url "insights" %}"><span class="gen-icon"></span> <span  class="hidden-md-link">Insights</span></a></li>
         <li><a href="{% url "connections" %}" {% if "/connections" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Connections</span></a></li>
         <li><a href="{% url "settings" %}" {% if request.get_full_path == "/settings/" %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Settings</span></a></li>
         <li><a href="{% url "logout" %}"><span class="gen-icon"></span> <span  class="hidden-md-link">Log Out</span></a></li>
@@ -371,14 +371,21 @@ etition adoih aodsjd poaisj </p>
   {% endblock sidebar-right %}
 </div>
 
+
+<div class="modal modal-absolute" id="modal-body">
+    <div class="modal-dialog" style="z-index: 9991">
+        <div class="modal-content modal-music">
+            <div class="modal-body share-profile"><a href="#" class="close-icon">close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% block script %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
-<script src="{% static 'js/html5shiv-printshiv.js' %}"></script> 
-{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
 <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script> 
-{#<script type="text/javascript" src="{% static 'js/retina.js' %}"></script> #}
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+{#<script type="text/javascript" src="{% static 'js/retina.js' %}"></script>#}
 <script defer src="{% static 'js/scripts.js' %}"></script>
 <script defer src="{% static 'js/upload_file.js' %}"></script>
 <script defer src="{% static 'js/jquery.form.min.js' %}"></script>

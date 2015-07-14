@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     artist_name = models.CharField(max_length=100, blank=True, null=True)
     is_complete = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(default=datetime.datetime.now())
+    modified = models.DateTimeField(default='')
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """

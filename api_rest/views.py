@@ -10,9 +10,6 @@ def audio_like(request):
     """
     List all snippets, or create a new snippet.
     """
-    """
-    List all snippets, or create a new snippet.
-    """
     if request.method == 'GET':
         snippets = AudioLike.objects.all()
         serializer = AudioLikeSerializer(snippets, many=True)

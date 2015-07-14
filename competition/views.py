@@ -5,8 +5,11 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+import simplejson
 
-from .models import Competition
+from .models import Competition, CompetitionEntry, CompetitionEntryAudio, CompetitionStage, \
+    CompetitionStageRequirement, CompetitionEntryVideo
+from media.models import Audio, Video
 
 # Create your views here.
 def competitions(request, *args, **kwargs):
@@ -77,10 +80,43 @@ def single_competition(request, *args, **kwargs):
 
 def single_competition_enter(request, *args, **kwargs):
     """Enter a given competitions"""
+    competition = Competition.objects.get(slug=kwargs["slug"])
+
+    if request.method == 'POST':
+        entry = CompetitionEntry.objects.get(competition=competition)
+        competition_stage = CompetitionStage.objects.get(competition=competition)
+        competition_stage_requirement = CompetitionStageRequirement.objects.get(competition_stage=competition_stage)
+
+        try:
+            audio_id = request.POST.get('audio', None)
+            audio = Audio.objects.get(id=int(audio_id))
+            if competition_stage_requirement:
+                try:
+                    CompetitionEntryAudio.objects.create(competition_entry=entry,
+                                                         competition_stage_requirement=competition_stage_requirement,
+                                                         entry=audio)
+                    return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
+                except:
+                    return HttpResponse(simplejson.dumps({'success': False}), content_type='application/json')
+        except:
+            video_id = request.POST.get('video', None)
+            video = Video.objects.get(id=int(video_id))
+            try:
+                CompetitionEntryVideo.objects.create(competition_entry=entry,
+                                                     competition_stage_requirement=competition_stage_requirement,
+                                                     entry=video)
+                return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
+            except:
+                return HttpResponse(simplejson.dumps({'success': False}), content_type='application/json')
+
+    tracks = Audio.objects.filter(user=request.user, is_complete=True)
+    videos = Video.objects.filter(user=request.user, is_complete=True)
 
     template_name = 'enter-competition.html'
     template_data = {
-        "string": "Enter Competition Page",
+        'competition': competition,
+        'tracks': tracks,
+        'videos': videos
     }
 
     return render_to_response(template_name,

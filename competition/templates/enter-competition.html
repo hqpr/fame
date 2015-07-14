@@ -1,4 +1,373 @@
-{% extends 'base.html' %}
-{% block content %}
-{{string}}
+{% load static from staticfiles %}
+{% block extrahead %}
+    <link href="{% static 'css/jquery.jscrollpane.css' %}" rel="stylesheet" type="text/css" />
+    <script defer src="{% static 'js/prettyCheckable.min.js' %}"></script>
+    <script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
+    <script src="{% static 'js/jquery.jscrollpane.min.js"' %}"></script>
+    <script src="{% static 'js/competition.js"' %}"></script>
+    <link href="{% static 'css/prettyCheckable.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
+
+{# first step #}
+<div class="modal-body share-profile" id="competition_step1"><a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line"></div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h4>{{ competition.name }}</h4>
+        <div class="wemc-img"><img src="{{ MEDIA_URL }}{{ competition.competition_page_image }}"  class="img-responsive img-rounded"  alt=""></div>
+        <h5>About {{ competition.name }}</h5>
+        <p>{{ competition.competition_page_description }}</p>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="cancel">CANCEL</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
+    </div>
+</div>
+
+{# second step #}
+<div class="modal-body share-profile" id="competition_step2" style="display: none">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled" style="width:25%"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Pick a track you wish to use</h3>
+        <form role="form">
+            <div class="upload-track-full">
+                <div class="drad-here-holder"><a href="javascript:void(0)" class="btn btn-bdr-red" id="competition_upload_track">UPLOAD A TRACK</a>
+{#                <form action="{% url 'add_audio_step1' %}" method="post" enctype="multipart/form-data" id="form_upload_step1">#}
+{#                    <input type="file" name="audio" id="id_audio"/>#}
+{#                </form>#}
+                    {#        <p>or DRAG AND DROP</p>#}
+                </div>
+            </div>
+            <div class="import-links clearfix">
+                <h5><a href="javascript:void(0)"  id="pick_a_track">or Pick a track</a></h5>
+                <h5> or Import tracks from:</h5>
+                <ul class="track-list">
+                    <li><a href="/login/spotify/"><img src="{% static 'images/impot-track-icon01.png' %}" width="31" height="29" alt=""></a></li>
+                    <li><a href="/login/mixcloud/"><img src="{% static 'images/impot-track-icon02.png' %}" width="43" height="29" alt=""></a></li>
+                    <li><a href="/login/soundcloud/"><img src="{% static 'images/impot-track-icon03.png' %}" width="39" height="29" alt=""></a></li>
+                    <li><a href="#"><img src="{% static 'images/impot-track-icon04.png' %}" width="73" height="29" alt=""></a></li>
+                    <li class="last"><a href="#"><img src="{% static 'images/impot-track-icon05.png' %}" width="126" height="29" alt=""></a></li>
+                </ul>
+            </div>
+        </form>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="back_to_step1">BACK</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
+    </div>
+</div>
+
+{# upload a track #}
+<div class="modal-body share-profile" id="competition_upload_audio" style="display: none"><a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Upload a Track</h3>
+
+
+
+
+{#        <form role="form" action="">#}
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="track-thumb upload-track-thumb"> <a href="#" class="btn btn-red btn-sm"> UPLOAD AN IMAGE</a>
+                        <p>or DRAG AND DROP</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" name="name" class="form-control" placeholder="Technicolor (Original Mix)">
+                    </div>
+                    <div class="form-group">
+                        <label>Artist</label>
+                        <input type="text" name="artist" class="form-control" placeholder="Madeon">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>privacy</label>
+                                <select class="selectpicker  form-control"  data-style="btn-select">
+                                    <option>Private</option>
+                                    <option>Ketchup</option>
+                                    <option>Relish</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Genre</label>
+                                <select class="selectpicker  form-control"  data-style="btn-select">
+                                    <option>Electro</option>
+                                    <option>Ketchup</option>
+                                    <option>Relish</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Describe your track"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a><a href="#" class="btn btn-pink">NEXT</a></div>
+{#        </form>#}
+    </div>
+</div>
+
+{# select track #}
+<div class="modal-body mobcard share-profile" id="competition_select_track" style="display: none">
+    <a href="#" class="close-icon">close</a>
+    <form action="{% url 'single_competition_enter' slug=competition.slug %}" method="post" id="competition_select_track_form">
+        <div class="enter-competition">
+            <div class="steps-count">
+                <div class="line">
+                    <div class="step2-filled"></div>
+                </div>
+                <ul>
+                    <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                    <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                    <li><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                    <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                    <li><a href="#"><span class="cricle">5</span>Success</a></li>
+                </ul>
+            </div>
+            <h3>Pick a track you wish to use</h3>
+
+            <div class="scroll-pane-aria">
+                <div class="scroll-pane">
+
+                    {% csrf_token %}
+                    {% for track in tracks %}
+                        <div class="track-pickup-block">
+                            <div class="track-img"><img src="{{ MEDIA_URL }}{{ track.cover }}" class="img-responsive" alt=""></div>
+                            <input type="radio" data-label=""  class="pull-right myClass " name="audio" value="{{ track.id }}" id="checkbox" />
+                            <div class="info"> <span class="track-name">{{ track.name }}</span><br />
+                                {{ track.artist }} </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a><a href="javascript:void(0)" class="btn btn-pink" id="submit_select_track">NEXT</a></div>
+        </div>
+    </form>
+</div>
+
+{# third step #}
+<div class="modal-body share-profile" id="competition_step3" style="display:none;">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled" style="width:50%"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li  class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Pick a track you wish to use</h3>
+        <form role="form">
+            <div class="upload-track-full">
+                <div class="drad-here-holder"><a href="#" class="btn btn-bdr-red">UPLOAD A VIDEO</a>
+                    {#                    <p>or DRAG AND DROP</p>#}
+                </div>
+            </div>
+            <h5><a href="javascript:void(0)" id="pick_a_video">or Pick a video</a></h5>
+            <div class="import-links clearfix">
+                <h5> or Import tracks from:</h5>
+                <ul>
+                    <li><a href="#" class="youtube">Youtube</a></li>
+                    <li><a href="#" class="vimeo">Vimeo</a></li>
+                    <li><a href="#" class="fb">Facebook</a></li>
+                    <li><a href="#" class="dailymotion">Daily motion</a></li>
+                </ul>
+            </div>
+        </form>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel">BACK</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
+    </div>
+</div>
+
+{# select video #}
+<div class="modal-body mobcard share-profile" id="competition_select_video" style="display: none">
+    <a href="#" class="close-icon">close</a>
+    <form action="{% url 'single_competition_enter' slug=competition.slug %}" method="post" id="competition_select_video_form">
+        <div class="enter-competition">
+            <div class="steps-count">
+                <div class="line">
+                    <div class="step2-filled"></div>
+                </div>
+                <ul>
+                    <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                    <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                    <li><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                    <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                    <li><a href="#"><span class="cricle">5</span>Success</a></li>
+                </ul>
+            </div>
+            <h3>Pick a video you wish to use</h3>
+
+            <div class="scroll-pane-aria">
+                <div class="scroll-pane">
+
+                    {% csrf_token %}
+                    {% for video in videos %}
+                        <div class="track-pickup-block">
+                            <div class="track-img"><img src="{{ MEDIA_URL }}{{ video.cover }}" class="img-responsive" alt=""></div>
+                            <input type="radio" data-label=""  class="pull-right myClass " name="video" value="{{ video.id }}" id="checkbox" />
+                            <div class="info"> <span class="track-name">{{ video.name }}</span><br />
+                                {{ video.artist }} </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step3">BACK</a><a href="javascript:void(0)" class="btn btn-pink" id="submit_select_video">NEXT</a></div>
+        </div>
+    </form>
+</div>
+
+{# preview #}
+<div class="modal-body share-profile" id="competition_step4" style="display: none">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled" style="width:75%"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li  class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li  class="active"><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Review your entry</h3>
+        <div class="clearfix">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="card-thumb"><img src="{% static 'images/clarity-thumb.png' %}" class="img-responsive" alt=""> </div>
+                    <div class="track-info">
+                        <h4>Clarity</h4>
+                        <p>ZEDD</p>
+                        <ul class="pl-opt">
+                            <li><a href="#" class="pl-icons like">like</a></li>
+                            <li><a href="#" class="pl-icons comment">Comments</a></li>
+                            <li><a href="#" class="pl-icons music">Music</a></li>
+                            <li><a href="#" class="pl-icons share">Share</a></li>
+                        </ul>
+                        <ul class="pl-counts">
+                            <li><span class="likes"></span>1356</li>
+                            <li><span class="plays"></span>2594</li>
+                            <li><span class="counts"></span>03:45</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-5 right-vidoe-bar" >
+                    <div class="video-holder"></div>
+                </div>
+            </div>
+        </div>
+        <div class="terms-scroll-pane">
+            <div class="scroll-pane">
+                <h4>Terms & Conditions</h4>
+                <p>Countries allowed to participate: France .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Countries allowed to participate: France .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Countries allowed to participate: France .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+            </div>
+        </div>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step3">BACK</a><a href="javascript:void(0)" class="btn btn-pink" id="competition_to_finish">NEXT</a></div>
+    </div>
+</div>
+
+{# final step #}
+<div class="modal-body share-profile" id="competition_step5" style="display:none;">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled" style="width:100%"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li class="active"><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li class="active"><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Success!</h3>
+        <div class="text-center success-text">
+            <h5>Great news! You have successfully entered the competition</h5>
+            <p class="note">Why not invite your friends to vote for you!</p>
+            <div class="choose-social-share">
+                <ul>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                </ul>
+            </div>
+            <p  class="note">Choose a social network you wish to share this on</p>
+        </div>
+        <div class="form-btn"><a href="#" class="btn btn-pink">DONE</a></div>
+    </div>
+</div>

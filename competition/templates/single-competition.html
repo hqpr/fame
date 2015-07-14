@@ -215,8 +215,9 @@
           </div>
         </div>
         <!--End: prize-->
-        
-        <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" /> <span class="com-btn-wrap"><a href="">ENTER THIS COMPETITION</a></span> </div>
+
+          <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" /> <span class="com-btn-wrap"><a href="{% url 'single_competition_enter' slug=competition.slug %}" data-toggle="modal" data-target="#modal-body">ENTER THIS COMPETITION</a></span> </div>
+
       </div>
       <!--End: Right Container-->
 {% endblock %}

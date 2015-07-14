@@ -262,3 +262,5 @@
 /*# sourceMappingURL=bootstrap-select.css.map */
 .btn-select{ background:url(../images/btn-select--bg.png) repeat-y right; border:solid 1px #d7d7d7; font-size:12px; height:30px; color:#999; padding-left:6px}
 
+.enter-competition .btn-select{ background:url(../images/btn-select--bg-red.png) repeat-y right; border:solid 1px #d7d7d7; font-size:12px; height:30px; color:#999; padding-left:6px}
+
