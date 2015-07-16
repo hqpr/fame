@@ -31,6 +31,14 @@ $(document).ready(function(){
           $( this ).find('div').fadeOut(200);
       }
     );
+    $(".playlist_box").hover(
+      function () {
+        $( this ).find('.playlist-thumb-hover').fadeIn(200);
+      },
+      function () {
+          $( this ).find('.playlist-thumb-hover').fadeOut(200);
+      }
+    );
 
     // audio player
     var settings_ap = {

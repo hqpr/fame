@@ -1,0 +1,128 @@
+{% load static from staticfiles %}
+{% block extrahead %}
+    <script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+    <link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+
+    <link href="{% static 'css/jquery.jscrollpane.css' %}" rel="stylesheet" type="text/css" />
+    <script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
+    <script src="{% static 'js/jquery.jscrollpane.min.js"' %}"></script>
+    <style>
+    .slider-clipper {
+        height: 0 !important;
+    }
+    .audioplayer.skin-wave .ap-controls .scrubbar .scrub-bg {
+        height: 65px;
+    }
+    .audioplayer.skin-wave .ap-controls .scrubbar .scrub-bg-reflect img.scrub-bg-img-reflect {
+        display: none;
+    }
+    .skin-wave skin-wave-mode-normal audioplayer active loaded is-playing {
+        position: relative;
+    }
+    ..audioplayer.skin-wave .ap-controls .scrubbar .scrubBox-hover {
+        background: #f10950;
+    }
+    .skin-wave {
+        top: 214px !important;
+    }
+    .audioplayer.skin-wave .ap-controls .con-playpause .playbtn {
+        background-color: #f10950;
+    }
+    .audioplayer.skin-wave .ap-controls .con-controls {
+
+    }
+    .audioplayer.skin-wave .ap-controls .con-playpause .pausebtn {
+        background: #f10950;
+    }
+    .audioplayer.skin-wave .prev-btn, .audioplayer.skin-wave .next-btn {
+        background: #f10950;
+    }
+    .audioplayer.skin-wave .prev-btn, .audioplayer.skin-wave .next-btn {
+        background: #f10950;
+    }
+    .scrubbar {
+        display: none;
+    }
+    .audioplayer.skin-wave .ap-controls {
+        top: -160px;
+        left: 230px;
+    }
+    .meta-artist-con {
+        display: none;
+    }
+    </style>    
+{% endblock %}
+<div class="modal-body">
+    <h3>Playlist Card</h3>
+    <div class="clearfix">
+        <div class="card-thumb"><img src="{{ MEDIA_URL }}{{ playlist.cover }}" class="img-responsive" alt=""> </div>
+        <div class="track-info">
+            <h4>{{ playlist.title }}</h4>
+            <p>ZEDD</p>
+            <ul class="pl-opt">
+                <li><a href="#" class="pl-icons like">like</a></li>
+                <li><a href="#" class="pl-icons comment">Comments</a></li>
+                <li><a href="#" class="pl-icons music">Music</a></li>
+                <li><a href="#" class="pl-icons share">Share</a></li>
+            </ul>
+            <ul class="pl-counts">
+                <li><span class="likes"></span>1356</li>
+                <li><span class="plays"></span>2594</li>
+                <li><span class="counts"></span>03:45</li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-heading ">
+        <table  class="table">
+            <tr>
+                <td width="4%"></td>
+                <td width="20%">SONG </td>
+                <td width="24%">ARTIST</td>
+                <td width="21%">TIME</td>
+                <td width="31%">PLAYS</td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-scroll scroll-pane" id="playlistItems">
+        <table  class="table table-striped">
+
+            {% for file in audios %}
+                <div class="items">
+                <div class="audioplayer-tobe" style="width:100%; " data-videoTitle="Audio Video" data-type="normal" data-source="{{ MEDIA_URL }}{{ file.audio.audio }}" data-sourceogg="{{ MEDIA_URL }}{{ file.audio.audio }}">
+                    <div class="meta-artist"><span class="the-artist">{{ file.title }}</span>
+                        <div class="menu-description">
+                            <div class="menu-item-thumb-con"><div class="menu-item-thumb" style="background-image: url({{ MEDIA_URL }}{{ file.cover }})"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <tr>
+                    <td width="4%">{{ forloop.counter }}</td>
+                    <td width="20%">{{ file.audio.name }} </td>
+                    <td width="24%">{{ file.audio.artist }}</td>
+                    <td width="21%">03:19</td>
+                    <td width="31%">23</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script>
+$(function()
+{
+    $('.scroll-pane').jScrollPane({autoReinitialise: true});
+});
+
+var settings_ap = {
+    disable_volume: 'off'
+    ,disable_scrub: 'default'
+    ,design_skin: 'skin-wave'
+    ,skinwave_dynamicwaves:'on'
+};
+dzsag_init('#playlistItems',{
+    'transition':'fade'
+    ,'autoplay' : 'off'
+    ,'settings_ap':settings_ap
+});
+</script>

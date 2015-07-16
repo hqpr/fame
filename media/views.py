@@ -211,6 +211,13 @@ def videocard(request, video_id):
     data = {'video': video}
     return render(request, 'videocard.html', data)
 
+def playlistcard(request, playlist_id):
+    playlist = AudioPlaylist.objects.get(id=playlist_id)
+    audios = PlaylistItem.objects.filter(playlist_id=playlist_id)
+    data = {'playlist': playlist,
+            'audios': audios}
+    return render(request, 'playlistcard.html', data)
+
 def all_media(request):
     return render(request, 'hall-of-fame.html', {})
 

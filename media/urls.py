@@ -1,6 +1,6 @@
 from django.conf.urls import include, url, patterns
 from .views import AudioView, AudioFileView, PlayListView, trackcard, AudioUpdateView, \
-    playlist_cover, VideoFileView, VideoView, videocard, all_media, add_to_playlist
+    playlist_cover, VideoFileView, VideoView, videocard, all_media, add_to_playlist, playlistcard
 
 urlpatterns = [
     url(r'^$', all_media, name='all_media'),
@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^audio/edit/(?P<object_id>\d+)/$', AudioUpdateView.as_view(), name='edit_audio'),
     url(r'^trackcard/(?P<track_id>\d+)/$', trackcard, name='trackcard'),
     url(r'^videocard/(?P<video_id>\d+)/$', videocard, name='videocard'),
+    url(r'^playlistcard/(?P<playlist_id>\d+)/$', playlistcard, name='playlistcard'),
 
     # image upload
     url(r'^playlist/cover/$', playlist_cover, name='playlist_cover'),
