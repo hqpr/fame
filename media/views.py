@@ -23,7 +23,8 @@ class AudioFileView(FormView):
         fs = form.save()
         data = {
             'success': True,
-            'redirect_to': reverse('add_audio_step2', args=(fs.pk,))
+            'redirect_to': reverse('add_audio_step2', args=(fs.pk,)),
+            'object': fs.pk
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 

@@ -1,31 +1,34 @@
-$().ready(function(){
-    $(".myClass").prettyCheckable();
-    $("#checkboxDiv").click(function() {
-        if ($("#checkbox").is(':checked'))
-        {
-            $("#checkbox").next().removeClass("checked");
-            $('#checkbox').each(function(){ this.checked = false; });
-        } else {
-            $("#checkbox").next().addClass("checked");
-            $('#checkbox').each(function(){ this.checked = true; });
-        }
-    });
-});
-
-
+// custom input
 $(function()
 {
-    $('.scroll-pane').jScrollPane({autoReinitialise: true});
-});
+    // jquery fails if no .myClass on page
+     $(".myClass").prettyCheckable();
 
-$(document).ready(function(){
+    $("#checkboxDiv").click(function() {
+        var checkbx = $("#checkbox")
+        if (checkbx.is(':checked'))
+        {
+            checkbx.next().removeClass("checked");
+            checkbx.each(function(){ this.checked = false; });
+        } else {
+            checkbx.next().addClass("checked");
+            checkbx.each(function(){ this.checked = true; });
+        }
+    });
+
+    // scroll
+    $('.scroll-pane').jScrollPane({autoReinitialise: true});
+
+
     $('.close-icon').on('click', function(){
         $('#modal-body').modal('hide');
     });
     $('#cancel').on('click', function(){
         $('#modal-body').modal('hide');
     });
-    $('.btn-pink').on('click', function(){
+
+    // steps
+    $('#to-2-step').on('click', function(){
         $('#competition_step1').hide();
         $('#competition_step2').show();
     });
@@ -33,10 +36,7 @@ $(document).ready(function(){
         $('#competition_step2').hide();
         $('#competition_step1').show();
     });
-    $('#competition_upload_track').on('click', function(){
-        $('#competition_step2').hide();
-        $('#competition_upload_audio').show();
-    });
+
     $('#pick_a_track').on('click', function(){
         $('#competition_step2').hide();
         $('#competition_select_track').show();
@@ -97,6 +97,24 @@ $(document).ready(function(){
         $('#competition_select_track').hide();
         $('#competition_step4').hide();
         $('#competition_step5').show();
+    });
+
+    $('#id_audio').on('change', function(){
+        console.log('changed');
+        $('#form_upload_step1').ajaxSubmit({
+            success: function(data){
+                if (data.success) {
+                    console.log('success');
+                    console.log(data.redirect_to)
+                } else {
+                    console.log('error');
+                }
+            },
+            dataType: 'json'
+        });
+
+        $('#competition_step2').hide();
+        $('#competition_upload_audio').show();
     });
 
 });

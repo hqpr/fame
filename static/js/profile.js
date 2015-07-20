@@ -92,6 +92,7 @@ $(document).ready(function(){
             //dataType: 'json'
         });
     });
+
     // add track to playlist
     $('#connect_to_playlist').on('click', function () {
         $('#add_to_playlist_form').ajaxSubmit({
@@ -107,6 +108,7 @@ $(document).ready(function(){
             dataType: 'json'
         });
     });
+
 
     $('#trackcard').on('hidden.bs.modal', function () {
         //$('.pausebtn').trigger('click'); // pause audio

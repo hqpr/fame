@@ -1,4 +1,7 @@
 from datetime import datetime
+from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
+from django.views.generic import UpdateView
 import pytz
 
 from django.core.paginator import Paginator
@@ -10,6 +13,7 @@ import simplejson
 from .models import Competition, CompetitionEntry, CompetitionEntryAudio, CompetitionStage, \
     CompetitionStageRequirement, CompetitionEntryVideo
 from media.models import Audio, Video
+from media.forms import AudioForm
 
 # Create your views here.
 def competitions(request, *args, **kwargs):

@@ -3,8 +3,9 @@
     <link href="{% static 'css/jquery.jscrollpane.css' %}" rel="stylesheet" type="text/css" />
     <script defer src="{% static 'js/prettyCheckable.min.js' %}"></script>
     <script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
-    <script src="{% static 'js/jquery.jscrollpane.min.js"' %}"></script>
-    <script src="{% static 'js/competition.js"' %}"></script>
+    <script src="{% static 'js/jquery.jscrollpane.min.js' %}"></script>
+    <script src="{% static 'js/competition.js' %}"></script>
+
     <link href="{% static 'css/prettyCheckable.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
@@ -25,7 +26,7 @@
         <div class="wemc-img"><img src="{{ MEDIA_URL }}{{ competition.competition_page_image }}"  class="img-responsive img-rounded"  alt=""></div>
         <h5>About {{ competition.name }}</h5>
         <p>{{ competition.competition_page_description }}</p>
-        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="cancel">CANCEL</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="cancel">CANCEL</a><a href="javascript:void(0)" class="btn btn-pink" id="to-2-step">NEXT</a></div>
     </div>
 </div>
 
@@ -46,27 +47,26 @@
             </ul>
         </div>
         <h3>Pick a track you wish to use</h3>
-        <form role="form">
             <div class="upload-track-full">
-                <div class="drad-here-holder"><a href="javascript:void(0)" class="btn btn-bdr-red" id="competition_upload_track">UPLOAD A TRACK</a>
-{#                <form action="{% url 'add_audio_step1' %}" method="post" enctype="multipart/form-data" id="form_upload_step1">#}
-{#                    <input type="file" name="audio" id="id_audio"/>#}
-{#                </form>#}
-                    {#        <p>or DRAG AND DROP</p>#}
+                <div class="drad-here-holder"><a href="javascript:void(0)" class="btn btn-bdr-red">UPLOAD A TRACK</a>
+                <form action="{% url 'add_audio_step1' %}" method="post" enctype="multipart/form-data" id="form_upload_step1">
+                    {% csrf_token %}
+                    <input type="file" name="audio" id="id_audio"/>
+                </form>
+{#                            <p>or DRAG AND DROP</p>#}
                 </div>
             </div>
             <div class="import-links clearfix">
                 <h5><a href="javascript:void(0)"  id="pick_a_track">or Pick a track</a></h5>
                 <h5> or Import tracks from:</h5>
                 <ul class="track-list">
-                    <li><a href="/login/spotify/"><img src="{% static 'images/impot-track-icon01.png' %}" width="31" height="29" alt=""></a></li>
-                    <li><a href="/login/mixcloud/"><img src="{% static 'images/impot-track-icon02.png' %}" width="43" height="29" alt=""></a></li>
-                    <li><a href="/login/soundcloud/"><img src="{% static 'images/impot-track-icon03.png' %}" width="39" height="29" alt=""></a></li>
+                    <li><a href="{% url 'social:begin' 'spotify'%}"><img src="{% static 'images/impot-track-icon01.png' %}" width="31" height="29" alt=""></a></li>
+                    <li><a href="{% url 'social:begin' 'mixcloud'%}"><img src="{% static 'images/impot-track-icon02.png' %}" width="43" height="29" alt=""></a></li>
+                    <li><a href="{% url 'social:begin' 'soundcloud'%}"><img src="{% static 'images/impot-track-icon03.png' %}" width="39" height="29" alt=""></a></li>
                     <li><a href="#"><img src="{% static 'images/impot-track-icon04.png' %}" width="73" height="29" alt=""></a></li>
                     <li class="last"><a href="#"><img src="{% static 'images/impot-track-icon05.png' %}" width="126" height="29" alt=""></a></li>
                 </ul>
             </div>
-        </form>
         <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="back_to_step1">BACK</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
     </div>
 </div>
@@ -89,9 +89,7 @@
         <h3>Upload a Track</h3>
 
 
-
-
-{#        <form role="form" action="">#}
+        <form role="form" action="">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="track-thumb upload-track-thumb"> <a href="#" class="btn btn-red btn-sm"> UPLOAD AN IMAGE</a>
@@ -141,7 +139,7 @@
                 </div>
             </div>
             <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a><a href="#" class="btn btn-pink">NEXT</a></div>
-{#        </form>#}
+        </form>
     </div>
 </div>
 
@@ -168,14 +166,19 @@
                 <div class="scroll-pane">
 
                     {% csrf_token %}
-                    {% for track in tracks %}
-                        <div class="track-pickup-block">
-                            <div class="track-img"><img src="{{ MEDIA_URL }}{{ track.cover }}" class="img-responsive" alt=""></div>
-                            <input type="radio" data-label=""  class="pull-right myClass " name="audio" value="{{ track.id }}" id="checkbox" />
-                            <div class="info"> <span class="track-name">{{ track.name }}</span><br />
-                                {{ track.artist }} </div>
-                        </div>
-                    {% endfor %}
+                    {% if tracks %}
+                        {% for track in tracks %}
+                            <div class="track-pickup-block">
+                                <div class="track-img"><img src="{{ MEDIA_URL }}{{ track.cover }}" class="img-responsive" alt=""></div>
+                                <input type="radio" data-label=""  class="pull-right myClass " name="audio" value="{{ track.id }}" id="checkbox" />
+                                <div class="info"> <span class="track-name">{{ track.name }}</span><br />
+                                    {{ track.artist }} </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="myClass"></div>
+                    {% endif %}
+
                 </div>
             </div>
             <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a><a href="javascript:void(0)" class="btn btn-pink" id="submit_select_track">NEXT</a></div>

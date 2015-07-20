@@ -38,7 +38,7 @@ class Audio(models.Model):
     audio = models.FileField(upload_to='audios/%y/%m/%d', default='default.mp3')
     added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     cover = models.FileField(upload_to='audios/covers/%y/%m/%d', blank=True, null=True)
-    plays = models.IntegerField()
+    plays = models.IntegerField(blank=True, null=True)
     is_complete = models.BooleanField(default=False)
 
     def clean(self):
@@ -108,7 +108,7 @@ class Video(models.Model):
     video = models.FileField(upload_to='videos/%y/%m/%d')
     added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     cover = models.FileField(upload_to='videos/covers/%y/%m/%d', blank=True, null=True)
-    plays = models.IntegerField()
+    plays = models.IntegerField(blank=True, null=True)
     is_complete = models.BooleanField(default=False)
 
     def clean(self):
