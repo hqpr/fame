@@ -108,4 +108,11 @@ $(document).ready(function(){
         });
     });
 
+    $('#trackcard').on('hidden.bs.modal', function () {
+        //$('.pausebtn').trigger('click'); // pause audio
+        $(".video-js")[0].player.pause(); // pause video
+
+    });
+
+
 });
