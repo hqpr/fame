@@ -50,6 +50,12 @@
     .meta-artist-con {
         display: none;
     }
+    .audioplayer.skin-wave .ap-controls .con-controls {
+        display: none;
+    }
+    .slider-main {
+        display: none;
+    }
     </style>    
 {% endblock %}
 <div class="modal-body">
@@ -95,7 +101,6 @@
                         </div>
                     </div>
                 </div>
-
                 <tr>
                     <td width="4%">{{ forloop.counter }}</td>
                     <td width="20%">{{ file.audio.name }} </td>
@@ -122,7 +127,7 @@ var settings_ap = {
 };
 dzsag_init('#playlistItems',{
     'transition':'fade'
-    ,'autoplay' : 'off'
+    ,'autoplay' : 'on'
     ,'settings_ap':settings_ap
 });
 </script>

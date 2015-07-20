@@ -49,7 +49,7 @@ $(document).ready(function(){
     };
     dzsag_init('#mixtape',{
         'transition':'fade'
-        ,'autoplay' : 'off'
+        ,'autoplay' : 'on'
         ,'settings_ap':settings_ap
     });
     $('#update_audio').on('click', function(){

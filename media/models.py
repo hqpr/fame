@@ -38,6 +38,7 @@ class Audio(models.Model):
     audio = models.FileField(upload_to='audios/%y/%m/%d', default='default.mp3')
     added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     cover = models.FileField(upload_to='audios/covers/%y/%m/%d', blank=True, null=True)
+    plays = models.IntegerField()
     is_complete = models.BooleanField(default=False)
 
     def clean(self):

@@ -112,6 +112,8 @@ def playlist_cover(request):
 
 def trackcard(request, track_id):
     track = Audio.objects.get(id=track_id)
+    track.plays += 1
+    track.save()
     return render(request, 'trackcard.html', {'track': track})
 
 

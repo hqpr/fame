@@ -264,16 +264,16 @@
 {% block extra-script %}
 <script src="{% static "js/jquery.waypoints.min.js" %}"></script>
 <script>
-{#$(function() {#}
-{#$('#blurpoint').waypoint({#}
-{#  handler: function(direction) {#}
-{#    if (direction == "down") {#}
-{#        $(".profile-landing-bg").addClass("fading");#}
-{#    } else {#}
-{#        $(".profile-landing-bg").removeClass("fading");#}
-{#    }#}
-{#  }#}
-{#})#}
-{#});#}
+$(function() {
+$('#blurpoint').waypoint({
+  handler: function(direction) {
+    if (direction == "down") {
+        $(".profile-landing-bg").addClass("fading");
+    } else {
+        $(".profile-landing-bg").removeClass("fading");
+    }
+  }
+})
+});
 </script>
 {% endblock extra-script %}
