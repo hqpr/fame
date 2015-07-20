@@ -210,6 +210,8 @@ class VideoView(UpdateView):
 
 def videocard(request, video_id):
     video = Video.objects.get(id=video_id)
+    video.plays += 1
+    video.save()
     data = {'video': video}
     return render(request, 'videocard.html', data)
 

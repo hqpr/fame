@@ -12,7 +12,7 @@
 {% block banner-strip %}
 <ul class="after-banner-strip">
       <li class="first"><a href="#"><img src="{{MEDIA_URL}}images/music.png" alt="" /> Electronic</a> <span class="location-france"><a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/> France</a></span></li>
-      <li class="view-chart"><a href="#">View Chart</a></li>
+      <li class="view-chart"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></li>
       <li class="last"><a href="#">1837 ENTRIES</a></li>
       <li><a href="#"><span class="red-txt">NEWS:</span> THE COMPETITION STARTS NOW! <span class="grey-txt">#WEMCAU</span></a></li>
     </ul>
@@ -148,54 +148,60 @@
           <span class="accordion"><a id="imageDivLink4" href="javascript:toggle4('contentDivImg4', 'imageDivLink4');"><img src="{{MEDIA_URL}}images/accordion-default.png" alt="" /></a></span>
           <hr/>
           <div id="contentDivImg4" style="display: block;">
-            <ul class="top-three-wrap">
-              <li>
-                <aside>1</aside>
-                <detail>
-                  <figure><img src="{{MEDIA_URL}}images/top-img-1.jpg" width="52" height="54" alt=""/></figure>
-                  <figcaption>
-                    <h2>True Colors <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
-                    <h4>ZEDD</h4>
-                    <ul>
-                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
-                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
-                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
-                    </ul>
-                  </figcaption>
-                </detail>
-                <span class="rank"> <img src="{{MEDIA_URL}}images/top-1.png" alt="" /> </span> </li>
-              <li>
-                <aside>2</aside>
-                <detail>
-                  <figure><img src="{{MEDIA_URL}}images/top-img-2.jpg" width="52" height="54" alt=""/></figure>
-                  <figcaption>
-                    <h2>Dragon <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
-                    <h4>Martin Garrix</h4>
-                    <ul>
-                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
-                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
-                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
-                    </ul>
-                  </figcaption>
-                </detail>
-                <span class="rank"> <img src="{{MEDIA_URL}}images/top-2.png" alt="" /> </span> </li>
-              <li>
-                <aside>3</aside>
-                <detail>
-                  <figure><img src="{{MEDIA_URL}}images/top-img-3.png" width="52" height="54" alt="" /></figure>
-                  <figcaption>
-                    <h2>Divine Sorrow <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
-                    <h4>AVICII</h4>
-                    <ul>
-                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
-                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
-                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
-                    </ul>
-                  </figcaption>
-                </detail>
-                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png" alt="" /> </span> </li>
+              <ul class="top-three-wrap">
+                  {% for track in competition_tracks %}
+                      <li>
+                          <aside>{{ forloop.counter }}</aside>
+                          <detail>
+                              <figure><img src="{{MEDIA_URL}}{{ track.entry.cover }}" width="52" height="54" alt=""/></figure>
+                              <figcaption>
+                                  <h2>{{ track.entry.name }} <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                  <h4>{{ track.entry.artist }}</h4>
+                                  <ul>
+                                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                      <li><span class="play"><a href="#">&nbsp;</a></span>{{ track.entry.plays }}</li>
+                                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                                  </ul>
+                              </figcaption>
+                          </detail>
+                          <span class="rank"> <img src="{{MEDIA_URL}}images/top-1.png" alt="" /> </span> </li>
+                      <li>
+                  {% endfor %}
+
+
+
+{#                <aside>2</aside>#}
+{#                <detail>#}
+{#                  <figure><img src="{{MEDIA_URL}}images/top-img-2.jpg" width="52" height="54" alt=""/></figure>#}
+{#                  <figcaption>#}
+{#                    <h2>Dragon <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>#}
+{#                    <h4>Martin Garrix</h4>#}
+{#                    <ul>#}
+{#                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                    </ul>#}
+{#                  </figcaption>#}
+{#                </detail>#}
+{#                <span class="rank"> <img src="{{MEDIA_URL}}images/top-2.png" alt="" /> </span> </li>#}
+{#              <li>#}
+{#                <aside>3</aside>#}
+{#                <detail>#}
+{#                  <figure><img src="{{MEDIA_URL}}images/top-img-3.png" width="52" height="54" alt="" /></figure>#}
+{#                  <figcaption>#}
+{#                    <h2>Divine Sorrow <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>#}
+{#                    <h4>AVICII</h4>#}
+{#                    <ul>#}
+{#                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                    </ul>#}
+{#                  </figcaption>#}
+{#                </detail>#}
+{#                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png" alt="" /> </span> </li>#}
+
             </ul>
-            <span class="view-chart-btn"><a href="">View Chart</a></span> </div>
+            <span class="view-chart-btn"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></span> </div>
         </div>
         <!--End: Top 3--> 
         

@@ -28,6 +28,21 @@ $(document).ready(function(){
         $("#slides").slideToggle();
     });
 });
+$( window ).on( 'shown.bs.modal', function() {
+    var $modal     = $('.modal-dialog')
+      , $backdrop  = $('.modal-backdrop')
+      , el_height  = $modal.innerHeight();
+    $backdrop.css({
+        height: el_height + 20,
+        minHeight: '100%',
+        margin: 'auto'
+    });
+    $modal.css({
+        padding: '4px',
+        maxWidth: '900px',
+        margin: '10px auto'
+    });
+});
 </script>
 {% block extrahead %}{% endblock %}
 </head>
@@ -404,6 +419,7 @@ $(document).ready(function() {
 });
 </script>
 <script src="{% static "js/app.js" %}">
+
 </script>
 {% endblock script %}
 {% block extra-script %}

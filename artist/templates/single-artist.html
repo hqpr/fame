@@ -275,21 +275,5 @@ $('#blurpoint').waypoint({
   }
 })
 });
-
-$( window ).on( 'shown.bs.modal', function() {
-    var $modal     = $('.modal-dialog')
-      , $backdrop  = $('.modal-backdrop')
-      , el_height  = $modal.innerHeight();
-    $backdrop.css({
-        height: el_height + 20,
-        minHeight: '100%',
-        margin: 'auto'
-    });
-    $modal.css({
-        padding: '4px',
-        maxWidth: '900px',
-        margin: '10px auto'
-    });
-});
 </script>
 {% endblock extra-script %}

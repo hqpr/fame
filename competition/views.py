@@ -29,12 +29,15 @@ def competitions(request, *args, **kwargs):
     except:
         paginated_competitions_to_display = []
 
+    # competition_tracks = CompetitionEntryAudio.objects.filter(competition_entry__competition=competition)
+
     template_name = 'competitions.html'
     template_data = {
         'competitions': active_competitions,
         "active_competitions": paginated_competitions_to_display,
         "string": "All Competitions Page",
-        "paginator": paginated_competitions
+        "paginator": paginated_competitions,
+        'competition_tracks': True
     }
 
     return render_to_response(template_name,
@@ -61,6 +64,9 @@ def single_competition(request, *args, **kwargs):
     terms_summary = competition.competitiontermsummary_set.all()
     countries = competition.competitioncountry_set.all()
 
+    competition_tracks = CompetitionEntryAudio.objects.filter(competition_entry__competition=competition)
+    competition_video = CompetitionEntryVideo.objects.get(competition_entry__competition=competition)
+
     template_name = competition_data["template_name"]
     template_data = {
         'prizes': prizes,
@@ -70,7 +76,8 @@ def single_competition(request, *args, **kwargs):
         'countries': countries,
         'competition': competition,
         "page": competition_data["page"],
-        "competition_tracks": True
+        "competition_tracks": competition_tracks,
+        'competition_video': competition_video
     }
 
     return render_to_response(template_name,

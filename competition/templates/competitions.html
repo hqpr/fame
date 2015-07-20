@@ -6,174 +6,170 @@
 {% block container-wrapper-close %}</div>{% endblock container-wrapper-close %}
 
 {% block banner %}
-<div class="banner-container">
-    <div class="col-lg-12">
-        <div class="flexslider">
-            <ul class="slides">
-                <li><img src="{{MEDIA_URL}}images/gallery-img-1.png"  alt="Slide 1" class="img-responsive" /></li>
-                <li><img src="{{MEDIA_URL}}images/gallery-img-1.png"  alt="Slide 2" class="img-responsive" /></li>
-            </ul>
-            <div class="clear"></div>
+    <div class="banner-container">
+        <div class="col-lg-12">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li><img src="{{MEDIA_URL}}images/gallery-img-1.png"  alt="Slide 1" class="img-responsive" /></li>
+                    <li><img src="{{MEDIA_URL}}images/gallery-img-1.png"  alt="Slide 2" class="img-responsive" /></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
-</div>
 {% endblock banner %}
 
 {% block banner-strip %}{% endblock banner-strip %}
 {% block content-wrapper %}<div class="middle-wrap clearfix filterby-wrap" >{% endblock content-wrapper %}
 {% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
 {% block filter %}
-<div class="filter-wrap" style="padding-top:15px">
-<div class="col-lg-2" id="desktop-filter"><h3>Filter By:</h3></div>
-<div class="col-lg-2" id="button"><h3>Filter By:</h3></div>
-<div class="col-lg-10">
+    <div class="filter-wrap" style="padding-top:15px">
+        <div class="col-lg-2" id="desktop-filter"><h3>Filter By:</h3></div>
+        <div class="col-lg-2" id="button"><h3>Filter By:</h3></div>
+        <div class="col-lg-10">
 
-<ul class="filter-menu">
-<li class="geners gen-select"><a href="#">genres</a></li>
-<li class="countries"><a href="#">Countries</a></li>
-<li class="status"><a href="#">Status</a></li>
-<li class="entries"><a href="#">Entries</a></li>
-</ul>
+            <ul class="filter-menu">
+                <li class="geners gen-select"><a href="#">genres</a></li>
+                <li class="countries"><a href="#">Countries</a></li>
+                <li class="status"><a href="#">Status</a></li>
+                <li class="entries"><a href="#">Entries</a></li>
+            </ul>
 
-<ul class="mob-filter-menu"  id="slide" style="display:none;">
-<li class="geners gen-select"><a href="#">genres</a></li>
-<li class="countries"><a href="#">Countries</a></li>
-<li class="status"><a href="#">Status</a></li>
-<li class="entries"><a href="#">Entries</a></li>
-</ul>
+            <ul class="mob-filter-menu"  id="slide" style="display:none;">
+                <li class="geners gen-select"><a href="#">genres</a></li>
+                <li class="countries"><a href="#">Countries</a></li>
+                <li class="status"><a href="#">Status</a></li>
+                <li class="entries"><a href="#">Entries</a></li>
+            </ul>
 
 
-</div>
-<div class="clear"></div>
-</div>
+        </div>
+        <div class="clear"></div>
+    </div>
 {% endblock filter %}
 
 {% block content %}
-<div class="col-lg-12">
-<h2 class="bottom-line">Current Competitions</h2>
+    <div class="col-lg-12">
+        <h2 class="bottom-line">Current Competitions</h2>
 
-<hr/>
-</div>
-{% if not competitions %}
-<div class="comp-hold"> WE ARE WORKING ON NEW COMPETITIONS<br />
+        <hr/>
+    </div>
+    {% if not competitions %}
+        <div class="comp-hold"> WE ARE WORKING ON NEW COMPETITIONS<br />
             <span class="text-red">(HOLD ON TIGHT)</span> </div>
-            {% else %}
-{% for competition in competitions %}
-<!--Competition Box-->
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-<div class="current-comp-container">
-<div class="img-wrap">
-<img src="{{MEDIA_URL}}{{ competition.competition_page_image }}"  alt="">
+    {% else %}
+        {% for competition in competitions %}
+            <!--Competition Box-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="current-comp-container">
+                    <div class="img-wrap">
+                        <img src="{{MEDIA_URL}}{{ competition.competition_page_image }}"  alt="">
 
-<span class="badge-wrap"><a href="#"><img src="{{MEDIA_URL}}images/budge.png" width="31" height="32" alt=""></a></span>
-<span class="slogan-wrap">{{ competition.name }}</span>
-</div>
-<ul class="com-bottom">
-<li><img src="{{MEDIA_URL}}images/music.png" alt=""/>
-        {% for genre in competition.competitiongenre_set.all %}
-            <a href="#">{{ genre.genre }}</a>,
+                        <span class="badge-wrap"><a href="#"><img src="{{MEDIA_URL}}images/budge.png" width="31" height="32" alt=""></a></span>
+                        <span class="slogan-wrap">{{ competition.name }}</span>
+                    </div>
+                    <ul class="com-bottom">
+                        <li><img src="{{MEDIA_URL}}images/music.png" alt=""/>
+                            {% for genre in competition.competitiongenre_set.all %}
+                                <a href="#">{{ genre.genre }}</a>,
+                            {% endfor %}
+                            <br/>
+                            <img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/>
+                            {% for country in competition.competitioncountry_set.all %}
+                                <a href="#">{{ country.country.name }}</a>,
+                            {% endfor %}
+                        </li>
+                        <li><a href="{% url 'single_competition' slug=competition.slug %}" class="view-more">View More</a></li>
+                        <li>SUBMISSION OPEN<br/>
+                            <time>00:54:14:12</time>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--End Competition Box-->
         {% endfor %}
-    <br/>
-<img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/>
-        {% for country in competition.competitioncountry_set.all %}
-            <a href="#">{{ country.country.name }}</a>,
-        {% endfor %}
-    </li>
-<li><a href="{% url 'single_competition' slug=competition.slug %}" class="view-more">View More</a></li>
-<li>SUBMISSION OPEN<br/>
-<time>00:54:14:12</time>
-</li>
-</ul>
-</div>
-</div>
-<!--End Competition Box-->
-{% endfor %}
+
+        <!--Start Paging-->
+        <ul class="paging">
+            <li>
+                {% if active_competitions.has_previous %}
+                    <a href="?page={{ active_competitions.previous_page_number }}">Prev</a>
+                {% endif %}
+            </li>
+            <li>
+                <a class="active" href="#">{{ active_competitions.paginator.number }}</a>
+            </li>
+            <li>
+                <a href="#">2</a>
+            </li>
+            <li>
+                <a href="#">3</a>
+            </li>
+            <li>
+                <a href="#">4</a>
+            </li>
+            <li>
+                <a href="#">5</a>
+            </li>
+            <li>
+                <a href="#">6</a>
+            </li>
+            <li>
+                {% if active_competitions.has_next %}
+                    <a href="?page={{ active_competitions.next_page_number }}">Next</a>
+                {% endif %}
+            </li>
+        </ul>
 
 
-<!--Start Paging-->
-<ul class="paging">
-<li>
-        {% if active_competitions.has_previous %}
-            <a href="?page={{ active_competitions.previous_page_number }}">Prev</a>
-        {% endif %}
-</li>
-<li>
-{#<span class="active">#}
-{#    Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.#}
-{#</span>#}
-<a class="active" href="#">{{ active_competitions.paginator.number }}</a>
-</li>
-<li>
-<a href="#">2</a>
-</li>
-<li>
-<a href="#">3</a>
-</li>
-<li>
-<a href="#">4</a>
-</li>
-<li>
-<a href="#">5</a>
-</li>
-<li>
-<a href="#">6</a>
-</li>
-<li>
-{% if active_competitions.has_next %}
-    <a href="?page={{ active_competitions.next_page_number }}">Next</a>
-{% endif %}
-</li>
-
-</ul>
-
-<!--End Paging-->
-{% endif %}
+        <!--End Paging-->
+    {% endif %}
 
 {% endblock content %}
 {% block adverts-bottom %}
-<div class="last-col">
-<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-<div class="common-image-wrap"><img src="{{MEDIA_URL}}images/discover-img.jpg" alt="" width="520" height="244"/>
-<h3>Discover the Hall of Fame</h3>
-<span class="btn"><a href="{% url "hall_of_fame" %}">DISCOVER NOW</a></span>
-</div>
+    <div class="last-col">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="common-image-wrap"><img src="{{MEDIA_URL}}images/discover-img.jpg" alt="" width="520" height="244"/>
+                <h3>Discover the Hall of Fame</h3>
+                <span class="btn"><a href="{% url "hall_of_fame" %}">DISCOVER NOW</a></span>
+            </div>
 
 
-</div>
-<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-<div class="common-image-wrap"><img src="{{MEDIA_URL}}images/signup-img.jpg" width="300" height="244" alt="" />
-<h3>Not a Member?</h3>
-<span class="btn"><a href="#">DISCOVER NOW</a></span>
-</div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+            <div class="common-image-wrap"><img src="{{MEDIA_URL}}images/signup-img.jpg" width="300" height="244" alt="" />
+                <h3>Not a Member?</h3>
+                <span class="btn"><a href="#">DISCOVER NOW</a></span>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 {% endblock adverts-bottom %}
 
 {% block footer %}
-<div id="footer">
-    <div class="time">
-      <p>SUBMISSION OPEN</p>
-      <span>00:54:14:12</span> </div>
-    <ul>
-      <li class="none"><a href="#">View Chart</a></li>
-      <li><a href="#">Enter Now</a></li>
-    </ul>
-  </div>
-<!--End: Footer-->
+    <div id="footer">
+        <div class="time">
+            <p>SUBMISSION OPEN</p>
+            <span>00:54:14:12</span> </div>
+        <ul>
+            <li class="none"><a href="#">View Chart</a></li>
+            <li><a href="#">Enter Now</a></li>
+        </ul>
+    </div>
+    <!--End: Footer-->
 {% endblock footer %}
 
 {% block extra-script %}
-<script>
-    $(window).load(function(){
-      $('.flexslider').flexslider({
-        animation: "slide",
-         direction: "top",  
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-      });
-    });
-</script>
+    <script>
+        $(window).load(function(){
+            $('.flexslider').flexslider({
+                animation: "slide",
+                direction: "top",
+                start: function(slider){
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
 {% endblock extra-script %}

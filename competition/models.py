@@ -446,9 +446,9 @@ class CompetitionStage(models.Model):
 
 
 REQUIREMENT_CHOICES = (
-    ("audio","Audio"),
-    ("image","Image"),
-    ("video","Video"),
+    ("audio", "Audio"),
+    ("image", "Image"),
+    ("video", "Video"),
 )
 
 
