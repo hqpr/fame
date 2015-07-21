@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, FormView
 import pytz
 
 from django.core.paginator import Paginator
@@ -15,7 +15,6 @@ from .models import Competition, CompetitionEntry, CompetitionEntryAudio, Compet
 from media.models import Audio, Video
 from media.forms import AudioForm
 
-# Create your views here.
 def competitions(request, *args, **kwargs):
     """View all competitions"""
     # page setup
@@ -47,7 +46,7 @@ def competitions(request, *args, **kwargs):
     return render_to_response(template_name,
                               template_data,
                               context_instance=RequestContext(request)
-    )
+                              )
 
 def single_competition(request, *args, **kwargs):
     """View single competition"""
@@ -68,8 +67,13 @@ def single_competition(request, *args, **kwargs):
     terms_summary = competition.competitiontermsummary_set.all()
     countries = competition.competitioncountry_set.all()
 
-    competition_tracks = CompetitionEntryAudio.objects.filter(competition_entry__competition=competition)
-    competition_video = CompetitionEntryVideo.objects.get(competition_entry__competition=competition)
+    competition_tracks = CompetitionEntryAudio.objects.filter(competition_entry__competition=competition)[:3]
+    try:
+        competition_video = CompetitionEntryVideo.objects.get(competition_entry__competition=competition)
+    except CompetitionEntryVideo.DoesNotExist:
+        competition_video = None
+
+    access = CompetitionEntryAudio.objects.filter(entry=Audio.objects.filter(user=request.user))
 
     template_name = competition_data["template_name"]
     template_data = {
@@ -81,16 +85,64 @@ def single_competition(request, *args, **kwargs):
         'competition': competition,
         "page": competition_data["page"],
         "competition_tracks": competition_tracks,
-        'competition_video': competition_video
+        'competition_video': competition_video,
+        'access': access
     }
 
     return render_to_response(template_name,
                               template_data,
                               context_instance=RequestContext(request)
-    )
+                              )
 
-def single_competition_enter(request, *args, **kwargs):
+
+class SingleCompetitionEnter(FormView):
     """Enter a given competitions"""
+    template_name = 'enter-competition.html'
+    form_class = AudioForm
+
+    def get_context_data(self, **kwargs):
+        context = super(SingleCompetitionEnter, self).get_context_data(**kwargs)
+        tracks = Audio.objects.filter(user=self.request.user, is_complete=True)
+        videos = Video.objects.filter(user=self.request.user, is_complete=True)
+        competition = Competition.objects.get(slug=self.kwargs['slug'])
+        access = CompetitionEntryAudio.objects.filter(entry=Audio.objects.filter(user=self.request.user))
+        context.update({
+            'competition': competition,
+            'tracks': tracks,
+            'videos': videos,
+            'slug': self.kwargs['slug'],
+            'access': access
+
+        })
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.is_complete = True
+        form.save()
+        data = {
+            'success': True,
+            'slug': self.kwargs['slug']
+        }
+        print self.kwargs['slug'], 'here'
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def form_invalid(self, form):
+        html = render_to_string(self.template_name, self.get_context_data(form=form))
+        data = {
+            'success': False,
+            'forms': form.errors,
+            'html': html
+        }
+        print html
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def render_to_response(self, context, **response_kwargs):
+        return super(SingleCompetitionEnter, self).render_to_response(context, **response_kwargs)
+
+
+def pick_media_file(request, *args, **kwargs):
+
     competition = Competition.objects.get(slug=kwargs["slug"])
 
     if request.method == 'POST':
@@ -134,7 +186,6 @@ def single_competition_enter(request, *args, **kwargs):
                               template_data,
                               context_instance=RequestContext(request)
     )
-
 
 """
 Supporting functions
@@ -207,7 +258,6 @@ def get_single_competition_data(competition, kwargs):
     if temp_dictionary["page"] != "overview":
         temp_dictionary["template_name"] = 'single-competition-chart.html'
 
-
     return temp_dictionary
 
 def get_page_from_kwargs(kwargs):
@@ -224,3 +274,43 @@ def get_page_from_kwargs(kwargs):
         return "terms"
 
     return "overview"
+
+def competition_add_audio(request, object_id):
+    """
+        Add uploaded audio to given competition.
+        'slug' argument is on enter-competition.html data argument
+
+    """
+    if request.method == 'POST':
+        slug = request.POST.get('slug', None)
+        competition = Competition.objects.get(slug=slug)
+        entry = CompetitionEntry.objects.get(competition=competition)
+        competition_stage = CompetitionStage.objects.get(competition=competition)
+        competition_stage_requirement = CompetitionStageRequirement.objects.get(competition_stage=competition_stage)
+        audio = Audio.objects.get(id=int(object_id))
+        CompetitionEntryAudio.objects.create(competition_entry=entry,
+                                             competition_stage_requirement=competition_stage_requirement,
+                                             entry=audio)
+
+        return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
+    return HttpResponse(simplejson.dumps({'success': False}), content_type='application/json')
+
+def competition_add_video(request, object_id):
+    """
+        Add uploaded audio to given competition.
+        'slug' argument is on enter-competition.html data argument
+
+    """
+    if request.method == 'POST':
+        slug = request.POST.get('slug', None)
+        competition = Competition.objects.get(slug=slug)
+        entry = CompetitionEntry.objects.get(competition=competition)
+        competition_stage = CompetitionStage.objects.get(competition=competition)
+        competition_stage_requirement = CompetitionStageRequirement.objects.get(competition_stage=competition_stage)
+        video = Video.objects.get(id=int(object_id))
+        CompetitionEntryVideo.objects.create(competition_entry=entry,
+                                             competition_stage_requirement=competition_stage_requirement,
+                                             entry=video)
+
+        return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
+    return HttpResponse(simplejson.dumps({'success': False}), content_type='application/json')

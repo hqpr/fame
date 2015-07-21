@@ -34,6 +34,7 @@ $(function()
     });
     $('#back_to_step1').on('click', function(){
         $('#competition_step2').hide();
+        $('#competition_select_track').hide();
         $('#competition_step1').show();
     });
 
@@ -58,6 +59,7 @@ $(function()
                     $('#competition_step3').show();
                 } else {
                     console.log('error');
+                    $('#pick_error').hide().show();
                     $('#competition_step2').hide();
                 }
             }
@@ -99,22 +101,110 @@ $(function()
         $('#competition_step5').show();
     });
 
+    $('#competition_done').on('click', function(){
+        $('#modal-body').modal('hide');
+        window.location.reload()
+    });
+
+    // upload audio file to competition
     $('#id_audio').on('change', function(){
-        console.log('changed');
         $('#form_upload_step1').ajaxSubmit({
             success: function(data){
                 if (data.success) {
-                    console.log('success');
-                    console.log(data.redirect_to)
+                    console.log('Audio successfully added');
+                    window.next_url = data.redirect_to;
+                    window.competition_add = data.competition_add;
+
                 } else {
                     console.log('error');
                 }
-            },
-            dataType: 'json'
+            }
         });
 
         $('#competition_step2').hide();
         $('#competition_upload_audio').show();
     });
+
+    // adding info about audio to competition
+    $('#submit_audio').on('click', function(){
+        var form = $(this).closest('form');
+        var modal = form.closest('.modal');
+        $('#upload_competition_audio').ajaxSubmit({
+            url: next_url,
+            success: function(data){
+                var audio_form = $('#competition_upload_audio');
+                if (data.success) {
+                    $.ajax({
+                        type: "POST",
+                        url: competition_add,
+                        data: {slug: audio_form.data('slug')},
+                        success: function(r){
+                            if (r.success){
+                                console.log('Added to competition');
+                                $('#competition_upload_audio').hide();
+                            }
+                        }
+                    });
+                    audio_form.hide();
+                    $('#competition_step3').show();
+                } else {
+                    $('#errors').text('Please fill all fields').show();
+                }
+            }
+        });
+    });
+
+    // upload video file to competition
+    $('#id_video').on('change', function(){
+        $('#form_upload_step3').ajaxSubmit({
+            success: function(data){
+                if (data.success) {
+                    console.log('Video successfully added');
+                    window.next_url = data.redirect_to;
+                    window.competition_add = data.competition_add;
+                    window.competition_add_video = data.competition_add_video;
+                    $('#competition_step3').hide();
+                    $('#competition_upload_video').show();
+
+                } else {
+                    console.log('error');
+                    $('#file_error').hide().show()
+                }
+            }
+        });
+
+
+    });
+
+    // adding info about video to competition
+    $('#submit_video').on('click', function(){
+        var video_form = $('#upload_competition_video');
+        var form = $(this).closest('form');
+        var modal = form.closest('.modal');
+        video_form.ajaxSubmit({
+            url: next_url,
+            success: function(data){
+                console.log(competition_add_video);
+                console.log(video_form.data('slug'));
+                if (data.success) {
+                    $.ajax({
+                        type: "POST",
+                        url: competition_add_video,
+                        data: {slug: $('#competition_upload_video').data('slug')},
+                        success: function(r){
+                            if (r.success){
+                                console.log('Added to competition');
+                                $('#competition_upload_video').hide();
+                                $('#competition_step4').show();
+                            }
+                        }
+                    });
+                } else {
+                    $('#errors').text('Please fill all fields').show();
+                }
+            }
+        });
+    });
+
 
 });

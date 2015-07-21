@@ -19,18 +19,18 @@ class AudioForm(forms.ModelForm):
     artist.widget.attrs['class'] = 'form-control'
     artist.widget.attrs['placeholder'] = 'Madeon'
 
-    type = forms.ChoiceField(choices=TRACK_CHOICES,
+    type = forms.ChoiceField(choices=TRACK_CHOICES, required=False,
                              widget=forms.Select(attrs={
                                  'class': 'selectpicker form-control',
                                  'data-style': 'btn-select'
                              }))
     genre = forms.ModelChoiceField(queryset=Genre.objects.all(),
-                             widget=forms.Select(attrs={
-                                 'class': 'selectpicker form-control',
-                                 'data-style': 'btn-select'
-                             }))
+                                   widget=forms.Select(attrs={
+                                       'class': 'selectpicker form-control',
+                                       'data-style': 'btn-select'
+                                   }))
 
-    bpm = forms.CharField()
+    bpm = forms.CharField(required=False)
     bpm.widget.attrs['class'] = 'form-control'
     bpm.widget.attrs['placeholder'] = '130'
 
@@ -90,7 +90,7 @@ class VideoForm(forms.ModelForm):
     artist.widget.attrs['class'] = 'form-control'
     artist.widget.attrs['placeholder'] = 'Madeon'
 
-    type = forms.ChoiceField(choices=TRACK_CHOICES,
+    type = forms.ChoiceField(choices=TRACK_CHOICES, required=False,
                              widget=forms.Select(attrs={
                                  'class': 'selectpicker form-control',
                                  'data-style': 'btn-select'

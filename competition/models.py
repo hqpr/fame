@@ -146,6 +146,10 @@ class Competition(models.Model):
             return current_stage[0]
         return None
 
+    def time_until(self):
+        now = datetime.now(timezone.utc)
+        return now - self.date_end
+
     def __unicode__(self):
         return "%s" % self.name
 

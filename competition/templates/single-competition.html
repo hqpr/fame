@@ -159,7 +159,7 @@
                                   <h4>{{ track.entry.artist }}</h4>
                                   <ul>
                                       <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
-                                      <li><span class="play"><a href="#">&nbsp;</a></span>{{ track.entry.plays }}</li>
+                                      <li><span class="play"><a href="#">&nbsp;</a></span>{{ track.entry.plays|default:"0" }}</li>
                                       <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
                                   </ul>
                               </figcaption>
@@ -222,7 +222,15 @@
         </div>
         <!--End: prize-->
 
-          <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" /> <span class="com-btn-wrap"><a href="{% url 'single_competition_enter' slug=competition.slug %}" data-toggle="modal" data-target="#modal-body">ENTER THIS COMPETITION</a></span> </div>
+          {% if not access %}
+              <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" />
+                  <span class="com-btn-wrap">
+                  <a href="{% url 'single_competition_enter' slug=competition.slug %}" data-toggle="modal" data-target="#modal-body">ENTER THIS COMPETITION</a>
+              </span>
+              </div>
+          {% endif %}
+
+
 
       </div>
       <!--End: Right Container-->

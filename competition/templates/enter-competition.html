@@ -5,8 +5,12 @@
     <script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
     <script src="{% static 'js/jquery.jscrollpane.min.js' %}"></script>
     <script src="{% static 'js/competition.js' %}"></script>
+    <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
 
+    <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
     <link href="{% static 'css/prettyCheckable.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
 {% endblock %}
 
 {# first step #}
@@ -49,10 +53,12 @@
         <h3>Pick a track you wish to use</h3>
             <div class="upload-track-full">
                 <div class="drad-here-holder"><a href="javascript:void(0)" class="btn btn-bdr-red">UPLOAD A TRACK</a>
+
                 <form action="{% url 'add_audio_step1' %}" method="post" enctype="multipart/form-data" id="form_upload_step1">
                     {% csrf_token %}
-                    <input type="file" name="audio" id="id_audio"/>
+                    <input type="file" name="audio" id="id_audio" class="upload_field"/>
                 </form>
+
 {#                            <p>or DRAG AND DROP</p>#}
                 </div>
             </div>
@@ -72,7 +78,8 @@
 </div>
 
 {# upload a track #}
-<div class="modal-body share-profile" id="competition_upload_audio" style="display: none"><a href="#" class="close-icon">close</a>
+<div class="modal-body share-profile" data-slug="{{ slug }}" id="competition_upload_audio" style="display: none">
+    <a href="#" class="close-icon">close</a>
     <div class="enter-competition">
         <div class="steps-count">
             <div class="line">
@@ -89,56 +96,47 @@
         <h3>Upload a Track</h3>
 
 
-        <form role="form" action="">
+        <form role="form" action="" method="post" id="upload_competition_audio">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="track-thumb upload-track-thumb"> <a href="#" class="btn btn-red btn-sm"> UPLOAD AN IMAGE</a>
-                        <p>or DRAG AND DROP</p>
 
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-red btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+{#                    <p style="position: relative !important;">or DRAG AND DROP</p>#}
+                    <input type="file" name="cover" id="id_cover" />
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" name="name" class="form-control" placeholder="Technicolor (Original Mix)">
+                        {{ form.name }}
                     </div>
                     <div class="form-group">
-                        <label>Artist</label>
-                        <input type="text" name="artist" class="form-control" placeholder="Madeon">
+                        {{ form.artist }}
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>privacy</label>
-                                <select class="selectpicker  form-control"  data-style="btn-select">
-                                    <option>Private</option>
-                                    <option>Ketchup</option>
-                                    <option>Relish</option>
-                                </select>
+                                {{ form.privacy }}
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Genre</label>
-                                <select class="selectpicker  form-control"  data-style="btn-select">
-                                    <option>Electro</option>
-                                    <option>Ketchup</option>
-                                    <option>Relish</option>
-                                </select>
+                                {{ form.genre }}
                             </div>
                         </div>
+                        <p id="errors" style="color: #f10950; margin-left: 15px;"></p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="form-control" rows="3" placeholder="Describe your track"></textarea>
+                        {{ form.description }}
                     </div>
                 </div>
             </div>
-            <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a><a href="#" class="btn btn-pink">NEXT</a></div>
+            <div class="form-btn">
+{#                <a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a>#}
+                <a href="#" onclick="return false" class="btn btn-pink" id="submit_audio">NEXT</a></div>
         </form>
     </div>
 </div>
@@ -146,7 +144,7 @@
 {# select track #}
 <div class="modal-body mobcard share-profile" id="competition_select_track" style="display: none">
     <a href="#" class="close-icon">close</a>
-    <form action="{% url 'single_competition_enter' slug=competition.slug %}" method="post" id="competition_select_track_form">
+    <form action="{% url 'pick_media_file' slug=competition.slug %}" method="post" id="competition_select_track_form">
         <div class="enter-competition">
             <div class="steps-count">
                 <div class="line">
@@ -161,6 +159,7 @@
                 </ul>
             </div>
             <h3>Pick a track you wish to use</h3>
+            <p id="pick_error" style="color: #dc0949; display:none;">This track is already in competition</p>
 
             <div class="scroll-pane-aria">
                 <div class="scroll-pane">
@@ -203,10 +202,14 @@
             </ul>
         </div>
         <h3>Pick a track you wish to use</h3>
-        <form role="form">
+        <p style="color: #dc0949; display:none;" id="file_error">Only mp4 file allowed</p>
             <div class="upload-track-full">
+
                 <div class="drad-here-holder"><a href="#" class="btn btn-bdr-red">UPLOAD A VIDEO</a>
-                    {#                    <p>or DRAG AND DROP</p>#}
+                <form action="{% url 'add_video_step1' %}" method="post" enctype="multipart/form-data" id="form_upload_step3">
+                    {% csrf_token %}
+                    <input type="file" name="video" id="id_video" class="upload_field"/>
+                </form>
                 </div>
             </div>
             <h5><a href="javascript:void(0)" id="pick_a_video">or Pick a video</a></h5>
@@ -219,15 +222,78 @@
                     <li><a href="#" class="dailymotion">Daily motion</a></li>
                 </ul>
             </div>
-        </form>
         <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel">BACK</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
+    </div>
+</div>
+
+{# upload video #}
+<div class="modal-body share-profile" data-slug="{{ slug }}" id="competition_upload_video" style="display: none">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Video</a></li>
+                <li class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Upload a Video</h3>
+
+
+        <form role="form" action="" method="post" id="upload_competition_video">
+            <div class="row">
+                <div class="col-sm-4">
+
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-red btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+{#                    <p style="position: relative !important;">or DRAG AND DROP</p>#}
+                    <input type="file" name="cover" id="id_cover" />
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.artist }}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form.privacy }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form.genre }}
+                            </div>
+                        </div>
+                        <p id="errors" style="color: #f10950; margin-left: 15px;"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form.description }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn">
+{#                <a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a>#}
+                <a href="#" onclick="return false" class="btn btn-pink" id="submit_video">NEXT</a></div>
+        </form>
     </div>
 </div>
 
 {# select video #}
 <div class="modal-body mobcard share-profile" id="competition_select_video" style="display: none">
     <a href="#" class="close-icon">close</a>
-    <form action="{% url 'single_competition_enter' slug=competition.slug %}" method="post" id="competition_select_video_form">
+    <form action="{% url 'pick_media_file' slug=competition.slug %}" method="post" id="competition_select_video_form">
         <div class="enter-competition">
             <div class="steps-count">
                 <div class="line">
@@ -371,6 +437,10 @@
             </div>
             <p  class="note">Choose a social network you wish to share this on</p>
         </div>
-        <div class="form-btn"><a href="#" class="btn btn-pink">DONE</a></div>
+        <div class="form-btn"><a href="#" class="btn btn-pink" id="competition_done">DONE</a></div>
     </div>
 </div>
+
+<script>
+    $('.dropzone').html5imageupload();
+</script>

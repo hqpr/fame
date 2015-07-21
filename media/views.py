@@ -24,7 +24,7 @@ class AudioFileView(FormView):
         data = {
             'success': True,
             'redirect_to': reverse('add_audio_step2', args=(fs.pk,)),
-            'object': fs.pk
+            'competition_add': reverse('competition_add_audio', args=(fs.pk,))
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
@@ -161,7 +161,8 @@ class VideoFileView(FormView):
         fs = form.save()
         data = {
             'success': True,
-            'redirect_to': reverse('add_video_step2', args=(fs.pk,))
+            'redirect_to': reverse('add_video_step2', args=(fs.pk,)),
+            'competition_add_video': reverse('competition_add_video', args=(fs.pk,))
         }
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
