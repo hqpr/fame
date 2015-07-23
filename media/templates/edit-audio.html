@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load thumbnail %}
 {% block extrahead %}
     <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
     <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
@@ -20,7 +21,9 @@
                 <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
                     <p style="position: relative !important;">or DRAG AND DROP</p>
                     <input type="file" name="cover" id="id_cover" />
-                    <img src="{{ MEDIA_URL }}{{ form.instance.cover }}" class="img-responsive"  alt="">
+                    {% thumbnail form.instance.cover "200x200" crop="center" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive"  style="position: absolute; top: 0;">
+                    {% endthumbnail %}
                 </div>
 
             </div>
@@ -58,11 +61,11 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label>Privacy</label>
+                    <label>BPM</label>
                     {{ form.bpm }}
                 </div>
               <div class="form-group">
-                <label>Key</label>
+                <label>Privacy</label>
                 {{ form.privacy }}
               </div>
             </div>

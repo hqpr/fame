@@ -1,0 +1,125 @@
+{# preview #}
+<div class="modal-body share-profile" id="competition_step4">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled" style="width:75%"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li  class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li  class="active"><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Review your entry</h3>
+        <div class="clearfix">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="card-thumb"><img src="{{ MEDIA_URL }}{{ audio_preview.entry.cover }}" class="img-responsive" alt=""> </div>
+                    <div class="track-info">
+                        <h4>{{ audio_preview.entry.name }}</h4>
+                        <p>{{ audio_preview.entry.artist }}</p>
+                        <ul class="pl-opt">
+                            <li><a href="#" class="pl-icons like">like</a></li>
+                            <li><a href="#" class="pl-icons comment">Comments</a></li>
+                            <li><a href="#" class="pl-icons music">Music</a></li>
+                            <li><a href="#" class="pl-icons share">Share</a></li>
+                        </ul>
+                        <ul class="pl-counts">
+                            <li><span class="likes"></span>1356</li>
+                            <li><span class="plays"></span>{{ audio_preview.entry.plays|default:"0" }}</li>
+                            <li><span class="counts"></span>{{ audio.length }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-5 right-vidoe-bar" >
+                    <div class="video-holder">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="terms-scroll-pane">
+            <div class="scroll-pane">
+                <h4>Terms & Conditions</h4>
+                <p>Countries allowed to participate: France .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Countries allowed to participate: France .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Countries allowed to participate: France .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                <p>Contestants must be over the age of 16.</p>
+                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+            </div>
+        </div>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step3">BACK</a><a href="javascript:void(0)" class="btn btn-pink competition_to_finish" id="">NEXT</a></div>
+    </div>
+</div>
+
+{# final step #}
+<div class="modal-body share-profile" id="competition_step5" style="display:none;">
+    <a href="#" class="close-icon">close</a>
+    <div class="enter-competition">
+        <div class="steps-count">
+            <div class="line">
+                <div class="step2-filled" style="width:100%"></div>
+            </div>
+            <ul>
+                <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
+                <li class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li class="active"><a href="#"><span class="cricle">4</span>Review</a></li>
+                <li class="active"><a href="#"><span class="cricle">5</span>Success</a></li>
+            </ul>
+        </div>
+        <h3>Success!</h3>
+        <div class="text-center success-text">
+            <h5>Great news! You have successfully entered the competition</h5>
+            <p class="note">Why not invite your friends to vote for you!</p>
+            <div class="choose-social-share">
+                <ul>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Share</a></li>
+                </ul>
+            </div>
+            <p  class="note">Choose a social network you wish to share this on</p>
+        </div>
+        <div class="form-btn"><a href="#" class="btn btn-pink competition_done" id="">DONE</a></div>
+    </div>
+</div>
+
+<script>
+    $('.scroll-pane').jScrollPane({autoReinitialise: true});
+    $('.competition_to_finish').on('click', function(){
+        $('#competition_step4').hide();
+        $('#competition_step5').show();
+    });
+    $('.competition_done').on('click', function(){
+        $('#modal-body').modal('hide');
+        window.location.reload()
+    });
+</script>

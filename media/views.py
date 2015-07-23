@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, UpdateView
 import simplejson
-from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm
+from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm, AudioPlaylist
 from .models import Audio, AudioPlaylist, Video, PlaylistItem
 import datetime
 import time
@@ -72,6 +72,9 @@ class PlayListView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(PlayListView, self).get_context_data(**kwargs)
+        context.update({
+            'form_action': reverse('add_playlist')
+        })
         return context
 
     def form_valid(self, form):
@@ -117,6 +120,41 @@ def trackcard(request, track_id):
     track.save()
     return render(request, 'trackcard.html', {'track': track})
 
+
+class PlayListUpdateView(UpdateView):
+    template_name = 'create-playlist.html'
+    form_class = PlayListForm
+
+    def get_context_data(self, **kwargs):
+        context = super(PlayListUpdateView, self).get_context_data(**kwargs)
+        context.update({
+            'form_action': reverse('edit_playlist', args=(self.kwargs['object_id'],))
+        })
+        return context
+
+    def get_object(self, queryset=None):
+        obj = AudioPlaylist.objects.get(id=self.kwargs['object_id'])
+        return obj
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        data = {
+            'success': True,
+            'redirect_to': reverse('profile')
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def form_invalid(self, form):
+        html = render_to_string(self.template_name, self.get_context_data(form=form))
+        data = {
+            'success': False,
+            'html': html
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def render_to_response(self, context, **response_kwargs):
+        return super(PlayListUpdateView, self).render_to_response(context, **response_kwargs)
 
 class AudioUpdateView(UpdateView):
     model = Audio
@@ -225,7 +263,15 @@ def playlistcard(request, playlist_id):
     return render(request, 'playlistcard.html', data)
 
 def all_media(request):
-    return render(request, 'hall-of-fame.html', {})
+    audios = Audio.public_objects.all().order_by('-added')
+    videos = Video.objects.all().order_by('-added')
+    playlists = AudioPlaylist.objects.all().order_by('-added')
+    template_data = {
+        "audios": audios,
+        "videos": videos,
+        "playlists": playlists
+    }
+    return render(request, 'media.html', template_data)
 
 def add_to_playlist(request, track_id):
     lists = AudioPlaylist.objects.filter(user=request.user)

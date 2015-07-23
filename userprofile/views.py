@@ -8,8 +8,8 @@ from django.template.loader import render_to_string
 import simplejson
 from django.contrib.auth import logout
 from django.views.generic import FormView
-from .forms import UserForm, UserProfileForm
-from .models import UserProfile
+from .forms import UserForm, UserProfileForm, UserSocialForm
+from .models import UserProfile, UserSocial
 from django.core.exceptions import PermissionDenied
 
 
@@ -151,3 +151,31 @@ def complete_registration(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+class SocialView(FormView):
+    template_name = 'edit-social.html'
+    form_class = UserSocialForm
+
+    def form_valid(self, form):
+
+        form.instance.user = UserProfile.objects.get(user=self.request.user)
+        # fs = form.save()
+        try:
+            user_social_object = UserSocial.objects.get(account=form.instance.account,user=form.instance.user)
+            user_social_object.link = form.instance.link
+            user_social_object.save()
+        except:
+            user_social_object = UserSocial(**{'user':form.instance.user,'account':form.instance.account,'link':form.instance.link})
+            user_social_object.save()
+
+        data = {
+            'success': True,
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+
+    def form_invalid(self, form):
+        data = {
+            'success': False,
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')

@@ -24,7 +24,7 @@ class AudioForm(forms.ModelForm):
                                  'class': 'selectpicker form-control',
                                  'data-style': 'btn-select'
                              }))
-    genre = forms.ModelChoiceField(queryset=Genre.objects.all(),
+    genre = forms.ModelChoiceField(queryset=Genre.objects.all().order_by("name"),
                                    widget=forms.Select(attrs={
                                        'class': 'selectpicker form-control',
                                        'data-style': 'btn-select'

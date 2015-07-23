@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load thumbnail %}
+{% load media_tags %}
+
+{% block header %}
+<div class="nav-top blue-bg mobnav">
+    <ul>
+      <li class="hidden-xs">MEDIA</li>
+      <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+      <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+    </ul>
+</div>
+{% endblock header %}
+{% block content %}
+    <div class="content profile-bg-blue see-artist-page">
+        <h2 class="title">All Media</h2>
+        <div class="search-filter-nav">
+          <ul>
+            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> Pop</label></div><div class='checkbox'><label><input type='checkbox'> Rock</label></div><div class='checkbox'><label><input type='checkbox'> Rap</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">genres <span class="caret"></span></a></li>
+            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='radio' name='popular'> Most popular today</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular this week</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular month</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular all time</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">popularity <span class="caret"></span></a></li>
+            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">country <span class="caret"></span></a> </li>
+          </ul>
+        </div>
+        <div class="artists-search-section">
+          <div class="row">
+            <h3 class="title col-sm-12">Tracks</h3>
+            {% for audio in audios %}
+                <div class="col-xs-6 col-sm-3">
+                    {% audio audio request.user display "small" %}
+                </div>
+            {% endfor %}
+
+            <h3 class="title col-sm-12">Videos</h3>
+            {% for v in videos %}
+                <div class="col-sm-6">
+                        <div class="music-overview-block video_box">
+                            <div class="playlist-thumb-hover" style="display: none">
+                                <ul class="pl-list">
+                                    <li><a href="#" class="heart">ddd</a></li>
+                                    <li><a href="#" class="comment">ddd</a></li>
+                                    <li><a href="#" class="playlist-play">ddd</a></li>
+                                    <li><a href="#" class="share">ddd</a></li>
+                                </ul>
+                                <div class="play-pl-cont"> <a href="{% url 'videocard' video_id=v.id %}" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
+                                <div class="hover-title">
+                                    <h5>{{ v.name }}</h5>
+                                    <span class="subtxt">{{ v.artist }}</span> </div>
+                            </div>
+                            {% thumbnail v.cover "400x200" crop="center" as im %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                            {% endthumbnail %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <h3 class="title col-sm-12">Playlists</h3>
+            {% for p in playlists %}
+                  <div class="col-sm-3">
+                      <div class="music-overview-block playlist_box"> 
+                          {% thumbnail p.cover "200x200" crop="center" as im %}
+                              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                          {% endthumbnail %}
+
+                          <div class="playlist-list">
+                              <ol>
+                                  {% for obj in p.files %}
+                                      <li>{{ obj.audio.name }}<span class="subtext">{{ obj.audio.artist }}</span></li>
+                                  {% endfor %}
+                              </ol>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          
+        </div>
+      </div>
+{% endblock %}
+
+{% block extra-script %}
+<div class="modal modal-absolute" id="upload_music_modal">
+        <div class="modal-dialog" style="z-index: 9991">
+            <div class="modal-content modal-music">
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-track modal-absolute" id="trackcard">
+        <div class="modal-dialog" style="z-index: 9991">
+            <div class="modal-content modal-contnet-bg">
+            </div>
+        </div>
+    </div>
+<script>
+  $(function() {
+    $(".music_box").hover(
+      function () {
+        $( this ).find('div').fadeIn(200);
+      },
+      function () {
+          $( this ).find('div').fadeOut(200);
+      }
+    );
+    $(".video_box").hover(
+      function () {
+        $( this ).find('div').fadeIn(200);
+      },
+      function () {
+          $( this ).find('div').fadeOut(200);
+      }
+    );
+    $(".playlist_box").hover(
+      function () {
+        $( this ).find('div').fadeIn(200);
+      },
+      function () {
+        $('.hover-frame').hide();
+      }
+    );
+  });
+</script>
+
+{% endblock %}

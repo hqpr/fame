@@ -14,6 +14,15 @@ $(document).ready(function(){
       }
     );
 
+    $(".about_box").hover(
+      function () {
+        $( this ).find('div').fadeIn(200);
+      },
+      function () {
+        $('.hover-frame').hide();
+      }
+    );
+
     $(".music_box").hover(
       function () {
         $( this ).find('div').fadeIn(200);
@@ -33,10 +42,10 @@ $(document).ready(function(){
     );
     $(".playlist_box").hover(
       function () {
-        $( this ).find('.playlist-thumb-hover').fadeIn(200);
+        $( this ).find('div').fadeIn(200);
       },
       function () {
-          $( this ).find('.playlist-thumb-hover').fadeOut(200);
+        $('.hover-frame').hide();
       }
     );
 
@@ -66,13 +75,41 @@ $(document).ready(function(){
             dataType: 'json'
         });
     });
+    $("#id_link").on("blur", updateAccount);
+    function updateAccount() {
+        var link = $(this).val();
+        if (link.indexOf("facebook") >= 1) { $("#id_account").val("facebook"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon facebook-icon"); return; }
+        if (link.indexOf("instagram") >= 1) { $("#id_account").val("instagram"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon instagram-icon"); return; }
+        if (link.indexOf("twitter") >= 1) { $("#id_account").val("twitter"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon twitter-icon"); return; }
+        if (link.indexOf("soundcloud") >= 1) { $("#id_account").val("soundcloud"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon soundcloud-icon"); return; }
+        if (link.indexOf("wavo") >= 1) { $("#id_account").val("wavo"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon wavo-icon"); return; }
+        if (link.indexOf("spotify") >= 1) { $("#id_account").val("spotify"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon spotify-icon"); return; }
+        if (link.indexOf("vimeo") >= 1) { $("#id_account").val("vimeo"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon vimeo-icon"); return; }
+        if (link.indexOf("youtube") >= 1) { $("#id_account").val("youtube"); $("#edit_social_form .social-icon").attr('class', "social-icon cloud-icon youtube-icon"); return; }
+        $("#id_account").val("");
+        alert("URL not recognised");
+        return;
+    }
+    $('#update_social').on('click', function(){
+        $('#edit_social_form').ajaxSubmit({
+            success: function(data){
+                if (data.success){
+                    window.location = '/profile/';
+
+                } else {
+                    alert("There's an error");  
+                    $('.modal-body').html(data.html);
+                }
+            },
+            dataType: 'json'
+        });
+    });
 
     $('.btn-cancel').on('click', function(){
        $('#upload_music_modal').modal('hide');
     });
 
     $('#edit_button').one('click', function(){
-        $('.top-menu').append(' +');
         $('.click-to-move').show()
     });
 
@@ -116,5 +153,39 @@ $(document).ready(function(){
 
     });
 
+    $('#aboutDetails').on('blur', function () {
+        $('#about_form').ajaxSubmit({
+            success: function(data){
+                if (data.success) {
+                    console.log('success');
+                } else {
+                    console.log('error');
+                }
+            }
+        });
+    });
+
+    $('#displayDetails').on('blur', function () {
+        $('#display_name_form').ajaxSubmit({
+            success: function(data){
+                if (data.success) {
+                    console.log('success');
+                } else {
+                    console.log('error');
+                }
+            }
+        });
+    });
+
+    $("#connect_button").on('click', function() {
+        $("#connect_form").ajaxSubmit({
+            success: function(data){
+                alert("You're successfully following this person");
+            },
+            error: function(data) {
+                alert("You're already following this person");
+            }
+        });
+    });
 
 });

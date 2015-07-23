@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
+from mutagen.mp3 import MP3, HeaderNotFoundError
+from django.conf import settings
 
 
 class Genre(models.Model):
@@ -16,14 +18,19 @@ class Genre(models.Model):
 
 TRACK_CHOICES = (
     ('1', 'Single'),
-    ('2', 'Ketchup'),
-    ('3', 'Relish'),
+    ('2', 'Album'),
+    ('3', 'Remix'),
 )
 
 PRIVACY_CHOICES = (
-    ('private', 'private'),
-    ('public', 'public'),
+    ('private', 'Private'),
+    ('public', 'Public'),
 )
+
+class PublicManager(models.Manager):
+    def get_queryset(self):
+        return super(PublicManager, self).get_queryset().filter(privacy='public')
+
 
 class Audio(models.Model):
     name = models.CharField(max_length=255)
@@ -35,11 +42,15 @@ class Audio(models.Model):
     description = models.TextField(blank=True, null=True)
     bpm = models.CharField(max_length=255, blank=True, null=True)
     privacy = models.CharField(max_length=255, choices=PRIVACY_CHOICES, default='public')
-    audio = models.FileField(upload_to='audios/%y/%m/%d', default='default.mp3')
+    audio = models.FileField(upload_to='audios/%y/%m/%d', default='default.mp3', )
     added = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     cover = models.FileField(upload_to='audios/covers/%y/%m/%d', blank=True, null=True)
     plays = models.IntegerField(blank=True, null=True, default=0)
     is_complete = models.BooleanField(default=False)
+    length = models.CharField(default=0, max_length=255, blank=True, null=True)
+
+    objects = models.Manager() # The default manager.
+    public_objects = PublicManager()
 
     def clean(self):
         if not self.uid:
@@ -61,6 +72,19 @@ class Audio(models.Model):
 
     def __unicode__(self):
         return "%s" % (self.name,)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super(Audio, self).save(force_insert, force_update, using, update_fields)
+        if self.length == 0:
+            try:
+                audio_file = MP3(self.audio.path)
+            except HeaderNotFoundError:
+                self.length = '-'
+            else:
+                m, s = divmod(audio_file.info.length, 60)
+                h, m = divmod(m, 60)
+                self.length = "%d:%02d:%02d" % (h, m, s)
+            self.save()
 
     class Meta:
         db_table = "media_audio"

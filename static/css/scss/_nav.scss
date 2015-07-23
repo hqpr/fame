@@ -1,0 +1,13 @@
+.nav-top ul {
+    -webkit-transition: width 2s;
+    transition: width 2s;
+}
+.extended-visible {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 54px;
+}
+.extended .extended-visible {
+    width: 480px;
+}

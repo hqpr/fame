@@ -116,14 +116,23 @@ opacity:1
 	display: block;
 	padding: 7px 10px;
 }
-span.arrow-down {
-	background: url(../images/arrow-toggle-down.png) no-repeat;
+span.arrow-down,
+span.arrow-up {
+	background: url(../images/arrow-toggle-up.png) no-repeat;
 	width: 10px;
 	height: 6px;
 	background-size: 100%;
 	position: absolute;
 	right: 10px;
 	top: 10px;
+	left: auto;
+	border: none;
+}
+span.arrow-down {
+	background: url(../images/arrow-toggle-down.png) no-repeat;
+	left: auto;
+	background-size: 100%;
+	border: none;
 }
 .task-icon {
 	float: left;

@@ -1,22 +1,22 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import UserProfile, ACCOUNT_TYPES
+from .models import UserProfile, ACCOUNT_TYPES, UserSocial
 from django_countries import countries
 
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
-        'placeholder': '......a'
+        'placeholder': 'Password'
     }))
 
     username = forms.CharField()
     username.widget.attrs['class'] = 'form-control'
-    username.widget.attrs['placeholder'] = 'alexpluda'
+    username.widget.attrs['placeholder'] = 'Username'
 
     email = forms.CharField()
     email.widget.attrs['class'] = 'form-control'
-    email.widget.attrs['placeholder'] = 'e.g. johnappleseed@dummy.com'
+    email.widget.attrs['placeholder'] = 'user@example.com'
 
     class Meta:
         model = User
@@ -35,7 +35,7 @@ class UserProfileForm(forms.ModelForm):
 
     display_name = forms.CharField()
     display_name.widget.attrs['class'] = 'form-control'
-    display_name.widget.attrs['placeholder'] = 'Alex Pluda'
+    display_name.widget.attrs['placeholder'] = 'User Name'
 
     birthday = forms.CharField()
     birthday.widget.attrs['class'] = 'form-control'
@@ -50,3 +50,13 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('account_type', 'display_name', 'birthday', 'country', 'picture')
+
+
+class UserSocialForm(forms.ModelForm):
+
+    link = forms.CharField(label='None')
+    link.widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = UserSocial
+        fields = ('account','link')

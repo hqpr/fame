@@ -1,0 +1,430 @@
+.animated {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+@media (min-width: 1025px) {
+    .wrapper {
+        max-width: 100%;
+    }
+    .main-container {
+        width: calc(100% - 520px);
+    }
+    .main-container.logged-out {
+        width: calc(100% - 195px);
+    }
+}
+.news2-banner-bg .quote {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.profile-landing-bg {
+    position: relative;
+    overflow: hidden;
+    background-attachment: fixed;
+    background: none;
+}
+.main-wrap .profile-landing-bg::before {
+    -webkit-transition: all 0.3s;
+    /*transition: all 2s;*/
+    content: "";
+    background: #FFF url(../images/landing-bg.png) no-repeat top center;
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    display: block;
+    /*top: 0;*/
+    /*left: 0;*/
+    z-index:0;
+    top: -30px;
+    left: -30px;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.main-wrap .profile-landing-bg.fading::before {
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+
+}
+.profile-bg-blue > .row {
+    position: relative;
+}
+.music-track-block {
+    position: relative;
+}
+.music-track-block .track-info.track-info-profile {
+    float: left;
+    position: absolute;
+    top: 145px;
+}
+
+@media only screen and (max-width:640px) {
+.modal-track .nav-tabs > li > a {
+    color: #232326
+}
+.modal-track .modal-contnet-bg {
+    background: #fff
+}
+.track-info h3 {
+    color: #2e2e31
+}
+.track-info p {
+    color: #5d5d5d
+}
+.track-info .pl-icons {
+    background-image: url(../images/playlist-iconsm.png);
+}
+.block-judge p span.track-text {
+    color: #2e2e31
+}
+.tracklist {
+    color: #5d5d5d
+}
+.pl-counts li span.likes {
+    background: url(../images/like-countsm.png) no-repeat;
+    background-size: 100%;
+}
+.pl-counts li span.plays {
+    background: url(../images/play-countsm.png) no-repeat;
+    background-size: 100%;
+}
+.pl-counts li span.counts {
+    background: url(../images/time-countm.png) no-repeat;
+    background-size: 100%;
+}
+.pl-counts li {
+    color: #5d5d5d
+}
+}
+ @media (min-width:320px) and (max-width:767px) {
+.track-thumb {
+    width: 90px;
+    float: left
+}
+.track-info {
+    margin-left: 120px
+}
+.full-right {
+    margin: 0
+}
+.not-found-block {
+    width: 80%;
+}
+.faq-bg {
+    padding: 20px
+}
+.db-screen {
+    width: 90%;
+}
+.home-header-banner {
+    padding-left: 20px;
+    padding-right: 20px
+}
+.home-header-banner h2 {
+    font-size: 31px;
+}
+.home-content-block {
+    margin: 0 0 20px 0
+}
+.news-banner-content .news-block p {
+    font-size: 12px;
+}
+.news-banner-bg {
+    height: auto;
+}
+.news-banner-content {
+    padding: 10px 30px 0 30px;
+}
+.artists-search-section, .competition-search-section, .tracks-search-section {
+    padding-left: 30px;
+    padding-right: 30px
+}
+.tracks-search-thumb {
+    margin-bottom: 20px
+}
+.search-filter-nav ul li a {
+    font-size: 11px;
+}
+.search-filter-nav ul li {
+    margin-bottom: 10px
+}
+.news2-banner-bg h3 {
+    font-size: 16px;
+}
+.post-container {
+    padding: 0 20px;
+}
+.post-info-section .posted-by {
+    float: none;
+    font-size: 12px;
+    margin-bottom: 10px
+}
+.news2-banner-bg .post {
+    clear: both
+}
+.news2-banner-bg .post p {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
+}
+.news2-banner-bg .quote p {
+    font-size: 16px;
+    line-height: 22px;
+}
+.news2-banner-bg .quote-icon {
+    left: -38px
+}
+.post-thumb-left {
+    float: none;
+    margin: 0 0 20px 0;
+    width: auto;
+}
+.reply-thumb {
+    width: 40px;
+}
+.reply-details {
+    margin-left: 55px;
+}
+.sub-reply {
+    margin-left: 50px;
+    clear: both
+}
+.reply-details .replied-by {
+    font-size: 16px;
+}
+.reply-details .reply-text p {
+    font-size: 12px;
+    line-height: 21px;
+}
+.faq-seach-block {
+    width: 100%;
+    padding: 10px 0 30px 0
+}
+
+
+
+
+.logo-home {
+   
+    height: 42px;
+
+    position: relative;
+
+
+    width: 38px;
+    margin:0 auto;
+    text-indent:-9999px;
+    display:block;
+    left:0; top:40px
+}
+
+
+
+
+
+
+.profile-screen{margin-top:50px}
+
+
+
+
+
+ .what-fame-music h3 { padding-left:20px; padding-right:20px; font-size:30px}
+
+}
+
+
+
+
+
+ @media (min-width:768px) and (max-width:1024px) {
+.full-right {
+    margin-left: 50px
+}
+.db-screen {
+    width: 90%;
+}
+
+.create-own-space h2 {
+    text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+}
+.home-header-banner {
+    padding-left: 20px;
+    padding-right: 20px
+}
+.home-header-banner h2 {
+    font-size: 31px;
+}
+.news-banner-bg {
+    height: auto;
+}
+}
+
+
+.join-fame-section h2 {
+ 
+    padding: 130px 20px 90px; color:#5d5d5d; font-size:30px; text-align:center
+}
+.join-fame-section {
+    background: #d7d7d7;
+
+}
+
+
+.join-fame-section{padding:0 0 225px 0;}
+.join-fame-section ul{ padding:0; margin:0; list-style:none}
+
+.join-fame-section ul li{ float:left; width:25%; padding-top:90px}
+
+.join-fame-section ul li a{ display:block; text-indent:-9999px; width:120px; height:120px; background:url(../images/social-share-home.png) no-repeat; margin:0 auto; background-size:562px 332px}
+
+.join-fame-section ul li a.fb{ background-position:0 0 }
+
+.join-fame-section ul li a.vimeo{ background-position:-147px 0 }
+.join-fame-section ul li a.soundclound{ background-position:-289px 0 }
+.join-fame-section ul li a.twitter{ background-position:-442px 0 }
+.join-fame-section ul li a.instagram{ background-position:0 -212px }
+.join-fame-section ul li a.mixxcloud{ background-position:-147px -212px  }
+.join-fame-section ul li a.spotify{ background-position:-289px -212px }
+.join-fame-section ul li a.pintarest{ background-position:-442px -212px  }
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
+.track-info .pl-icons {
+    background-image: url(../images/playlist-icons@2x.png);
+}
+
+
+.join-fame-section ul li a{ background:url(../images/social-share-home@2x.png) no-repeat;}
+
+}
+
+.insight-container{padding:30px}
+
+.viewer-block{-webkit-box-shadow: 0 0 10px -1px  rgba(0,0,0,0.45);
+-moz-box-shadow: 0 0 10px -1px  rgba(0,0,0,0.45);
+box-shadow: 0 0 10px -1px  rgba(0,0,0,0.45); background-color:#fff; padding:20px; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px; margin-bottom:30px}
+
+.viewer-block.active{ border:solid 3px #e06618}
+
+
+
+.viewer-block h3{ font-size:20px; padding:0; margin:0; border-bottom:solid 1px #d7d7d7; padding-bottom:10px}
+
+
+.graph-icon{float:right; width:28px; height:25px}
+
+
+.graph-view{padding:25px 0}
+
+.viewer-block{border-radius:5px; box-shadow:1px 0 6px 0px
+rgba(0,0,0,.2); background-color:#fff; padding:10px; min-height:380px}
+
+.viewer-block-blank{border-radius:5px; padding:10px; min-height:380px; border:dashed 2px #d7d7d7}
+
+.viewer-block h2{}
+
+
+.insight-block-icon-container {height:30px; border-bottom:solid 1px #d7d7d7}
+.insight-block-icon { display:block; width:35px; height:20px; background:url(../images/insight-share-block.png) no-repeat; background-size:211px 22px; float:right;}
+
+.insight-block-icon.soundcloud{ background-position:0 0} 
+
+.insight-block-icon.youtube{ background-position:-44px 0} 
+.insight-block-icon.mixxcloud{ background-position:-91px 0} 
+.insight-block-icon.twitter{ background-position:-138px 0} 
+.insight-block-icon.vimeo{ background-position:-178px -2px} 
+
+
+
+
+.most-played-container{border-top:solid 1px #d7d7d7; padding:10px; margin-top:15px}
+
+.viewer-block .title-count{padding-top:10px}
+
+.viewer-block .title-nums{color:#5d5d5d; font-size:30px;}
+.viewer-block.active .title-nums{color:#e06618; font-size:30px}
+
+
+.viewer-block .most-played-block{padding:7px 0}
+
+.viewer-block  .most-played-thumb{width:34px; height:34px; float:left}
+
+.viewer-block .most-played-track-title{margin-left:50px}
+
+
+
+.viewer-block .play-info .title-nums{color:#5d5d5d; font-size:18px; padding-bottom:30px}
+
+
+
+
+.enter-competition .btn.btn-pink{ padding-left:30px; padding-right:30px}
+
+
+
+ .share-profile .enter-competition .form-control {
+  height: 30px;
+}
+
+ .modal-body  .enter-competition .track-thumb{ height:182px; padding-top:60px}
+
+
+
+.enter-competition  textarea.form-control {
+  min-height: 76px;
+}
+
+
+
+.enter-competition .scroll-pane{height:300px; }
+.enter-competition .scroll-pane-aria{border:solid 1px #d7d7d7; border-radius:8px; padding:10px}
+
+.enter-competition  .track-name{ font-size:18px; color:#2e2e31;}
+
+
+
+
+
+.enter-competition .has-info .form-control{border-color:#f10950}
+
+
+.enter-competition  .cloud-icon{position:absolute; top:19px; right:10px}
+
+.enter-competition .upload-track-full{border:dashed 2px #d7d7d7; height:200px; border-radius:10px}
+
+.enter-competition .upload-track-full .drad-here-holder{ padding-top:60px}
+
+
+
+.enter-competition .import-links{ padding:0}
+
+.enter-competition .import-links h5{ padding-bottom:15px}
+
+.enter-competition .import-links ul{ padding:0; margin:0; list-style:none; height:40px}
+
+
+.enter-competition .import-links ul li{ display:inline-block}
+
+
+.enter-competition .import-links ul li a{ display:block; background:url(../images/import-links-icon.png) no-repeat; background-size:349px; text-indent:-9999px}
+.enter-competition .import-links ul.track-list li a{background: none;text-indent: 0}
+
+.enter-competition .import-links ul li a.youtube{ display:block; background-position:0 -5px; width:36px; height:28px; margin-top:5px}
+.enter-competition .import-links ul li a.vimeo{ display:block; background-position:-83px -7px; width:68px; height:20px; margin-top:5px}
+.enter-competition .import-links ul li a.fb{ display:block; background-position:-202px 0; width:32px; height:32px}
+.enter-competition .import-links ul li a.dailymotion{ display:block; background-position:-287px 0; width:64px; height:33px}
+
+.enter-competition .track-info p{padding:0}
+
+.enter-competition .right-vidoe-bar{border-left:solid 1px #d7d7d7; height:130px}
+
+.enter-competition  .video-holder{width:160px; height:95px; margin:15px auto 0; background-color:#232326}
+.enter-competition .terms-scroll-pane{border:solid 1px #d7d7d7; padding:15px; border-radius:8px;  -moz-border-radius:8px;  -webkit-border-radius:8px; margin-top:20px}
+.enter-competition .terms-scroll-pane .scroll-pane{height:200px; }
+
+.enter-competition .scroll-pane h4{ font-size:15px; margin-top:0}
+.success-text p.note{ font-size:15px; color:#d7d7d7; padding:30px 0}

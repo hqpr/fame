@@ -7,6 +7,6 @@ urlpatterns = [
     # Examples:
 
     url(r'^$', blogs, name='all_blogs'),
-    url(r'^(?P<slug>[\w\-]+)/$', single_blog, {"display":"overview"}, name='single_blog'),
+    url(r'^(?P<slug>[\w\-]+)/$', single_blog, {}, name='single_blog'),
 
 ]

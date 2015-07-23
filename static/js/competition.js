@@ -5,7 +5,7 @@ $(function()
      $(".myClass").prettyCheckable();
 
     $("#checkboxDiv").click(function() {
-        var checkbx = $("#checkbox")
+        var checkbx = $("#checkbox");
         if (checkbx.is(':checked'))
         {
             checkbx.next().removeClass("checked");
@@ -77,33 +77,25 @@ $(function()
         $('#competition_select_video').show();
     });
 
-    $('#submit_select_video').on('click', function () {
+    var submit_select_video = $('#submit_select_video');
+
+    submit_select_video.on('click', function () {
         $('#competition_select_video_form').ajaxSubmit({
             success: function(data){
                 if (data.success) {
                     console.log('success');
-                    $('#competition_select_video').hide();
-                    $('#competition_step2').hide();
-                    $('#competition_step3').hide();
-                    $('#competition_step4').show();
+
+                    // preview results
+                    var competition = $('#competition_upload_video').data('slug');
+                    $.get( '/competitions/'+competition+'/review/', function( data ) {
+                      $( "#competition_select_video" ).html( data );
+                    });
                 } else {
                     console.log('error');
                     $('#competition_step2').hide();
                 }
             }
         });
-    });
-
-    $('#competition_to_finish').on('click', function(){
-        $('#competition_select_video').hide();
-        $('#competition_select_track').hide();
-        $('#competition_step4').hide();
-        $('#competition_step5').show();
-    });
-
-    $('#competition_done').on('click', function(){
-        $('#modal-body').modal('hide');
-        window.location.reload()
     });
 
     // upload audio file to competition
@@ -205,6 +197,9 @@ $(function()
             }
         });
     });
+
+
+
 
 
 });

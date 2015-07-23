@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 {% load static from staticfiles %}
 
 {% block header %}
@@ -21,7 +22,7 @@
     {% if featured_blogs %}
       <div class="news-banner-bg">
         <div class="row">
-          <div class="col-sm-7 pad5 relative"> <img src="{% static "images/news-banner-pic.png" %}" class="img-responsive" alt="">
+          <div class="col-sm-7 pad5 relative featured-image" style="background-image: url('{% static "images/news-banner-pic.png" %}');"> &nbsp;
             <div class="banner-sticker-hot"></div>
           </div>
           <div class="col-sm-5 pad5">
@@ -49,7 +50,7 @@
         <div class="row">
           {% for blog in blogs %}
           <div class="col-sm-3 news-section">
-            <div class="news-thumb relative"><a href="{% url "single_blog" blog.slug %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a>
+            <div class="news-thumb relative"><a href="{% url "single_blog" slug=blog.slug %}"><img src="{% static "images/news-holder-thumb.png" %}" class="img-responsive" alt=""></a>
               <div class="banner-sticker-hot-small"></div>
             </div>
             <div class="news-block active">

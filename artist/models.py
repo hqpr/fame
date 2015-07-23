@@ -17,6 +17,22 @@ class UserRoles(models.Model):
     class Meta:
         db_table = "user_roles"
 
+class UserConnections(models.Model):
+    user = models.ForeignKey(User,related_name="follower")
+    connection = models.ForeignKey(User,related_name="connection")
+
+    class Meta:
+        db_table = "user_connections"
+        unique_together = ("user","connection")
+
+    def clean(self):
+        if self.user == self.connection:
+            return False
+        return
+
+    def __unicode__(self):
+        return "%s: %s" % (self.user, self.connection)
+
 @receiver(post_save, sender=User)
 def generate_user_roles(sender, instance, created, **kwargs):
     """Take user and generate roles if not existing"""

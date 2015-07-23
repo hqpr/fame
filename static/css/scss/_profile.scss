@@ -1,0 +1,166 @@
+.frame.badges { 
+    -webkit-transition: all 1s;
+    transition: all .5s ease-in-out;
+}
+.fading .frame.badges { 
+    background: white;
+}
+.fading .frame.badges h3 { 
+    color: #2e2e31;
+}
+.nav-top { 
+    position: fixed;
+     width: calc(100% - 520px);
+ }
+.add-icon { 
+    float: right;
+    font-size: 16px;
+    color: #2e2e31;
+    opacity: 0;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        color: #2e2e31;
+        opacity: 0.8;
+    }
+}
+.title:hover .add-icon {
+    opacity: 1;
+}
+.profile-head { 
+    position: relative;
+}
+.modal { 
+    z-index: 105000;
+}
+.modal-backdrop { 
+    height: auto!important;
+}
+.input-field {
+    resize: none;
+    -webkit-transition: all 1s;
+    transition: all .5s ease-in-out;
+    background: none;
+    border: none;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.input-field.input-title {
+    color: #232326;
+    font-size: 28px;
+    padding-top: 0;
+    text-align: center;
+}
+
+.input-field:focus {
+    background: white;
+    outline: none;
+}
+.input-dark {
+    width: 100%;
+    height: 100px;
+}
+.input-dark:focus {
+    background: #111;
+    background: rgba(0,0,0,0.3);
+}
+
+ul.about-social li a.inactive {
+    background-image: url(../images/about-social-icons-inactive.png);
+}
+
+.cloud-icon {
+    background: url(../images/about-social-icons.png) no-repeat;
+    background-position: -999px -999px;
+    width: 24px;
+    height: 24px;
+}
+.cloud-icon.instagram-icon {
+    background-position: 0 0
+}
+.cloud-icon.soundcloud-icon {
+    background-position: -72px 0px
+}
+.cloud-icon.twitter-icon {
+    background-position: 0 -41px
+}
+.cloud-icon.wavo-icon {
+    background-position: -70px -40px;
+    width: 30px
+}
+.cloud-icon.facebook-icon {
+    background-position: 0px -86px
+}
+.cloud-icon.spotify-icon {
+    background-position: -69px -85px
+}
+.cloud-icon.youtube-icon {
+    background-position: 0px -128px
+}
+.cloud-icon.vimeo-icon {
+    background-position: -73px -128px
+}
+
+.fame-position-block1 .lavel-text {
+    font-size: 26px;
+}
+.fame-position-block2 .fame-pos-txt {
+    font-size: 12px;
+}
+.fame-position-block2 .fame-pos-value {
+    font-size: 16px;
+    font-weight: 100;
+    color: #43cb83;
+}
+.fame-position-block2 .fame-pos-value--blue {
+    color: #00a0ec;
+}
+.fame-position-block1 {
+    padding: 40px 0 50px;
+}
+.db-pic {
+    float: left;
+    margin-left: 10px;
+    margin-right: 50px;
+}
+.db-info-container {
+    float: left; 
+    width: 140px;
+}
+.sidebar-right h3 {
+    clear: both;
+}
+.pic-container {
+    h3 {
+        color: #d7d7d7;
+        font-size: 16px;
+        float: left;
+        background: none;
+        text-transform: uppercase;
+        clear: none;
+        margin-top: 0;
+    }
+    .db-info-container > h3 {
+        width: 100%;
+    }
+    .user-type {
+        color: #00a0ec;
+    }
+    .details-block {
+        text-align: center;
+        color: #00a0ec;
+        float: left;
+    }
+    .details-block h3 {
+        width: 100%;
+        color: #00a0ec;
+        float: none;
+        text-transform: uppercase;
+        font-size: 26px;
+    }
+    .details-block h4 {
+        text-transform: uppercase;
+        font-size: 10px;
+        color: #d7d7d7;
+    }
+}

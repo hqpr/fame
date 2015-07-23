@@ -22,41 +22,50 @@
         <div class="frame">
           <div class="row">
             <div class="col-sm-6">
-              <div class="settings-block line-right">
-                <div class="form-group">
-                  <label>Username</label>
-                  <input type="text" class="form-control" placeholder="hugopoirel">
+              <form action="{% url 'settings' %}" method="post" id="settingsForm">
+                <div class="settings-block line-right">
+                  {{user_form.errors}}
+                  {{user_profile_form.errors}}
+                  <div class="form-group">
+                    <label>Username</label>
+                    {{user_form.username}}
+                  </div>
+                  <div class="form-group">
+                    <label>E-mail</label>
+                    {{user_form.email}}
+                  </div>
+                  <div class="form-group">
+                    <label>Date of Birth</label>
+                    {{user_profile_form.birthday}}
+                  </div>
+                  <div class="form-group">
+                    <label>Country</label>
+                    {{user_profile_form.country}}
+                  </div>
+                  <div class="form-group">
+                    <label>City</label>
+                    {{user_profile_form.city}}
+                  </div>
+                  <div class="form-group">
+                    <label>Language</label>
+                    {{user_profile_form.language}}
+                  </div>
+                  <div class="form-group">
+                    <label>Password (leave blank unless changing)</label>
+                    <input type="password" name="password" class="form-control" placeholder="" id="password">
+                  </div>
+                  <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="" id="confirm_password">
+                  </div>
+                  {% csrf_token %}
+                  <!-- <div class="form-group">
+                    <label>Custom URL</label>
+                    <input type="text" class="form-control" placeholder="famemusic.com/madeon">
+                  </div> -->
+                  <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green" id="settingsSave">SAVE</a> </div>
                 </div>
-                <div class="form-group has-success">
-                  <label>E-mail</label>
-                  <input type="text" class="form-control" placeholder="madern@gmail.com">
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" class="form-control" placeholder="madern@gmail.com">
-                </div>
-                <div class="form-group">
-                  <label>Date of Birth</label>
-                  <input type="text" class="form-control" placeholder="03-04-1982">
-                </div>
-                <div class="form-group">
-                  <label>City and Country</label>
-                  <input type="text" class="form-control" placeholder="03-04-1982">
-                </div>
-                <div class="form-group">
-                  <label>State name</label>
-                  <input type="text" class="form-control" placeholder="Madeon">
-                </div>
-                <div class="form-group">
-                  <label>Language</label>
-                  <input type="text" class="form-control" placeholder="English">
-                </div>
-                <div class="form-group">
-                  <label>Custom URL</label>
-                  <input type="text" class="form-control" placeholder="famemusic.com/madeon">
-                </div>
-                <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green">SAVE</a> </div>
-              </div>
+              </form>
             </div>
             <div class="col-sm-6">
               <div class="proplan-active-container">
@@ -152,8 +161,23 @@
 <script>
 $().ready(function(){
 $('.myClass').prettyCheckable();
- 
-
+  function returnValidated() {
+    $(".has-error").removeClass("has-error");
+    if (!$("#password").val().length) {
+      return true;
+    }
+    if ($("#password").val() === $("#confirm_password").val() && $("#password").val().length > 5) {
+      return true;
+    }
+    $("#password").parents(".form-group").addClass("has-error");
+    $("#confirm_password").parents(".form-group").addClass("has-error");
+    return false;
+  }
+  $("#settingsSave").click(function() {
+    if (returnValidated()) {
+      $("#settingsForm").submit();
+    }
+  });
 });
 </script>
 {% endblock extra-script %}

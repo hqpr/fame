@@ -24,3 +24,7 @@
     opacity: 0;
     cursor: pointer;
 }
+
+.btn.btn-red {
+    margin-left: -70px;
+}

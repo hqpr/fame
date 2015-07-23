@@ -22,6 +22,7 @@ from oauth2client.tools import run
 from optparse import OptionParser
 from instagram.client import InstagramAPI
 import mixcloud
+from media.models import Audio
 
 from base64 import decodestring
 from datetime import date
@@ -189,3 +190,17 @@ def mixcl(request):
         return render(request, 'mixcloud.html', data)
     except UserSocialAuth.DoesNotExist:
         return render(request, 'mixcloud.html', {})
+
+from mutagen.mp3 import MP3
+from django.conf import settings
+def sound(request):
+    audios = Audio.objects.filter(user=request.user)
+    for audio in audios:
+        p = '/%s/%s' % (settings.MEDIA_ROOT, audio.audio)
+        a = MP3(p)
+        seconds = a.info.length
+        m, s = divmod(seconds, 60)
+        h, m = divmod(m, 60)
+        print "%d:%02d:%02d" % (h, m, s)
+        pass
+    return render(request, 'sound_upload.html', {'audios': audios})

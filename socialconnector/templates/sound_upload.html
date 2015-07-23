@@ -8,23 +8,23 @@
 
 {% block content %}
 
-    {% if audios %}
-        {% for a in audios %}
-            <ul class="list-unstyled">
-                <li><a href="{{ MEDIA_URL }}{{ a.audio }}">{{ a.title }}</a> - {{ a.added }}</li>
-            </ul>
-        {% endfor %}
-        <hr/>
-        {% if current_user %}
-            <h1>{{ suser }}</h1>
-            <h2>{% for foo in current_user %}
-                <a href="{{ foo.permalink_url }}">{{ foo.title }}</a> <br/>
-            {% endfor %}
-            </h2>
-        {% else %}
-            Not authorised to soundcloud. <a href="/back/soundcloud/">Login</a> first
-        {% endif %}
-    {% endif %}
+{#    {% if audios %}#}
+{#        {% for a in audios %}#}
+{#            <ul class="list-unstyled">#}
+{#                <li><a href="{{ MEDIA_URL }}{{ a.audio }}">{{ a.title }}</a> - {{ a.added }}</li>#}
+{#            </ul>#}
+{#        {% endfor %}#}
+{#        <hr/>#}
+{#        {% if current_user %}#}
+{#            <h1>{{ suser }}</h1>#}
+{#            <h2>{% for foo in current_user %}#}
+{#                <a href="{{ foo.permalink_url }}">{{ foo.title }}</a> <br/>#}
+{#            {% endfor %}#}
+{#            </h2>#}
+{#        {% else %}#}
+{#            Not authorised to soundcloud. <a href="/back/soundcloud/">Login</a> first#}
+{#        {% endif %}#}
+{#    {% endif %}#}
     <hr/>
     <div id="ag1" class="audiogallery" style="opacity:0; padding-top: 70px;">
         <div class="items">
@@ -42,11 +42,11 @@
         </div>
     </div>
     <hr/>
-    <form action="{% url "upload_sound" %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-default">upload</button>
-    </form>
+{#    <form action="{% url "upload_sound" %}" method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit" class="btn btn-default">upload</button>#}
+{#    </form>#}
 
     <script>
         jQuery(document).ready(function ($) {

@@ -6,7 +6,7 @@ import pytz
 
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 import simplejson
 
@@ -112,7 +112,6 @@ class SingleCompetitionEnter(FormView):
             'videos': videos,
             'slug': self.kwargs['slug'],
             'access': access
-
         })
         return context
 
@@ -314,3 +313,19 @@ def competition_add_video(request, object_id):
 
         return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
     return HttpResponse(simplejson.dumps({'success': False}), content_type='application/json')
+
+def entry_review(request, slug):
+    competition = Competition.objects.get(slug=slug)
+    entry = CompetitionEntry.objects.get(competition=competition)
+    try:
+        audio_preview = CompetitionEntryAudio.objects.get(entry=Audio.objects.filter(user=request.user),
+                                                          competition_entry=entry)
+        video_preview = CompetitionEntryVideo.objects.get(entry=Video.objects.filter(user=request.user),
+                                                          competition_entry=entry)
+    except CompetitionEntryAudio.DoesNotExist or CompetitionEntryVideo.DoesNotExist:
+        audio_preview = None
+        video_preview = None
+    data = {'audio_preview': audio_preview,
+            'video_preview': video_preview}
+    return render(request, 'entry-review.html', data)
+

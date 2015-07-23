@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from .views import login_view, logout_view, RegistrationView, check_username, RegistrationStepView, \
-    upload_avatar, complete_registration
+    upload_avatar, complete_registration, SocialView
 
 urlpatterns = [
     url(r'^login/$', login_view, name="login"),
@@ -12,5 +12,8 @@ urlpatterns = [
     # services
     url(r'^check_username/$', check_username, name="check_username"),
     url(r'^avatar/(?P<object_id>\d+)/$', upload_avatar, name="upload_avatar"),
+
+    # edit services
+    url(r'^social/edit/$', SocialView.as_view(), name='edit_social'),
 ]
 
