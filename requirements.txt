@@ -43,14 +43,7 @@ static3==0.6.1
 uritemplate==0.6
 urllib3==1.10.4
 wheel==0.24.0
-python-instagram
-mixcloud
-gunicorn==19.3.0
-dj-static==0.0.6
 whitenoise==1.0.6
-djangorestframework
-markdown
-django-filter
 djangular
 mutagen
 wsgiref==0.1.2
