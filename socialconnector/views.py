@@ -195,6 +195,7 @@ from mutagen.mp3 import MP3
 from django.conf import settings
 def sound(request):
     audios = Audio.objects.filter(user=request.user)
+    a = Audio.objects.get(id=56)
     for audio in audios:
         p = '/%s/%s' % (settings.MEDIA_ROOT, audio.audio)
         a = MP3(p)
@@ -203,4 +204,4 @@ def sound(request):
         h, m = divmod(m, 60)
         print "%d:%02d:%02d" % (h, m, s)
         pass
-    return render(request, 'sound_upload.html', {'audios': audios})
+    return render(request, 'sound_upload.html', {'audios': audios, 'a': a})

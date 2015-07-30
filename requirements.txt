@@ -47,3 +47,5 @@ whitenoise==1.0.6
 djangular
 mutagen
 wsgiref==0.1.2
+django-modeltranslation
+django-rosetta

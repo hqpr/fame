@@ -20,36 +20,10 @@
 
 <link href="{% static 'css/jquery.jscrollpane.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/prettyCheckable.css' %}" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+<link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script>
-$(document).ready(function(){
-    $("#bttn").click(function(){
-        $("#slides").slideToggle();
-    });
-});
-$( window ).on( 'shown.bs.modal', function() {
-    var $modal     = $('.modal-dialog')
-      , $backdrop  = $('.modal-backdrop')
-      , el_height  = $modal.innerHeight();
-    $backdrop.css({
-        height: el_height + 20,
-        minHeight: '100%',
-        margin: 'auto'
-    });
-    $modal.css({
-        padding: '4px',
-        maxWidth: '900px',
-        margin: '10px auto'
-    });
-});
-</script>
 {% block extrahead %}{% endblock %}
 </head>
 
@@ -67,7 +41,7 @@ $( window ).on( 'shown.bs.modal', function() {
     <span class="input-group-btn">
       <button class="btn search-btn search-icon-mob" type="button"><span class="search-icon">Search</span></button>
       </span>
-      <input type="text" class="form-control search-field hidden-field" placeholder="Search" id="searchInput">
+      <input type="text" class="form-control search-field hidden-field" placeholder="Search" id="searchInput" value="{% if request.GET.q %}{{request.GET.q}}{% endif %}">
     </div>
     
     <div class="left-menu">
@@ -429,9 +403,22 @@ etition adoih aodsjd poaisj </p>
 </div>
 <div class="myClass"></div>
 {% block script %}
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
 <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
+<script defer src="{% static 'js/prettyCheckable.min.js' %}"></script>
+<script src="{% static 'js/jquery.jscrollpane.min.js' %}"></script>
+<script src="{% static 'audioplayer/audioplayer.dev.js' %}" type="text/javascript"></script>
+
+
 {#<script type="text/javascript" src="{% static 'js/retina.js' %}"></script>#}
 <script defer src="{% static 'js/scripts.js' %}"></script>
 <script defer src="{% static 'js/upload_file.js' %}"></script>
@@ -439,15 +426,31 @@ etition adoih aodsjd poaisj </p>
 <script defer src="{% static 'js/jquery.sidr.min.js' %}"></script>
 <script defer src="{% static 'js/respond.src.js' %}"></script>
 
-<script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
-<script defer src="{% static 'js/prettyCheckable.min.js' %}"></script>
-<script src="{% static 'js/jquery.jscrollpane.min.js' %}"></script>
-<script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
-<script src="{% static 'js/jquery.jscrollpane.min.js' %}"></script>
 <script src="{% static 'js/competition.js' %}"></script>
 
+
 <script>
+$( window ).on( 'shown.bs.modal', function() {
+    var $modal     = $('.modal-dialog')
+      , $backdrop  = $('.modal-backdrop')
+      , el_height  = $modal.innerHeight();
+    $backdrop.css({
+        height: el_height + 20,
+        minHeight: '100%',
+        margin: 'auto'
+    });
+    $modal.css({
+        padding: '4px',
+        maxWidth: '900px',
+        margin: '10px auto'
+    });
+});
+
 $(document).ready(function() {
+    $("#bttn").click(function(){
+        $("#slides").slideToggle();
+    });
+
     $('#left-menu').sidr({
       name: 'sidr-left',
       side: 'left' // By default
@@ -502,14 +505,10 @@ $(document).ready(function() {
   })
 });
 </script>
-<script src="{% static "js/app.js" %}">
-
-</script>
+<script src="{% static "js/app.js" %}"></script>
 {% endblock script %}
 {% block extra-script %}
-
 {% endblock extra-script %}
-
 
 </body>
 </html>

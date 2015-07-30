@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^$', home, name='home'),
     # url(r'^blog/', include('blog.urls')),
     url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 
     url(r'^sitepanel/', include(admin.site.urls)),
     url(r'^competitions/', include('competition.urls')),
@@ -64,3 +65,8 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += patterns('',
+        url(r'^rosetta/', include('rosetta.urls')),
+    )

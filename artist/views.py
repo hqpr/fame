@@ -1,3 +1,5 @@
+from sets import Set
+
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -12,6 +14,7 @@ from django.conf import settings
 from .models import UserRoles, UserConnections
 from .forms import UserProfileForm, UserForm
 from userprofile.models import UserProfile, UserSocial, UserStatus
+from django.utils import translation
 
 
 # Create your views here.
@@ -56,6 +59,9 @@ def single_artist(request, *args, **kwargs):
     if len(social):
         social = {i.account:i.link for i in social}
     user_status = ""
+    genres = None
+    if audios:
+        genres = Set([i.genre for i in audios])
 
     user_status_list = UserStatus.objects.filter(user=UserProfile.objects.get(user=user)).order_by('-created')
     if len(user_status_list):
@@ -86,7 +92,8 @@ def single_artist(request, *args, **kwargs):
         'user': user,
         'display': display,
         'social': social,
-        'user_status': user_status
+        'user_status': user_status,
+        'genres': genres
     }
 
     return render_to_response(template_name,

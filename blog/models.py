@@ -3,12 +3,17 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
+from competition.models import Competition
 
 # Create your models here.
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(published=True,publish_date__lte=datetime.now(tz=pytz.UTC))
+
+class BlogItemPublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(BlogItemPublishedManager, self).get_queryset().filter(blog_item__published=True,blog_item__publish_date__lte=datetime.now(tz=pytz.UTC))
 
 class BlogItem(models.Model):
     """Model for blog"""
@@ -93,3 +98,11 @@ class BlogItemComment(models.Model):
 
     objects = models.Manager()
     published_objects = PublishedCommentManager()
+
+class BlogCompetitionLinks(models.Model):
+    """Handle blog competition link"""
+    blog_item = models.ForeignKey(BlogItem)
+    competition = models.ForeignKey(Competition)
+
+    objects = models.Manager()
+    published_objects = BlogItemPublishedManager()

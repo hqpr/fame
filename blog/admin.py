@@ -2,7 +2,8 @@ from django.contrib import admin
 from suit.admin import SortableTabularInline
 from suit_redactor.widgets import RedactorWidget
 
-from .models import BlogItem,BlogAuthor,BlogCategory,BlogItemCategory,BlogTag,BlogItemTag,BlogItemComment
+from .models import BlogItem,BlogAuthor,BlogCategory,BlogItemCategory,BlogTag,BlogItemTag,BlogItemComment,\
+                    BlogCompetitionLinks
 
 # Register your models here.
 class BlogItemAuthorInline(SortableTabularInline):
@@ -23,11 +24,15 @@ class BlogItemCommentInline(admin.TabularInline):
     model = BlogItemComment
     suit_classes = 'suit-tab suit-tab-comments'
 
+class BlogCompetitionLinksInline(admin.TabularInline):
+    model = BlogCompetitionLinks
+    suit_classes = 'suit-tab suit-tab-categories'
+
 
 class BlogItemAdmin(admin.ModelAdmin):
     model = BlogItem
     suit_form_tabs = (('general', 'General'), ('categories', 'Categories & Tags'), ('comments','Comments'))
-    inlines = [BlogItemAuthorInline, BlogItemCategoryInline,BlogItemTagInline,BlogItemCommentInline]
+    inlines = [BlogItemAuthorInline, BlogItemCategoryInline,BlogItemTagInline,BlogCompetitionLinksInline,BlogItemCommentInline]
 
     fieldsets = [
         (None, {

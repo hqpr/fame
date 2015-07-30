@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
+
 
 {% block banner %}
 <!--Start: Bannner-->
-    <div class="banner-container"><img src="{{MEDIA_URL}}images/banner.jpg"  class="img-responsive" alt="" />
-      <div class="message-wrap">The World Electronic Music Contest <br/>
-        comes to France!</div>
+    <div class="banner-container">{% thumbnail competition.competition_page_image "920x220" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+              {% endthumbnail %}
+      <div class="message-wrap">{{ competition.name }}<br />{{competition.competition_tagline}}</div>
     </div>
     <!--Start: Bannner-->
 {% endblock banner %}
 
 {% block banner-strip %}
-<ul class="after-banner-strip">
-      <li class="first"><a href="#"><img src="{{MEDIA_URL}}images/music.png" alt="" /> Electronic</a> <span class="location-france"><a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/> France</a></span></li>
+  <ul class="after-banner-strip">
+      <li class="first"><a href="#"><img src="{{MEDIA_URL}}images/music.png" alt="" />{% for genre in competition.competitiongenre_set.all %}{% if forloop.counter > 1 %},{% endif %} {{genre.genre.name}} {% endfor %}</a> <span class="location-france"><a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/> {% for country in competition.competitioncountry_set.all %}{% if forloop.counter > 1 %},{% endif %} {{country.country.name}} {% endfor %}</a></span></li>
       <li class="view-chart"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></li>
-      <li class="last"><a href="#">1837 ENTRIES</a></li>
-      <li><a href="#"><span class="red-txt">NEWS:</span> THE COMPETITION STARTS NOW! <span class="grey-txt">#WEMCAU</span></a></li>
+      <li class="last"><a href="{% url 'single_competition_chart' slug=competition.slug %}">{{competition.competitionentry_set.all|length}} ENTRIES</a></li>
+      {% if latest_blog %}<li><a href="{% url "single_blog" latest_blog.blog_item.slug %}"><span class="red-txt">NEWS:</span> {{latest_blog.blog_item.title}}</a></li>{% endif %}
     </ul>
 {% endblock banner-strip %}
 {% block content-wrapper %}<div class="middle-wrap"> {% endblock content-wrapper %}
@@ -64,7 +67,10 @@
           <hr/>
           <div id="contentDivImg" style="display: block;">
             <p>{{ competition.competition_page_description }}</p>
-            <figure class="img-wrap relative"><img src="{{ MEDIA_URL }}{{ competition.competition_page_image }}" class="img-responsive" alt=""/> <a href="#" class="play-video"></a></figure>
+            <figure class="img-wrap relative">
+              {% thumbnail competition.competition_page_image "480x360" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+              {% endthumbnail %} <a href="#" class="play-video"></a></figure>
           </div>
         </div>
         <!--End: About Frame--> 
@@ -77,9 +83,12 @@
           <ul class="judge-wrap" id="contentDivImg1" style="display: block;">
             {% for j in judges %}
                 <li>
-                  <figure><img src="{{MEDIA_URL}}{{ j.thumbnail_image }}" alt="" /></figure>
+                  <figure>
+                    {% thumbnail j.thumbnail_image "200x200" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                        {% endthumbnail %}</figure>
                   <figcaption>
-                    <h3>{{ j.judge }}</h3>
+                    <h3>{{ j.judge.userprofile.display_name }}</h3>
                     <h4>{{ j.judge }}</h4>
                     <p>{{ j.description }}</p>
                   </figcaption>
@@ -96,12 +105,12 @@
           <hr/>
           <div id="contentDivImg3" style="display: block;">
           <p>Countries allowed to participate: {% for c in countries %}{{ c.country.name }}, {% endfor %}</p>
-            {{ terms.terms|safe }}
+          <ul class="prize-wrap">
               {% for t in terms_summary %}
-                {{ t.term|safe }}
+                <li>{{ t.term|safe }}</li>
               {% endfor %}
-
-            <span class="view-more-btn"><a href="">View More</a></span> </div>
+          </ul>
+            <span class="view-more-btn"><a href="{% url "single_competition_terms" competition.slug %}" data-toggle="modal" data-target="#modal-body">View More</a></span> </div>
         </div>
         <!--End: Term & Condition--> 
       </div>
@@ -226,6 +235,12 @@
               <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" />
                   <span class="com-btn-wrap">
                   <a href="{% url 'single_competition_enter' slug=competition.slug %}" data-toggle="modal" data-target="#modal-body">ENTER THIS COMPETITION</a>
+              </span>
+              </div>
+            {% else %}
+                <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" />
+                  <span class="com-btn-wrap">
+                  <a href="{% url 'single_competition_chart' slug=competition.slug %}">VIEW CHART</a>
               </span>
               </div>
           {% endif %}

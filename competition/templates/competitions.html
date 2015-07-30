@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load thumbnail %}
 {% block extrahead %}
-    <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
 {% endblock %}
 
 {% block wrapper-class %}comp-overview-bg{% endblock wrapper-class %}
@@ -67,7 +67,9 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="current-comp-container">
                     <div class="img-wrap">
-                        <img src="{{MEDIA_URL}}{{ competition.competition_page_image }}"  alt="">
+                        {% thumbnail competition.competition_page_image "420x220" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                        {% endthumbnail %}
 
                         <span class="badge-wrap"><a href="#"><img src="{{MEDIA_URL}}images/budge.png" width="31" height="32" alt=""></a></span>
                         <span class="slogan-wrap">{{ competition.name }}</span>
@@ -165,6 +167,8 @@
 {% endblock footer %}
 
 {% block extra-script %}
+    <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+
     <script>
         $(window).load(function(){
             $('.flexslider').flexslider({

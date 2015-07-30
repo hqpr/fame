@@ -1,7 +1,9 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 
-from userprofile.models import HallOfFameArtists
+from userprofile.models import HallOfFameArtists, UserProfile
+from competition.models import Competition
+from media.models import Audio
 
 def home(request):
     return render(request, 'home.html', {})
@@ -24,7 +26,37 @@ def hall_of_fame(request):
     return render(request, 'hall-of-fame.html', template_data)
 
 def search(request):
-    return render(request, 'search.html', {})
+    artists = None
+    competitions = None
+    tracks = None
+    results = None
+
+    if "q" in request.GET and len(request.GET["q"]):
+        query = request.GET["q"]
+        try:
+            artists = UserProfile.objects.filter(display_name__icontains=query)[:10]
+        except:
+            pass
+        try:
+            competitions = Competition.published_objects.filter(name__icontains=query)[:10]
+        except:
+            pass
+
+        try:
+            tracks = Audio.public_objects.filter(name__icontains=query)[:10]
+        except:
+            pass
+        if len(artists) or len(competitions) or len(tracks):
+            results = True
+
+    template_data = {
+        "results": results,
+        "artists": artists,
+        "competitions": competitions,
+        "tracks": tracks
+
+    }
+    return render(request, 'search.html', template_data)
 
 def terms(request):
     return render(request, 'terms.html', {})

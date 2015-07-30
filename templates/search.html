@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load thumbnail %}
+{% load media_tags %}
 
 {% block header %}
     <!--Start: Header-->
@@ -27,234 +29,93 @@
           </ul>
 </div>
 
-<div class="artists-search-section">
 
 
-
-
-
-<div class="row"><h3>Artists</h3>
-
-<div class="col-sm-2 pad5"><div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
-            
-            
-            <div  class="profile-head" style=" position:relative">
-          <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
-          
-          <div class="profile-circle-img">
-          
-          <div class="profile-circle"></div>
-          
+{% if not results %}
+          <div class="artists-search-section">
+            <div class="comp-hold"> NO SEARCH RESULTS<br />
+            <span class="text-red">(PLEASE TRY AGAIN)</span> </div>
           </div>
-          
-          <h3>Martin Scotner</h3>
-          <p>Artist</p>
-         
-        </div>
-            
-            
-            <div class="profile-view-bar">
-            
-              <a href="#" class="btn btn-sm btn-green">View More</a> </div>
-              
-              
-              
-            </div></div>
-            
-            <div class="col-sm-2 pad5"><div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
-            
-            
-            <div  class="profile-head" style=" position:relative">
-          <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
-          
-          <div class="profile-circle-img">
-          
-          <div class="profile-circle"></div>
-          
-          </div>
-          
-          <h3>Martin Scotner</h3>
-          <p>Artist</p>
-         
-        </div>
-            
-            
-            <div class="profile-view-bar">
-            
-              <a href="#" class="btn btn-sm btn-green">View More</a> </div>
-              
-              
-              
-            </div></div>
-            
-            <div class="col-sm-2 pad5"><div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
-            
-            
-            <div  class="profile-head" style=" position:relative">
-          <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
-          
-          <div class="profile-circle-img">
-          
-          <div class="profile-circle"></div>
-          
-          </div>
-          
-          <h3>Martin Scotner</h3>
-          <p>Artist</p>
-         
-        </div>
-            
-            
-            <div class="profile-view-bar">
-            
-              <a href="#" class="btn btn-sm btn-green">View More</a> </div>
-              
-              
-              
-            </div></div>
-            
-            <div class="col-sm-2 pad5"><div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
-            
-            
-            <div  class="profile-head" style=" position:relative">
-          <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
-          
-          <div class="profile-circle-img">
-          
-          <div class="profile-circle"></div>
-          
-          </div>
-          
-          <h3>Martin Scotner</h3>
-          <p>Artist</p>
-         
-        </div>
-            
-            
-            <div class="profile-view-bar">
-            
-              <a href="#" class="btn btn-sm btn-green">View More</a> </div>
-              
-              
-              
-            </div></div>
-            
-            <div class="col-sm-2 pad5"><div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
-            
-            
-            <div  class="profile-head" style=" position:relative">
-          <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
-          
-          <div class="profile-circle-img">
-          
-          <div class="profile-circle"></div>
-          
-          </div>
-          
-          <h3>Martin Scotner</h3>
-          <p>Artist</p>
-         
-        </div>
-            
-            
-            <div class="profile-view-bar">
-            
-              <a href="#" class="btn btn-sm btn-green">View More</a> </div>
-              
-              
-              
-            </div></div>
-            
-            <div class="col-sm-2 pad5"><div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
-            
-            
-            <div  class="profile-head" style=" position:relative">
-          <div class="profile-pic"><img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt=""></div>
-          
-          <div class="profile-circle-img">
-          
-          <div class="profile-circle"></div>
-          
-          </div>
-          
-          <h3>Martin Scotner</h3>
-          <p>Artist</p>
-         
-        </div>
-            
-            
-            <div class="profile-view-bar">
-            
-             <a href="#" class="btn btn-sm btn-green">View More</a> </div>
-              
-              
-              
-            </div></div>
-
-</div>
+            {% else %}
+            <div class="row">
+              <h2 style="color: white">Search Results for "{{request.GET.q}}"</h2>
+            <div class="col-xs-12">
+              </div>
+            </div>
+            {% if artists %}
+            <div class="artists-search-section">
+              <div class="row">
+                <h3>Artists</h3>
+              {% for artist in artists %}
+                {% if artist.user %}
+                <div class="col-sm-2 pad5">
+                  <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+                    <div  class="profile-head" style=" position:relative">
+                      <div class="profile-pic">{% thumbnail artist.user.userprofile.picture "130x130" crop="center" as im %}
+                          {% if im.url %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle" >
+                          {% else %}
+                                <img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt="">
+                          {% endif %}
+                            {% endthumbnail %}</div>
+                      <div class="profile-circle-img">
+                        <div class="profile-circle"></div>
+                      </div>
+                      <h3>{{artist.display_name}}</h3>
+                      <p>Artist</p>
+                    </div>
+                    <div class="profile-view-bar"> <a href="{% url "single_artist" artist.user.username %}" class="btn btn-sm btn-{% cycle "green" "blue" %}">View More</a> </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                
+                </div>
+            </div>
+            {% endif %}
 
 
 
 
-
-</div>
-
+{% if competitions %}
 
 <div class="competition-search-section">
 
 <div class="row">
 <h3>Competitions</h3>
 
-<div class="col-sm-4 pad5">
+{% for competition in competitions %}
+    <!--Competition Box-->
+    <div class="col-sm-4 pad5">
+        <div class="current-comp-container">
+            <div class="img-wrap">
+                {% thumbnail competition.competition_page_image "420x220" crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                {% endthumbnail %}
 
-            <div class="current-comp-container">
-              <div class="img-wrap"> <img src="{% static "images/small-banner.png" %}"  class="img-responsive" alt=""> <span class="badge-wrap"><a href="#"><img src="{% static "images/budge.png" %}" width="31" height="32" alt=""></a></span> <span class="slogan-wrap">The World Electronic Music Contest<br/>
-                comes to France!</span> </div>
-              <ul class="com-bottom">
-                <li><img src="{% static "images/music.png" %}" alt=""/> <a href="#">ELECTRONIC</a><br/>
-                  <img src="{% static "images/location-icon.png" %}"  alt=""/> <a href="#">France</a></li>
-                <li><a href="#" class="view-more">View More</a></li>
-                <li>SUBMISSION OPEN<br/>
-                  <time>00:54:14:12</time>
-                </li>
-              </ul>
+                <span class="badge-wrap"><a href="#"><img src="{{MEDIA_URL}}images/budge.png" width="31" height="32" alt=""></a></span>
+                <span class="slogan-wrap">{{ competition.name }}</span>
             </div>
-          
-</div>
-
-<div class="col-sm-4 pad5">
-
-            <div class="current-comp-container">
-              <div class="img-wrap"> <img src="{% static "images/small-banner.png" %}" class="img-responsive"  alt=""> <span class="badge-wrap"><a href="#"><img src="{% static "images/budge.png" %}" width="31" height="32" alt=""></a></span> <span class="slogan-wrap">The World Electronic Music Contest<br/>
-                comes to France!</span> </div>
-              <ul class="com-bottom">
-                <li><img src="{% static "images/music.png" %}" alt=""/> <a href="#">ELECTRONIC</a><br/>
-                  <img src="{% static "images/location-icon.png" %}"  alt=""/> <a href="#">France</a></li>
-                <li><a href="#" class="view-more">View More</a></li>
-                <li>SUBMISSION OPEN<br/>
-                  <time>00:54:14:12</time>
+            <ul class="com-bottom">
+                <li><img src="{{MEDIA_URL}}images/music.png" alt=""/>
+                    {% for genre in competition.competitiongenre_set.all %}
+                        <a href="#">{{ genre.genre }}</a>,
+                    {% endfor %}
+                    <br/>
+                    <img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/>
+                    {% for country in competition.competitioncountry_set.all %}
+                        <a href="#">{{ country.country.name }}</a>,
+                    {% endfor %}
                 </li>
-              </ul>
-            </div>
-
-</div>
-
-<div class="col-sm-4 pad5">
-
-            <div class="current-comp-container">
-              <div class="img-wrap"> <img src="{% static "images/small-banner.png" %}" class="img-responsive"  alt=""> <span class="badge-wrap"><a href="#"><img src="{% static "images/budge.png" %}" width="31" height="32" alt=""></a></span> <span class="slogan-wrap">The World Electronic Music Contest<br/>
-                comes to France!</span> </div>
-              <ul class="com-bottom">
-                <li><img src="{% static "images/music.png" %}" alt=""/> <a href="#">ELECTRONIC</a><br/>
-                  <img src="{% static "images/location-icon.png" %}"  alt=""/> <a href="#">France</a></li>
-                <li><a href="#" class="view-more">View More</a></li>
+                <li><a href="{% url 'single_competition' slug=competition.slug %}" class="view-more">View More</a></li>
                 <li>SUBMISSION OPEN<br/>
-                  <time>00:54:14:12</time>
+                    <time>00:54:14:12</time>
                 </li>
-              </ul>
-            </div>
-    
-</div>
+            </ul>
+        </div>
+    </div>
+    <!--End Competition Box-->
+{% endfor %}
 
 
 
@@ -262,23 +123,19 @@
 
 </div>
 
+{% endif %}
+
+{% if tracks %}
 <div class="tracks-search-section">
 
 <div class="row">
 
 <h3>Tracks</h3>
-
-<div class="col-sm-2 col-xs-6 pad5"><div class="tracks-search-thumb"><a href="#"><img src="{% static "images/tracks-img1.jpg" %}" class="img-responsive" alt=""></a></div></div>
-
-<div class="col-sm-2 col-xs-6 pad5"><div  class="tracks-search-thumb"><a href="#"><img src="{% static "images/tracks-img2.jpg" %}" class="img-responsive" alt=""></a></div></div>
-
-<div class="col-sm-2 col-xs-6 pad5"><div  class="tracks-search-thumb"><a href="#"><img src="{% static "images/tracks-img1.jpg" %}" class="img-responsive" alt=""></a></div></div>
-
-<div class="col-sm-2 col-xs-6 pad5"><div  class="tracks-search-thumb"><a href="#"><img src="{% static "images/tracks-img2.jpg" %}" class="img-responsive" alt=""></a></div></div>
-
-<div class="col-sm-2 col-xs-6 pad5"><div  class="tracks-search-thumb"><a href="#"><img src="{% static "images/tracks-img1.jpg" %}" class="img-responsive" alt=""></a></div></div>
-
-<div class="col-sm-2 col-xs-6 pad5"><div  class="tracks-search-thumb"><a href="#"><img src="{% static "images/tracks-img2.jpg" %}" class="img-responsive" alt=""></a></div></div>
+{% for audio in tracks %}
+    <div class="col-xs-6 col-sm-2 pad5">
+        {% audio audio request.user display "small" %}
+    </div>
+{% endfor %}
 
 </div>
 
@@ -286,9 +143,32 @@
 
 
 </div>
+{% endif %}
 
-        
+        {% endif %}
       </div>
       
       <!--Start: Bannner--> 
 {% endblock content %}
+
+{% block extra-script %}
+<div class="modal modal-track modal-absolute" id="trackcard">
+        <div class="modal-dialog" style="z-index: 9991">
+            <div class="modal-content modal-contnet-bg">
+            </div>
+        </div>
+    </div>
+<script>
+$(function() {
+  $(".music_box").hover(
+      function () {
+        $( this ).find('div').fadeIn(200);
+      },
+      function () {
+          $( this ).find('div').fadeOut(200);
+      }
+    );
+});
+
+</script>
+{% endblock %}

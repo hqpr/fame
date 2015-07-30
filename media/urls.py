@@ -1,7 +1,7 @@
 from django.conf.urls import include, url, patterns
 from .views import AudioView, AudioFileView, PlayListView, trackcard, AudioUpdateView, \
     playlist_cover, VideoFileView, VideoView, videocard, all_media, add_to_playlist, playlistcard,\
-    PlayListUpdateView
+    PlayListUpdateView, publisher, soundcloud_import
 
 urlpatterns = [
     url(r'^$', all_media, name='all_media'),
@@ -22,5 +22,8 @@ urlpatterns = [
 
     # image upload
     url(r'^playlist/cover/$', playlist_cover, name='playlist_cover'),
+
+    url(r'^publisher/$', publisher, name='publisher'),
+    url(r'^soundcloud/import/$', soundcloud_import, name='soundcloud_import'),
 ]
 

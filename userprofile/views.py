@@ -111,6 +111,7 @@ class RegistrationStepView(FormView):
             return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
     def form_invalid(self, form):
+        print form
         html = render_to_string(self.template_name, self.get_context_data(form=form))
         data = {
             'success': False,

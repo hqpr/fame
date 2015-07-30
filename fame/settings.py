@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'suit',
+    'modeltranslation',  # http://django-modeltranslation.readthedocs.org/en/latest/index.html
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,8 @@ INSTALLED_APPS = (
     'blog',
     'content',
     'djangular',
-    'api_rest'
+    'api_rest',
+    'rosetta'  # http://django-rosetta.readthedocs.org/en/latest/installation.html
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,6 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'fame.urls'
@@ -99,6 +102,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'social.apps.django_app.context_processors.backends',
     'social.backends.twitter',
     'social.apps.django_app.context_processors.login_redirect',
+    'django.core.context_processors.i18n',
 )
 
 
@@ -126,6 +130,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('it', gettext('Italian')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -185,9 +197,9 @@ LOGIN_REDIRECT_URL = '/user/login/'
 LOGIN_URL = '/user/login/'
 LOGIN_ERROR_URL = '/'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/?soundcloud_success=true'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
-SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/profile/?soundcloud_success=true'
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'
 SOCIAL_AUTH_BACKEND_ERROR_URL = '/'
 

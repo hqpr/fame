@@ -92,7 +92,7 @@ var dzsap_globalidind = 20;
             ,settings_useflashplayer: 'auto' // off or on or auto
             ,skinwave_spectrummultiplier: '1' // == number
             ,skinwave_comments_enable: 'off'
-            ,settings_php_handler: 'publisher.php'
+            ,settings_php_handler: '/media/publisher/'
             ,php_retriever: 'soundcloudretriever.php'
             ,skinwave_mode: 'normal' // --- "normal" or "small"
             ,skinwave_comments_playerid: ''
@@ -507,18 +507,32 @@ var dzsap_globalidind = 20;
                             type: "POST",
                             url: o.settings_php_handler,
                             data: data,
+                            dataType: 'json',
                             success: function(response) {
-                                if(typeof window.console != "undefined" ){ console.log('Ajax - get - comments - ' + response); }
+                                console.log(response);
+                                if(typeof window.console != "undefined" ){
+                                    console.log('Ajax - get - comments - ' + response);
+                                    console.log(response.comments)
+                                }
 
                                 cthis.prependOnce('<div class="the-comments"></div>', '.the-comments');
+                                $.each(response, function(index, data){
+                                    data = data['fields']['comment'];
+                                    cthis.find('.the-comments').eq(0).html(data);
+                                    $('.comments-holder').append(data);
+                                });
 
-                                if(response.indexOf('a-comment')>-1){
 
-                                    response = response.replace(/a-comment/g, 'a-comment dzstooltip-con');
-                                    response = response.replace(/dzstooltip arrow-bottom/g, 'dzstooltip arrow-from-start transition-slidein arrow-bottom');
 
-                                }
-                                cthis.find('.the-comments').eq(0).html(response);
+                                //if(response.indexOf('a-comment')>-1){
+                                //
+                                //    response = response.replace(/a-comment/g, 'a-comment dzstooltip-con');
+                                //    response = response.replace(/dzstooltip arrow-bottom/g, 'dzstooltip arrow-from-start transition-slidein arrow-bottom');
+                                //
+                                //}
+                                //cthis.find('.the-comments').eq(0).html(response);
+
+
 
                                 arr_the_comments = cthis.find('.the-comments').eq(0).children();
 
@@ -635,8 +649,10 @@ var dzsap_globalidind = 20;
 
 //                console.info(o.design_skin, type, o.skinwave_comments_enable, o.design_skin=='skin-wave' && (type=='audio'||type=='soundcloud') && o.skinwave_comments_enable=='on');
 
+
+
                 if(o.design_skin=='skin-wave' && (type=='audio'||type=='soundcloud') && o.skinwave_comments_enable=='on'){
-                    cthis.appendOnce('<div class="comments-holder"><div class="the-bg"></div></div><div class="clear"></div><div class="comments-writer"><div class="comments-writer-inner"><div class="setting"><div class="setting-label"></div><input placeholder="Your email.." name="comment-email" type="text" class="comment-input"/><input name="comment-text" placeholder="Your comment.." type="text" class="comment-input"/><button class="submit-ap-comment dzs-button float-right">Submit</button><button class="cancel-ap-comment dzs-button float-right">Cancel</button><div class="clear"></div></div></div></div>');
+                    cthis.appendOnce('<div class="comments-holder"><div class="the-bg"></div></div><div class="clear"></div><div class="comments-writer"><div class="comments-writer-inner"><div class="setting"><div class="setting-label"></div><input placeholder="Your email.." id="comment-email"" name="comment-email" type="hidden" class="comment-input"/><input name="comment-text" placeholder="Your comment.." type="text" class="comment-input"/><button class="submit-ap-comment dzs-button float-right">Submit</button><button class="cancel-ap-comment dzs-button float-right">Cancel</button><div class="clear"></div></div></div></div>');
                     _commentsHolder = cthis.find('.comments-holder').eq(0);
                     _commentsWriter = cthis.find('.comments-writer').eq(0);
 
@@ -942,10 +958,10 @@ var dzsap_globalidind = 20;
                 if(cthis.find('input[name=comment-email]').length>0){
                     var regex_mail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-                    if(regex_mail.test(cthis.find('input[name=comment-email]').eq(0).val())==false){
-                        alert('please insert email, your email is just used for gravatar. it will not be sent or stored anywhere');
-                        return false;
-                    }
+                    //if(regex_mail.test(cthis.find('input[name=comment-email]').eq(0).val())==false){
+                    //    alert('please insert email, your email is just used for gravatar. it will not be sent or stored anywhere');
+                    //    return false;
+                    //}
 
                     comm_author = String(cthis.find('input[name=comment-email]').eq(0).val()).split('@')[0];
                     o.skinwave_comments_account = comm_author;

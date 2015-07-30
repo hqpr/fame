@@ -545,6 +545,15 @@
   padding-top: 78px;
   margin-top: 0; }
 
+.after-banner-strip + .middle-wrap {
+  padding-top: 20px; }
+
+.middle-wrap {
+  overflow: hidden; }
+
+.banner-container {
+  padding-top: 48px; }
+
 .main-container,
 .sidr {
   height: 100vh;
@@ -557,6 +566,19 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; }
+
+.paging {
+  clear: both; }
+
+.terms-container {
+  max-height: 400px;
+  overflow: scroll; }
+
+.terms-container ol {
+  padding-left: 30px;
+  list-style-type: decimal; }
+  .terms-container ol li {
+    padding-bottom: 15px; }
 
 .frame.badges {
   -webkit-transition: all 1s;

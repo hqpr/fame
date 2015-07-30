@@ -50,17 +50,19 @@ $(document).ready(function(){
     );
 
     // audio player
-    var settings_ap = {
-        disable_volume: 'off'
-        ,disable_scrub: 'default'
-        ,design_skin: 'skin-wave'
-        ,skinwave_dynamicwaves:'on'
-    };
-    dzsag_init('#mixtape',{
-        'transition':'fade'
-        ,'autoplay' : 'on'
-        ,'settings_ap':settings_ap
-    });
+    //var settings_ap = {
+    //    disable_volume: 'off'
+    //    ,disable_scrub: 'default'
+    //    ,design_skin: 'skin-wave'
+    //    ,skinwave_dynamicwaves:'on'
+    //};
+    //dzsag_init('#mixtape',{
+    //    'transition':'fade'
+    //    ,'autoplay' : 'on'
+    //    ,'settings_ap':settings_ap
+    //});
+    //
+
     $('#update_audio').on('click', function(){
         $('#edit_audio_form').ajaxSubmit({
             success: function(data){
@@ -148,9 +150,8 @@ $(document).ready(function(){
 
 
     $('#trackcard').on('hidden.bs.modal', function () {
-        //$('.pausebtn').trigger('click'); // pause audio
+        $('.pausebtn').trigger('click'); // pause audio
         $(".video-js")[0].player.pause(); // pause video
-
     });
 
     $('#aboutDetails').on('blur', function () {

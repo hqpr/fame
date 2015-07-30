@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 {% load static from staticfiles %}
 {% block extrahead %}
     <link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
     <script src="//vjs.zencdn.net/4.12/video.js"></script>
 {% endblock %}
 {% block banner %}
-    <!--Start: Bannner-->
-    <div class="banner-container"><img src="{{MEDIA_URL}}images/banner.jpg" class="img-responsive" alt="" />
-
-        <div class="message-wrap">The World Electronic Music Contest <br/>
-            comes to France!</div>
+<!--Start: Bannner-->
+    <div class="banner-container">{% thumbnail competition.competition_page_image "920x220" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+              {% endthumbnail %}
+      <div class="message-wrap">{{ competition.name }}<br />{{competition.competition_tagline}}</div>
     </div>
     <!--Start: Bannner-->
 {% endblock banner %}
+
 {% block banner-strip %}
-    <ul class="after-banner-strip">
-        <li><a href="#"><img src="{{MEDIA_URL}}images/music.png" width="20" height="20" alt=""> Electronic</a> &nbsp;&nbsp;<a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  width="20" height="20" alt=""> France</a></li>
-        <li class="view-chart"><a href="#">View Chart</a></li>
-        <li class="last"><a href="#">1837 ENTRIES</a></li>
-        <li><a href="#"><span class="red-txt">NEWS:</span> THE COMPETITION STARTS NOW! <span class="grey-txt">#WEMCAU</span></a></li>
+  <ul class="after-banner-strip">
+      <li class="first"><a href="#"><img src="{{MEDIA_URL}}images/music.png" alt="" />{% for genre in competition.competitiongenre_set.all %}{% if forloop.counter > 1 %},{% endif %} {{genre.genre.name}} {% endfor %}</a> <span class="location-france"><a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/> {% for country in competition.competitioncountry_set.all %}{% if forloop.counter > 1 %},{% endif %} {{country.country.name}} {% endfor %}</a></span></li>
+      <li class="view-chart"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></li>
+      <li class="last"><a href="{% url 'single_competition_chart' slug=competition.slug %}">{{competition.competitionentry_set.all|length}} ENTRIES</a></li>
+      {% if latest_blog %}<li><a href="{% url "single_blog" latest_blog.blog_item.slug %}"><span class="red-txt">NEWS:</span> {{latest_blog.blog_item.title}}</a></li>{% endif %}
     </ul>
-{% endblock %}
+{% endblock banner-strip %}
 {% block content-wrapper %}<div class="col-lg-12 middle-wrap">{% endblock content-wrapper %}
 {% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
 
@@ -35,6 +37,8 @@
         <div class="competition-wrap"><img src="{{MEDIA_URL}}images/enter-competition.png" class="img-responsive" alt="" />
             {% if not access %}
                 <span class="com-btn-wrap"><a href="{% url 'single_competition_enter' slug=competition.slug %}" data-toggle="modal" data-target="#modal-body">Enter The Competition</a></span>
+            {% else %}
+                <span class="com-btn-wrap"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></span>
             {% endif %}
         </div>
         <!--End: competition-->
@@ -200,7 +204,7 @@
                                     </div>
                                 </div>
                                 <div class="sound-track">
-                                    <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5>
+                                    <!-- <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5> -->
                                     <div class="track-pic hidden-xs"><img src="{{MEDIA_URL}}images/track-selection.png" class="img-responsive" alt=""></div>
                                     <div  class="track-pic-small visible-xs"><img src="{{MEDIA_URL}}images/track-img-2.png" class="img-responsive" alt=""></div>
                                     <div class="row">
@@ -298,7 +302,7 @@
                                 </div>
 
                                 <div class="sound-track">
-                                    <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5>
+                                    <!-- <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5> -->
 
                                     <div class="track-pic hidden-xs"><img src="{{MEDIA_URL}}images/track-selection.png" class="img-responsive" alt=""></div>
                                     <div  class="track-pic-small visible-xs"><img src="{{MEDIA_URL}}images/track-img-2.png" class="img-responsive" alt=""></div>

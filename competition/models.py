@@ -25,6 +25,10 @@ https://docs.google.com/a/jbcole.co.uk/document/d/17SDFO1kyTrp-ARqj4CxJT4YiOCcmN
 Any changes to the model functionality need to be reflected in these two documents.
 """
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(public=True,active=True,date_start__lte=datetime.now(tz=pytz.UTC),date_end__gte=datetime.now(tz=pytz.UTC))
+
 # Create your models here.
 class Competition(models.Model):
     """Parent class for complete competition"""
@@ -35,6 +39,7 @@ class Competition(models.Model):
     date_end = models.DateTimeField()
     competition_page_image = models.ImageField(blank=True, null=True, upload_to="%y/%m/%d",verbose_name="Competition Image")
     competition_page_description = models.TextField(blank=True, null=True,verbose_name="Competition Description")
+    competition_tagline = models.CharField(max_length=255, blank=True, null=True, verbose_name="Tag Line")
     judge_weighting = models.PositiveIntegerField(default=500)
     creator = models.ForeignKey(User)
     public = models.BooleanField(default=True)
@@ -43,6 +48,9 @@ class Competition(models.Model):
     closed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    published_objects = PublishedManager()
 
     def clean(self):
         if self.id:

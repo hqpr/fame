@@ -5,7 +5,7 @@ import datetime
 
 ACCOUNT_TYPES = (
     ('1', 'Artist'),
-    ('2', 'Music Explorer'),
+    ('2', 'Muser'),
     ('3', 'Music Industry'),
 )
 

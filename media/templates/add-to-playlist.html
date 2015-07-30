@@ -1,8 +1,6 @@
 {% load static from staticfiles %}
 {% block extrahead %}
-    <script src="{% static 'js/bootstrap-select.js' %}"></script>
     <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
-    <script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}
 <div class="modal-body">
     <h3>Add track to playlist</h3>
@@ -27,6 +25,10 @@
 
     </form>
 </div>
+{% block extra-script %}
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+
 <script>
     $('.selectpicker').selectpicker();
     $('#create_list_lnk').on('click', function(){
@@ -34,3 +36,4 @@
         $('#create_playlist_lnk').trigger('click');
     });
 </script>
+{% endblock %}

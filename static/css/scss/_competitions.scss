@@ -1,0 +1,14 @@
+.paging {
+    clear: both;
+}
+.terms-container {
+    max-height: 400px;
+    overflow: scroll;
+}
+.terms-container ol {
+    padding-left: 30px;
+    list-style-type: decimal;
+    li {
+        padding-bottom: 15px;
+    }
+}

@@ -48,14 +48,15 @@ class Audio(models.Model):
     plays = models.IntegerField(blank=True, null=True, default=0)
     is_complete = models.BooleanField(default=False)
     length = models.CharField(default=0, max_length=255, blank=True, null=True)
+    soundcloud_track_id = models.CharField(max_length=255, blank=True, null=True)
 
     objects = models.Manager() # The default manager.
     public_objects = PublicManager()
 
-    def clean(self):
-        if not self.uid:
-            self.uid = self.generate_unique_string()
-        return
+    # def clean(self):
+    #     if not self.uid:
+    #         self.uid = self.generate_unique_string()
+    #     return
 
     def generate_unique_string(self):
         chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -64,8 +65,8 @@ class Audio(models.Model):
             unique_key = get_random_string(11, chars)
 
             try:
-                audio = Audio.objects.get(uid=unique_key)
-            except:
+                Audio.objects.get(uid=unique_key)
+            except Audio.DoesNotExist:
                 break
 
         return unique_key
@@ -74,6 +75,8 @@ class Audio(models.Model):
         return "%s" % (self.name,)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if not self.uid:
+            self.uid = self.generate_unique_string()
         super(Audio, self).save(force_insert, force_update, using, update_fields)
         if self.length == 0:
             try:
@@ -215,7 +218,7 @@ class AudioComment(models.Model):
     fan = models.ForeignKey(User)
     comment = models.TextField()
     time_specific = models.BooleanField(default=False)
-    time = models.IntegerField() # the time in seconds
+    time = models.CharField(max_length=255)  # the time in seconds
     approved = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 

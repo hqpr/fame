@@ -1,3 +1,4 @@
+import urllib
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.http import HttpResponse
@@ -7,15 +8,32 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, UpdateView
 import simplejson
 from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm, AudioPlaylist
-from .models import Audio, AudioPlaylist, Video, PlaylistItem
+from .models import Audio, AudioPlaylist, Video, PlaylistItem, AudioComment
 import datetime
 import time
 from base64 import decodestring
+import re
+from django.core import serializers
+from social.apps.django_app.default.models import UserSocialAuth
+import soundcloud
+from django.conf import settings
+import os
 
 
 class AudioFileView(FormView):
     template_name = 'add-audio-1.html'
     form_class = AudioFileForm
+
+    def get_context_data(self, **kwargs):
+        context = super(AudioFileView, self).get_context_data(**kwargs)
+        try:
+            token = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='soundcloud')
+            client = soundcloud.Client(use_ssl=False, access_token=token.access_token)
+            context['soundcloud'] = client.get('/me/tracks')
+            # context['suser'] = token.uid
+        except:
+            context['soundcloud'] = None        
+        return context
 
     def form_valid(self, form):
 
@@ -302,3 +320,62 @@ def add_to_playlist(request, track_id):
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
     return render(request, 'add-to-playlist.html', data)
+
+def publisher(request):
+    if request.method == 'POST':
+
+        action = request.POST.get('action', None)
+        if action == 'dzsap_front_submitcomment':
+            playerid = request.POST.get('playerid', None)
+            data = request.POST.get('postdata', None)
+            times = re.findall('style=\"left\:(.*)\%\"', data)
+            AudioComment.objects.create(audio_id=playerid, fan=request.user, comment=data,
+                                        time=times[0])
+        elif action == 'dzsap_get_comments':
+            playerid = request.POST.get('playerid', None)
+            try:
+                comments = AudioComment.objects.filter(audio_id=playerid, approved=True)
+                d = serializers.serialize('json', comments)
+                return HttpResponse(d, content_type='application/json')
+            except AudioComment.DoesNotExist:
+                pass
+
+        return HttpResponse('')
+
+
+def soundcloud_import(request):
+    if request.method == 'POST':
+        sound_file = request.POST.get('download', None)
+        track_id = request.POST.get('track_id', None)
+        if sound_file and track_id:
+            token = UserSocialAuth.objects.get(user=request.user, provider='soundcloud')
+            client = soundcloud.Client(use_ssl=False, access_token=token.access_token)
+            track_info = client.get('/tracks/%s' % track_id)
+            # print track_info.obj
+
+            download_url = '%s?client_id=%s' % (sound_file, settings.SOCIAL_AUTH_SOUNDCLOUD_KEY)
+            audiopath = 'audios/%s/%s/%s/' % (time.strftime("%y"), time.strftime("%m"), time.strftime("%d"))
+            fullfilename = os.path.join('%s/%s', '%s.mp3') % (settings.MEDIA_ROOT, audiopath, track_id)
+            # urllib.urlretrieve(download_url, fullfilename)
+            a_name = '%s%s.mp3' % (audiopath, track_id)
+
+            artwork_url = track_info.obj['artwork_url']
+            coverpath = 'audios/covers/%s/%s/%s/' % (time.strftime("%y"), time.strftime("%m"), time.strftime("%d"))
+            coverfilename = os.path.join('%s/%s', '%s.jpg') % (settings.MEDIA_ROOT, coverpath, track_id)
+            # urllib.urlretrieve(artwork_url, coverfilename)
+            c_name = '%s%s.jpg' % (coverpath, track_id)
+
+            try:
+                Audio.objects.get(user=request.user, soundcloud_track_id=track_id)
+                data = {'success': False, 'msg': 'You\'re already imported that track into Fame'}
+            except Audio.DoesNotExist:
+                Audio.objects.create(name=track_info.obj['title'], user=request.user,
+                                     artist=track_info.user['username'],audio=a_name,
+                                     is_complete=True, cover=c_name, soundcloud_track_id=track_id)
+                data = {'success': True}
+        else:
+            data = {'success': False, 'msg': 'Please, choose a track.'}
+    else:
+        data = {'success': False}
+    return HttpResponse(simplejson.dumps(data), content_type='application/json')
+

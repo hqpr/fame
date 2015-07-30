@@ -11,7 +11,8 @@ from django.template import RequestContext
 import simplejson
 
 from .models import Competition, CompetitionEntry, CompetitionEntryAudio, CompetitionStage, \
-    CompetitionStageRequirement, CompetitionEntryVideo
+    CompetitionStageRequirement, CompetitionEntryVideo, CompetitionTerms
+from blog.models import BlogCompetitionLinks
 from media.models import Audio, Video
 from media.forms import AudioForm
 
@@ -75,6 +76,11 @@ def single_competition(request, *args, **kwargs):
 
     access = CompetitionEntryAudio.objects.filter(entry=Audio.objects.filter(user=request.user))
 
+    latest_blog = ""
+    latest_blog_list = BlogCompetitionLinks.published_objects.filter(competition=competition).order_by('-blog_item__publish_date')
+    if len(latest_blog_list):
+        latest_blog = latest_blog_list[0]
+
     template_name = competition_data["template_name"]
     template_data = {
         'prizes': prizes,
@@ -86,8 +92,36 @@ def single_competition(request, *args, **kwargs):
         "page": competition_data["page"],
         "competition_tracks": competition_tracks,
         'competition_video': competition_video,
-        'access': access
+        'access': access,
+        'latest_blog': latest_blog
     }
+    links = [rel.get_accessor_name() for rel in competition._meta.get_all_related_objects()]
+    print links
+
+    return render_to_response(template_name,
+                              template_data,
+                              context_instance=RequestContext(request)
+                              )
+
+def single_competition_terms(request, *args, **kwargs):
+    """View single competition terms"""
+    try:
+        competition_slug = kwargs["slug"]
+        competition = Competition.objects.get(slug=competition_slug)
+    except:
+        return HttpResponse("Error")
+
+    try:
+        terms = competition.competitionterms
+    except:
+        terms = ''
+
+    template_name = "competition-terms.html"
+    template_data = {
+        'terms': terms
+    }
+    links = [rel.get_accessor_name() for rel in competition._meta.get_all_related_objects()]
+    print links
 
     return render_to_response(template_name,
                               template_data,

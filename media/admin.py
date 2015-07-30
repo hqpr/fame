@@ -2,14 +2,15 @@ from django.contrib import admin
 
 from suit.admin import SortableTabularInline
 
-from .models import Audio, Genre, Image, Video, AudioPlaylist, PlaylistItem
+from .models import Audio, Genre, Image, Video, AudioPlaylist, PlaylistItem, AudioComment
+from modeltranslation.admin import TranslationAdmin
 
 # Register your models here.
 class GenreAdmin(admin.ModelAdmin):
     """Handle Genre"""
     model = Genre
 
-class AudioAdmin(admin.ModelAdmin):
+class AudioAdmin(TranslationAdmin):
     """Handle Audio"""
     model = Audio
 
@@ -30,8 +31,13 @@ class AudioPlaylistAdmin(admin.ModelAdmin):
     model = AudioPlaylist
     inlines = [PlaylistItemInline]
 
+
+class AudioCommentAdmin(admin.ModelAdmin):
+    model = AudioComment
+
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Audio, AudioAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(AudioPlaylist, AudioPlaylistAdmin)
+admin.site.register(AudioComment, AudioCommentAdmin)
