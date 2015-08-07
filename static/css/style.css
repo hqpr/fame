@@ -1052,7 +1052,8 @@ textarea.form-control {
 	text-transform: uppercase;
 	text-align: center;
 	padding-top: 30px;
-	font-size: 10px
+	font-size: 10px;
+	overflow: hidden;
 }
 .hey-txt {
 	font-size: 30px;
@@ -1459,7 +1460,7 @@ ul.pl-list li a.share {
 .import-links ul li.last {
 	margin-right: 0
 }
-.modal {
+.modal-content {
 	top: 60px
 }
 .trackcard-title {
@@ -1506,6 +1507,8 @@ ul.pl-list li a.share {
 	padding-top: 40px
 }
 .click-to-move .or {
+	position: relative !important;
+	top: 0;
 	display: block;
 	color: #0486b9
 }

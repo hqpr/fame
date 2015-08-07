@@ -232,3 +232,49 @@ class AudioComment(models.Model):
 
     class Meta:
         db_table = "audio_comments"
+
+class VideoLike(models.Model):
+    video = models.ForeignKey(Video)
+    fan = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.fan:
+            if self.fan == self.video.user:
+                raise ValidationError({"fan": "Cannot like your own video."})
+        """Clean before saving"""
+        if not self.is_unique_entry:
+            raise ValidationError({"video": "You have already liked this video"})
+
+    def is_unique_entry(self):
+        video_like = VideoLike.objects.filter(video=self.video, fan=self.fan).exclude(id=self.id)
+        if len(video_like):
+            return False
+        return True
+
+    def __unicode__(self):
+        return "%s: %s" % (self.video, self.fan)
+
+    class Meta:
+        db_table = "video_likes"
+        unique_together = ('video', 'fan',)
+
+class VideoComment(models.Model):
+    video = models.ForeignKey(Video)
+    fan = models.ForeignKey(User)
+    comment = models.TextField()
+    time_specific = models.BooleanField(default=False)
+    time = models.CharField(max_length=255)  # the time in seconds
+    approved = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.fan:
+            if self.fan == self.video.user:
+                raise ValidationError({"fan": "Cannot comment on your own video."})
+
+    def __unicode__(self):
+        return "%s: %s" % (self.video, self.fan)
+
+    class Meta:
+        db_table = "video_comments"

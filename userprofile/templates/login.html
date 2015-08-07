@@ -21,7 +21,7 @@
                         <h3 class="fame-music-logo">Fame Music</h3>
                     </div>
                     <div>
-                        <a onclick="return false" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span>
+                        <a href="{% url 'social:begin' 'facebook' %}" class="btn facebook-btn"><i class="fa fa-facebook-official"></i> <span class="fbtxt">SIGN UP WITH FACEBOOK</span>
                         </a>
 
                         <div style="display: none" id="social_networks">
@@ -88,7 +88,7 @@
                       <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
                   </div>
-                  <p>Did you forget the password? </p>
+                  <p><a href="{% url 'password_reset' %}">Did you forget the password? </a></p>
                   <div class="text-center" style="padding-bottom:25px"><a href="#" id="log_in" class="btn pbtn"> LOG IN</a> </div>
 
                   <p class="signin"> Do you have an account? <a href="{% url 'register' %}">Sign Up</a></p>
@@ -125,10 +125,10 @@
                 dataType: 'json'
             });
         });
-        $('.facebook-btn').on('click', function() {
-            $(this).hide();
-            $('#social_networks').slideDown();
-        });
+{#        $('.facebook-btn').on('click', function() {#}
+{#            $(this).hide();#}
+{#            $('#social_networks').slideDown();#}
+{#        });#}
         $('.selectpicker').selectpicker();
         });
     </script>

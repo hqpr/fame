@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     display_name = models.CharField(max_length=100)
     birthday = models.DateField()
     country = CountryField()
-    city = models.CharField(max_length=100,blank=True,null=True)
+    city = models.CharField(max_length=100, blank=True,null=True)
     picture = models.ImageField(upload_to='avatars/%y/%m/%d', blank=True, null=True)
     background_image = models.ImageField(upload_to='backgrounds/%y/%m/%d', blank=True, null=True)
     artist_name = models.CharField(max_length=100, blank=True, null=True)
@@ -24,7 +24,7 @@ class UserProfile(models.Model):
     language = models.CharField(max_length=100, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(default='')
-    about = models.TextField(blank=True,null=True)
+    about = models.TextField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """
@@ -45,9 +45,9 @@ class HallOfFame(models.Model):
 
 
 HALL_OF_FAME_TYPES = (
-    ("winners","Winners"),
-    ("patrons","Patrons"),
-    ("sponsors","Sponsors"),
+    ("winners", "Winners"),
+    ("patrons", "Patrons"),
+    ("sponsors", "Sponsors"),
 )
 
 
@@ -62,31 +62,40 @@ class HallOfFameArtists(models.Model):
 
 
 SOCIAL_ACCOUNTS = (
-    ('instagram','Instagram'),
-    ('twitter','twitter'),
-    ('facebook','facebook'),
-    ('youtube','youtube'),
-    ('soundcloud','soundcloud'),
-    ('wavo','wavo'),
-    ('spotify','spotify'),
-    ('vimeo','vimeo'),
+    ('instagram', 'Instagram'),
+    ('twitter', 'twitter'),
+    ('facebook', 'facebook'),
+    ('youtube', 'youtube'),
+    ('soundcloud', 'soundcloud'),
+    ('wavo', 'wavo'),
+    ('spotify', 'spotify'),
+    ('vimeo', 'vimeo'),
 )
 class UserSocial(models.Model):
     user = models.ForeignKey(UserProfile)
-    account = models.CharField(max_length=255,choices=SOCIAL_ACCOUNTS)
+    account = models.CharField(max_length=255, choices=SOCIAL_ACCOUNTS)
     link = models.CharField(max_length=255)
 
     def __unicode__(self):
         return "%s: %s" % (self.user, self.account)
     
 
-class UserStatus (models.Model):
+class UserStatus(models.Model):
     user = models.ForeignKey(UserProfile)
     status = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return "%s: %s" % (self.user, self.status)
+
+
+class UserGenre(models.Model):
+    user = models.ForeignKey(UserProfile)
+    genre = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return "%s: %s" % (self.user, self.genre)
 
 
 class UserInfluencer(models.Model):

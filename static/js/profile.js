@@ -49,20 +49,6 @@ $(document).ready(function(){
       }
     );
 
-    // audio player
-    //var settings_ap = {
-    //    disable_volume: 'off'
-    //    ,disable_scrub: 'default'
-    //    ,design_skin: 'skin-wave'
-    //    ,skinwave_dynamicwaves:'on'
-    //};
-    //dzsag_init('#mixtape',{
-    //    'transition':'fade'
-    //    ,'autoplay' : 'on'
-    //    ,'settings_ap':settings_ap
-    //});
-    //
-
     $('#update_audio').on('click', function(){
         $('#edit_audio_form').ajaxSubmit({
             success: function(data){
@@ -112,7 +98,7 @@ $(document).ready(function(){
     });
 
     $('#edit_button').one('click', function(){
-        $('.click-to-move').show()
+        $('#change_avatar').show()
     });
 
 

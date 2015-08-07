@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
-from artist.views import single_artist, artist_settings, artist_insights, connections
+from artist.views import single_artist, artist_settings, connections
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from .views import home, hall_of_fame, search, terms, partnerships, handler404, handler4042
@@ -49,7 +49,6 @@ urlpatterns = [
     # static pages
     url(r'^profile/$', login_required(single_artist), {"display": "profile"}, name="profile"),
     url(r'^profile/connections$', login_required(connections), {"display": "profile"}, name="connections"),
-    url(r'^profile/insights/$', login_required(artist_insights), {"display":"profile"}, name="insights"),
     url(r'^settings/$', login_required(artist_settings), {"display":"profile"}, name="settings"),
 
     # static pages - phase 2
@@ -60,6 +59,9 @@ urlpatterns = [
     url(r'^partnerships/$', partnerships, {}, name="partnerships"),
     url(r'^404/$', handler404, {}, name="handler404"),
     url(r'^404-2/$', handler4042, {}, name="handler404_2"),
+
+    url(r'^insights/', include('insights.urls')),
+    url(r'^widget/', include('widgets.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

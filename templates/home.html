@@ -39,7 +39,7 @@
 <div class="home-header-banner">
   <div><a href="{% url "home" %}" class="logo-home">Fame Music</a></div>
   <h2>Welcome to <strong>your last music platform</strong></h2>
-  <a href="{% url 'register' %}" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
+  <a href="{% url 'social:begin' 'facebook' %}" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
   <p class="or-txt">OR</p>
   <div  class="login-section">
     <form action="{% url "login" %}" method="POST" class="login_form">
@@ -50,7 +50,7 @@
       <div class="input-group"> <span class="input-group-addon"><i class="fa fa-lock  fa-fw"></i></span>
         <input class="form-control" type="password" placeholder="Password" name="password">
       </div>
-      <p><a href="#" class="forgot">Did you forget the password?</a></p>
+      <p><a href="{% url 'password_reset' %}" class="forgot">Did you forget the password?</a></p>
       <div class="text-center"><a class="btn pbtn login-button" href="#"> LOG IN</a> </div>
       <div class="signup-block"> Don't you have an account? <a href="{% url "register" %}" class="signup-link">Sign Up</a> </div>
       {% csrf_token %}
@@ -127,7 +127,7 @@
 </div>
 <div class="home-header-banner home-footer-banner">
   <h2>so ARE YOU READY?</h2>
-  <a href="/login/facebook" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
+  <a href="{% url 'social:begin' 'facebook' %}" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
   <p class="or-txt">OR</p>
   <div  class="login-section">
     <form action="{% url "login" %}" method="POST">
@@ -138,7 +138,7 @@
       <div class="input-group"> <span class="input-group-addon"><i class="fa fa-lock  fa-fw"></i></span>
         <input class="form-control" type="password" placeholder="Password" name="password">
       </div>
-      <p><a href="#" class="forgot">Did you forget the password?</a></p>
+      <p><a href="{% url 'password_reset' %}" class="forgot">Did you forget the password?</a></p>
       <div class="text-center"><a class="btn pbtn login-button" href="#"> LOG IN</a> </div>
       <div class="signup-block"> Don't you have an account? <a href="{% url "register" %}" class="signup-link">Sign Up</a> </div>
       {% csrf_token %}

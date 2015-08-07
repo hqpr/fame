@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% block header %}
+    <div class="nav-top blue-bg mobnav">
+        <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>
+            <li class="hidden-xs">MADEON</li>
+            <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+            <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+    </div>
+{% endblock header %}
+{% block content %}
+    <div class="insight-container">
+        <div class="viewer-block">
+            <div class="graph-icon"><img src="{% static 'images/graph-icon.png' %}" class="img-responsive" alt=""></div>
+            <h3>The viewer</h3>
+            <div class="graph-view"><img src="{% static 'images/insight-graph-img.png' %}"  class="img-responsive" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="viewer-block">
+                    <div class="insight-block-icon-container"> <span class="insight-block-icon soundcloud"></span> </div>
+                    {% if token %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="title-count">Total tracks</div>
+                                <div class="title-nums">{{ tracks|length }}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="title-count">Plays</div>
+                                <div class="title-nums">{% for track in tracks %}{{ track.playback_count }}{% endfor %}</div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="title-count">Downloads</div>
+                                <div class="title-nums">{% for track in tracks %}{{ track.download_count }}{% endfor %}</div>
+                            </div>
+                        </div>
+                        <div class="most-played-container">
+                            <h5>Most played tracks</h5>
+                            {% for track in tracks %}
+                                <div class="most-played-block">
+                                    <div class="most-played-thumb"><img src="{{ track.artwork_url }}" class="img-responsive" alt=""></div>
+                                    <div class="most-played-track-title"> {{ track.title }} <br />
+                                        <span>{{ track.playback_count }}</span> </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+{#                        <a href="{% url 'social:begin' 'soundcloud' %}">Connect</a>#}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="viewer-block">
+                    <div class="insight-block-icon-container"> <span class="insight-block-icon youtube"></span> </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="title-count">Views</div>
+                            <div class="title-nums">2,341</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="title-count">EMW</div>
+                            <div class="title-nums">51,450</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="title-count">Total earnings</div>
+                            <div class="title-nums">$214,24</div>
+                        </div>
+                    </div>
+                    <div class="most-played-container play-info">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="title-count">Likes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Favorites</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Subscribes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Dislikes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Shares</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Comments</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="viewer-block">
+                    <div class="insight-block-icon-container"> <span class="insight-block-icon mixxcloud"></span> </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="title-count">Views</div>
+                            <div class="title-nums">2,341</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="title-count">EMW</div>
+                            <div class="title-nums">51,450</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="title-count">Total earnings</div>
+                            <div class="title-nums">$214,24</div>
+                        </div>
+                    </div>
+                    <div class="most-played-container play-info">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="title-count">Likes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Favorites</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Subscribes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Dislikes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Shares</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Comments</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="viewer-block">
+                    <div class="insight-block-icon-container"> <span class="insight-block-icon twitter"></span> </div>
+                    {% if twitter_token %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="title-count">Tweets</div>
+                                <div class="title-nums">{{ tweets }}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="title-count">Followers</div>
+                                <div class="title-nums">{{ followers }}</div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="title-count">Follows</div>
+                                <div class="title-nums">{{ friends }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="viewer-block">
+                    <div class="insight-block-icon-container"> <span class="insight-block-icon vimeo"></span> </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="title-count">Views</div>
+                            <div class="title-nums">2,341</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="title-count">EMW</div>
+                            <div class="title-nums">51,450</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="title-count">Total earnings</div>
+                            <div class="title-nums">$214,24</div>
+                        </div>
+                    </div>
+                    <div class="most-played-container play-info">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="title-count">Likes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Favorites</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Subscribes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Dislikes</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Shares</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="title-count">Comments</div>
+                                <div class="title-nums">1,245</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="viewer-block-blank"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

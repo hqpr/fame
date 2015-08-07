@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, HallOfFame, HallOfFameArtists, UserSocial
+from .models import UserProfile, UserGenre, HallOfFame, HallOfFameArtists, UserSocial
 
 from suit.admin import SortableTabularInline
 
@@ -15,6 +15,14 @@ class HallOfFameAdmin(admin.ModelAdmin):
 # class UserSocialAdmin(admin.ModelAdmin):
 #     model = UserSocial
 
-admin.site.register(UserProfile)
+class UserGenreInline(admin.TabularInline):
+    model = UserGenre
+
+class UserProfileAdmin(admin.ModelAdmin):
+    model = UserProfile
+    inlines = [UserGenreInline]
+
+
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(UserSocial)
 admin.site.register(HallOfFame, HallOfFameAdmin)

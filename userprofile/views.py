@@ -1,3 +1,4 @@
+from base64 import decodestring
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -11,6 +12,8 @@ from django.views.generic import FormView
 from .forms import UserForm, UserProfileForm, UserSocialForm
 from .models import UserProfile, UserSocial
 from django.core.exceptions import PermissionDenied
+import datetime
+import time
 
 
 def login_view(request):
@@ -136,13 +139,23 @@ def check_username(request):
     return HttpResponse(simplejson.dumps({'success': success}), content_type='application/json')
 
 def upload_avatar(request, object_id):
-    """ for drag-n-drop. Not using yet """
+    """ for drag-n-drop """
     if request.POST:
-        picture = request.POST.get('id_picture', None)
-        if picture:
-            u = UserProfile.objects.get(user_id=object_id)
-            u.picture = picture
-            u.save()
+        f_name = 'img_%s_%d.jpg' % (request.user.id, int(datetime.datetime.now().strftime("%s")))
+        f = open("server_media/avatars/%s/%s/%s/%s" % (time.strftime("%y"),
+                                                       time.strftime("%m"),
+                                                       time.strftime("%d"),
+                                                       f_name), "w")
+        _, b64data = request.POST['data'].split(',')
+        f.write(decodestring(b64data))
+        f.close()
+        u = UserProfile.objects.get(user_id=object_id)
+        u.picture = 'cover/%s/%s/%s/%s' % (time.strftime("%y"),
+                                           time.strftime("%m"),
+                                           time.strftime("%d"),
+                                           f_name)
+        u.save()
+    return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
 
 def complete_registration(request):
     user = UserProfile.objects.get(user=request.user)

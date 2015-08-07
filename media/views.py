@@ -18,6 +18,9 @@ from social.apps.django_app.default.models import UserSocialAuth
 import soundcloud
 from django.conf import settings
 import os
+import spotipy
+import vimeo
+import mixcloud
 
 
 class AudioFileView(FormView):
@@ -26,13 +29,44 @@ class AudioFileView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(AudioFileView, self).get_context_data(**kwargs)
+
+        # soundcloud
         try:
             token = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='soundcloud')
             client = soundcloud.Client(use_ssl=False, access_token=token.access_token)
             context['soundcloud'] = client.get('/me/tracks')
-            # context['suser'] = token.uid
         except:
-            context['soundcloud'] = None        
+            context['soundcloud'] = None
+
+        # spotify
+        try:
+            sp = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='spotify')
+            token = sp.access_token
+            sp_client = spotipy.Spotify(auth=token)
+            try:
+                results = sp_client.current_user_saved_tracks()
+                tracks = []
+                for item in results['items']:
+                    tracks.append(item['track'])
+                context['tracks'] = tracks
+            except spotipy.SpotifyException:
+                # Expired token
+                sp.delete()
+                context['tracks'] = None
+        except UserSocialAuth.DoesNotExist:
+            context['tracks'] = None
+
+        # mixcloud
+        try:
+            token = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='mixcloud')
+            client = mixcloud.Mixcloud(access_token=token.access_token)
+            mxcld = []
+            for tracks in client.user(token.uid).cloudcasts():
+                mxcld.append(tracks)
+            context['mixcloud'] = mxcld
+        except:
+            context['mixcloud'] = None
+
         return context
 
     def form_valid(self, form):
@@ -131,7 +165,6 @@ def playlist_cover(request):
         return redirect('profile')
     pass
 
-
 def trackcard(request, track_id):
     track = Audio.objects.get(id=track_id)
     track.plays += 1
@@ -174,6 +207,7 @@ class PlayListUpdateView(UpdateView):
     def render_to_response(self, context, **response_kwargs):
         return super(PlayListUpdateView, self).render_to_response(context, **response_kwargs)
 
+
 class AudioUpdateView(UpdateView):
     model = Audio
     template_name = 'edit-audio.html'
@@ -208,6 +242,16 @@ class AudioUpdateView(UpdateView):
 
 
 class VideoFileView(FormView):
+
+    def get_context_data(self, **kwargs):
+        context = super(VideoFileView, self).get_context_data(**kwargs)
+        try:
+            context['youtube'] = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='google-oauth2')
+            context['vimeo'] = UserSocialAuth.objects.get(user_id=self.request.user.id, provider='google-oauth2')
+        except UserSocialAuth.DoesNotExist:
+            context['youtube'] = None
+        return context
+
     template_name = 'add-video-1.html'
     form_class = VideoFileForm
 
@@ -351,27 +395,39 @@ def soundcloud_import(request):
             token = UserSocialAuth.objects.get(user=request.user, provider='soundcloud')
             client = soundcloud.Client(use_ssl=False, access_token=token.access_token)
             track_info = client.get('/tracks/%s' % track_id)
-            # print track_info.obj
 
             download_url = '%s?client_id=%s' % (sound_file, settings.SOCIAL_AUTH_SOUNDCLOUD_KEY)
             audiopath = 'audios/%s/%s/%s/' % (time.strftime("%y"), time.strftime("%m"), time.strftime("%d"))
             fullfilename = os.path.join('%s/%s', '%s.mp3') % (settings.MEDIA_ROOT, audiopath, track_id)
-            # urllib.urlretrieve(download_url, fullfilename)
+            try:
+                urllib.urlretrieve(download_url, fullfilename)
+            except IOError:
+                os.makedirs(os.path.join('%s/%s') % (settings.MEDIA_ROOT, audiopath))
+            urllib.urlretrieve(download_url, fullfilename)
+
             a_name = '%s%s.mp3' % (audiopath, track_id)
 
             artwork_url = track_info.obj['artwork_url']
             coverpath = 'audios/covers/%s/%s/%s/' % (time.strftime("%y"), time.strftime("%m"), time.strftime("%d"))
             coverfilename = os.path.join('%s/%s', '%s.jpg') % (settings.MEDIA_ROOT, coverpath, track_id)
-            # urllib.urlretrieve(artwork_url, coverfilename)
-            c_name = '%s%s.jpg' % (coverpath, track_id)
+
+            # ToDo: save picture properly. Some handshake error on urlopen
+            try:
+                resource = urllib.urlopen(artwork_url)
+                output = open(coverfilename, 'wb')
+                output.write(resource.read())
+                output.close()
+                c_name = '%s%s.jpg' % (coverpath, track_id)
+            except:
+                c_name = artwork_url
 
             try:
                 Audio.objects.get(user=request.user, soundcloud_track_id=track_id)
                 data = {'success': False, 'msg': 'You\'re already imported that track into Fame'}
             except Audio.DoesNotExist:
                 Audio.objects.create(name=track_info.obj['title'], user=request.user,
-                                     artist=track_info.user['username'],audio=a_name,
-                                     is_complete=True, cover=c_name, soundcloud_track_id=track_id)
+                                     artist=track_info.user['username'], audio=a_name,
+                                     is_complete=True, soundcloud_track_id=track_id, cover=c_name)
                 data = {'success': True}
         else:
             data = {'success': False, 'msg': 'Please, choose a track.'}

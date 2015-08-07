@@ -131,21 +131,6 @@ def artist_settings(request, *args, **kwargs):
                               context_instance=RequestContext(request)
     )
 
-@login_required
-def artist_insights(request, *args, **kwargs):
-    """View insights page"""
-
-    template_name = 'insights.html'
-    template_data = {
-        "string": "Insights Page",
-    }
-
-    return render_to_response(template_name,
-                              template_data,
-                              context_instance=RequestContext(request)
-    )
-
-
 '''Handle complicated views'''
 
 def get_profile_string(kwargs, user):

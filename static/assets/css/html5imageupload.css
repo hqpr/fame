@@ -34,7 +34,7 @@ html, body						{ font-family: arial; }
 /*.dropzone canvas.final			{ background-color: #eeeeee;}*/
 
 .dropzone img					{ z-index: 5; position: relative; }
-.dropzone img.ghost				{ opacity: .2; z-index: auto; float:left /* HACK for not scrolling*/; }
+.dropzone img.ghost				{ opacity: 0; z-index: auto; float:left /* HACK for not scrolling*/; }
 .dropzone img.main				{ cursor: move; }
 .dropzone .final img.main 		{ cursor: auto; }
 .dropzone img.preview			{ width: 100%; }

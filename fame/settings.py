@@ -57,7 +57,9 @@ INSTALLED_APPS = (
     'content',
     'djangular',
     'api_rest',
-    'rosetta'  # http://django-rosetta.readthedocs.org/en/latest/installation.html
+    'rosetta',  # http://django-rosetta.readthedocs.org/en/latest/installation.html
+    'insights',
+    'widgets'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -197,9 +199,12 @@ LOGIN_REDIRECT_URL = '/user/login/'
 LOGIN_URL = '/user/login/'
 LOGIN_ERROR_URL = '/'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/?soundcloud_success=true'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_SOUNDCLOUD_LOGIN_REDIRECT_URL = '/profile/?soundcloud_success=true'
+SOCIAL_AUTH_SPOTIFY_LOGIN_REDIRECT_URL = '/profile/?spotify_success=true'
+SOCIAL_AUTH_MIXCLOUD_LOGIN_REDIRECT_URL = '/profile/?mixcloud_success=true'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
-SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/profile/?soundcloud_success=true'
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = ''
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'
 SOCIAL_AUTH_BACKEND_ERROR_URL = '/'
 
@@ -213,6 +218,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+if DEBUG:
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
 
 try:
     from local_settings import *

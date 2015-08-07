@@ -24,7 +24,7 @@
         <ul>
             <li><a href="{% url 'social:begin' 'spotify' %}"><img src="{{ MEDIA_URL }}images/impot-track-icon01.png" width="31" height="29" alt=""></a></li>
             <li><a href="{% url 'social:begin' 'mixcloud' %}"><img src="{{ MEDIA_URL }}images/impot-track-icon02.png" width="43" height="29" alt=""></a></li>
-            <li><a href="{% url 'social:begin' 'soundcloud' %}"><img src="{{ MEDIA_URL }}images/impot-track-icon03.png" width="39" height="29" alt=""></a></li>
+            <li><a href="{% url 'social:begin' 'soundcloud' %}?soundcloud_success=true"><img src="{{ MEDIA_URL }}images/impot-track-icon03.png" width="39" height="29" alt=""></a></li>
             <li><a href="#"><img src="{{ MEDIA_URL }}images/impot-track-icon04.png" width="73" height="29" alt=""></a></li>
             <li class="last"><a href="#"><img src="{{ MEDIA_URL }}images/impot-track-icon05.png" width="126" height="29" alt=""></a></li>
         </ul>
@@ -40,6 +40,7 @@
             <div class="scroll-pane-aria">
                 <div class="scroll-pane">
                     {% csrf_token %}
+                {% if soundcloud %}
                         {% for track in soundcloud %}
                             <div class="track-pickup-block">
                                 <div class="track-img"><img src="{{ track.artwork_url }}" class="img-responsive" alt=""></div>
@@ -50,6 +51,27 @@
                                 </div>
                             </div>
                         {% endfor %}
+                {% endif %}
+
+                {% if mixcloud %}
+                    {% for track in mixcloud %}
+                        <div class="track-pickup-block">
+                            <div class="track-img"><img src="{{ track.pictures.thumbnail }}" class="img-responsive" alt=""></div>
+                            <input type="radio" data-label=""  class="pull-right " name="track_id" value="{{ track.id }}" id="checkbox" />
+                            <div class="info"> <span class="track-name">{{ track.name }}</span><br />
+                                {{ track.user.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if tracks %}
+                    {% for track in tracks %}
+                        <input type="radio" data-label=""  class="pull-right " name="track_id" value="{{ track.id }}" id="checkbox" />
+                    {% endfor %}
+
+                {% endif %}
+
                 </div>
             </div>
             <div class="form-btn">
@@ -62,20 +84,36 @@
     </form>
 </div>
 
+<script defer src="{% static 'js/prettyCheckable.min.js' %}"></script>
+
 <script>
 
     $(document).ready(function(){
         $('input:radio').prettyCheckable();
 
-        {% if soundcloud %}
-            var add_file = $('#audio_uploader');
-            var soundcloud = $('#soundcloud_import');
+        var soundcloud_success = getUrlParameter('soundcloud_success');
+        var spotify_success = getUrlParameter('spotify_success');
+        var mixcloud_success = getUrlParameter('mixcloud_success');
+
+        var add_file = $('#audio_uploader');
+        var pick_track = $('#soundcloud_import');
+
+        if (soundcloud_success){
             add_file.hide();
-            soundcloud.show();
-        {% else %}
+            pick_track.show();
+        } else {
             add_file.show();
-            soundcloud.hide();
-        {% endif %}
+            pick_track.hide();
+        }
+
+        if (spotify_success || mixcloud_success){
+            add_file.hide();
+            pick_track.show();
+        } else {
+            add_file.show();
+            pick_track.hide();
+        }
+
 
         var submit_sc = $('#submit_import_soundcloud');
         submit_sc.on('click', function(){
@@ -96,11 +134,15 @@
                     submit_sc.hide();
                     $('#loading').show();
                 },
+                error: function(){
+                    submit_sc.show();
+                },
                 complete: function(e){
                     console.log('complete');
                     $('#loading').hide();
                     window.location.replace('/profile/');
                 }
+
             });
         })
 

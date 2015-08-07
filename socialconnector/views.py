@@ -26,7 +26,7 @@ from media.models import Audio
 
 from base64 import decodestring
 from datetime import date
-import datetime
+from datetime import datetime
 
 DROPBOX_PROVIDER = 'dropbox-oauth2'
 SOUNDCLOUD_PROVIDER = 'soundcloud'
@@ -157,7 +157,10 @@ def youtube_view(request):
             for value in row:
                 print "%-20s" % value
                 v.append("%-20s" % value)
-    data = {'greetings': greetings, 'analytics_response': channels_response.get("items", [])}
+
+        print v
+        print dir(youtube_analytics)
+    data = {'greetings': greetings, 'analytics_response': channels_response.get("items", []), 'v': v}
 
     return render(request, 'yt_console.html', data)
 

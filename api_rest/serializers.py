@@ -1,7 +1,8 @@
 from django.forms import widgets
 from rest_framework import serializers
 
-from media.models import AudioLike, AudioComment, AudioPlaylist, PlaylistItem
+from competition.models import Competition
+from media.models import AudioLike, AudioComment, AudioPlaylist, PlaylistItem, VideoLike, VideoComment
 from userprofile.models import UserProfile, UserStatus
 from artist.models import UserConnections
 
@@ -25,6 +26,25 @@ class AudioCommentSerializer(serializers.ModelSerializer):
     def perform_create(self, serializer):
         serializer.save()
 
+class VideoLikeSerializer(serializers.ModelSerializer):
+    fan = serializers.ReadOnlyField(source='fan.username')
+
+    class Meta:
+        model = VideoLike
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+class VideoCommentSerializer(serializers.ModelSerializer):
+    fan = serializers.ReadOnlyField(source='fan.username')
+    approved = serializers.ReadOnlyField()
+
+    class Meta:
+        model = VideoComment
+
+    def perform_create(self, serializer):
+        serializer.save()
+
 class AudioPlaylistSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
@@ -33,6 +53,11 @@ class AudioPlaylistSerializer(serializers.ModelSerializer):
 
     def perform_create(self, serializer):
         serializer.save()
+
+class CompetitionSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Competition
 
 class PlaylistItemSerializer(serializers.ModelSerializer):
     playlist = serializers.ReadOnlyField(source='playlist.title')
