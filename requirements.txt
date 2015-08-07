@@ -51,3 +51,4 @@ django-modeltranslation
 django-rosetta
 spotipy
 PyVimeo
+tweepy
