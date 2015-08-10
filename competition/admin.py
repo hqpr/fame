@@ -141,7 +141,7 @@ class CompetitionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-competition',),
-            'fields': ['name','slug','timezone','date_start','date_end','competition_page_image','competition_tagline','competition_page_description','creator','public','active',]
+            'fields': ['name','slug','timezone','date_start','date_end','competition_page_image','judge_weighting','competition_tagline','competition_page_description','creator','public','active',]
         }),
     ]
     

@@ -69,12 +69,11 @@ def single_competition(request, *args, **kwargs):
     countries = competition.competitioncountry_set.all()
 
     competition_tracks = CompetitionEntryAudio.objects.filter(competition_entry__competition=competition)[:3]
-    try:
-        competition_video = CompetitionEntryVideo.objects.get(competition_entry__competition=competition)
-    except CompetitionEntryVideo.DoesNotExist:
-        competition_video = None
 
-    access = CompetitionEntryAudio.objects.filter(entry=Audio.objects.filter(user=request.user))
+    try:
+        access = CompetitionEntryAudio.objects.filter(entry=Audio.objects.filter(user=request.user),competition_entry__competition=competition)
+    except:
+        access = []
 
     latest_blog = ""
     latest_blog_list = BlogCompetitionLinks.published_objects.filter(competition=competition).order_by('-blog_item__publish_date')
@@ -91,12 +90,10 @@ def single_competition(request, *args, **kwargs):
         'competition': competition,
         "page": competition_data["page"],
         "competition_tracks": competition_tracks,
-        'competition_video': competition_video,
         'access': access,
         'latest_blog': latest_blog
     }
     links = [rel.get_accessor_name() for rel in competition._meta.get_all_related_objects()]
-    print links
 
     return render_to_response(template_name,
                               template_data,
@@ -177,17 +174,25 @@ class SingleCompetitionEnter(FormView):
 def pick_media_file(request, *args, **kwargs):
 
     competition = Competition.objects.get(slug=kwargs["slug"])
+    competition_stage = CompetitionStage.objects.filter(competition=competition, date_start__lte=datetime.now(tz=pytz.UTC), date_end__gte=datetime.now(tz=pytz.UTC))
+
+    if not competition.active or not len(competition_stage) or not competition_stage[0].new_entries_open:
+        return False
 
     if request.method == 'POST':
-        entry = CompetitionEntry.objects.get(competition=competition)
-        competition_stage = CompetitionStage.objects.get(competition=competition)
-        competition_stage_requirement = CompetitionStageRequirement.objects.get(competition_stage=competition_stage)
+        try:
+            entry = CompetitionEntry.objects.get(competition=competition, user=request.user)
+        except:
+            entry = CompetitionEntry(**{'competition':competition, 'user': request.user, 'name': request.user, 'final_points': 0, 'final_position': 0})
+            entry.save()
+
 
         try:
-            audio_id = request.POST.get('audio', None)
-            audio = Audio.objects.get(id=int(audio_id))
+            audio_id = request.POST['audio']
+            competition_stage_requirement = CompetitionStageRequirement.objects.get(competition_stage=competition_stage[0], media_type="audio")
             if competition_stage_requirement:
                 try:
+                    audio = Audio.objects.get(id=int(audio_id),user=request.user)
                     CompetitionEntryAudio.objects.create(competition_entry=entry,
                                                          competition_stage_requirement=competition_stage_requirement,
                                                          entry=audio)
@@ -196,8 +201,10 @@ def pick_media_file(request, *args, **kwargs):
                     return HttpResponse(simplejson.dumps({'success': False}), content_type='application/json')
         except:
             video_id = request.POST.get('video', None)
-            video = Video.objects.get(id=int(video_id))
+            competition_stage_requirement = CompetitionStageRequirement.objects.get(competition_stage=competition_stage[0], media_type="video")
             try:
+                print "HERE", video_id, competition_stage_requirement
+                video = Video.objects.get(id=int(video_id),user=request.user)
                 CompetitionEntryVideo.objects.create(competition_entry=entry,
                                                      competition_stage_requirement=competition_stage_requirement,
                                                      entry=video)
@@ -350,7 +357,7 @@ def competition_add_video(request, object_id):
 
 def entry_review(request, slug):
     competition = Competition.objects.get(slug=slug)
-    entry = CompetitionEntry.objects.get(competition=competition)
+    entry = CompetitionEntry.objects.get(competition=competition,user=request.user)
     try:
         audio_preview = CompetitionEntryAudio.objects.get(entry=Audio.objects.filter(user=request.user),
                                                           competition_entry=entry)
@@ -359,7 +366,9 @@ def entry_review(request, slug):
     except CompetitionEntryAudio.DoesNotExist or CompetitionEntryVideo.DoesNotExist:
         audio_preview = None
         video_preview = None
+    terms = CompetitionTerms.objects.get(competition=competition)
     data = {'audio_preview': audio_preview,
-            'video_preview': video_preview}
+            'video_preview': video_preview,
+            'terms': terms}
     return render(request, 'entry-review.html', data)
 

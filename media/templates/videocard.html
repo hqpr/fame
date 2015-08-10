@@ -32,7 +32,7 @@
             <div  class="clearfix videocard-row">  <ul class="pl-opt pull-left">
                 <li><a href="#" class="pl-icons like">like</a></li>
 
-                <li><a href="#" class="pl-icons share">Share</a></li>
+                <li><a href="{% url 'share' uid=video.uid %}" class="pl-icons share">Share</a></li>
             </ul>
                 <ul class="pl-counts pull-right">
                     <li><span class="likes"></span>1356</li>

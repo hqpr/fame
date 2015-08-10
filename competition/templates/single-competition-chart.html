@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% load static from staticfiles %}
+{% load competition_tags %}
+
 {% block extrahead %}
     <link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
     <script src="//vjs.zencdn.net/4.12/video.js"></script>
 {% endblock %}
+{% block body-class %} ng-app="ChartApp" ng-init="slug='{{competition.slug}}';"{% endblock body-class %}
+{% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
 {% block banner %}
 <!--Start: Bannner-->
     <div class="banner-container">{% thumbnail competition.competition_page_image "920x220" crop="center" as im %}
@@ -54,30 +58,7 @@
 
         <!--Start: Status-->
         <div class="frame">
-            <h2>Status</h2>
-            <hr/>
-            <div class="range-wrap">
-                <div class="fill-wrap"></div>
-            </div>
-
-            <ul class="about-ranger">
-                <li>
-                    <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
-                    <p>Submission</p>
-                </li>
-                <li>
-                    <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
-                    <p>Voting</p>
-                </li>
-                <li>
-                    <img src="{{MEDIA_URL}}images/judging.png"  width="3" height="8" alt="" />
-                    <p>Judging</p>
-                </li>
-
-            </ul>
-
-
-            <p><span class="red-txt">Voting:</span> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+            {% status competition %}
         </div>
         <!--End: Status-->
     </div>
@@ -87,73 +68,67 @@
 
         <div class="frame">
 
-            {% if not competition_tracks %}
+                {% if not competition_tracks %}
                 <div class="no-tracks-now"><span class="no-track-txt">NO TRACKS FOR NOW</span><br />
                     <span class="bit-of-time">(GIVE IT A BIT OF TIME)</span></div>
-            {% else %}
+                {% else %}
                 <div class="tab-header">
                     <div class="col-lg-8 col-sm-8 col-xs-12">
                         <ul class="tab-wrap clearfix">
-                            <li><a href="#">Track Name</a></li>
-                            <li><a href="#" class="active">Chart</a></li>
-                            <li><a href="#">Play</a></li>
-                            <li><a href="#">Date Added</a></li>
-                            <li><a href="#">Popularity</a></li>
+                            <li ng-repeat="type in sortingTypes track by $index">
+                                    <a href="" ng-class="{'active': type.active }" ng-bind="type.title" ng-click="sortBy(type)"></a>
+                                </li>
                         </ul>
                         <div class="clear"></div>
                     </div>
                     <div class="col-lg-4 col-sm-4 col-xs-12">
                         <div class="search-bar">
-                            <input type="text" placeholder="Search" class="search-input">
-                            <input type="button" value="" class="search-btn">
+                            <input type="text" placeholder="Search" class="search-input" ng-model="chartSearchString" ng-model-options="{debounce: 200}" ng-change="loadCharts()">
+                                <input type="button" value="" class="search-btn">
                         </div>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div id="contentDivImg4" style="display: block;">
-                    <ul class="chart-wrap">
-                        {% for track in competition_tracks %}
-                            <li>
-                                <div class="aside">{{ forloop.counter }}</div>
+                    {% verbatim %}
+                        <ul class="chart-wrap">
+                            <li ng-repeat="chart in charts  | filter: chartSearchString | orderBy: order : reverseOrder track by $index">
+                                <div class="aside" ng-bind="chart.position"></div>
                                 <div class="detail">
-                                    <div class="figure"><a href="#" data-toggle="modal" data-target="#modal"><img src="{{MEDIA_URL}}{{ track.entry.cover }}" alt="" /> <span class="playon"></span></a></div>
+                                    <div class="figure"><a href="#" ng-click="selectTrack()"><img ng-src="{{chart.track.cover}}" alt="{{chart.track.name}}" /> <span class="playon"></span></a></div>
                                     <div class="figcaption">
-                                        <h2>
-                                            <a href="#" data-toggle="modal" data-target="#modal">{{ track.entry.name }}</a>
-{#                                            <img src="{{ MEDIA_URL }}{{ track.genre.icon }}" alt=""/>#}
-                                            <img src="{{MEDIA_URL}}images/electro.png" alt=""/>
-                                        </h2>
-                                        <h4>{{ track.entry.artist }}</h4>
+                                        <h2><a href="#" ng-bind="chart.track.name" ng-click="selectTrack($index)"></a> <span class="tag-info"><span class="tag-icon"></span>{{chart.track.genre}}</span></h2>
+                                        <h4 ng-bind="chart.track.artist.artist_name"></h4>
                                         <ul>
-                                            <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
-                                            <li><span class="play"><a href="#">&nbsp;</a></span>{{ track.entry.plays|default:"0" }}</li>
-                                            <li><span class="time"><a href="#">&nbsp;</a></span>{{ track.length }}</li>
+                                            <li><span class="like"><a href="#">&nbsp;</a></span>{{chart.track.likes}}</li>
+                                            <li><span class="play"><a href="#">&nbsp;</a></span>{{chart.track.plays}}</li>
+                                            <li><span class="time"><a href="#">&nbsp;</a></span>{{chart.track.length}}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <span class="rank"><img src="{{MEDIA_URL}}images/top-1.png" alt=""></span></li>
-                            <li>
-                        {% endfor %}
-
-                    </ul>
+                                <span class="rank"><img src="/media/images/top-1.png" alt=""></span>
+                            </li>
+                        </ul>
+                    {% endverbatim %}
+                        
                 </div>
-                {% if active_competitions %}
-                    <ul class="paging">
-                        <li><a href="#">Prev</a></li>
-                        <li><a href="#"  class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
+                <div class="pagination-wrapper">
+                <pagination class="pagination-ch"
+                                        total-items="totalChartsCount"
+                                        items-per-page="maxChartsPerPage"
+                                        ng-model="chartsCurrPage"
+                                        ng-change="loadCharts()"
+                                        num-pages="pageCount"
+                                        max-size="maxPages"
+                                        rotate="false"
+                                        boundary-links="true"
+                                        ng-show="pageCount > 1"
+                    ></pagination>
+                </div>
+
+
+
                 {% endif %}
-
-            {% endif %}
-
-
-
 
         </div>
         <!--Enter The Competition-->
@@ -167,29 +142,29 @@
         </div>
         <!--Enter The Competition-->
     </div>
-
+    {% verbatim %}
     <!--Modal Chart Entry-->
     <div class="modal modal-track" id="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" style="z-index: 9990">
             <div class="modal-content modal-contnet-bg">
                 <div class="modal-body">
+                    <button aria-label="Close" id="modalDismiss" class="close" type="button"><span aria-hidden="true">×</span></button>
                     <div role="tabpanel">
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#track" aria-controls="track" role="tab" data-toggle="tab">TRACK</a></li>
                             <li role="presentation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">VIDEO</a></li>
-                            <li role="presentation"><a href="#mixtape" aria-controls="mixtape" role="tab" data-toggle="tab">MIXTAPE</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="track">
                                 <div class="track-plylist">
-                                    <div class="track-thumb"><img src="{{MEDIA_URL}}images/mixtape-pic.jpg" class="img-responsive" alt=""></div>
+                                    <div class="track-thumb"><img src="{{entry.track.cover}}" class="img-responsive" alt=""></div>
                                     <div class="track-info">
-                                        <h3>My Mixtape</h3>
-                                        <p>ZEDD</p>
+                                        <h3>{{entry.track.name}}</h3>
+                                        <p>{{entry.track.artist}}</p>
                                         <ul class="pl-opt">
                                             <li><a href="#" class="pl-icons like">like</a></li>
                                             <li><a href="#" class="pl-icons comment">Comments</a></li>
@@ -197,58 +172,35 @@
                                             <li><a href="#" class="pl-icons share">Share</a></li>
                                         </ul>
                                         <ul class="pl-counts">
-                                            <li><span class="likes"></span>1356</li>
-                                            <li><span class="plays"></span>2594</li>
-                                            <li><span class="counts"></span>03:45</li>
+                                            <li><span class="likes"></span>{{entry.track.likes}}</li>
+                                            <li><span class="plays"></span>{{entry.track.plays}}</li>
+                                            <li><span class="counts"></span>{{entry.track.length}}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="sound-track">
                                     <!-- <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5> -->
-                                    <div class="track-pic hidden-xs"><img src="{{MEDIA_URL}}images/track-selection.png" class="img-responsive" alt=""></div>
-                                    <div  class="track-pic-small visible-xs"><img src="{{MEDIA_URL}}images/track-img-2.png" class="img-responsive" alt=""></div>
+                                    <div class="track-pic hidden-xs"><div id="ag1" class="audiogallery skin-default" style="opacity:0;">
+                                        <div class="sound-track">
+                                            <div class="items">
+                                                <div id="{{ entry.track.id }}" class="audioplayer-tobe " style="width:100%; " data-thumb_link="/static/audioplayer/img/adg3.jpg" data-bgimage="/static/audioplayer/img/bgminion.jpg" data-scrubbg="/static/audioplayer/waves/scrubbg.png" data-scrubprog="/static/audioplayer/waves/scrubprog.png" data-videoTitle="Audio Video" data-type="audio" data-source="{{ entry.track.audio }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div></div>
+                                    <div  class="track-pic-small visible-xs"><img src="/media/images/track-img-2.png" class="img-responsive" alt=""></div>
                                     <div class="row">
                                         <div class="col-sm-6 hidden-xs">
                                             <div class="tracklist">
-                                                <h5>Tracklist:</h5>
-                                                <ul>
-                                                    <li>01) Jade Blue feat. Shane Blackshaw - Hardwired (Original Mix)</li>
-                                                    <li>02) Loframes - Get Real (Can't Touch Your Love) (Original)</li>
-                                                    <li>03) Lika Morgan - Cant Deny (Extended Mix)</li>
-                                                    <li>04) Chocolate Puma - I Could Be Wrong (Original Mix)</li>
-                                                    <li>05) Oliver Heldens - Bunnydance</li>
-                                                    <li>06) Gregory Porter - Liquid Spirit (Claptone Remix)</li>
-                                                    <li>07) Birdee - B-Love (Original Mix)</li>
-                                                    <li>08) James Lock - Ruff N Tuff</li>
-                                                    <li>09) Showtek - 90s By Nature (TV Noise Remix)</li>
-                                                </ul>
-                                                <span class="view-more-btn-track"><a href="">READ MORE</a></span>
+                                                {{entry.track.description}}
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">This track is amazing! Support!!</span></p>
-                                            </div>
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">Love the drop, just one thing to make this comment bigger bla bla bl, coconut.</span></p>
-                                            </div>
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">Bla bla bla, you got the idea.</span></p>
-                                            </div>
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">Love the drop, just one thing to make this comment bigger, bla bla.</span></p>
+                                            <div class="block-judge clearfix" ng-repeat="rating in entry.ratings">
+                                                <div class="img-circle-thumb"><img src="/media/images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
+                                                <span class="rate">{{rating.score}}/10</span>
+                                                <p><span class="judge">{{rating.judge}}</span> <span class="voted-track">voted your track:</span>
+                                                    <span class="track-text">{{rating.comment}}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -257,91 +209,28 @@
                             <div role="tabpanel" class="tab-pane" id="video">
                                 <div class="track-plylist">
                                     <div class="track-info" style="margin:0">
-                                        <h3>My Presentation Video</h3>
-                                        <p>{{ competition_video.entry.name }}</p>
+                                        <h3>{{entry.video.name}}</h3>
+                                        <p>{{entry.video.artist}}</p>
                                         <ul class="pl-opt">
 
                                         <video id="" class="video-js vjs-default-skin"
                                                controls preload="auto" width="560" height="345"
-                                               poster="{{ MEDIA_URL }}{{ video.cover }}"
+                                               poster="{{entry.video.cover}}"
                                                data-setup='{"example_option":true}'>
-                                            <source src="{{ MEDIA_URL }}{{ competition_video.entry.video }}" type='video/mp4' />
+                                            <source src="{{entry.video.video}}" type='video/mp4' />
                                             <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                                         </video>
 {#                                            <li><a href="#" class="pl-icons like">like</a></li>#}
 {#                                            <li><a href="#" class="pl-icons share">Share</a></li>#}
                                         </ul>
                                         <ul class="pl-counts">
-                                            <li><span class="likes"></span>1356</li>
-                                            <li><span class="plays"></span>{{ competition_video.entry.plays|default:"0" }}</li>
-                                            <li><span class="counts"></span>03:45</li>
+                                            <li><span class="likes"></span>{{entry.video.likes}}</li>
+                                            <li><span class="plays"></span>{{entry.video.plays}}</li>
+                                            <li><span class="counts"></span>{{entry.video.length}}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div><img src="{{MEDIA_URL}}images/video.png"  class="img-responsive" alt=""></div>
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane" id="mixtape">
-                                <div class="track-plylist">
-                                    <div class="track-thumb"><img src="{{MEDIA_URL}}images/clarity-thumb.png"  class="img-responsive" alt=""></div>
-                                    <div class="track-info">
-                                        <h3>Clarity</h3>
-                                        <p>ZEDD</p>
-                                        <ul class="pl-opt">
-                                            <li><a href="#" class="pl-icons like">like</a></li>
-                                            <li><a href="#" class="pl-icons comment">Comments</a></li>
-                                            <li><a href="#" class="pl-icons music">Music</a></li>
-                                            <li><a href="#" class="pl-icons share">Share</a></li>
-                                        </ul>
-                                        <ul class="pl-counts">
-                                            <li><span class="likes"></span>1356</li>
-                                            <li><span class="plays"></span>2594</li>
-                                            <li><span class="counts"></span>03:45</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="sound-track">
-                                    <!-- <h5 class="hidden-xs"><span>Marcus Shultz:</span> love this with all myself!</h5> -->
-
-                                    <div class="track-pic hidden-xs"><img src="{{MEDIA_URL}}images/track-selection.png" class="img-responsive" alt=""></div>
-                                    <div  class="track-pic-small visible-xs"><img src="{{MEDIA_URL}}images/track-img-2.png" class="img-responsive" alt=""></div>
-                                    <div class="row">
-                                        <div class="col-sm-6 hidden-xs">
-                                            <div class="tracklist">
-                                                <h5>Description:</h5>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.nesciunt. </p>
-                                                <span class="view-more-btn-track"><a href="">READ MORE</a></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">This track is amazing! Support!!</span></p>
-                                            </div>
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">Love the drop, just one thing to make this comment bigger bla bla bl, coconut.</span></p>
-                                            </div>
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">Bla bla bla, you got the idea.</span></p>
-                                            </div>
-                                            <div class="block-judge clearfix">
-                                                <div class="img-circle-thumb"><img src="{{MEDIA_URL}}images/img-circle.png" class="img-circle" width="28" height="28" alt=""></div>
-                                                <span class="rate">9/10</span>
-                                                <p><span class="judge">Judge 1</span> <span class="voted-track">voted your track:</span>
-                                                    <span class="track-text">Love the drop, just one thing to make this comment bigger, bla bla.</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div><img src="/media/images/video.png"  class="img-responsive" alt=""></div>
                             </div>
                         </div>
                     </div>
@@ -349,4 +238,16 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+    {% endverbatim %}
 {% endblock content %}
+
+{% block extra-script %}
+<script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script src="{% static 'bower_components/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/chart.factory.js' %}"></script>
+<script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+{% endblock %}

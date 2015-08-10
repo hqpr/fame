@@ -3,6 +3,9 @@
 {% load thumbnail %}
 {% load media_tags %}
 
+{% block body-class %} ng-app="MediaApp"{% endblock body-class %}
+{% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
+
 {% block header %}
 <div class="nav-top blue-bg mobnav">
     <ul>
@@ -24,54 +27,110 @@
         </div>
         <div class="artists-search-section">
           <div class="row">
-            <h3 class="title col-sm-12">Tracks</h3>
-            {% for audio in audios %}
-                <div class="col-xs-6 col-sm-3">
-                    {% audio audio request.user display "small" %}
+            {% if audios %}
+            <h3 class="title col-sm-12"><a href="{% url 'all_tracks' %}">Tracks</a></h3>
+            {% verbatim %}
+            <div class="col-xs-6 col-sm-3" ng-repeat="track in tracks">
+              <div class="music-overview-block music_box">
+                <div class="playlist-thumb-hover" style="display: none">
+                  <ul class="pl-list">
+                      <li><a href="#" class="heart">ddd</a></li>
+                      <li><a href="#" class="comment">ddd</a></li>
+                      <li><a href="/media/playlist/addtrack/{{track.id}}" data-toggle="modal" data-target="#upload_music_modal" class="playlist-play">ddd</a></li>
+                      <li><a href="/media/share/{{ track.uid }}/" data-toggle="modal" data-target="#upload_music_modal" class="share">ddd</a></li>
+                  </ul>
+                  <div class="play-pl-cont"> <a href="/media/trackcard/{{track.id}}/" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
+                  <div class="hover-title">
+                      <h5>{{ track.name }}</h5>
+                      <span class="subtxt">{{ track.artist.name }}</span> </div>
+              </div>
+                <img src="{{track.cover_200}}" width="200" height="200" class="img-responsive" >
+              </div>
+            </div>
+            {% endverbatim %}
+            {% if not videos and not playlists %}
+            <div class="pagination-wrapper">
+                <pagination class="pagination-ch"
+                                        total-items="totalTracksCount"
+                                        items-per-page="maxMediasPerPage"
+                                        ng-model="mediasCurrPage"
+                                        ng-change="loadMedias()"
+                                        num-pages="pageCount"
+                                        max-size="maxPages"
+                                        rotate="false"
+                                        boundary-links="true"
+                                        ng-show="pageCount > 1"
+                    ></pagination>
                 </div>
-            {% endfor %}
-
-            <h3 class="title col-sm-12">Videos</h3>
-            {% for v in videos %}
-                <div class="col-sm-6">
+              {% endif %}
+            {% endif %}
+            {% if videos %}
+            <h3 class="title col-sm-12"><a href="{% url 'all_videos' %}">Videos</a></h3>
+            {% verbatim %}
+            <div class="col-sm-6" ng-repeat="video in videos">
                         <div class="music-overview-block video_box">
                             <div class="playlist-thumb-hover" style="display: none">
                                 <ul class="pl-list">
                                     <li><a href="#" class="heart">ddd</a></li>
                                     <li><a href="#" class="comment">ddd</a></li>
-                                    <li><a href="#" class="playlist-play">ddd</a></li>
                                     <li><a href="#" class="share">ddd</a></li>
                                 </ul>
-                                <div class="play-pl-cont"> <a href="{% url 'videocard' video_id=v.id %}" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
+                                <div class="play-pl-cont"> <a href="/media/videocard/{{video.id}}/" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
                                 <div class="hover-title">
-                                    <h5>{{ v.name }}</h5>
-                                    <span class="subtxt">{{ v.artist }}</span> </div>
+                                    <h5>{{ video.name }}</h5>
+                                    <span class="subtxt">{{ video.artist }}</span> </div>
                             </div>
-                            {% thumbnail v.cover "400x200" crop="center" as im %}
-                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
-                            {% endthumbnail %}
+                                <img src="{{ video.cover_400 }}" class="img-responsive" >
                     </div>
                 </div>
-            {% endfor %}
+            {% endverbatim %}
+            {% if not audios and not playlists %}
+            <div class="pagination-wrapper">
+                <pagination class="pagination-ch"
+                                        total-items="totalVideosCount"
+                                        items-per-page="maxMediasPerPage"
+                                        ng-model="mediasCurrPage"
+                                        ng-change="loadMedias()"
+                                        num-pages="pageCount"
+                                        max-size="maxPages"
+                                        rotate="false"
+                                        boundary-links="true"
+                                        ng-show="pageCount > 1"
+                    ></pagination>
+                </div>
+              {% endif %}
+            {% endif %}
+            {% if playlists %}
+            <h3 class="title col-sm-12"><a href="{% url 'all_playlists' %}">Playlists</a></h3>
+            {% verbatim %}
+              <div class="col-sm-3" ng-repeat="playlist in playlists">
+                  <div class="music-overview-block playlist_box"> 
+                      <img src="{{ playlist.cover_200 }}" class="img-responsive" >
 
-            <h3 class="title col-sm-12">Playlists</h3>
-            {% for p in playlists %}
-                  <div class="col-sm-3">
-                      <div class="music-overview-block playlist_box"> 
-                          {% thumbnail p.cover "200x200" crop="center" as im %}
-                              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
-                          {% endthumbnail %}
-
-                          <div class="playlist-list">
-                              <ol>
-                                  {% for obj in p.files %}
-                                      <li>{{ obj.audio.name }}<span class="subtext">{{ obj.audio.artist }}</span></li>
-                                  {% endfor %}
-                              </ol>
-                          </div>
+                      <div class="playlist-list">
+                          <ol>
+                            <li ng-repeat="item in playlist.playlist_items">{{ item.audio.name }}<span class="subtext">{{ item.audio.artist }}</span></li>
+                          </ol>
                       </div>
                   </div>
-              {% endfor %}
+              </div>
+            {% endverbatim %}
+            {% if not audios and not videos %}
+            <div class="pagination-wrapper">
+                <pagination class="pagination-ch"
+                                        total-items="totalPlaylistsCount"
+                                        items-per-page="maxMediasPerPage"
+                                        ng-model="mediasCurrPage"
+                                        ng-change="loadMedias()"
+                                        num-pages="pageCount"
+                                        max-size="maxPages"
+                                        rotate="false"
+                                        boundary-links="true"
+                                        ng-show="pageCount > 1"
+                    ></pagination>
+                </div>
+              {% endif %}
+            {% endif %}
           </div>
           
         </div>
@@ -79,6 +138,28 @@
 {% endblock %}
 
 {% block extra-script %}
+<script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script src="{% static 'bower_components/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'js/media-app.js' %}"></script>
+<script src="{% static 'js/media.factory.js' %}"></script>
+<script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+    <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+
+    <script>
+        $(window).load(function(){
+            $('.flexslider').flexslider({
+                animation: "slide",
+                direction: "top",
+                start: function(slider){
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+
 <div class="modal modal-absolute" id="upload_music_modal">
         <div class="modal-dialog" style="z-index: 9991">
             <div class="modal-content modal-music">
@@ -96,30 +177,30 @@
     </div>
 <script>
   $(function() {
-    $(".music_box").hover(
-      function () {
-        $( this ).find('div').fadeIn(200);
-      },
-      function () {
-          $( this ).find('div').fadeOut(200);
-      }
-    );
-    $(".video_box").hover(
-      function () {
-        $( this ).find('div').fadeIn(200);
-      },
-      function () {
-          $( this ).find('div').fadeOut(200);
-      }
-    );
-    $(".playlist_box").hover(
-      function () {
-        $( this ).find('div').fadeIn(200);
-      },
-      function () {
-        $('.hover-frame').hide();
-      }
-    );
+    $(".music_box").on({
+        mouseenter: function () {
+            $( this ).find('div').fadeIn(200);
+        },
+        mouseleave: function () {
+            $( this ).find('div').fadeOut(200);
+        }
+    });
+    $(".video_box").on({
+        mouseenter: function () {
+            $( this ).find('div').fadeIn(200);
+        },
+        mouseleave: function () {
+            $( this ).find('div').fadeOut(200);
+        }
+    });
+    $(".playlist_box").on({
+        mouseenter: function () {
+            $( this ).find('div').fadeIn(200);
+        },
+        mouseleave: function () {
+            $( this ).find('div').fadeOut(200);
+        }
+    });
   });
 </script>
 

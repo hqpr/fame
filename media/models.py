@@ -138,6 +138,9 @@ class Video(models.Model):
     plays = models.IntegerField(blank=True, null=True, default=0)
     is_complete = models.BooleanField(default=False)
 
+    objects = models.Manager() # The default manager.
+    public_objects = PublicManager()
+
     def clean(self):
         if not self.uid:
             self.uid = self.generate_unique_string()

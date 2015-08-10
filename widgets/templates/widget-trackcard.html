@@ -14,8 +14,8 @@
                         <div class="track-plylist">
                             <div class="track-thumb"><img src="{{ site }}/static/images/clarity-thumb.png"  class="img-responsive" alt=""></div>
                             <div class="track-info">
-                                <h3>Clarity</h3>
-                                <p>ZEDD</p>
+                                <h3>{{ track.name }}</h3>
+                                <p>{{ track.artist }}</p>
                                 <ul class="pl-opt">
                                     <li><a href="#" class="pl-icons like">like</a></li>
                                     <li><a href="#" class="pl-icons comment">Comments</a></li>
@@ -24,8 +24,8 @@
                                 </ul>
                                 <ul class="pl-counts">
                                     <li><span class="likes"></span>1356</li>
-                                    <li><span class="plays"></span>2594</li>
-                                    <li><span class="counts"></span>03:45</li>
+                                    <li><span class="plays"></span>{{ track.plays }}</li>
+                                    <li><span class="counts"></span>{{ track.length }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 <div class="col-sm-12 hidden-xs">
                                     <div class="tracklist">
                                         <h5>Description:</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.nesciunt. </p>
+                                        <p>{{ track.description }}</p>
                                     </div>
                                 </div>
                             </div>

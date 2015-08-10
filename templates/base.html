@@ -1,7 +1,7 @@
 {% load static from staticfiles %}
 {% load thumbnail %}
 <!DOCTYPE html>
-<html lang="en" ng-app="fameMusicApp">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,9 +26,9 @@
 {% block extrahead %}{% endblock %}
 </head>
 
-<body>
+<body {% block body-class %}{% endblock body-class %}>
 
-<div class="wrapper" ng-view>
+<div class="wrapper" {% block app-controller %}{% endblock app-controller %}>
 {% block sidebar-left %}
 
 
@@ -269,11 +269,11 @@
         <p class="user-type">Artist</p>
         <div class="row details-block">
           <div class="col-xs-6">
-            <h3>500</h3>
+            <h3>{{user_links}}</h3>
             <h4>Links</h4>
           </div>
           <div class="col-xs-6">
-            <h3>1.4K</h3>
+            <h3>{{user_followers}}</h3>
             <h4>Minions</h4>
           </div>
         </div>
@@ -409,7 +409,6 @@ etition adoih aodsjd poaisj </p>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
 <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script defer src="{% static 'js/jquery.mousewheel.js' %}"></script>
@@ -506,7 +505,6 @@ $(document).ready(function() {
   })
 });
 </script>
-<script src="{% static "js/app.js" %}"></script>
 {% endblock script %}
 {% block extra-script %}
 {% endblock extra-script %}

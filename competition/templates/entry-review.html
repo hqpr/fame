@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {# preview #}
 <div class="modal-body share-profile" id="competition_step4">
     <a href="#" class="close-icon">close</a>
@@ -18,7 +19,11 @@
         <div class="clearfix">
             <div class="row">
                 <div class="col-sm-7">
-                    <div class="card-thumb"><img src="{{ MEDIA_URL }}{{ audio_preview.entry.cover }}" class="img-responsive" alt=""> </div>
+                    <div class="card-thumb">
+                        {% thumbnail audio_preview.entry.cover "105x105" crop="center" as im %}
+                        <img src="{{ im.url }}" class="img-responsive" alt=""> 
+                        {% endthumbnail %}
+                    </div>
                     <div class="track-info">
                         <h4>{{ audio_preview.entry.name }}</h4>
                         <p>{{ audio_preview.entry.artist }}</p>
@@ -29,7 +34,7 @@
                             <li><a href="#" class="pl-icons share">Share</a></li>
                         </ul>
                         <ul class="pl-counts">
-                            <li><span class="likes"></span>1356</li>
+                            <li><span class="likes"></span>{{ audio.audiolike_set.all|length }}</li>
                             <li><span class="plays"></span>{{ audio_preview.entry.plays|default:"0" }}</li>
                             <li><span class="counts"></span>{{ audio.length }}</li>
                         </ul>
@@ -44,33 +49,7 @@
         <div class="terms-scroll-pane">
             <div class="scroll-pane">
                 <h4>Terms & Conditions</h4>
-                <p>Countries allowed to participate: France .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Countries allowed to participate: France .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Countries allowed to participate: France .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
-                <p>Contestants must be over the age of 16.</p>
-                <p>Genres allowed to participate: Breakbeat, Drum And Bass, Dubstep, Exercise, Garage, Hardcore, House, Jungle, Techno, Trance, Tribal .</p>
+                {{terms|safe}}
             </div>
         </div>
         <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel back_to_step3">BACK</a><a href="javascript:void(0)" class="btn btn-pink competition_to_finish" id="">NEXT</a></div>

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load thumbnail %}
-
+{% block body-class %} ng-app="ConnectionApp"{% endblock body-class %}
+{% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
 {% block header %}
 <div class="nav-top blue-bg mobnav">
     <ul>
@@ -22,30 +23,62 @@
           </ul>
         </div>
         <div class="artists-search-section">
-          {% for artist in total_connections %}
-            {% if artist.connection %}
-            <div class="col-sm-2 pad5">
-              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+          <div class="row">
+          {% verbatim %}
+            <div class="col-sm-2 pad5" ng-repeat="connection in connections">
+              <div class="music-overview-block widget-pro"><img src="/static/images/artist-profile-bg.png" class="img-responsive"  alt="">
                 <div  class="profile-head" style=" position:relative">
-                  <div class="profile-pic">{% thumbnail artist.connection.userprofile.picture "130x130" crop="center" as im %}
-                      {% if im.url %}
-                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle" >
-                      {% else %}
-                            <img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt="">
-                      {% endif %}
-                        {% endthumbnail %}</div>
+                  <div class="profile-pic">
+                      <img src="{{connection.picture}}" class="img-responsive img-circle" >
+                  </div>
                   <div class="profile-circle-img">
                     <div class="profile-circle"></div>
                   </div>
-                  <h3>{{artist.connection.userprofile.display_name}}</h3>
+                  <h3>{{connection.display_name}}</h3>
                   <p>Artist</p>
                 </div>
-                <div class="profile-view-bar"> <a href="{% url "single_artist" artist.connection.username %}" class="btn btn-sm btn-{% cycle "green" "blue" %}">View More</a> </div>
+                <div class="profile-view-bar"> <a href="/artists/{{connection.user}}" class="btn btn-sm btn-blue">View More</a> </div>
               </div>
+          </div>
+            {% endverbatim %}
             </div>
-            {% endif %}
-            {% endfor %}
-          
-        </div>
       </div>
+      <div class="pagination-wrapper paging">
+    <pagination class="pagination-ch"
+                            total-items="totalConnectionsCount"
+                            items-per-page="maxConnectionsPerPage"
+                            ng-model="connectionsCurrPage"
+                            ng-change="loadConnections()"
+                            num-pages="pageCount"
+                            max-size="maxPages"
+                            rotate="false"
+                            boundary-links="true"
+                            ng-show="pageCount > 1"
+        ></pagination>
+    </div>
+    </div>
 {% endblock %}
+
+{% block extra-script %}
+<script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script src="{% static 'bower_components/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'js/connections-app.js' %}"></script>
+<script src="{% static 'js/connections.factory.js' %}"></script>
+<script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+    <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+
+    <script>
+        $(window).load(function(){
+            $('.flexslider').flexslider({
+                animation: "slide",
+                direction: "top",
+                start: function(slider){
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+{% endblock extra-script %}

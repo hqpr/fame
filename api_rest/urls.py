@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views import audio_like, audio_comment, playlists, playlist, profile_details, user_status, user_connect,\
                    list_artists, audio, video, video_like, video_comment, \
-                   list_competitions
+                   list_competitions, chart_list, chart_update, competition_entry_rating, all_media
 
 urlpatterns = [
     # Artists
@@ -14,9 +14,14 @@ urlpatterns = [
 
     # Competitions
     url(r'^competitions/$', list_competitions, name="list_competitions"),
+    url(r'^competitions/(?P<competition_slug>[\w\-]+)/chart$', chart_list, name="chart_list"),
+    url(r'^competitions/(?P<competition_slug>[\w\-]+)/chart/update$', chart_update, name="chart_update"),
+    url(r'^competitions/(?P<competition_slug>[\w\-]+)/(?P<competition_entry_id>[0-9]+)/rate$', competition_entry_rating, name="competition_entry_rating"),
 
     # Media
-    url(r'^audio/(?P<audio_id>[0-9]+)$$', audio, name="api_audio"),
+    url(r'^media$', all_media, name="api_all_media"),
+    url(r'^media/(?P<media_type>[\w\-]+)$', all_media, name="api_all_media"),
+    url(r'^audio/(?P<audio_id>[0-9]+)$', audio, name="api_audio"),
     url(r'^audio/like$', audio_like, name="audio_like"),
     url(r'^audio/comment$', audio_comment, name="audio_comment"),
     url(r'^playlists$', playlists, name="playlists"),

@@ -25,7 +25,7 @@
                 <li><a href="#" class="pl-icons like {{liked_audio}}">like</a></li>
                 <li><a href="#" class="pl-icons comment">Comments</a></li>
                 <li><a href="#" class="pl-icons music">Music</a></li>
-                <li><a href="#" class="pl-icons share">Share</a></li>
+                <li><a href="{% url 'share' uid=audio.uid %}" data-toggle="modal" data-target="#upload_music_modal" class="pl-icons share">Share</a></li>
             </ul>
         </div>
     </div>

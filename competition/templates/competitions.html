@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load thumbnail %}
+{% load tinycontent_tags %}
+
 {% block extrahead %}
 {% endblock %}
-
+{% block body-class %} ng-app="CompetitionApp"{% endblock body-class %}
+{% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
 {% block wrapper-class %}comp-overview-bg{% endblock wrapper-class %}
 
 {% block container-wrapper %}<div class="competition-container">{% endblock container-wrapper %}
@@ -13,10 +16,7 @@
     <div class="banner-container">
         <div class="col-lg-12">
             <div class="flexslider">
-                <ul class="slides">
-                    <li><img src="{{MEDIA_URL}}images/gallery-img-1.png"  alt="Slide 1" class="img-responsive" /></li>
-                    <li><img src="{{MEDIA_URL}}images/gallery-img-1.png"  alt="Slide 2" class="img-responsive" /></li>
-                </ul>
+                {% tinycontent_simple 'competition_carousel' %}
                 <div class="clear"></div>
             </div>
         </div>
@@ -27,13 +27,14 @@
 {% block content-wrapper %}<div class="middle-wrap clearfix filterby-wrap" >{% endblock content-wrapper %}
 {% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
 {% block filter %}
+    {% verbatim %}
     <div class="filter-wrap" style="padding-top:15px">
         <div class="col-lg-2" id="desktop-filter"><h3>Filter By:</h3></div>
         <div class="col-lg-2" id="button"><h3>Filter By:</h3></div>
         <div class="col-lg-10">
 
             <ul class="filter-menu">
-                <li class="geners gen-select"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> Pop</label></div><div class='checkbox'><label><input type='checkbox'> Rock</label></div><div class='checkbox'><label><input type='checkbox'> Rap</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">genres <span class="caret"></span></a></li>
+                <li class="geners gen-select"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{genreContent()}}">genres <span class="caret"></span></a></li>
                 <li class="countries"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">countries <span class="caret"></span></a></li>
                 <li class="status"><a href="#">Status</a></li>
                 <li class="entries"><a href="#">Entries</a></li>
@@ -50,6 +51,7 @@
         </div>
         <div class="clear"></div>
     </div>
+    {% endverbatim %}
 {% endblock filter %}
 
 {% block content %}
@@ -62,71 +64,44 @@
         <div class="comp-hold"> WE ARE WORKING ON NEW COMPETITIONS<br />
             <span class="text-red">(HOLD ON TIGHT)</span> </div>
     {% else %}
-        {% for competition in competitions %}
-            <!--Competition Box-->
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        {% verbatim %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-repeat="competition in competitions">
                 <div class="current-comp-container">
                     <div class="img-wrap">
-                        {% thumbnail competition.competition_page_image "420x220" crop="center" as im %}
-                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
-                        {% endthumbnail %}
+                        <img src="{{competition.competition_page_image}}" class="img-responsive" >
 
-                        <span class="badge-wrap"><a href="#"><img src="{{MEDIA_URL}}images/budge.png" width="31" height="32" alt=""></a></span>
+                        <span class="badge-wrap"><a href="#"><img src="/media/images/budge.png" width="31" height="32" alt=""></a></span>
                         <span class="slogan-wrap">{{ competition.name }}</span>
                     </div>
                     <ul class="com-bottom">
-                        <li><img src="{{MEDIA_URL}}images/music.png" alt=""/>
-                            {% for genre in competition.competitiongenre_set.all %}
-                                <a href="#">{{ genre.genre }}</a>,
-                            {% endfor %}
+                        <li><img src="/media/images/music.png" alt=""/>
+                            <a href="#" ng-repeat="genre in competition.genres">{{ genre.genre_name }}</a> 
                             <br/>
-                            <img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/>
-                            {% for country in competition.competitioncountry_set.all %}
-                                <a href="#">{{ country.country.name }}</a>,
-                            {% endfor %}
+                            <img src="/media/images/location-icon.png"  alt=""/>
+                            <a href="#" ng-repeat="country in competition.countries">{{ country.country_full }}</a> 
                         </li>
-                        <li><a href="{% url 'single_competition' slug=competition.slug %}" class="view-more">View More</a></li>
-                        <li>SUBMISSION OPEN<br/>
-                            <time>00:54:14:12</time>
+                        <li><a href="/competitions/{{competition.slug}}" class="view-more">View More</a></li>
+                        <li>{{competition.current_stage.text}}<br/>
+                            <time>{{competition.current_stage.timing}}</time>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!--End Competition Box-->
-        {% endfor %}
-
-        <!--Start Paging-->
-        <ul class="paging">
-            <li>
-                {% if active_competitions.has_previous %}
-                    <a href="?page={{ active_competitions.previous_page_number }}">Prev</a>
-                {% endif %}
-            </li>
-            <li>
-                <a class="active" href="#">{{ active_competitions.paginator.number }}</a>
-            </li>
-            <li>
-                <a href="#">2</a>
-            </li>
-            <li>
-                <a href="#">3</a>
-            </li>
-            <li>
-                <a href="#">4</a>
-            </li>
-            <li>
-                <a href="#">5</a>
-            </li>
-            <li>
-                <a href="#">6</a>
-            </li>
-            <li>
-                {% if active_competitions.has_next %}
-                    <a href="?page={{ active_competitions.next_page_number }}">Next</a>
-                {% endif %}
-            </li>
-        </ul>
-
+        {% endverbatim %}
+            
+    <div class="pagination-wrapper paging">
+    <pagination class="pagination-ch"
+                            total-items="totalCompetitionsCount"
+                            items-per-page="maxCompetitionsPerPage"
+                            ng-model="competitionsCurrPage"
+                            ng-change="loadCompetitions()"
+                            num-pages="pageCount"
+                            max-size="maxPages"
+                            rotate="false"
+                            boundary-links="true"
+                            ng-show="pageCount > 1"
+        ></pagination>
+    </div>
 
         <!--End Paging-->
     {% endif %}
@@ -153,20 +128,15 @@
     </div>
 {% endblock adverts-bottom %}
 
-{% block footer %}
-    <div id="footer">
-        <div class="time">
-            <p>SUBMISSION OPEN</p>
-            <span>00:54:14:12</span> </div>
-        <ul>
-            <li class="none"><a href="#">View Chart</a></li>
-            <li><a href="#">Enter Now</a></li>
-        </ul>
-    </div>
-    <!--End: Footer-->
-{% endblock footer %}
-
 {% block extra-script %}
+<script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script src="{% static 'bower_components/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'js/competition-app.js' %}"></script>
+<script src="{% static 'js/competition.factory.js' %}"></script>
+<script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
     <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
 
     <script>

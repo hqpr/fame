@@ -762,15 +762,16 @@ class CompetitionEntryRating(models.Model):
     competition_entry = models.ForeignKey(CompetitionEntry)
     judge = models.ForeignKey(CompetitionJudge)
     rating = models.PositiveIntegerField()
+    description = models.CharField(max_length=255,blank=True,null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
         if self.judge:
             competition_judge = CompetitionJudge.objects.filter(judge=self.judge.judge,competition=self.competition_entry.competition)
             if not len(competition_judge):
-                raise ValidationError({"judge": "Cannot rate an entry if you are not a judge."})
+                raise ValidationError({"judge": "Cannot rate an entry if you are not a judge in this competition."})
         if not self.is_unique_entry:
-            raise ValidationError({"competition_entry": "You have already liked this entry"})
+            raise ValidationError({"competition_entry": "You have already rated this entry"})
 
     def is_unique_entry(self):
         competition_entry_rating = CompetitionEntryRating.objects.filter(competition_entry=self.competition_entry,judge=self.judge).exclude(id=self.id)

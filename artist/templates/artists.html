@@ -2,6 +2,9 @@
 {% load static from staticfiles %}
 {% load thumbnail %}
 
+{% block body-class %} ng-app="ArtistApp"{% endblock body-class %}
+{% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
+
 {% block header %}
 <div class="nav-top blue-bg mobnav">
     <ul>
@@ -23,31 +26,61 @@
         </div>
         <div class="artists-search-section">
           <div class="row">
-            {% for artist in artists %}
-            {% if artist.user %}
-            <div class="col-sm-2 pad5">
-              <div class="music-overview-block widget-pro"><img src="{% static "images/artist-profile-bg.png" %}" class="img-responsive"  alt="">
+          {% verbatim %}
+            <div class="col-sm-2 pad5" ng-repeat="artist in artists">
+              <div class="music-overview-block widget-pro"><img src="/static/images/artist-profile-bg.png" class="img-responsive"  alt="">
                 <div  class="profile-head" style=" position:relative">
-                  <div class="profile-pic">{% thumbnail artist.user.userprofile.picture "130x130" crop="center" as im %}
-                      {% if im.url %}
-                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle" >
-                      {% else %}
-                            <img src="{% static "images/profile-pic2.png" %}" class="img-responsive img-circle"  alt="">
-                      {% endif %}
-                        {% endthumbnail %}</div>
+                  <div class="profile-pic">
+                      <img src="{{artist.picture}}" class="img-responsive img-circle" >
+                  </div>
                   <div class="profile-circle-img">
                     <div class="profile-circle"></div>
                   </div>
                   <h3>{{artist.display_name}}</h3>
                   <p>Artist</p>
                 </div>
-                <div class="profile-view-bar"> <a href="{% url "single_artist" artist.user.username %}" class="btn btn-sm btn-{% cycle "green" "blue" %}">View More</a> </div>
+                <div class="profile-view-bar"> <a href="/artists/{{artist.user}}" class="btn btn-sm btn-blue">View More</a> </div>
               </div>
-            </div>
-            {% endif %}
-            {% endfor %}
           </div>
-          
-        </div>
+            {% endverbatim %}
+            </div>
+      </div>
+      <div class="pagination-wrapper paging">
+    <pagination class="pagination-ch"
+                            total-items="totalArtistsCount"
+                            items-per-page="maxArtistsPerPage"
+                            ng-model="artistsCurrPage"
+                            ng-change="loadArtists()"
+                            num-pages="pageCount"
+                            max-size="maxPages"
+                            rotate="false"
+                            boundary-links="true"
+                            ng-show="pageCount > 1"
+        ></pagination>
+    </div>
       </div>
 {% endblock %}
+
+{% block extra-script %}
+<script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script src="{% static 'bower_components/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'js/artists-app.js' %}"></script>
+<script src="{% static 'js/artists.factory.js' %}"></script>
+<script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+    <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+
+    <script>
+        $(window).load(function(){
+            $('.flexslider').flexslider({
+                animation: "slide",
+                direction: "top",
+                start: function(slider){
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+{% endblock extra-script %}

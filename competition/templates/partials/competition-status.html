@@ -1,0 +1,28 @@
+{% load thumbnail %}
+{% load static from staticfiles %}
+
+<h2>Status</h2>
+<hr/>
+<div class="range-wrap">
+    <div class="fill-wrap" style="width: {{current_stage_texts.percentage_width}}%"></div>
+</div>
+
+<ul class="about-ranger">
+    {% for competition_stage in competition_stages %}
+    {% if forloop.counter <= current_stage_index %}
+    <li style="width: {{stage_width}}">
+        <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+        <p>{{competition_stage.name}}</p>
+    </li>
+        {% else %}
+    <li style="width: {{stage_width}}" class="pending">
+        <img src="{{MEDIA_URL}}images/judging.png" width="3" height="8" alt="" />
+        <p>{{competition_stage.name}}</p>
+    </li>
+        {% endif %}
+    {% endfor %}
+
+</ul>
+
+
+<p><span class="red-txt">{{current_stage_texts.title}}:</span> {{current_stage_texts.text}}</p>

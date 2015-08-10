@@ -325,13 +325,40 @@ def playlistcard(request, playlist_id):
     return render(request, 'playlistcard.html', data)
 
 def all_media(request):
-    audios = Audio.public_objects.all().order_by('-added')
-    videos = Video.objects.all().order_by('-added')
-    playlists = AudioPlaylist.objects.all().order_by('-added')
+    # audios = Audio.public_objects.all().order_by('-added')
+    # videos = Video.objects.all().order_by('-added')
+    # playlists = AudioPlaylist.objects.all().order_by('-added')
     template_data = {
-        "audios": audios,
-        "videos": videos,
-        "playlists": playlists
+        # "audios": audios,
+        # "videos": videos,
+        # "playlists": playlists
+        "audios": True,
+        "videos": True,
+        "playlists": True
+    }
+    return render(request, 'media.html', template_data)
+
+def all_tracks(request):
+    # audios = Audio.public_objects.all().order_by('-added')
+    template_data = {
+        # "audios": audios
+        "audios": True
+    }
+    return render(request, 'media.html', template_data)
+
+def all_videos(request):
+    # videos = Video.objects.all().order_by('-added')
+    template_data = {
+        # "videos": videos
+        "videos": True
+    }
+    return render(request, 'media.html', template_data)
+
+def all_playlists(request):
+    # playlists = AudioPlaylist.objects.all().order_by('-added')
+    template_data = {
+        # "playlists": playlists
+        "playlists": True
     }
     return render(request, 'media.html', template_data)
 
@@ -435,3 +462,12 @@ def soundcloud_import(request):
         data = {'success': False}
     return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
+
+def share(request, uid):
+    try:
+        obj = Audio.objects.get(uid=uid)
+    except Audio.DoesNotExist:
+        obj = Video.objects.get(uid=uid)
+    except Video.DoesNotExist:
+        obj = None
+    return render(request, 'share.html', {'obj': obj})

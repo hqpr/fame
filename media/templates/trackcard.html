@@ -32,7 +32,7 @@
                     <li><a href="#" class="pl-icons like">like</a></li>
                     <li><a href="#" class="pl-icons comment">Comments</a></li>
                     <li><a href="#" class="pl-icons music">Music</a></li>
-                    <li><a href="#" class="pl-icons share">Share</a></li>
+                    <li><a href="{% url 'share' uid=track.uid %}" data-toggle="modal" data-target="#upload_music_modal" class="pl-icons share">Share</a></li>
                 </ul>
                 <ul class="pl-counts">
                     <li><span class="likes"></span>1356</li>
@@ -50,7 +50,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
 
@@ -64,7 +63,7 @@
             disable_volume: 'off'
             ,disable_scrub: 'default'
             ,design_skin: 'skin-wave'
-            ,skinwave_dynamicwaves:'off'
+            ,skinwave_dynamicwaves:'on'
             ,skinwave_enableSpectrum:'off'
             ,settings_backup_type:'full'
             ,skinwave_enableReflect:'on'
@@ -78,7 +77,7 @@
             'transition':'fade'
             ,'cueFirstMedia' : 'on'
             ,'autoplay' : 'on'
-            ,'autoplayNext' : 'on'
+            ,'autoplayNext' : 'off'
             ,design_menu_position:'bottom'
             ,'settings_ap':settings_ap
             ,design_menu_state:'open'

@@ -1,0 +1,63 @@
+{% load static from staticfiles %}
+
+<div class="modal-body share-profile"><a href="#" class="close-icon">close</a>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs mytabs" role="tablist">
+            <li role="presentation" class="active"><a href="#share" aria-controls="share" role="tab" data-toggle="tab">Share</a></li>
+            <li role="presentation"><a href="#embed" aria-controls="embed" role="tab" data-toggle="tab">Embed</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="share">
+                <div class="share-sec clearfix">
+                    <div class="track-thumb2"><img src="{{ obj.cover }}" class="img-responsive" alt=""></div>
+                    <div class="track-thumb-details">
+                        <h5>{{ obj.name }}</h5>
+                        <div class="time-row"> <span class="pull-left">{{ obj.artist }}</span> <span class="pull-right">{{ obj.length }}</span> </div>
+                        <div><img src="{% static 'images/track-embed.png' %}" class="img-responsive" alt=""></div>
+                    </div>
+                </div>
+                <div class="social-share">
+                    <ul>
+                        <li><a href="#" class="fb">Facebook</a></li>
+                        <li><a href="#" class="twitter">Twitter</a></li>
+                        <li><a href="#" class="pinit">Pinit</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="{{ request.get_host }}{% url 'widget_trackcard' uid=obj.uid %}">
+          <span class="input-group-btn">
+          <button class="btn btn-default share-btn" type="button">Share</button>
+          </span> </div>
+                    <!-- /input-group -->
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="embed">
+                <h5>Code &amp; Preview </h5>
+                <div class="code-n-preview-section">
+                    <input type="text" class="form-control" placeholder="{{ request.get_host }}{% url 'widget_trackcard' uid=obj.uid %}">
+                </div>
+                <div class="widget-holder"> <img src="{% static 'images/music-artist-widget.png' %}" class="img-responsive" alt=""> </div>
+                <form class="form-inline">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="size-label">Size</label>
+                                <input type="text" class="form-control" style="width:70px" id="exampleInputName2" placeholder="450px">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 has-pretty-child">
+                            <div class="notif-label">Automatic Play:</div>
+                            <div class="clearfix prettycheckbox labelright  blue"><input type="checkbox" data-label="" class="pull-right myClass" name="checkbox" id="checkbox1" style="display: none;"><a href="#" class=" "></a>
+                                <label for="checkbox1"></label></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

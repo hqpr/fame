@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load competition_tags %}
 
 
 {% block banner %}
@@ -122,31 +123,17 @@
           <!--Start: Social Media-->
           <div class="frame">
             <ul class="social-media">
-              <li class="first"><a href="#"><i class="fa fa-facebook fa-2"></i> Facebook</a></li>
-              <li><a href="#"><i class="fa fa-twitter fa-2"></i>Twitter</a></li>
+              {% thumbnail competition.competition_page_image "480x360" crop="center" as im %}
+              <li class="first"><a href="http://www.facebook.com/dialog/feed?app_id=1571969269718128&link=http://127.0.0.1:8000{{ request.get_full_path }}&picture=http://127.0.0.1:8000{{im.url}}&name={{competition.name}}&description={{competition.competition_page_description}}&redirect_uri=http://127.0.0.1:8000{{ request.get_full_path }}"><i class="fa fa-facebook fa-2" target="_blank"></i> Facebook</a></li>
+              {% endthumbnail %}
+              <li><a href="http://twitter.com/share?text={{competition.competition_page_description}}&url=http://127.0.0.1:8000{{ request.get_full_path }}" target="_blank"><i class="fa fa-twitter fa-2"></i>Twitter</a></li>
             </ul>
           </div>
           <!--End: Social Media--> 
           
           <!--Start: Status-->
           <div class="frame">
-            <h2>Status</h2>
-            <hr/>
-            <div class="range-wrap">
-              <div class="fill-wrap"></div>
-            </div>
-            <ul class="about-ranger">
-              <li> <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
-                <p>Submission</p>
-              </li>
-              <li> <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
-                <p>Voting</p>
-              </li>
-              <li> <img src="{{MEDIA_URL}}images/judging.png"  width="3" height="8" alt="" />
-                <p>Judging</p>
-              </li>
-            </ul>
-            <p><span class="red-txt">Voting:</span> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+            {% status competition %}
           </div>
           <!--End: Status--> 
         </div>
@@ -250,5 +237,17 @@
       </div>
       <!--End: Right Container-->
 {% endblock %}
+{% block footer %}
+    <div id="footer">
+        <div class="time">
+            <p>SUBMISSION OPEN</p>
+            <span>00:54:14:12</span> </div>
+        <ul>
+            <li class="none"><a href="#">View Chart</a></li>
+            <li><a href="#">Enter Now</a></li>
+        </ul>
+    </div>
+    <!--End: Footer-->
+{% endblock footer %}
 
 {{string}}

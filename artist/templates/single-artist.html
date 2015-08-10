@@ -255,7 +255,6 @@
             <div class="row mobpad" id="playlist">
                 <h2 class="title col-xs-12">Playlist {% if display == "profile" %}<a href="{% url 'add_playlist' %}" class="add-icon" data-toggle="modal" data-target="#upload_music_modal"><i class="glyphicon glyphicon-plus"></i> </a>{% endif %} </h2>
 
-                <iframe src="{% url 'widget_trackcard' %}" frameborder="0" width="590" height="345"></iframe>
                 {% for p in playlists %}
 
                     <div class="col-sm-3">
@@ -378,6 +377,9 @@
             }
             $(".main-container").scroll(calculateBlur);
             calculateBlur();
+            $("#trackcard").on('hidden.bs.modal', function () {
+                $(this).data('bs.modal', null);
+            });
         });
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),

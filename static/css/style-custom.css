@@ -438,3 +438,4 @@ rgba(0,0,0,.2); background-color:#fff; padding:10px; min-height:380px}
 .profile-head { position: relative; }
 .modal { z-index: 105000; }
 .modal-backdrop { height: auto!important; }
+.modal-body .vjs-default-skin .vjs-big-play-button { left: 39%; top: 39%; }

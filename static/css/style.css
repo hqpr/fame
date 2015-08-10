@@ -2614,7 +2614,7 @@ ul.about-ranger li {
 	float: left;
 	color: #ec094e;
 }
-ul.about-ranger li:last-child {
+ul.about-ranger li.pending {
 	color: #d7d7d7;
 }
 ul.top-three-wrap {
@@ -3005,26 +3005,26 @@ ul.tab-wrap .active {
 	float: right;
 	background-size: 100%
 }
-ul.paging {
+ul.paging, .pagination-wrapper {
 	text-align: center;
 	margin: 20px 0px;
 	padding: 0px;
 }
-ul.paging li {
+ul.paging li, .pagination-wrapper li {
 	display: inline-block;
 	list-style: none;
 }
-ul.paging li a {
+ul.paging li a, .pagination-wrapper li a {
 	color: #5d5d5d;
 	text-decoration: none;
 	text-transform: uppercase;
 	padding: 0px 8px;
 	font-size: 16px;
 }
-ul.paging li a:hover {
+ul.paging li a:hover, .pagination-wrapper li a:hover {
 	color: #f10950
 }
-ul.paging li .active {
+ul.paging li .active, .pagination-wrapper li .active {
 	color: #f10950
 }
 .about-song-footer {   /* Safari 5.1+, Chrome 10+ */
@@ -5067,3 +5067,9 @@ ul.com-bottom li .view-more:hover {
 		height: auto;
 	}
 }
+
+.audioplayer.skin-wave .ap-controls .con-controls { display: none; }
+.music_box .playlist-thumb-hover,
+.video_box .playlist-thumb-hover { -webkit-transition: all .2s; -ms-transition: all .2s; }
+.music_box:hover .playlist-thumb-hover,
+.video_box:hover .playlist-thumb-hover { display: block!important; }
