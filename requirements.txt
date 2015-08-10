@@ -55,4 +55,4 @@ wsgiref==0.1.2
 django-modeltranslation
 django-rosetta
 spotipy
-PyVimeo
+stripe
