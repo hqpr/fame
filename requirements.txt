@@ -56,3 +56,4 @@ django-modeltranslation
 django-rosetta
 spotipy
 stripe
+tweepy
