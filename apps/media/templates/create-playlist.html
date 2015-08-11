@@ -1,0 +1,46 @@
+{% load static from staticfiles %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
+    <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    
+{% endblock %}
+
+<div class="modal-body">
+    <h3>Create New Playlist</h3>
+    <form role="form" action="{{ form_action }}" method="post" id="playlist_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+                    <p style="position: relative !important;">or DRAG AND DROP</p>
+                    <input type="file" name="cover" id="id_cover" />
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label>Title</label>
+                    {{ form.title }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{ form.description }}
+                </div>
+            </div>
+        </div>
+        <div class="form-btn"><a href="#" data-dismiss="modal" data-target="#upload_music_modal" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-blue" id="create_playlist">CREATE</a></div>
+    </form>
+</div>
+{% block extra-script %}
+<script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+<script>
+    $('.selectpicker').selectpicker();
+    $('.dropzone').html5imageupload()
+</script>
+{% endblock %}

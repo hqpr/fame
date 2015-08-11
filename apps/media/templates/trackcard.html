@@ -1,0 +1,96 @@
+{% load static from staticfiles %}
+{% load thumbnail %}
+{% block extrahead %}
+
+    <style>
+    .audioplayer.skin-wave .ap-controls .con-controls {
+        display: none;
+    }
+    .btn-embed-code {display: none}
+    </style>
+
+{% endblock %}
+
+<div class="modal-body">
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+
+    <!-- Nav tabs -->
+    <h3 class="trackcard-title"> Track Card</h3>
+    <!-- Tab panes -->
+
+    <div role="tabpanel" class="tab-pane" id="mixtape">
+        <div class="track-plylist">
+            <div class="track-thumb">
+            {% thumbnail track.cover "200x200" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+            {% endthumbnail %}
+            </div>
+            <div class="track-info">
+                <h3>{{ track.name }}</h3>
+                <p>{{ track.artist }}</p>
+                <ul class="pl-opt">
+                    <li><a href="#" class="pl-icons like">like</a></li>
+                    <li><a href="#" class="pl-icons comment">Comments</a></li>
+                    <li><a href="#" class="pl-icons music">Music</a></li>
+                    <li><a href="{% url 'share' uid=track.uid %}" data-toggle="modal" data-target="#upload_music_modal" class="pl-icons share">Share</a></li>
+                </ul>
+                <ul class="pl-counts">
+                    <li><span class="likes"></span>1356</li>
+                    <li><span class="plays"></span>{{ track.plays }}</li>
+                    <li><span class="counts"></span>{{ track.length }}</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div id="ag1" class="audiogallery skin-default" style="opacity:0;">
+            <div class="sound-track">
+                <div class="items">
+                    <div id="{{ track.id }}" class="audioplayer-tobe " style="width:100%; " data-thumb_link="{% static 'audioplayer/img/adg3.jpg' %}" data-bgimage="{% static 'audioplayer/img/bgminion.jpg' %}" data-scrubbg="{% static 'audioplayer/waves/scrubbg.png' %}" data-scrubprog="{% static 'audioplayer/waves/scrubprog.png' %}" data-videoTitle="Audio Video" data-type="audio" data-source="{{ MEDIA_URL }}{{ track.audio }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        var playerid = 'ag1';
+        var settings_ap = {
+            disable_volume: 'off'
+            ,disable_scrub: 'default'
+            ,design_skin: 'skin-wave'
+            ,skinwave_dynamicwaves:'on'
+            ,skinwave_enableSpectrum:'off'
+            ,settings_backup_type:'full'
+            ,skinwave_enableReflect:'on'
+            ,skinwave_comments_enable:'on'
+            ,skinwave_timer_static:'off'
+            ,disable_player_navigation: 'off'
+            ,skinwave_mode: 'normal'
+            ,skinwave_comments_retrievefromajax:'on'
+        };
+        dzsag_init('#'+playerid,{
+            'transition':'fade'
+            ,'cueFirstMedia' : 'on'
+            ,'autoplay' : 'on'
+            ,'autoplayNext' : 'off'
+            ,design_menu_position:'bottom'
+            ,'settings_ap':settings_ap
+            ,design_menu_state:'open'
+            ,design_menu_show_player_state_button: 'off'
+            ,embedded: 'off'
+            ,enable_easing: 'on'
+
+        });
+
+
+//        setTimeout(function(){
+//            document.getElementById('ap1').api_destroy();
+//        }, 3000);
+    });
+    $('#comment-email').val('{{ request.user.email }}');
+</script>

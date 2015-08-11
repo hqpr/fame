@@ -1,9 +1,10 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 
-from userprofile.models import HallOfFameArtists, UserProfile
-from competition.models import Competition
-from media.models import Audio
+from apps.userprofile.models import HallOfFameArtists, UserProfile
+from apps.competition.models import Competition
+from apps.media.models import Audio
+
 
 def home(request):
     return render(request, 'home.html', {})

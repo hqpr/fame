@@ -1,0 +1,46 @@
+{% load static from staticfiles %}
+{% block extrahead %}
+    <link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/4.12/video.js"></script>
+{% endblock %}
+<div class="modal-body">
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+
+    <!-- Nav tabs -->
+    <h3 class="trackcard-title">Video Card</h3>
+    <!-- Tab panes -->
+
+    <div class="track-plylist clearfix " style="height:auto">
+        <div class="track-info" style="margin:0">
+            <h4 style="color: white">{{ video.name }}</h4>
+            <p>{{ video.artist }}</p>
+            <div class="video-lsit">
+{#            <a href="#">#}
+{#                <img src="{% static 'images/video.png' %}"  class="img-responsive" alt="">#}
+{#            </a>#}
+            <video id="example_video_1" class="video-js vjs-default-skin"
+                   controls preload="auto" width="568" height="300"
+                   poster="{{ MEDIA_URL }}{{ video.cover }}"
+                   data-setup='{"example_option":true}'>
+                <source src="{{ MEDIA_URL }}{{ video.video }}" type='video/mp4' />
+                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+
+
+            </div>
+
+            <div  class="clearfix videocard-row">  <ul class="pl-opt pull-left">
+                <li><a href="#" class="pl-icons like">like</a></li>
+
+                <li><a href="{% url 'share' uid=video.uid %}" class="pl-icons share">Share</a></li>
+            </ul>
+                <ul class="pl-counts pull-right">
+                    <li><span class="likes"></span>1356</li>
+                    <li><span class="plays"></span>{{ video.plays }}</li>
+                    <li><span class="counts"></span>03:45</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

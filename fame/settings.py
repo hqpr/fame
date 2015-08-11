@@ -43,24 +43,25 @@ INSTALLED_APPS = (
     'django_countries',  # https://pypi.python.org/pypi/django-countries
     'timezone_field',  # https://github.com/mfogel/django-timezone-field
     'suit_redactor',  # http://django-suit.readthedocs.org/en/latest/wysiwyg.html
-    'fame',
-    'competition',
-    'media',
-    'artist',
-    'socialconnector',
-    'userprofile',
+    'rest_framework',  # http://www.django-rest-framework.org/
+    'djangular',
+    'rosetta',  # http://django-rosetta.readthedocs.org/en/latest/installation.html
     'sorl.thumbnail',
     'tinycontent',
-
     'social.apps.django_app.default',  # http://psa.matiasaguirre.net/docs/index.html
-    'rest_framework',  # http://www.django-rest-framework.org/
-    'blog',
-    'content',
-    'djangular',
-    'api_rest',
-    'rosetta',  # http://django-rosetta.readthedocs.org/en/latest/installation.html
-    'insights',
-    'widgets'
+
+    'fame',
+    'apps.competition',
+    'apps.media',
+    'apps.artist',
+    'apps.socialconnector',
+    'apps.userprofile',
+    'apps.blog',
+    'apps.content',
+    'apps.api_rest',
+    'apps.insights',
+    'apps.widgets',
+    'apps.subscription'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,8 +90,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'userprofile.context_processors.check_profile',
-                'userprofile.context_processors.sidebar_details'
+                'apps.userprofile.context_processors.check_profile',
+                'apps.userprofile.context_processors.sidebar_details'
             ],
         },
     },
@@ -227,6 +228,7 @@ if DEBUG:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
 
+STRIPE_SECRET_KEY = 'sk_test_BS2t9JImRsscT1vyWNsPYGLK'
 try:
     from local_settings import *
 except:

@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load competition_tags %}
+
+
+{% block banner %}
+<!--Start: Bannner-->
+    <div class="banner-container">{% thumbnail competition.competition_page_image "920x220" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+              {% endthumbnail %}
+      <div class="message-wrap">{{ competition.name }}<br />{{competition.competition_tagline}}</div>
+    </div>
+    <!--Start: Bannner-->
+{% endblock banner %}
+
+{% block banner-strip %}
+  <ul class="after-banner-strip">
+      <li class="first"><a href="#"><img src="{{MEDIA_URL}}images/music.png" alt="" />{% for genre in competition.competitiongenre_set.all %}{% if forloop.counter > 1 %},{% endif %} {{genre.genre.name}} {% endfor %}</a> <span class="location-france"><a href="#"><img src="{{MEDIA_URL}}images/location-icon.png"  alt=""/> {% for country in competition.competitioncountry_set.all %}{% if forloop.counter > 1 %},{% endif %} {{country.country.name}} {% endfor %}</a></span></li>
+      <li class="view-chart"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></li>
+      <li class="last"><a href="{% url 'single_competition_chart' slug=competition.slug %}">{{competition.competitionentry_set.all|length}} ENTRIES</a></li>
+      {% if latest_blog %}<li><a href="{% url "single_blog" latest_blog.blog_item.slug %}"><span class="red-txt">NEWS:</span> {{latest_blog.blog_item.title}}</a></li>{% endif %}
+    </ul>
+{% endblock banner-strip %}
+{% block content-wrapper %}<div class="middle-wrap"> {% endblock content-wrapper %}
+{% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
+
+{% block content %}
+<!--Start: Left Container-->
+      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12"> 
+        
+        <!--Start: Social Media--> 
+        <!--Start: Status-->
+        <div class="left-status">
+          <div class="frame">
+            <h2>Status</h2>
+            <hr/>
+            <div class="range-wrap">
+              <div class="fill-wrap"></div>
+            </div>
+            <ul class="about-ranger">
+              <li> <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+                <p>Submission</p>
+              </li>
+              <li> <img src="{{MEDIA_URL}}images/right.png" width="12" height="8" alt=""/>
+                <p>Voting</p>
+              </li>
+              <li> <img src="{{MEDIA_URL}}images/judging.png"  width="3" height="8" alt="" />
+                <p>Judging</p>
+              </li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <!--End: Status-->
+          
+          <div class="frame" >
+            <ul class="social-media">
+              <li><a href="#"><i class="fa fa-facebook fa-2"></i>Facebook</a></li>
+              <li><a href="#"><i class="fa fa-twitter fa-2"></i>Twitter</a></li>
+            </ul>
+          </div>
+        </div>
+        <!--End: Social Media--> 
+        
+        <!--Strat: About Frame-->
+        <div class="frame">
+          <h2>{{ competition.name }}</h2>
+          <span class="accordion"><a id="imageDivLink" href="javascript:toggle1('contentDivImg', 'imageDivLink');"><img src="{{MEDIA_URL}}images/accordion-default.png" alt="" /></a></span>
+          <hr/>
+          <div id="contentDivImg" style="display: block;">
+            <p>{{ competition.competition_page_description }}</p>
+            <figure class="img-wrap relative">
+              {% thumbnail competition.competition_page_image "480x360" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+              {% endthumbnail %} <a href="#" class="play-video"></a></figure>
+          </div>
+        </div>
+        <!--End: About Frame--> 
+        
+        <!--Strat: Judge Container-->
+        <div class="frame">
+          <h2>The Judges</h2>
+          <span class="accordion"><a id="imageDivLink1" href="javascript:toggle2('contentDivImg1', 'imageDivLink1');"><img src="{{MEDIA_URL}}images/accordion-default.png" alt="" /></a></span>
+          <hr/>
+          <ul class="judge-wrap" id="contentDivImg1" style="display: block;">
+            {% for j in judges %}
+                <li>
+                  <figure>
+                    {% thumbnail j.thumbnail_image "200x200" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                        {% endthumbnail %}</figure>
+                  <figcaption>
+                    <h3>{{ j.judge.userprofile.display_name }}</h3>
+                    <h4>{{ j.judge }}</h4>
+                    <p>{{ j.description }}</p>
+                  </figcaption>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!--End: Judge Container--> 
+        
+        <!--Strat: Term & Condition-->
+        <div class="frame">
+          <h2>Terms & Conditions</h2>
+          <span class="accordion"><a id="imageDivLink3" href="javascript:toggle3('contentDivImg3', 'imageDivLink3');"><img src="{{MEDIA_URL}}images/accordion-default.png" alt="" /></a></span>
+          <hr/>
+          <div id="contentDivImg3" style="display: block;">
+          <p>Countries allowed to participate: {% for c in countries %}{{ c.country.name }}, {% endfor %}</p>
+          <ul class="prize-wrap">
+              {% for t in terms_summary %}
+                <li>{{ t.term|safe }}</li>
+              {% endfor %}
+          </ul>
+            <span class="view-more-btn"><a href="{% url "single_competition_terms" competition.slug %}" data-toggle="modal" data-target="#modal-body">View More</a></span> </div>
+        </div>
+        <!--End: Term & Condition--> 
+      </div>
+      <!--End: Left Container--> 
+      
+      <!--Start: Right Container-->
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <div class="right-status"> 
+          <!--Start: Social Media-->
+          <div class="frame">
+            <ul class="social-media">
+              {% thumbnail competition.competition_page_image "480x360" crop="center" as im %}
+              <li class="first"><a href="http://www.facebook.com/dialog/feed?app_id=1571969269718128&link=http://127.0.0.1:8000{{ request.get_full_path }}&picture=http://127.0.0.1:8000{{im.url}}&name={{competition.name}}&description={{competition.competition_page_description}}&redirect_uri=http://127.0.0.1:8000{{ request.get_full_path }}"><i class="fa fa-facebook fa-2" target="_blank"></i> Facebook</a></li>
+              {% endthumbnail %}
+              <li><a href="http://twitter.com/share?text={{competition.competition_page_description}}&url=http://127.0.0.1:8000{{ request.get_full_path }}" target="_blank"><i class="fa fa-twitter fa-2"></i>Twitter</a></li>
+            </ul>
+          </div>
+          <!--End: Social Media--> 
+          
+          <!--Start: Status-->
+          <div class="frame">
+            {% status competition %}
+          </div>
+          <!--End: Status--> 
+        </div>
+        
+        <!--Start: Top 3-->
+        <div class="frame">
+          <h2>Top 3</h2>
+          <span class="accordion"><a id="imageDivLink4" href="javascript:toggle4('contentDivImg4', 'imageDivLink4');"><img src="{{MEDIA_URL}}images/accordion-default.png" alt="" /></a></span>
+          <hr/>
+          <div id="contentDivImg4" style="display: block;">
+              <ul class="top-three-wrap">
+                  {% for track in competition_tracks %}
+                      <li>
+                          <aside>{{ forloop.counter }}</aside>
+                          <detail>
+                              <figure><img src="{{MEDIA_URL}}{{ track.entry.cover }}" width="52" height="54" alt=""/></figure>
+                              <figcaption>
+                                  <h2>{{ track.entry.name }} <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                  <h4>{{ track.entry.artist }}</h4>
+                                  <ul>
+                                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                      <li><span class="play"><a href="#">&nbsp;</a></span>{{ track.entry.plays|default:"0" }}</li>
+                                      <li><span class="time"><a href="#">&nbsp;</a></span>{{ track.length }}</li>
+                                  </ul>
+                              </figcaption>
+                          </detail>
+                          <span class="rank"> <img src="{{MEDIA_URL}}images/top-1.png" alt="" /> </span> </li>
+                      <li>
+                  {% endfor %}
+
+
+
+{#                <aside>2</aside>#}
+{#                <detail>#}
+{#                  <figure><img src="{{MEDIA_URL}}images/top-img-2.jpg" width="52" height="54" alt=""/></figure>#}
+{#                  <figcaption>#}
+{#                    <h2>Dragon <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>#}
+{#                    <h4>Martin Garrix</h4>#}
+{#                    <ul>#}
+{#                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                    </ul>#}
+{#                  </figcaption>#}
+{#                </detail>#}
+{#                <span class="rank"> <img src="{{MEDIA_URL}}images/top-2.png" alt="" /> </span> </li>#}
+{#              <li>#}
+{#                <aside>3</aside>#}
+{#                <detail>#}
+{#                  <figure><img src="{{MEDIA_URL}}images/top-img-3.png" width="52" height="54" alt="" /></figure>#}
+{#                  <figcaption>#}
+{#                    <h2>Divine Sorrow <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>#}
+{#                    <h4>AVICII</h4>#}
+{#                    <ul>#}
+{#                      <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                      <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>#}
+{#                    </ul>#}
+{#                  </figcaption>#}
+{#                </detail>#}
+{#                <span class="rank"> <img src="{{MEDIA_URL}}images/top-3.png" alt="" /> </span> </li>#}
+
+            </ul>
+            <span class="view-chart-btn"><a href="{% url 'single_competition_chart' slug=competition.slug %}">View Chart</a></span> </div>
+        </div>
+        <!--End: Top 3--> 
+        
+        <!--Start: prize-->
+        <div class="frame">
+          <h2>The Prizes</h2>
+          <span class="accordion"><a id="imageDivLink5" href="javascript:toggle5('contentDivImg5', 'imageDivLink5');"><img src="{{MEDIA_URL}}images/accordion-default.png" alt=""/></a></span>
+          <hr/>
+          <div id="contentDivImg5" style="display: block;">
+            {% for p in prizes %}
+                <h5>{{forloop.counter}}<sup>st</sup> Prize</h5>
+                <ul class="prize-wrap" >
+                    <li>{{ p.prize }}</li>
+                    <li>{{ p.description }}</li>
+                </ul>
+            {% endfor %}
+          </div>
+        </div>
+        <!--End: prize-->
+
+          {% if not access %}
+              <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" />
+                  <span class="com-btn-wrap">
+                  <a href="{% url 'single_competition_enter' slug=competition.slug %}" data-toggle="modal" data-target="#modal-body">ENTER THIS COMPETITION</a>
+              </span>
+              </div>
+            {% else %}
+                <div class="frame competition-wrap"><img src="{{MEDIA_URL}}images/enter-this-competition.png" width="100%" alt="" />
+                  <span class="com-btn-wrap">
+                  <a href="{% url 'single_competition_chart' slug=competition.slug %}">VIEW CHART</a>
+              </span>
+              </div>
+          {% endif %}
+
+
+
+      </div>
+      <!--End: Right Container-->
+{% endblock %}
+{% block footer %}
+    <div id="footer">
+        <div class="time">
+            <p>SUBMISSION OPEN</p>
+            <span>00:54:14:12</span> </div>
+        <ul>
+            <li class="none"><a href="#">View Chart</a></li>
+            <li><a href="#">Enter Now</a></li>
+        </ul>
+    </div>
+    <!--End: Footer-->
+{% endblock footer %}
+
+{{string}}

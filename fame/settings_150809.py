@@ -44,23 +44,23 @@ INSTALLED_APPS = (
     'timezone_field',  # https://github.com/mfogel/django-timezone-field
     'suit_redactor',  # http://django-suit.readthedocs.org/en/latest/wysiwyg.html
     'fame',
-    'competition',
-    'media',
-    'artist',
-    'socialconnector',
-    'userprofile',
+    'apps.competition',
+    'apps.media',
+    'apps.artist',
+    'apps.socialconnector',
+    'apps.userprofile',
     'sorl.thumbnail',
     'tinycontent',
 
     'social.apps.django_app.default',  # http://psa.matiasaguirre.net/docs/index.html
     'rest_framework',  # http://www.django-rest-framework.org/
-    'blog',
-    'content',
+    'apps.blog',
+    'apps.content',
     'djangular',
-    'api_rest',
+    'apps.api_rest',
     'rosetta',  # http://django-rosetta.readthedocs.org/en/latest/installation.html
-    'insights',
-    'widgets'
+    'apps.insights',
+    'apps.widgets'
 )
 
 MIDDLEWARE_CLASSES = (

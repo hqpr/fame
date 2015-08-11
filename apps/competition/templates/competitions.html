@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load thumbnail %}
+{% load tinycontent_tags %}
+
+{% block extrahead %}
+{% endblock %}
+{% block body-class %} ng-app="CompetitionApp"{% endblock body-class %}
+{% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
+{% block wrapper-class %}comp-overview-bg{% endblock wrapper-class %}
+
+{% block container-wrapper %}<div class="competition-container">{% endblock container-wrapper %}
+{% block container-wrapper-close %}</div>{% endblock container-wrapper-close %}
+
+{% block banner %}
+    <div class="banner-container">
+        <div class="col-lg-12">
+            <div class="flexslider">
+                {% tinycontent_simple 'competition_carousel' %}
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock banner %}
+
+{% block banner-strip %}{% endblock banner-strip %}
+{% block content-wrapper %}<div class="middle-wrap clearfix filterby-wrap" >{% endblock content-wrapper %}
+{% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
+{% block filter %}
+    {% verbatim %}
+    <div class="filter-wrap" style="padding-top:15px">
+        <div class="col-lg-2" id="desktop-filter"><h3>Filter By:</h3></div>
+        <div class="col-lg-2" id="button"><h3>Filter By:</h3></div>
+        <div class="col-lg-10">
+
+            <ul class="filter-menu">
+                <li class="geners gen-select"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{genreContent()}}">genres <span class="caret"></span></a></li>
+                <li class="countries"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">countries <span class="caret"></span></a></li>
+                <li class="status"><a href="#">Status</a></li>
+                <li class="entries"><a href="#">Entries</a></li>
+            </ul>
+
+            <ul class="mob-filter-menu"  id="slide" style="display:none;">
+                <li class="geners gen-select"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> Pop</label></div><div class='checkbox'><label><input type='checkbox'> Rock</label></div><div class='checkbox'><label><input type='checkbox'> Rap</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">genres <span class="caret"></span></a></li>
+                <li class="countries"><a href="#">Countries</a></li>
+                <li class="status"><a href="#">Status</a></li>
+                <li class="entries"><a href="#">Entries</a></li>
+            </ul>
+
+
+        </div>
+        <div class="clear"></div>
+    </div>
+    {% endverbatim %}
+{% endblock filter %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <h2 class="bottom-line">Current Competitions</h2>
+
+        <hr/>
+    </div>
+    {% if not competitions %}
+        <div class="comp-hold"> WE ARE WORKING ON NEW COMPETITIONS<br />
+            <span class="text-red">(HOLD ON TIGHT)</span> </div>
+    {% else %}
+        {% verbatim %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-repeat="competition in competitions">
+                <div class="current-comp-container">
+                    <div class="img-wrap">
+                        <img src="{{competition.competition_page_image}}" class="img-responsive" >
+
+                        <span class="badge-wrap"><a href="#"><img src="/apps/media/images/budge.png" width="31" height="32" alt=""></a></span>
+                        <span class="slogan-wrap">{{ competition.name }}</span>
+                    </div>
+                    <ul class="com-bottom">
+                        <li><img src="/apps/media/images/music.png" alt=""/>
+                            <a href="#" ng-repeat="genre in competition.genres">{{ genre.genre_name }}</a> 
+                            <br/>
+                            <img src="/apps/media/images/location-icon.png"  alt=""/>
+                            <a href="#" ng-repeat="country in competition.countries">{{ country.country_full }}</a> 
+                        </li>
+                        <li><a href="/competitions/{{competition.slug}}" class="view-more">View More</a></li>
+                        <li>{{competition.current_stage.text}}<br/>
+                            <time>{{competition.current_stage.timing}}</time>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endverbatim %}
+            
+    <div class="pagination-wrapper paging">
+    <pagination class="pagination-ch"
+                            total-items="totalCompetitionsCount"
+                            items-per-page="maxCompetitionsPerPage"
+                            ng-model="competitionsCurrPage"
+                            ng-change="loadCompetitions()"
+                            num-pages="pageCount"
+                            max-size="maxPages"
+                            rotate="false"
+                            boundary-links="true"
+                            ng-show="pageCount > 1"
+        ></pagination>
+    </div>
+
+        <!--End Paging-->
+    {% endif %}
+
+{% endblock content %}
+{% block adverts-bottom %}
+    <div class="last-col">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="common-image-wrap"><img src="{{MEDIA_URL}}images/discover-img.jpg" alt="" width="520" height="244"/>
+                <h3>Discover the Hall of Fame</h3>
+                <span class="btn"><a href="{% url "hall_of_fame" %}">DISCOVER NOW</a></span>
+            </div>
+
+
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+            <div class="common-image-wrap"><img src="{{MEDIA_URL}}images/signup-img.jpg" width="300" height="244" alt="" />
+                <h3>Not a Member?</h3>
+                <span class="btn"><a href="#">DISCOVER NOW</a></span>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock adverts-bottom %}
+
+{% block extra-script %}
+<script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script src="{% static 'bower_components/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'js/competition-app.js' %}"></script>
+<script src="{% static 'js/competition.factory.js' %}"></script>
+<script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+    <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+
+    <script>
+        $(window).load(function(){
+            $('.flexslider').flexslider({
+                animation: "slide",
+                direction: "top",
+                start: function(slider){
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+{% endblock extra-script %}

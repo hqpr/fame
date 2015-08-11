@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if backend_response %}
+        backend: {{ backend_response.provider }} <br/>
+        backend_user_id: {{ backend_response.uid }} <br/>
+        backend_token: {{ backend_response.access_token }} <br/>
+
+
+        {% if sound %}
+            <form action="{% url 'sound_upload' %}">
+                <input type="file"/>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title"/>
+                <input type="hidden" name="token" value="{{ sound }}"/>
+                <button type="submit">upload</button>
+            </form>
+        {% endif %}
+
+        {% if drbx_lnk %}
+            <div class="alert alert-success"><a href="{% url 'drop' %}">Dropbox listing</a></div>
+        {% endif %}
+
+    {% else %}
+        You should log in into <b>{{ backend }}</b> first <br/>
+        <a href="{% url 'social:begin' backend %}">sign in with {{ backend }}</a> <br>
+    {% endif %}
+{% endblock %}
+

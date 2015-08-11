@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if mixcloud %}
+        {% for media in mixcloud %}
+            {{ media }}
+        {% endfor %}
+        {{ m }}
+    {% else %}
+        <div class="alert-warning alert">You should <a href="{% url 'social:begin' 'mixcloud' %}">log in</a> first</div>
+    {% endif %}
+
+{% endblock %}
