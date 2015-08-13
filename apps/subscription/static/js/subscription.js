@@ -28,31 +28,6 @@ $(document).ready(function(){
         }
     });
 
-
-    var handler = StripeCheckout.configure({
-        key: 'pk_test_PHJ2QiEjhAH5QZg85GhRZNRx',
-        image: '/static/img/theme/snac_logo.png',
-        token: function(token) {
-            $.ajax({
-                url: "/donate/",
-                type: "POST",
-                data: {
-                    stripeToken : token.id,
-                    csrfmiddlewaretoken: csrftoken,
-                    stripe_amount: $('#amount').val()
-                },
-                success: function(data) {
-                    if (data.success) {
-                        console.log('Success');
-                        $('#thanks_message').modal('show');
-                    }
-                },
-                dataType: "json"
-            });
-            // You can access the token ID with `token.id`
-        }
-    });
-
     var button_handler = StripeCheckout.configure({
         key: 'pk_test_lvQ40oIEm0JqVmqE5wNmVNS5',
         image: '/static/images/fame-music-logo-left.png',

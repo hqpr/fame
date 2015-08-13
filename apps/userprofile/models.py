@@ -26,6 +26,10 @@ class UserProfile(models.Model):
     modified = models.DateTimeField(default='')
     is_pro = models.BooleanField(default=False)
     about = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    genres = models.CharField(max_length=255, blank=True, null=True)
+    influences = models.CharField(max_length=255, blank=True, null=True)
+    artist_types = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """

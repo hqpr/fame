@@ -5,6 +5,7 @@ class Subscription(models.Model):
     user = models.ForeignKey(User)
     amount = models.PositiveIntegerField()
     charge_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(blank=True, null=True)
     success = models.BooleanField(default=False)
     email = models.EmailField()
 

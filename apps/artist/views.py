@@ -108,14 +108,19 @@ def artist_settings(request, *args, **kwargs):
     user_form = UserForm(instance=request.user,prefix="usf")
     userprofile = UserProfile.objects.get(user=request.user)
     user_profile_form = UserProfileForm(prefix="usp", instance=UserProfile.objects.get(user=request.user))
+    social = UserSocial.objects.filter(user=UserProfile.objects.get(user=request.user))
+    if len(social):
+        social = {i.account:i.link for i in social}
+    user_status = ""
+
     try:
         UserProfile.objects.get(user=request.user, is_pro=True)
-        charge_date = Subscription.objects.get(user=request.user).charge_date + timedelta(days=30)
+        end_date = Subscription.objects.get(user=request.user).end_date
     except Subscription.MultipleObjectsReturned:
-        charge_date = Subscription.objects.filter(user=request.user)\
-                          .latest('charge_date').charge_date + timedelta(days=30)
-    except UserProfile.DoesNotExist:
-        charge_date = None
+        end_date = Subscription.objects.filter(user=request.user)\
+                          .latest('charge_date').end_date
+    except (Subscription.DoesNotExist, UserProfile.DoesNotExist):
+        end_date = None
 
     if request.POST:
         user_form = UserForm(request.POST,prefix="usf", instance=request.user)
@@ -134,7 +139,9 @@ def artist_settings(request, *args, **kwargs):
         "profile": "User Profile",
         "user_form": user_form,
         "user_profile_form": user_profile_form,
-        'charge_date': charge_date
+        'end_date': end_date,
+        'social': social,
+        'user_status': user_status
     }
 
     return render_to_response(template_name,
