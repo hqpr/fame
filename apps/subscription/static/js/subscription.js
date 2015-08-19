@@ -61,9 +61,9 @@ $(document).ready(function(){
     });
 
 
-    // Close Checkout on page navigation
-    $(window).on('popstate', function() {
-        handler.close();
-    });
+     //Close Checkout on page navigation
+    //$(window).on('popstate', function() {
+    //    handler.close();
+    //});
 
 });

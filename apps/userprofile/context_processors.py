@@ -1,5 +1,6 @@
 from apps.userprofile.models import UserProfile
 from apps.artist.views import UserConnections
+from apps.home.models import Tutorial
 
 def check_profile(request):
     if request.user.is_authenticated():
@@ -22,3 +23,13 @@ def sidebar_details(request):
             user_followers = 0
         return {'user_links': user_links, 'user_followers': user_followers}
     return {'user_links': 0, 'user_followers': 0}
+
+
+def home_tutorial(request):
+    if request.user.is_authenticated():
+        try:
+            Tutorial.objects.get(user=request.user)
+            return {'tutorial': 1}
+        except Tutorial.DoesNotExist:
+            return {'tutorial': 0}
+    return {'tutorial': 1}

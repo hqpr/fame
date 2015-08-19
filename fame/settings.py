@@ -61,7 +61,8 @@ INSTALLED_APPS = (
     'apps.api_rest',
     'apps.insights',
     'apps.widgets',
-    'apps.subscription'
+    'apps.subscription',
+    'apps.home'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,7 +92,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'apps.userprofile.context_processors.check_profile',
-                'apps.userprofile.context_processors.sidebar_details'
+                'apps.userprofile.context_processors.sidebar_details',
+                'apps.userprofile.context_processors.home_tutorial',
             ],
         },
     },

@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
 from apps.artist.views import single_artist, artist_settings, connections
-from .views import home, hall_of_fame, search, terms, partnerships, handler404, handler4042
+from .views import hall_of_fame, search, terms, partnerships, handler404, handler4042
+from apps.home.views import home
 
 
 # Serializers define the API representation.
@@ -64,6 +65,7 @@ urlpatterns = [
     url(r'^insights/', include('apps.insights.urls')),
     url(r'^widget/', include('apps.widgets.urls')),
     url(r'^subscribe/', include('apps.subscription.urls')),
+    url(r'^home/', include('apps.home.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -5,10 +5,6 @@ from apps.userprofile.models import HallOfFameArtists, UserProfile
 from apps.competition.models import Competition
 from apps.media.models import Audio
 
-
-def home(request):
-    return render(request, 'home.html', {})
-
 def hall_of_fame(request):
     args = {
         "hall_of_fame__id": 1

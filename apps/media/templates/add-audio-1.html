@@ -89,6 +89,11 @@
 <script>
 
     $(document).ready(function(){
+
+        $('.close-icon').on('click', function(){
+            $('.modal').modal('hide');
+        });
+
         $('input:radio').prettyCheckable();
 
         var soundcloud_success = getUrlParameter('soundcloud_success');
@@ -98,22 +103,13 @@
         var add_file = $('#audio_uploader');
         var pick_track = $('#soundcloud_import');
 
-        if (soundcloud_success){
+        if (soundcloud_success || spotify_success || mixcloud_success){
             add_file.hide();
             pick_track.show();
         } else {
             add_file.show();
             pick_track.hide();
         }
-
-        if (spotify_success || mixcloud_success){
-            add_file.hide();
-            pick_track.show();
-        } else {
-            add_file.show();
-            pick_track.hide();
-        }
-
 
         var submit_sc = $('#submit_import_soundcloud');
         submit_sc.on('click', function(){

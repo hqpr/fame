@@ -1,0 +1,29 @@
+{% load static from staticfiles %}
+<div class="modal modal-absolute" style="display:none;" id="tutorial_4">
+  <div class="modal-dialog fame-dashboard-model center plan">
+    <div class="modal-content modal-music">
+      <div class="modal-body share-profile"><button type="button" class="close fame-close-icon close-tutorial" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <div> 
+          <h2><img src="{% static 'images/pro-check-img-grn.png' %}">  Buy Pro Plan</h2>
+          <p>By activating the Pro Plan, you will get access to the following features:</p>
+
+		<ul class="checklist checklist-grn">
+<li>Free whatever forever and ever</li>
+<li>God mode</li>
+<li>Super insights!</li>
+<li>Win all the competitions without having event to take part to thhem</li>
+</ul>
+			
+
+          <div><span class="price">£5</span><span>/month</span></div>
+      <p>or £48/year - <span class="green-txt">save 20%</span></p>
+		<div class="form-btn" style="padding-top:10px">
+		<a class="btn fame-green-btn close-tutorial" href="{% url 'settings' %}">GO PRO</a>
+</div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

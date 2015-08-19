@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock title %}
+{% load static from staticfiles %}
+
+{% block header %}
+    <div class="nav-top blue-bg mobnav">
+        <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>
+            <li class="hidden-xs">MADEON</li>
+            <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+            <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+    </div>
+    <!--End: Header-->
+{% endblock header %}
+
+{% block content %}
+
+
+    <div class="dm-famebox" >
+        <h2 class="title" style="border-bottom:0px;">HI ALEX! WELCOME TO YOUR HOME</h2>
+
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="my-task-col"> <a href="#" class="view-all-link">View All</a> <br/>
+                    <h3>My Tasks</h3>
+
+                    <div class="phase-title"> Phase 1</div>
+                    <p class="profile-heading">Complete Your Profile</p>
+
+                    <p class="ph-inofo">This is your first step in the Fam Music tasts worls. Enjoy and collect badges! oihs d and other stuff that will be written here.
+                    </p>
+
+
+
+                    <div class="my-task-phase"><span class="my-task-check-icon"></span>
+                        <h5>Describe yourself in 300 words.</h5>
+                        <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
+                    </div>
+
+                    <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Add a track.</h5>
+                        <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
+                    </div>
+
+                    <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Connect 3 social networks.</h5>
+                        <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
+                    </div>
+
+                    <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Follow 3 artists.</h5>
+                        <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-sm-6" >
+
+                <div class="fame-chart-section sm-fame-chart"><a href="#" class="view-all-link">View All</a><h3>Fame Chart</h3>
+
+
+
+                    <div class="frame fame-chart-frame">
+
+
+                        <div class="tab-menu">
+
+                            <div class="chart-dropdown sm-chart-dropdown">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">GENRES <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">CRS ITALY</a></li>
+                                            <li><a href="#">AFROBEATS</a></li>
+                                            <li><a href="#">WEMC</a></li>
+                                            <li><a href="#">GRS AMERICA</a></li>
+                                        </ul>
+
+                                    </li>
+                                    <li><a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">POPULARITY <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">CRS ITALY</a></li>
+                                            <li><a href="#">AFROBEATS</a></li>
+                                            <li><a href="#">WEMC</a></li>
+                                            <li><a href="#">GRS AMERICA</a></li>
+                                        </ul>
+
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> COMPETITION <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">CRS ITALY</a></li>
+                                            <li><a href="#">AFROBEATS</a></li>
+                                            <li><a href="#">WEMC</a></li>
+                                            <li><a href="#">GRS AMERICA</a></li>
+                                        </ul>
+                                    </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+
+
+                            <div class="sm-search-bar right" style="float:right;">
+                                <input type="text" placeholder="Search" class="search-input">
+                                <input type="button" value="" class="search-btn">
+                            </div>
+                            <div class="clear"></div>
+
+                        </div>
+
+                        <div id="contentDivImg4" style="display: block;">
+                            <ul class="chart-wrap sm-chart-wrap">
+                                <li>
+                                    <div class="aside">1</div>
+                                    <span class="rank"><img src="{% static 'images/s-top-1.png' %}" alt=""></span>
+                                    <div class="detail">
+                                        <div class="figure"><a href="#"><img src="{% static 'images/top-img-1.jpg' %}" alt="" /> <span class="playon"></span></a></div>
+                                        <div class="figcaption">
+                                            <h2><a href="#">True Colors</a> <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                            <h4>ZEDD</h4>
+                                            <ul>
+                                                <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="aside">2</div>
+                                    <span class="rank"><img src="{% static 'images/s-top-2.png' %}" alt=""></span>
+                                    <div class="detail">
+                                        <div class="figure"><a href="#"><img src="{% static 'images/top-img-1.jpg' %}" alt="" /> <span class="playon"></span></a></div>
+                                        <div class="figcaption">
+                                            <h2><a href="#">True Colors</a> <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                            <h4>ZEDD</h4>
+                                            <ul>
+                                                <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="aside">3</div>
+                                    <span class="rank"><img src="{% static 'images/s-top-3.png' %}" alt=""></span>
+                                    <div class="detail">
+                                        <div class="figure"><a href="#"><img src="{% static 'images/top-img-1.jpg' %}" alt="" /> <span class="playon"></span></a></div>
+                                        <div class="figcaption">
+                                            <h2><a href="#">True Colors</a> <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                            <h4>ZEDD</h4>
+                                            <ul>
+                                                <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="aside">4</div>
+                                    <span class="rank"><img src="{% static 'images/s-top-1.png' %}" alt=""></span>
+                                    <div class="detail">
+                                        <div class="figure"><a href="#"><img src="{% static 'images/top-img-1.jpg' %}" alt="" /> <span class="playon"></span></a></div>
+                                        <div class="figcaption">
+                                            <h2><a href="#">True Colors</a> <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                            <h4>ZEDD</h4>
+                                            <ul>
+                                                <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="aside">5</div>
+                                    <span class="rank"><img src="{% static 'images/s-top-1.png' %}" alt=""></span>
+                                    <div class="detail">
+                                        <div class="figure"><a href="#"><img src="{% static 'images/top-img-1.jpg' %}" alt="" /> <span class="playon"></span></a></div>
+                                        <div class="figcaption">
+                                            <h2><a href="#">True Colors</a> <span class="tag-info"><span class="tag-icon"></span>ELECTRO</span></h2>
+                                            <h4>ZEDD</h4>
+                                            <ul>
+                                                <li><span class="like"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="play"><a href="#">&nbsp;</a></span>1556</li>
+                                                <li><span class="time"><a href="#">&nbsp;</a></span>1556</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="content" style="padding-top:0px;">
+
+            <div class="hot-news-section" style="padding-top:0px;">
+
+                <div class="latest-fame-resources">
+                    <!----Start: Fame Resources----->
+                    <h3>Latest Fame Resources</h3>
+
+                    <div class="row">
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb relative"><img src="{% static 'images/news-holder-lock-thumb.png' %}" class="img-responsive" alt="">
+                                <div class="banner-sticker-hot-small"></div>
+                            </div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="view-all-posts-block"><a href="#" class="btn btn-blue">VIEW ALL</a></div>
+                    <!----End: Fame Resources----->
+
+                    <!----Start: Fame News----->
+                    <h3>Latest Fame News</h3>
+
+                    <div class="row">
+
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb relative"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt="">
+
+                            </div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3 news-section">
+                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
+                            <div class="news-block active">
+                                <ul class="news-date">
+                                    <li class="hot">NEWS</li>
+                                    <li>|</li>
+                                    <li class="date">12 Jun 2015</li>
+                                </ul>
+                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="view-all-posts-block"><a href="#" class="btn btn-blue">VIEW ALL</a></div>
+
+                    <!----End: Fame News----->
+
+                    <div class="row">
+
+                        <div class="col-sm-8">
+
+                            <!----Start: Subscribe Wrap----->
+                            <div class="frame">
+                                <div class="distribute-music-block clearfix">
+
+
+                                    <div class="img-section"><img src="{% static 'images/distribute-music-img.jpg' %}" alt=""></div>
+                                    <div class="subscribe-section">
+                                        <h3>Distribute Music Online</h3>
+                                        <h4>Get your music online</h4>
+
+                                        <ul class="store-setting-button">
+                                            <li><a href="#">iTune</a></li>
+                                            <li><a href="#">Apple Music</a></li>
+                                            <li><a href="#">Spotify</a></li>
+
+                                        </ul>
+                                        <div class="form-btn" style="padding:0px 0;">
+                                            <a class="btn btn-cancel subscribe-btn" href="#">SUBSCRIBE TO PRO</a>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+
+                                </div>
+                            </div>
+                            <!----End: Subscribe Wrap----->
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-backdrop fade in" style="display: none"></div>
+        {% include 'tutorials/tutorial_1.html' %}
+        {% include 'tutorials/tutorial_2.html' %}
+        {% include 'tutorials/tutorial_3.html' %}
+        {% include 'tutorials/tutorial_4.html' %}
+    </div>
+
+    {% block extra-script %}
+        {% if not tutorial %}
+            <script>
+                $('#tutorial_1').fadeIn();
+                $('.modal-backdrop').show();
+            </script>
+        {% endif %}
+    {% endblock extra-script %}
+
+{% endblock %}
