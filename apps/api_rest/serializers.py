@@ -8,6 +8,7 @@ from apps.competition.models import Competition, CompetitionChart, CompetitionGe
                                CompetitionCountry, CompetitionEntryAudio, CompetitionEntryVideo,\
                                CompetitionEntryRating, CompetitionStage
 from apps.media.models import Audio, AudioLike, AudioComment, AudioPlaylist, PlaylistItem, Video, VideoLike, VideoComment
+from apps.messaging.models import Conversation, Message
 from apps.userprofile.models import UserProfile, UserStatus
 from apps.artist.models import UserConnections
 
@@ -187,6 +188,30 @@ class CompetitionChartSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompetitionChart
 
+class ChartSerializer(serializers.ModelSerializer):
+    track = serializers.SerializerMethodField('get_audio_information')
+    video = serializers.SerializerMethodField('get_video_information')
+    position = serializers.SerializerMethodField('get_current_position')
+    competition_entry_id = serializers.SerializerMethodField('get_entry_id')
+
+    def get_audio_information(self, chart_item):
+        competition_entry_audio = CompetitionEntryAudio.objects.get(competition_entry=chart_item.entry)
+        return AudioSerializer(competition_entry_audio.entry).data
+
+    def get_video_information(self, chart_item):
+        competition_entry_video = CompetitionEntryVideo.objects.get(competition_entry=chart_item.entry)
+        return VideoSerializer(competition_entry_video.entry).data
+
+    def get_current_position(self, chart_item):
+        current_items = len(CompetitionChart.objects.filter(entry__competition=chart_item.entry.competition, current_score__gt=chart_item.current_score))
+        return current_items + 1
+
+    def get_entry_id(self, chart_item):
+        return chart_item.entry.id
+
+    class Meta:
+        model = CompetitionChart
+
 class CompetitionEntryAudioSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -233,6 +258,14 @@ class UserStatusSerializer(serializers.ModelSerializer):
 
 class UserConnectionsSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
+    connection = serializers.SerializerMethodField('get_connection_serializer')
+
+    def get_connection_serializer(self, obj):
+        try:
+            user_profile = UserProfile.objects.get(user=obj.connection)
+            return UserProfileSerializer(user_profile).data
+        except:
+            return obj.connection
 
     class Meta:
         model = UserConnections
@@ -245,6 +278,40 @@ class UserConnectionsProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+# Handle Conversation Serialisers
+
+class ConversationSerializer(serializers.ModelSerializer):
+    sender = serializers.ReadOnlyField(source='sender.username')
+    receiver = serializers.ReadOnlyField(source='receiver.username')
+
+    class Meta:
+        model = Conversation
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+class SingleConversationSerializer(serializers.ModelSerializer):
+    conversation = serializers.SerializerMethodField('get_conversation_messages')
+
+    def get_conversation_messages(self, obj):
+        messages = Message.objects.filter(conversation=obj).order_by('created')
+        return MessageSerializer(messages, many=True).data
+
+    class Meta:
+        model = Conversation
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+class MessageSerializer(serializers.ModelSerializer):
+    sender = serializers.ReadOnlyField(source='sender.username')
+
+    class Meta:
+        model = Message
 
     def perform_create(self, serializer):
         serializer.save()

@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'apps.api_rest',
     'apps.insights',
     'apps.widgets',
+    'apps.messaging',
     'apps.subscription',
     'apps.home'
 )

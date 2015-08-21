@@ -54,6 +54,7 @@
       
       <ul class="left-bot-nav">
         {% if user.is_authenticated %}
+        <li><a href="{% url "messages" %}" {% if "/messages/" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Messages</span></a></li>
         <li><a href="{% url "insights" %}" {% if "/insights" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Insights</span></a></li>
         <li><a href="{% url "connections" %}" {% if "/connections" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Connections</span></a></li>
         <li><a href="{% url "settings" %}" {% if request.get_full_path == "/settings/" %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Settings</span></a></li>
@@ -440,6 +441,7 @@ etition adoih aodsjd poaisj </p>
 <script src="{% static 'js/checkout.js' %}"></script>
 <script src="{% static 'js/subscription.js' %}"></script>
 <script src="{% static 'js/homepage.js' %}"></script>
+<script src="{% static 'js/messaging.js' %}"></script>
 
 
 

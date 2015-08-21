@@ -7,8 +7,7 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
 from apps.artist.views import single_artist, artist_settings, connections
-from .views import hall_of_fame, search, terms, partnerships, handler404, handler4042
-from apps.home.views import home
+from .views import hall_of_fame, search, terms, partnerships, handler404, handler4042, home
 
 
 # Serializers define the API representation.
@@ -45,7 +44,6 @@ urlpatterns = [
     url(r'^user/', include('apps.userprofile.urls')),
 
     # api
-    # url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include('apps.api_rest.urls')),
 
     # static pages
@@ -66,6 +64,7 @@ urlpatterns = [
     url(r'^widget/', include('apps.widgets.urls')),
     url(r'^subscribe/', include('apps.subscription.urls')),
     url(r'^home/', include('apps.home.urls')),
+    url(r'^messages/', include('apps.messaging.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
@@ -74,5 +73,5 @@ if settings.DEBUG:
 
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
-        url(r'^rosetta/', include('rosetta.urls')),
-    )
+                            url(r'^rosetta/', include('rosetta.urls')),
+                            )

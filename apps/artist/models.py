@@ -18,12 +18,12 @@ class UserRoles(models.Model):
         db_table = "user_roles"
 
 class UserConnections(models.Model):
-    user = models.ForeignKey(User,related_name="follower")
-    connection = models.ForeignKey(User,related_name="connection")
+    user = models.ForeignKey(User, related_name="follower")
+    connection = models.ForeignKey(User, related_name="connection")
 
     class Meta:
         db_table = "user_connections"
-        unique_together = ("user","connection")
+        unique_together = ("user", "connection")
 
     def clean(self):
         if self.user == self.connection:
@@ -39,7 +39,7 @@ def generate_user_roles(sender, instance, created, **kwargs):
     try:
         UserRoles.objects.get(user=instance)
     except:
-        user_roles = UserRoles(**{"user":instance})
+        user_roles = UserRoles(**{"user": instance})
         user_roles.save()
         user_roles.roles.add(1)
         user_roles.save()

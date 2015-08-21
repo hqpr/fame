@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block header %}
+    <!--Start: Header-->
+    <div class="nav-top blue-bg mobnav">
+        <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>
+            <li class="hidden-xs">WEMC FRANCE</li>
+            <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+            <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        </ul>
+    </div>
+{% endblock header %}
+
+
+{% block content %}
+    <div class="dm-famebox">
+
+        <h2 class="title">Famebox</h2>
+
+        <div class="clearfix dm-famebox-titlw-wrap">
+            <div class="messages-title">MESSAGES</div>
+            <div class="add-conv-title"><a href="#"><i class="fa fa-plus"></i>CONVERSATION</a></div>
+        </div>
+
+
+        <div class="clearfix message-container">
+
+            <div class="messages-list">
+                {% for c in converstaions %}
+                    <div class="message-box" data-url="{{ c.id }}">
+                        <img src="{% static 'images/chat-img-01.png' %}" class="img-circle" alt="">
+                        <div class="info">
+                            <h5>
+                                <span class="active-ticker"></span>
+                                {{ c.receiver.username }}
+                            </h5>
+                            <p>hey man what's wrong with the...</p>
+                        </div>
+                        <a href="#" class="close close_conversation" style="display:none;">
+                            <i class="fa  fa-close"></i>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="chat-list">
+                <div class="chat-list-details">
+                    <div class="chat-list-block">
+{##}
+{#                        <div class="popover right popover-me">#}
+{#                            <div class="icon-me"><img src="{% static 'images/chat-img-01.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                            <div class="arrow"></div>#}
+{#                            <div class="popover-content">#}
+{#                                <p>All he wanted was to be the best, went to class where all the teachers stress.</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="clearfix">#}
+{#                            <div class="popover  popover-you left">#}
+{#                                <div class="icon-you"><img src="{% static 'images/chat-img-02.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                                <div class="arrow"></div>#}
+{#                                <div class="popover-content">#}
+{#                                    <p>What do you mean man?</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="popover right popover-me">#}
+{#                            <div class="icon-me"><img src="{% static 'images/chat-img-01.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                            <div class="arrow"></div>#}
+{#                            <div class="popover-content">#}
+{#                                <p>One of them days, he gonna leave the rest and then he gonna get paid and pay#}
+{#                                    mama debt.</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="clearfix">#}
+{#                            <div class="popover  popover-you left">#}
+{#                                <div class="icon-you"><img src="{% static 'images/chat-img-02.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                                <div class="arrow"></div>#}
+{#                                <div class="popover-content">#}
+{#                                    <p>Had a lot of tears and then a lot of sweat. I’m batman.</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="popover right popover-me">#}
+{#                            <div class="icon-me"><img src="{% static 'images/chat-img-01.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                            <div class="arrow"></div>#}
+{#                            <div class="popover-content">#}
+{#                                <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="clearfix">#}
+{#                            <div class="popover  popover-you left">#}
+{#                                <div class="icon-you"><img src="{% static 'images/chat-img-02.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                                <div class="arrow"></div>#}
+{#                                <div class="popover-content">#}
+{#                                    <p>All he wanted was to be the best, went to class where all the teachers stress.</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="popover right popover-me">#}
+{#                            <div class="icon-me"><img src="{% static 'images/chat-img-01.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                            <div class="arrow"></div>#}
+{#                            <div class="popover-content">#}
+{#                                <p>What do you mean man?</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="clearfix">#}
+{#                            <div class="popover  popover-you left">#}
+{#                                <div class="icon-you"><img src="{% static 'images/chat-img-02.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                                <div class="arrow"></div>#}
+{#                                <div class="popover-content">#}
+{#                                    <p>Had a lot of tears and then a lot of sweat. I’m batman.</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="popover right popover-me">#}
+{#                            <div class="icon-me"><img src="{% static 'images/chat-img-01.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                            <div class="arrow"></div>#}
+{#                            <div class="popover-content">#}
+{#                                <p>One of them days, he gonna leave the rest and then he gonna get paid and pay#}
+{#                                    mama debt.</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="clearfix">#}
+{#                            <div class="popover  popover-you left">#}
+{#                                <div class="icon-you"><img src="{% static 'images/chat-img-02.png' %}" class="img-circle img-responsive" alt=""></div>#}
+{#                                <div class="arrow"></div>#}
+{#                                <div class="popover-content">#}
+{#                                    <p>What do you mean man?</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+
+
+                        <div class="chat-filed-area">
+                            <div class="icon-me"><img src="{% static 'images/chat-img-01.png' %}" class="img-circle img-responsive" alt=""></div>
+                            <div class="text-field-chat-block">
+                                <textarea name="" cols="" class="form-control text-field-chat" rows="" placeholder="Enter a message"></textarea>
+                            </div>
+                            <a href="#"  class="enter-btn"></a> </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="api" data-url="{% url 'api_conversation' %}"></div>
+
+        </div>
+    </div>
+
+{% endblock content %}

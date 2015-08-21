@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.contrib.auth.models import User
+from django.db.models import Q
 import pytz
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -10,9 +12,11 @@ from apps.userprofile.models import UserProfile, UserStatus
 from apps.artist.models import UserConnections
 from apps.competition.models import Competition, CompetitionChart, CompetitionEntryRating, CompetitionJudge,\
                                CompetitionEntry
+from apps.messaging.models import Conversation, Message
 from .serializers import AudioCommentSerializer, AudioLikeSerializer, AudioPlaylistSerializer, PlaylistItemSerializer, UserProfileSerializer,\
                          UserStatusSerializer, UserConnectionsSerializer, VideoCommentSerializer, VideoLikeSerializer, \
-                         CompetitionSerializer, CompetitionChartSerializer, AudioSerializer, VideoSerializer
+                         CompetitionSerializer, CompetitionChartSerializer, AudioSerializer, VideoSerializer,\
+                         ConversationSerializer, SingleConversationSerializer, MessageSerializer
 
 
 # Create your views here.
@@ -186,6 +190,31 @@ def chart_list(request, *args, **kwargs):
         return Response("No chart entries", status=status.HTTP_400_BAD_REQUEST)
     
     serializer = CompetitionChartSerializer(snippets, many=True)
+    # return Response(chart_items, status=status.HTTP_201_CREATED)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def chart_list_fame(request, *args, **kwargs):
+    """Handle display of chart for fame"""
+
+    limit = 20
+    offset = 0
+    filters = {}
+    if "l" in request.GET:
+        limit = int(request.GET["l"])
+    if "o" in request.GET:
+        offset = int(request.GET["o"])
+    # if "c" in request.GET:
+    #     competition = Competition.objects.get(id=request.GET["c"])
+    if "g" in request.GET and len(request.GET["g"]):
+        filters["genre__name__in"] = request.GET["g"].split(",")
+
+    try:
+        snippets = Audio.objects.filter(**filters).order_by('-plays')[offset*limit:offset*limit+limit]
+    except:
+        return Response("No entries", status=status.HTTP_400_BAD_REQUEST)
+    
+    serializer = AudioSerializer(snippets, many=True)
     # return Response(chart_items, status=status.HTTP_201_CREATED)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -438,3 +467,126 @@ def playlist(request, *args, **kwargs):
         return Response("Playlist deleted", status=status.HTTP_201_CREATED)
 
 
+# Messages
+
+@api_view(['GET', 'POST'])
+def conversations(request, *args, **kwargs):
+    """Handle conversations
+
+    Accepts GET and POST 
+        - GET retrieves all conversations
+        - POST creates a conversation. POST expects:
+            - user_id"""
+    if request.method == 'GET':
+        try:
+            snippets = Conversation.objects.filter(Q(sender=request.user) | Q(receiver=request.user))
+        except:
+            return Response("Conversations", status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = ConversationSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        try:
+            print request.data
+            conversation = Conversation(**{
+                "sender": request.user,
+                "receiver": User.objects.get(id=request.data['user_id'])
+                })
+            conversation.save()
+            return Response(status=status.HTTP_201_CREATED)
+        except:
+            return Response("Error", status=status.HTTP_400_BAD_REQUEST)
+
+    return Response("Conversations", status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST', 'DELETE'])
+def single_conversation(request, *args, **kwargs):
+    """Handle single conversations
+
+    Accepts GET, POST and DELETE
+        - GET retrieves all messages from conversations
+        - POST creates a new message in conversation. POST expects:
+            - text
+        - DELETE will delete all messages associated with this conversation"""
+    if request.method == 'GET':
+        try:
+            snippets = Conversation.objects.get((Q(sender=request.user) | Q(receiver=request.user)), id=kwargs["pk"])
+        except:
+            return Response("No conversation", status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = SingleConversationSerializer(snippets)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        try:
+            conversation = Conversation.objects.get((Q(sender=request.user) | Q(receiver=request.user)), id=kwargs["pk"])
+            message = Message(**{"conversation": conversation, "sender": request.user, "text": request.data["text"]})
+            message.save()
+            return Response(status=status.HTTP_201_CREATED)
+        except:
+            return Response("Error", status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        try:
+            conversation = Conversation.objects.get((Q(sender=request.user) | Q(receiver=request.user)), id=kwargs["pk"])
+            message = Message.objects.filter(conversation=conversation)
+            message.delete()
+            conversation.delete()
+            return Response(status=status.HTTP_201_CREATED)
+        except:
+            return Response("Error", status=status.HTTP_400_BAD_REQUEST)
+
+    return Response("Conversations", status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'DELETE'])
+def message(request, *args, **kwargs):
+    """Handle message
+
+    Accepts GET and DELETE
+        - GET retrieves single message for user and marks the message as read
+        - DELETE deletes the message"""
+    if request.method == 'GET':
+        try:
+            message = Message.objects.get(id=kwargs["pk"])
+            conversation = Conversation.objects.get((Q(sender=request.user) | Q(receiver=request.user)), id=message.conversation.id)
+            if message.sender != request.user:
+                message.read = True
+                message.save()
+            serializer = MessageSerializer(message)
+        except:
+            return Response("No message selected", status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        try:
+            message = Message.objects.get(id=kwargs["pk"])
+            conversation = Conversation.objects.get((Q(sender=request.user) | Q(receiver=request.user)), id=message.conversation.id)
+            if message.sender == request.user:
+                message.delete()
+                return Response(status=status.HTTP_201_CREATED)
+            return Response("Error", status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response("Error", status=status.HTTP_400_BAD_REQUEST)
+    return Response("Conversations", status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def connections(request, *args, **kwargs):
+    """Handle connections
+
+    Accepts GET
+        - GET retrieves all connections, filters by the following:
+            - q - name
+            - o - offset"""
+    limit = 10
+    offset = 0
+    if "o" in request.GET:
+        offset = int(request.GET['o'])
+    try:
+        name = request.GET["q"]
+        connections = UserConnections.objects.filter(user=request.user, connection__userprofile__display_name__icontains=name)[offset*limit:(offset*limit)+limit]
+    except:
+        connections = UserConnections.objects.filter(user=request.user)[offset*limit:(offset*limit)+limit]
+    serializer = UserConnectionsSerializer(connections, many=True)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
