@@ -2,7 +2,7 @@ body {
 	background-color: #232326
 }
 .wrapper {
-	width: 1440px;
+/*	width: 1440px;*/
 	margin: 0 auto;
 }
 .left-nav {
@@ -34,7 +34,8 @@ body {
 .left-menu ul li {
 	padding: 10px;
 	position: relative;
-	font-weight: 400
+	font-weight: 400;
+	width: 100px;
 }
 .left-menu ul li a {
 	color: #d7d7d7
@@ -291,9 +292,9 @@ h3 .task-num {
 .profile-bg-copy .profile-head p {
 	color: #fff
 }
-.profile-landing-bg {
+/*.profile-landing-bg {
 	background: #000 url(../images/landing-bg.png) no-repeat top center;
-}
+}*/
 .nav-top.red-bg {
 	background-color: #f10950
 }
@@ -554,7 +555,7 @@ text-decoration:none;
 	width: 100%
 }
 .widget-pro .profile-circle {
-	background: url(../images/profile-bdr.png) no-repeat;
+	background: url(../images/pro-circle-img.png) no-repeat;
 	background-size: 100%;
 	width: 140px;
 	height: 140px;
@@ -936,8 +937,9 @@ text-decoration:none;
 	display: block
 }
 .left-nav.sidr {
-	width: 50px;
-	text-align: left
+	width: 70px;
+	text-align: left;
+	position: relative;
 }
 .mobnav ul {
 	float: block

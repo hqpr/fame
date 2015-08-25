@@ -1,10 +1,17 @@
 {% load static from staticfiles %}
+{% block extrahead %}
+
+    <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
 
 {# first step #}
 <div class="modal-body share-profile" id="competition_step1"><a href="#" class="close-icon">close</a>
     <div class="enter-competition">
         <div class="steps-count">
-            <div class="line"></div>
+            <div class="line">
+            </div>
             <ul>
                 <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
                 <li><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
@@ -27,11 +34,11 @@
     <div class="enter-competition">
         <div class="steps-count">
             <div class="line">
-                <div class="step2-filled" style="width:25%"></div>
+                <div class="step2-filled" id="line_1"></div>
             </div>
             <ul>
                 <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
-                <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
+                <li  class="" id="li_step2"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
                 <li><a href="#"><span class="cricle">3</span>Add a Video</a></li>
                 <li><a href="#"><span class="cricle">4</span>Review</a></li>
                 <li><a href="#"><span class="cricle">5</span>Success</a></li>
@@ -60,7 +67,7 @@
                     <li class="last"><a href="#"><img src="{% static 'images/impot-track-icon05.png' %}" width="126" height="29" alt=""></a></li>
                 </ul>
             </div>
-        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="back_to_step1">BACK</a><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
+        <div class="form-btn"><a href="javascript:void(0)" class="btn btn-cancel" id="back_to_step1">BACK</a><!--<a href="javascript:void(0)" class="btn btn-pink">NEXT</a>--><a href="javascript:void(0)" class="btn btn-pink">NEXT</a></div>
     </div>
 </div>
 
@@ -123,7 +130,8 @@
             </div>
             <div class="form-btn">
 {#                <a href="javascript:void(0)" class="btn btn-cancel back_to_step2">BACK</a>#}
-                <a href="#" onclick="return false" class="btn btn-pink" id="submit_audio">NEXT</a></div>
+                <a href="#" onclick="return false" class="btn btn-pink" id="submit_audio">NEXT</a>
+            </div>
         </form>
     </div>
 </div>
@@ -178,12 +186,12 @@
     <div class="enter-competition">
         <div class="steps-count">
             <div class="line">
-                <div class="step2-filled" style="width:50%"></div>
+                <div class="step2-filled" id="line_2" style="width:25%"></div>
             </div>
             <ul>
                 <li class="active"><a href="#"><span class="cricle">1</span>Enter Competition</a></li>
                 <li  class="active"><a href="#"><span class="cricle">2</span>Upload A Track</a></li>
-                <li  class="active"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
+                <li id="li_step3"><a href="#"><span class="cricle">3</span>Add a Video</a></li>
                 <li><a href="#"><span class="cricle">4</span>Review</a></li>
                 <li><a href="#"><span class="cricle">5</span>Success</a></li>
             </ul>
@@ -321,5 +329,11 @@
 
 <script>
     $('.dropzone').html5imageupload();
+    $('#test').on('click', function(){
+        var competition = $('#competition_upload_video').data('slug');
+        $.get( '/competitions/'+competition+'/review/', function( data ) {
+          $( ".modal-body" ).html( data );
+        });
+    });
 </script>
 {% endblock %}

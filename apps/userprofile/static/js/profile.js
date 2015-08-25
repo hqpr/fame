@@ -1,5 +1,23 @@
 $(document).ready(function(){
 
+    //Validate function to upload track form. Display Submit button when valid only
+    function validate() {
+        var invalid = false;
+        var form = [$('#id_cover'),
+                    $('#id_name'),
+                    $('#id_artist'),
+                    $('#id_type'),
+                    $('#id_genre'),
+                    $('#id_description'),
+                    $('#id_bpm'),
+                    $('#id_privacy')];
+        for(var i = 0; i < form.length; i++) {
+            if(!form[i].val()) invalid = true;
+        }
+        if(invalid) $('#submit-audio-2')[0].disabled = true;
+        else $('#submit-audio-2')[0].disabled = false;
+    }
+
     // bootstrap modal reload
     $(document).on('hidden.bs.modal', function (e) {
         $(e.target).removeData('bs.modal');
@@ -136,6 +154,8 @@ $(document).ready(function(){
 
     $('#trackcard').on('hidden.bs.modal', function () {
         $('.pausebtn').trigger('click'); // pause audio
+        /*$('.playbtn').stop();
+        $('.pausebtn').stop();*/
         $(".video-js")[0].player.pause(); // pause video
     });
 

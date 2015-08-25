@@ -1,17 +1,17 @@
 (function($) {
 
     var conversation_url = $('#api').data('url');
+    //var user_id = $('#user_id').data('user');
 
-    $('.enter-btn').on('click', function(){
-
-        $.ajax({
-          type: "POST",
-          url: conversation_url,
-          data: {'user_id': 2},
-          success: function(){console.log('yes')},
-          dataType: 'json'
-        });
-    });
+    //$('.enter-btn').on('click', function(){
+    //    $.ajax({
+    //      type: "POST",
+    //      url: conversation_url,
+    //      data: {'user_id': user_id},
+    //      success: function(){console.log('yes')},
+    //      dataType: 'json'
+    //    });
+    //});
 
     var conversation_info = $('.info');
     var close_conversation = $('.close_conversation');
@@ -54,4 +54,5 @@
             //})
         //});
     })
+
 })(jQuery);

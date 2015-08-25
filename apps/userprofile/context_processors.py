@@ -1,4 +1,4 @@
-from apps.userprofile.models import UserProfile
+from apps.userprofile.models import UserProfile, UserBadges
 from apps.artist.views import UserConnections
 from apps.home.models import Tutorial
 
@@ -33,3 +33,14 @@ def home_tutorial(request):
         except Tutorial.DoesNotExist:
             return {'tutorial': 0}
     return {'tutorial': 1}
+
+
+def task1_badge(request):
+    if request.user.is_authenticated():
+        try:
+            task1_badge = UserBadges.objects.filter(user=request.user)
+            return {'task1_badge': task1_badge}
+        except UserBadges.DoesNotExist:
+            return {'task1_badge': 0}
+    return {'task1_badge': 1}
+

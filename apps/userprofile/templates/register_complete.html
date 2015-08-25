@@ -5,6 +5,7 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+
     <div class="modal modal-absolute" style="display:block;">
         <div class="modal-dialog fame-music-modal">
             <div class="modal-content">
@@ -19,7 +20,7 @@
                             {{ user.artist_name }}
                         {% endif %}
                     </p>
-                    {% if user.account_type == '1' %}
+                    {% if user.account_type != '1' %}
                         <div class="welcome-txt-block">
                             <p> Welcome to Fame Music,
                                 the best bla bla bla bla.
@@ -29,7 +30,7 @@
                         </div>
                         <br />
                         <div class="text-center">
-                            <button type="submit" class="btn  pbtn">SHARE</button>
+                            <a href="https://www.facebook.com/sharer/sharer.php?sdk=joey&u=http://test.com/{{ user.display_name }}&display=popup&ref=plugin&src=share_button" target="_blank" class="btn  pbtn">SHARE</a>
                         </div>
                     {% else %}
                         <div class="welcome-txt-block">

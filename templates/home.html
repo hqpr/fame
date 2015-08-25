@@ -9,14 +9,18 @@
 <meta name="author" content="">
 <title>{% block title %}Fame Music{% endblock title %}</title>
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"  type="text/css">
+<link href="{% static 'css/CircularProgressButton/component.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/CircularProgressButton/normalize.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
-<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' type="text/css">
 <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/style-custom.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/jquery.sidr.dark.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/prettyCheckable.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/jquery.jscrollpane.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/jquery.fullPage.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/animate.min.css' %}" rel="stylesheet" type="text/css" />
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -34,116 +38,146 @@
     {% block extrahead %}{% endblock %}
 </head>
 
-<body>
+<body ng-controller="fameMusicMainCtrl">
 
-<div class="home-header-banner">
-  <div><a href="{% url "home" %}" class="logo-home">Fame Music</a></div>
-  <h2>Welcome to <strong>your last music platform</strong></h2>
-  <a href="{% url 'social:begin' 'facebook' %}" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
-  <p class="or-txt">OR</p>
-  <div  class="login-section">
-    <form action="{% url "login" %}" method="POST" class="login_form">
-      <div class="errors"></div>
-      <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-        <input class="form-control" type="text" placeholder="User Name" name="username">
-      </div>
-      <div class="input-group"> <span class="input-group-addon"><i class="fa fa-lock  fa-fw"></i></span>
-        <input class="form-control" type="password" placeholder="Password" name="password">
-      </div>
-      <p><a href="{% url 'password_reset' %}" class="forgot">Did you forget the password?</a></p>
-      <div class="text-center"><a class="btn pbtn login-button" href="#"> LOG IN</a> </div>
-      <div class="signup-block"> Don't you have an account? <a href="{% url "register" %}" class="signup-link">Sign Up</a> </div>
-      {% csrf_token %}
-    </form>
-  </div>
-
-</div>
-<div class="what-fame-music">
-    <h2>WHAT IS FAME MUSIC?</h2>
-    <h3>It’s the BEST place for:</h3>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="home-content-block">
-                    <div class="home-icon1"></div>
-                    <div class="hom-block">
-                        <h4>INDUSTRY</h4>
-                        <ul>
-                            <li>Free whatever forever and ever</li>
-                            <li>God mode</li>
-                            <li>Super insights!</li>
-                            <li>Win all the competitions without having event to take part to thhem</li>
-                        </ul>
-                        <a href="{% url 'register' %}" class="btn btn-pink">Sign Up</a></div>
-                    <span class="note"></span></div>
+<div id="fullpage">
+  <div class="section fp-section">
+      <video src="{% static 'video/bgvideo.mp4' %}" autoplay="true" loop muted class="bgvideo" id="bgvideo" poster="{% static 'video/bgvideo.png' %}">
+          <source src="{% static 'video/bgvideo.mp4' %}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+          <source src="{% static 'video/bgvideo.ogv' %}" type='video/ogg; codecs="theora, vorbis"'></source>
+          <source src="{% static 'video/bgvideo.webm' %}" type='video/webm; codecs="vp8, vorbis"'></source>
+      </video>
+    <div class="home-header-banner">
+      <div class="home-header-banner-menu">
+        <div><a href="{% url "home" %}" class="logo-home">Fame Music</a></div>
+        <div class="animated" data-animation="fadeInUp" data-animation-delay="25">
+        <h2>Welcome to <strong>your last music platform</strong></h2>
+        <a href="{% url 'register' %}" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
+        <p class="or-txt">OR</p>
+        <div  class="login-section">
+          <form action="{% url "login" %}" method="POST" class="login_form">
+            <div class="errors"></div>
+            <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+              <input class="form-control" type="text" placeholder="User Name" name="username">
             </div>
-            <div class="col-sm-4">
-                <div class="home-content-block">
-                    <div class="home-icon2"></div>
-                    <div class="hom-block">
-                        <h4>ARTIST</h4>
-                        <ul>
-                            <li>Free whatever forever and ever</li>
-                            <li>God mode</li>
-                            <li>Super insights!</li>
-                            <li>Win all the competitions without having event to take part to thhem</li>
-                        </ul>
-                        <a href="{% url 'register' %}" class="btn btn-pink">Sign Up</a> </div>
-                    <span class="note"></span> </div>
+            <div class="input-group"> <span class="input-group-addon"><i class="fa fa-lock  fa-fw"></i></span>
+              <input class="form-control" type="password" placeholder="Password" name="password">
             </div>
-            <div class="col-sm-4">
-                <div class="home-content-block">
-                    <div class="home-icon3"></div>
-                    <div class="hom-block">
-                        <h4>MUSER *</h4>
-                        <ul>
-                            <li>Free whatever forever and ever</li>
-                            <li>God mode</li>
-                            <li>Super insights!</li>
-                            <li>Win all the competitions without having event to take part to thhem</li>
-                        </ul>
-                        <a href="#" class="btn btn-pink">Sign Up</a></div>
-          <span class="note">*Muser: [music + user] obsessed with music bla soihc 
-          psdaihca asjao aoih.</span> </div>
+            <p><a href="#" class="forgot">Did you forget the password?</a></p>
+            <div id="login_submit_div" class="text-center progress-button block-btn" style="margin-top:20px">
+                <button onclick="return false"> LOG IN</button>
+                <svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
+                <svg class="checkmark" width="70" height="70"><path d="m31.5,46.5l15.3,-23.2"/><path d="m31.5,46.5l-8.5,-7.1"/></svg>
+                <svg class="cross" width="70" height="70"><path d="m35,35l-9.3,-9.3"/><path d="m35,35l9.3,9.3"/><path d="m35,35l-9.3,9.3"/><path d="m35,35l9.3,-9.3"/></svg>
             </div>
+            <div class="signup-block"> Don't you have an account? <a href="{% url "register" %}" class="signup-link">Sign Up</a> </div>
+            {% csrf_token %}
+          </form>
         </div>
-    </div>
-</div>
-<div class="create-own-space"> <img src="{% static 'images/own-space-background.jpg' %}" class="img-responsive" alt=""> </div>
-<div class="join-fame-section">
-    <div class="container">
-        <h2>All your social networks in one place</h2>
-        <ul class="clearfix">
-            <li><a href="#" class="fb">Facebook</a></li>
-            <li><a href="#" class="vimeo">Vimeo</a></li>
-            <li><a href="#" class="soundclound">SoundCloud</a></li>
-            <li><a href="#" class="twitter">Twitter</a></li>
-            <li><a href="#" class="instagram">Instagram</a></li>
-            <li><a href="#" class="mixxcloud">MixxCloud</a></li>
-            <li><a href="#" class="spotify">Spotify</a></li>
-            <li><a href="#" class="pintarest">pinterest</a></li>
-        </ul>
-    </div>
-</div>
-<div class="home-header-banner home-footer-banner">
-  <h2>so ARE YOU READY?</h2>
-  <a href="{% url 'social:begin' 'facebook' %}" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
-  <p class="or-txt">OR</p>
-  <div  class="login-section">
-    <form action="{% url "login" %}" method="POST">
-      <div class="errors"></div>
-      <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-        <input class="form-control" type="text" placeholder="User Name" name="username">
+        </div>
       </div>
-      <div class="input-group"> <span class="input-group-addon"><i class="fa fa-lock  fa-fw"></i></span>
-        <input class="form-control" type="password" placeholder="Password" name="password">
-      </div>
-      <p><a href="{% url 'password_reset' %}" class="forgot">Did you forget the password?</a></p>
-      <div class="text-center"><a class="btn pbtn login-button" href="#"> LOG IN</a> </div>
-      <div class="signup-block"> Don't you have an account? <a href="{% url "register" %}" class="signup-link">Sign Up</a> </div>
-      {% csrf_token %}
-    </form>
+        <div id="what-fame-music-bttm" class="home-header-banner-bottom">
+      <h2>WHAT IS FAME MUSIC?</h2>
+    </div>
+    </div>
+<!--    <div id="what-fame-music-bttm" class="home-header-banner-bottom">
+      <h2>WHAT IS FAME MUSIC?</h2>
+    </div>-->
   </div>
+  <div class="section fp-section what-fame-music">
+      <h3>It’s the BEST place for:</h3>
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-4 animated" data-animation="fadeInDown" data-animation-delay="300">
+                  <div class="home-content-block">
+                      <div class="home-icon1"></div>
+                      <div class="hom-block">
+                          <h4>INDUSTRY</h4>
+                          <ul>
+                              <li>Free whatever forever and ever</li>
+                              <li>God mode</li>
+                              <li>Super insights!</li>
+                              <li>Win all the competitions without having event to take part to thhem
+                              {% verbatim %}
+
+                              {% endverbatim %}
+                              </li>
+                          </ul>
+                          <a href="{% url 'register' %}" class="btn btn-pink">Sign Up</a></div>
+                      <span class="note"></span></div>
+              </div>
+              <div class="col-sm-4 animated" data-animation="fadeInDown" data-animation-delay="300">
+                  <div class="home-content-block">
+                      <div class="home-icon2"></div>
+                      <div class="hom-block">
+                          <h4>ARTIST</h4>
+                          <ul>
+                              <li>Free whatever forever and ever</li>
+                              <li>God mode</li>
+                              <li>Super insights!</li>
+                              <li>Win all the competitions without having event to take part to thhem</li>
+                          </ul>
+                          <a href="{% url 'register' %}" class="btn btn-pink">Sign Up</a> </div>
+                      <span class="note"></span> </div>
+              </div>
+              <div class="col-sm-4 animated" data-animation="fadeInDown" data-animation-delay="300">
+                  <div class="home-content-block">
+                      <div class="home-icon3"></div>
+                      <div class="hom-block">
+                          <h4>MUSER *</h4>
+                          <ul>
+                              <li>Free whatever forever and ever</li>
+                              <li>God mode</li>
+                              <li>Super insights!</li>
+                              <li>Win all the competitions without having event to take part to thhem</li>
+                          </ul>
+                          <a href="#" class="btn btn-pink">Sign Up</a></div>
+            <span class="note">*Muser: [music + user] obsessed with music bla soihc
+            psdaihca asjao aoih.</span> </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="section fp-section create-own-space"> <img src="{% static 'images/own-space-background.jpg' %}" class="img-responsive" alt=""> </div>
+  <div class="section fp-section join-fame-section">
+      <div class="container">
+          <h2>All your social networks in one place</h2>
+          <ul class="clearfix">
+              <li class="animated" data-animation="fadeInLeft" data-animation-delay="300"><a href="#" class="fb">Facebook</a></li>
+              <li class="animated" data-animation="fadeInLeft" data-animation-delay="300"><a href="#" class="vimeo">Vimeo</a></li>
+              <li class="animated" data-animation="fadeInRight" data-animation-delay="300"><a href="#" class="soundclound">SoundCloud</a></li>
+              <li class="animated" data-animation="fadeInRight" data-animation-delay="300"><a href="#" class="twitter">Twitter</a></li>
+              <li class="animated" data-animation="fadeInLeft" data-animation-delay="300"><a href="#" class="instagram">Instagram</a></li>
+              <li class="animated" data-animation="fadeInLeft" data-animation-delay="300"><a href="#" class="mixxcloud">MixxCloud</a></li>
+              <li class="animated" data-animation="fadeInRight" data-animation-delay="300"><a href="#" class="spotify">Spotify</a></li>
+              <li class="animated" data-animation="fadeInRight" data-animation-delay="300"><a href="#" class="pintarest">pinterest</a></li>
+          </ul>
+      </div>
+  </div>
+  <div class="section fp-section">
+  <div class="home-header-banner home-footer-banner">
+      <div class="animated" data-animation="fadeInUp" data-animation-delay="25">
+        <h2>so ARE YOU READY?</h2>
+        <a href="/login/facebook" class="facebook-signup"><i class="fa fa-facebook-official"></i> <span class="fb-txt">SIGN UP WITH FACEBOOK</span></a>
+        <p class="or-txt">OR</p>
+        <div  class="login-section">
+          <form action="{% url "login" %}" method="POST">
+            <div class="errors"></div>
+            <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+              <input class="form-control" type="text" placeholder="User Name" name="username">
+            </div>
+            <div class="input-group"> <span class="input-group-addon"><i class="fa fa-lock  fa-fw"></i></span>
+              <input class="form-control" type="password" placeholder="Password" name="password">
+            </div>
+            <p><a href="#" class="forgot">Did you forget the password?</a></p>
+            <div class="text-center"><a class="btn pbtn login-button" href="#"> LOG IN</a> </div>
+            <div class="signup-block"> Don't you have an account? <a href="{% url "register" %}" class="signup-link">Sign Up</a> </div>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
+  </div>
+      </div>
 </div>
 
 <!--Start: End Container--> 
@@ -153,11 +187,23 @@
 <script type="text/javascript" src="{% static "js/retina.js" %}"></script> 
 <script defer src="{% static 'js/jquery.form.min.js' %}"></script>
 <script defer src="{% static "js/jquery.flexslider.js" %}"></script> 
-<script defer src="{% static "js/jquery.sidr.min.js" %}"></script> 
-<script defer src="{% static "js/jquery.sidr.min.js" %}"></script> 
-<script defer src="{% static "js/respond.src.js" %}"></script> 
+<script defer src="{% static "js/jquery.sidr.min.js" %}"></script>
+<script defer src="{% static "js/jquery.sidr.min.js" %}"></script>
+<script src="{% static "js/jquery.appear.js" %}"></script>
+<script defer src="{% static "js/respond.src.js" %}"></script>
 <script src="{% static "js/jquery.form.min.js" %}"></script>
+<script src="{% static "js/angular.min.js" %}"></script>
+<script src="{% static "js/app.js" %}"></script>
+<script src="{% static "js/landing.home.js" %}"></script>
+<script src="{% static "js/jquery.fullPage.js" %}"></script>
+<script src="{% static "js/wow.min.js" %}"></script>
+
+<script defer src="{% static 'js/CircularProgressButton/modernizr.custom.js' %}"></script>
+<script defer src="{% static 'js/CircularProgressButton/classie.js' %}"></script>
+<script defer src="{% static 'js/CircularProgressButton/uiProgressButton.js' %}"></script>
+
 <script>
+    new WOW().init();
     $(document).ready(function() {
         $('#left-menu').sidr({
             name: 'sidr-left',
@@ -188,7 +234,7 @@
         $("#button").click(function(){
             $("#slide").slideToggle();
         });
-        $('.log_in').on('click', function(){
+/*        $('.log_in').on('click', function(){
             $('.login_form').ajaxSubmit({
                 success: function(data){
                     if (data.success){
@@ -200,6 +246,44 @@
                     }
                 },
                 dataType: 'json'
+            });
+        });*/
+        [].slice.call(document.querySelectorAll('#login_submit_div')).forEach(function(bttn, pos) {
+            new UIProgressButton(bttn, {
+                callback: function (instance) {
+                    var res = 0,
+                            redirectTo = '';
+                    var progress = 0,
+                        interval = setInterval(function () {
+                            progress = Math.min(progress + Math.random() * 0.1, 1);
+                            instance.setProgress(progress);
+
+                            if (res > 0 && progress === 1) {
+                                if (res == 1) {
+                                    instance.stop(-1);
+                                }
+                                else {
+                                    instance.stop(1);
+                                    window.location.href = "/profile/";
+                                }
+                                clearInterval(interval);
+                            }
+                        }, 100);
+                    $('.login_form').ajaxSubmit({
+                        success: function(data){
+                            if (data.success){
+                                res = 2;
+                                //window.location.href = "/profile/";
+                                console.log(data.msg)
+                            } else {
+                                res = 1;
+                                $('.errors').text(data.msg);
+                                console.log(data.msg)
+                            }
+                        },
+                        dataType: 'json'
+                    });
+                }
             });
         });
     });

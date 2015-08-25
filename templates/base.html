@@ -5,12 +5,16 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>{% block title %}WEMC France{% endblock title %}</title>
+<link href="{% static 'css/animate.min.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"  type="text/css">
-<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/CircularProgressButton/component.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/CircularProgressButton/normalize.css' %}" rel="stylesheet" type="text/css" />
 <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" />
@@ -21,6 +25,7 @@
 <link href="{% static 'css/jquery.jscrollpane.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/prettyCheckable.css' %}" rel="stylesheet" type="text/css" />
 <link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
+
 <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
 <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 {% block extrahead %}{% endblock %}
@@ -29,21 +34,22 @@
 <body {% block body-class %}{% endblock body-class %}>
 
 <div class="wrapper" {% block app-controller %}{% endblock app-controller %}>
+
 {% block sidebar-left %}
 
 
 <div class="left-nav" id="sidr-left">
     <h1 class="fame-logo"><a href="#">Fame Music</a></h1>
-    
-    <div class="input-group left-col-search"> 
-    
+
+    <div class="input-group left-col-search">
+
     <span class="input-group-btn">
       <button class="btn search-btn search-icon-mob" type="button"><span class="search-icon">Search</span></button>
       </span>
       <input type="text" class="form-control search-field hidden-field" placeholder="Search" id="searchInput" value="{% if request.GET.q %}{{request.GET.q}}{% endif %}">
     </div>
-    
-    <div class="left-menu">
+
+    <div class="left-menu" data-width="195px" style="width: 0px;">
       <ul>
         <li><a href="{% url "home" %}"{% if request.get_full_path == "/" %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Home</span></a></li>
         <li><a href="{% url "all_competitions" %}"{% if "competitions" in request.build_absolute_uri %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Competitions</span></a></li>
@@ -51,7 +57,7 @@
         <li><a href="{% url "all_artists" %}"{% if "artists" in request.build_absolute_uri %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Artists</span></a></li>
         <li><a href="{% url "all_blogs" %}"{% if "blog/" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Blog</span></a></li>
       </ul>
-      
+
       <ul class="left-bot-nav">
         {% if user.is_authenticated %}
         <li><a href="{% url "messages" %}" {% if "/messages/" in request.get_full_path %} class="active"{% endif %}><span class="gen-icon"></span> <span  class="hidden-md-link">Messages</span></a></li>
@@ -70,49 +76,49 @@
 
 {% block container-main %}
 <!--Start: Main Container-->
-<div class="main-container{% if not user.is_authenticated %} logged-out{% endif %}"> 
+<div class="main-container{% if not user.is_authenticated %} logged-out{% endif %}">
 
     {% comment "competitions need a wrapper" %}{% endcomment %}
-    {% block container-wrapper %}{% endblock container-wrapper %} 
+    {% block container-wrapper %}{% endblock container-wrapper %}
 
-  
+
   <!--Start: Inner Main Wrap-->
-  <div class="main-wrap {% block wrapper-class %}{% endblock wrapper-class %}"> 
-    
+  <div class="main-wrap {% block wrapper-class %}{% endblock wrapper-class %}">
+
     {% block header %}
     <!--Start: Header-->
     <div class="nav-top red-bg mobnav">
-      <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
-        <ul>  
+      <div class="back-icon-headbar hidden-xs"><a href="#test"><i id="chevron-circle" class="fa fa-chevron-circle-left fa-4"></i></a></div>
+        <ul>
        <li class="hidden-xs">WEMC FRANCE</li>
          <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
          <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
         </ul>
     </div>
     {% endblock header %}
-    
-    <!--End: Header--> 
+
+    <!--End: Header-->
     {% block banner %}{% endblock banner %}
     {% block banner-strip %}{% endblock banner-strip %}
     {% block content-wrapper %}{% endblock content-wrapper %}
     {% block filter %}{% endblock filter %}
-    
+
     {% block content %}
-    <div class="col-lg-12 middle-wrap"> 
-      
+    <div class="col-lg-12 middle-wrap">
+
       <!--End: Left Container-->
-      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12"> 
+      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
         <!--Strat: competition-->
         <div class="competition-wrap"><img src="{{MEDIA_URL}}images/com-overview.png" class="img-responsive" alt="" /> <span class="com-btn-wrap"><a href="#">Competition Overview</a></span> </div>
         <div class="competition-wrap"><img src="{{MEDIA_URL}}images/enter-competition.png" class="img-responsive" alt="" /> <span class="com-btn-wrap"><a href="#">Enter The Competition</a></span> </div>
-        <!--End: competition--> 
-        
+        <!--End: competition-->
+
       </div>
-      <!--End: Left Container--> 
-      
+      <!--End: Left Container-->
+
       <!--Start: Right Container-->
-      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12"> 
-        
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+
         <!--Start: Status-->
         <div class="frame">
           <h2>Status</h2>
@@ -133,7 +139,7 @@
           </ul>
           <p><span class="red-txt">Voting:</span> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
         </div>
-        <!--End: Status--> 
+        <!--End: Status-->
       </div>
       <div class="clear"></div>
       <!--End: Right Container-->
@@ -234,11 +240,11 @@
           </ul>
         </div>
         <!--Enter The Competition-->
-        
+
         <div class="col-lg-12">
           <div class="competition-wrap"><img src="{{MEDIA_URL}}images/com.png" class="img-responsive" alt="" /> <span class="com-btn-wrap"><a href="#">Enter The Competition</a></span> </div>
         </div>
-        <!--Enter The Competition--> 
+        <!--Enter The Competition-->
       </div>
     </div>
     <div class="clear"></div>
@@ -248,14 +254,14 @@
     {% block container-wrapper-close %}{% endblock container-wrapper-close %}
   </div>
   <!--End: Inner Main Wrap-->
-  
+
   {% block footer %}
   <!--Start: Footer-->
-  
+
   <!--End: Footer-->
   {% endblock footer %}
 </div>
-<!--Start: End Container--> 
+<!--Start: End Container-->
 {% endblock container-main %}
 
 {% block sidebar-right %}
@@ -297,8 +303,9 @@
         <p class="fame-pos-value fame-pos-value--blue">WEMC FRANCE</p>
       </div>
     </div>
-    <h3 class="toggle-container"><a href="#">Tasks <span class="task-num">2</span> <span class="arrow-direction arrow-up"></span></a></h3>
+    <h3 class="toggle-container"><a href="#">Tasks <span class="task-num">1</span> <span class="arrow-direction arrow-up"></span></a></h3>
     <div class="fame-toggle-container">
+
       <div class="last-list-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon1.png" class="img-responsive" alt=""></div>
         <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
@@ -307,14 +314,15 @@
           <p>Lorem ipsum dolor sit amet</p>
         </div>
       </div>
-      <div class="last-list-block">
-        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon2.png" class="img-responsive" alt=""></div>
-        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
-        <div class="task-details">
-          <h5>Complete your profile</h5>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-      </div>
+
+{#      <div class="last-list-block">#}
+{#        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon2.png" class="img-responsive" alt=""></div>#}
+{#        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>#}
+{#        <div class="task-details">#}
+{#          <h5>Complete your profile</h5>#}
+{#          <p>Lorem ipsum dolor sit amet</p>#}
+{#        </div>#}
+{#      </div>#}
       <!-- <div class="last-list-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon3.png" class="img-responsive" alt=""></div>
         <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
@@ -344,7 +352,7 @@
     <div class="fame-toggle-container">
       <div class="feed-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
- 
+
         <div class="task-details">
          <span class="pull-right">20:34</span>
           <p><span class="name-txt-blue">Alex Pluda</span> has reached <span class="name-txt-red">Level 5</span></p>
@@ -352,17 +360,17 @@
       </div>
       <div class="feed-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
- 
+
         <div class="task-details">
          <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp                  
+          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp
 etition adoih aodsjd poaisj </p>
         </div>
-        
+
       </div>
       <div class="feed-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
- 
+
         <div class="task-details">
          <span class="pull-right">20:34</span>
           <p><span class="name-txt-green">Dj Cosnic</span> has just won the comp     </p>
@@ -370,19 +378,19 @@ etition adoih aodsjd poaisj </p>
       </div>
       <div class="feed-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
- 
+
         <div class="task-details">
          <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp 
+          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp
 etition adoih aodsjd poaisj     </p>
         </div>
       </div>
       <div class="feed-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
- 
+
         <div class="task-details">
          <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue"> Dj Cosnic</span> has just won the comp   
+          <p><span class="name-txt-blue"> Dj Cosnic</span> has just won the comp
 etition adoih aodsjd poaisj </p>
         </div>
       </div>
@@ -410,6 +418,7 @@ etition adoih aodsjd poaisj </p>
     </div>
 </div>
 <div class="myClass"></div>
+
 {% block script %}
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -431,10 +440,11 @@ etition adoih aodsjd poaisj </p>
 <script defer src="{% static 'js/scripts.js' %}"></script>
 <script defer src="{% static 'js/upload_file.js' %}"></script>
 <script defer src="{% static 'js/jquery.form.min.js' %}"></script>
-<script defer src="{% static 'js/jquery.sidr.min.js' %}"></script>
+<script defer src="{% static 'js/jquery.sidr.js' %}"></script>
 <script defer src="{% static 'js/respond.src.js' %}"></script>
 
 <script src="{% static 'js/competition.js' %}"></script>
+<script src="{% static "js/jquery.appear.js" %}"></script>
 <script src="{% static 'js/insights.js' %}"></script>
 {#<script type="text/javascript" src="https://js.stripe.com/v2/"></script>#}
 {#<script src="https://checkout.stripe.com/checkout.js"></script>#}
@@ -444,6 +454,9 @@ etition adoih aodsjd poaisj </p>
 <script src="{% static 'js/messaging.js' %}"></script>
 
 
+<script defer src="{% static 'js/CircularProgressButton/modernizr.custom.js' %}"></script>
+<script defer src="{% static 'js/CircularProgressButton/classie.js' %}"></script>
+<script defer src="{% static 'js/CircularProgressButton/uiProgressButton.js' %}"></script>
 
 <script>
 $( window ).on( 'shown.bs.modal', function() {
@@ -463,10 +476,27 @@ $( window ).on( 'shown.bs.modal', function() {
 });
 
 $(document).ready(function() {
-    $("#bttn").click(function(){
+/*    $("#bttn").click(function(){
         $("#slides").slideToggle();
+    });*/
+/*    $('#close-left').sidr({
+      name: 'sidr-left',
+      side: 'left' // By default
+    });*/
+    $('#close-left').click(function() {
+        if($('#sidr-left').css('display') == 'none') {
+            $('#sidr-left').css('display', 'block');
+            $('#sidr-left').css('opacity', '1');
+            $('#chevron-circle').addClass('fa-chevron-circle-left');
+            $('#chevron-circle').removeClass('fa-chevron-circle-right');
+        }
+        else {
+            $('#sidr-left').css('display', 'none');
+            $('#sidr-left').css('opacity', '0');
+            $('#chevron-circle').addClass('fa-chevron-circle-right');
+            $('#chevron-circle').removeClass('fa-chevron-circle-left');
+        }
     });
-
     $('#left-menu').sidr({
       name: 'sidr-left',
       side: 'left' // By default

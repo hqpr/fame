@@ -36,6 +36,14 @@ class UserProfile(models.Model):
         if not self.user_id:
             self.created = datetime.datetime.today()
         self.modified = datetime.datetime.today()
+        if len(self.about) >= 300:
+            try:
+                s = Task1.objects.get(user=self.user)
+                s.task1 = True
+                s.save()
+            except Task1.DoesNotExist:
+                print '-'
+                Task1.objects.create(user=self.user, task1=True)
         return super(UserProfile, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -59,7 +67,7 @@ HALL_OF_FAME_TYPES = (
 class HallOfFameArtists(models.Model):
     hall_of_fame = models.ForeignKey(HallOfFame)
     user = models.OneToOneField(UserProfile)
-    type = models.CharField(max_length=10,choices=HALL_OF_FAME_TYPES, default="winners")
+    type = models.CharField(max_length=10, choices=HALL_OF_FAME_TYPES, default="winners")
     ordering = models.IntegerField()
 
     def __unicode__(self):
@@ -83,7 +91,7 @@ class UserSocial(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.user, self.account)
-    
+
 
 class UserStatus(models.Model):
     user = models.ForeignKey(UserProfile)
@@ -119,3 +127,31 @@ class UserTypes(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.user, self.type)
+
+
+class Badges(models.Model):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='badges/')
+
+
+class UserBadges(models.Model):
+    user = models.ForeignKey(User)
+    badge = models.ForeignKey(Badges)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'badge', )
+
+
+class Task1(models.Model):
+    user = models.ForeignKey(User)
+    task1 = models.BooleanField(default=False)  # about >= 300
+    task2 = models.BooleanField(default=False)  # audio file
+    task3 = models.BooleanField(default=False)  # connect >= 3 social networks
+    task4 = models.BooleanField(default=False)  # follow 3 artist
+    task5 = models.BooleanField(default=False)  # video file
+
+    def save(self, *args, **kwargs):
+        if self.task1 and self.task2 and self.task3 and self.task4 and self.task5:
+            UserBadges.objects.create(user=self.user, badge_id=1)
+        return super(Task1, self).save(*args, **kwargs)

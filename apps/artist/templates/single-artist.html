@@ -42,24 +42,26 @@
 
 {% block header %}
     <!--Start: Header-->
-    <div class="nav-top blue-bg mobnav">
-        <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
-        <ul>
-            {% if display == "profile" %}
-                <li class="hidden-xs"><a href="#">{{ request.user|upper }}</a></li>
-            {% else %}
-                <li class="hidden-xs"><a href="{% url "single_artist" request.user.username %}">{{ user|upper }}</a></li>
-            {% endif %}
-            <div class="extended-visible animated">
-                <li class="hidden-xs"><a href="#about">ABOUT</a></li>
-                <li class="hidden-xs"><a class="top-menu" href="#music">MUSIC</a></li>
-                <li class="hidden-xs"><a class="top-menu" href="#video">VIDEO</a></li>
-                <li class="hidden-xs"><a class="top-menu" href="#playlist">PLAYLIST</a></li>
-                <li class="hidden-xs"><a class="top-menu" href="#instagram">INSTAGRAM</a></li>
-            </div>
-            <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
-            <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
-        </ul>
+    <div>
+        <div class="nav-top blue-bg mobnav">
+            <div class="back-icon-headbar hidden-xs"><a id="close-left" href="#close-left"><i id="chevron-circle" class="fa fa-chevron-circle-left fa-4"></i></a></div>
+            <ul>
+                {% if display == "profile" %}
+                    <li class="hidden-xs"><a href="#">{{ request.user|upper }}</a></li>
+                {% else %}
+                    <li class="hidden-xs"><a href="{% url "single_artist" request.user.username %}">{{ user|upper }}</a></li>
+                {% endif %}
+                <div class="extended-visible animated">
+                    <li class="hidden-xs"><a href="#about">ABOUT</a></li>
+                    <li class="hidden-xs"><a class="top-menu" href="#music">MUSIC</a></li>
+                    <li class="hidden-xs"><a class="top-menu" href="#video">VIDEO</a></li>
+                    <li class="hidden-xs"><a class="top-menu" href="#playlist">PLAYLIST</a></li>
+                    <li class="hidden-xs"><a class="top-menu" href="#instagram">INSTAGRAM</a></li>
+                </div>
+                <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+                <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock header %}
 
@@ -71,7 +73,7 @@
         {{ request.user.userpofile.background_image }}
         <div class="content profile-bg-blue profile-landing-bg">
             <div  class="profile-head" style="min-height:450px">
-                <div class="profile-pic" id="blurpoint" style="width:130px; height:130px;">
+                <div class="profile-pic" id="blurpoint" style="overflow:hidden; width:130px; height:130px;">
                     {% if display == "profile" %}
                         {% thumbnail request.user.userprofile.picture "130x130" crop="center" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle" style="z-index: 1">
@@ -114,7 +116,13 @@
                                 {% csrf_token %}
                             </form>
                         </li>
-                        <li><a href="#" class="btn-pro" id="dropdown_button" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<a href='#'>Tip</a> | <a href='#'>Share</a>"><span>...</span></a></li>
+                        <li>
+                            <a href="#" class="btn-pro" id="connect_button">TIP</a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-pro" id="connect_button">SHARE</a>
+                        </li>
+                        <!-- <li><a href="#" class="btn-pro" id="dropdown_button" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<a href='#'>Tip</a> | <a href='#'>Share</a>"><span>...</span></a></li> -->
                     </ul>
                 {% endif %}
             </div>
@@ -138,7 +146,13 @@
                     <div class="frame badges badge-black clearfix transparent-frame">
                         <h3>Badges</h3>
 
-                        <div class="badge-big-icon"><img src="{{ MEDIA_URL }}images/badge-big-icon.png" class="img-responsive" alt=""></div>
+                        <div class="badge-big-icon">
+                            {% if task1_badge %}
+                                <img src="{{ MEDIA_URL }}{{ task1_badge.badge.image }}" alt="" class="img-responsive"/>
+                            {% else %}
+                                <img src="{{ MEDIA_URL }}images/task-icon1.png" class="img-responsive" alt="">
+                            {% endif %}
+                        </div>
                         <ul class="badges-list">
 
                             <li><a href="#"><img src="{{ MEDIA_URL }}images/task-icon4.png"  class="img-responsive" alt=""></a></li>
@@ -157,7 +171,8 @@
                     {% audio audios.0 request.user display "large" %}
                 </div>
             {% endfor %}
-
+            </div>
+            <div style="padding: 30px;">
             <div class="row" id="about">
                 <h2 class="title col-xs-12">About</h2>
                 {% if display == "profile" %}
@@ -237,6 +252,9 @@
                                     <li><a href="#" class="comment">ddd</a></li>
                                     <li><a href="#" class="playlist-play">ddd</a></li>
                                     <li><a href="#" class="share">ddd</a></li>
+                                </ul>
+                                <ul class="pl-list-controls">
+                                    <li><a href="#" style="background: none;"><span class="glyphicon glyphicon-remove"></span></a></li>
                                 </ul>
                                 <div class="play-pl-cont"> <a href="{% url 'videocard' video_id=v.id %}" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
                                 <div class="hover-title">
@@ -323,6 +341,14 @@
 {% endblock %}
 
 {% block extra-script %}
+    <div class="modal modal-absolute" id="upload_music_modal">
+        <div class="modal-dialog" style="z-index: 9991">
+            <div class="modal-content modal-music">
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal modal-track modal-absolute" id="trackcard">
         <div class="modal-dialog" style="z-index: 9991">
@@ -336,45 +362,60 @@
         $('.dropzone').html5imageupload();
 
         $(function() {
-            var maxBlurPercentage = 15;
-            var currentBlurPercentage = 0;
-            var maxOffset = 200;
-            function setBlur(amount) {
-                currentBlurPer = amount;
-                // $("#blurStyleToChange").text(".main-wrap .profile-landing-bg::before {-webkit-filter: blur(" + amount + "px);-moz-filter: blur(" + amount + "px);-o-filter: blur(" + amount + "px);-ms-filter: blur(" + amount + "px);filter: blur(" + amount + "px); }");
-                // $(".profile-landing-bg").addClass("fading");
+    var scrollflag = 0;
+    var scroll = 0;
+    var blur = 1;
+    var lastscroll = 0;
+    function setBlur(amount) {
+        currentBlurPer = amount;
+        // $("#blurStyleToChange").text(".main-wrap .profile-landing-bg::before {-webkit-filter: blur(" + amount + "px);-moz-filter: blur(" + amount + "px);-o-filter: blur(" + amount + "px);-ms-filter: blur(" + amount + "px);filter: blur(" + amount + "px); }");
+        // $(".profile-landing-bg").addClass("fading");
+    }
+    function calculateBlur() {
+        if($(this).scrollTop() > 0 || scrollflag == 1) {
+            var scrollTop = $(this).scrollTop();
+            if (scrollflag == 0) {
+                if(blur < 5) {
+                    $(".profile-landing-bg").addClass("fading" + blur);
+                    var temp = blur-1;
+                    $(".profile-landing-bg").removeClass("fading" + temp);
+                }
+                if(blur <= 5) blur++;
+                scroll++;
+                if (scroll < 6) {
+                    $(this).scrollTop(0);
+                    return false;
+                }
             }
-            function calculateBlur() {
-                var scrollTop = $(this).scrollTop();
-                if (scrollTop > maxOffset) {
-                    if (currentBlurPercentage == maxBlurPercentage) {
-                        return;
-                    }
-                    setBlur(maxBlurPercentage);
-                    $(".profile-landing-bg").addClass("fading");
-                    $(".nav-top").addClass("extended");
-                    return;
-                }
-                if (scrollTop <= 1) {
-                    $(".profile-landing-bg").removeClass("fading");
-                    $(".nav-top").removeClass("extended");
-                    setBlur(0);
-                    return;
-                }
-                var blurToCheck = Math.floor(scrollTop/maxOffset * maxBlurPercentage);
-                if (blurToCheck == currentBlurPercentage) {
-                    return;
-                }
-                setBlur(blurToCheck);
+            if(blur > 0 && scrollTop < 100 && scrollTop < lastscroll) { //Remove blur
+                var temp = blur - 1;
+                $(".profile-landing-bg").addClass("fading" + temp);
+                $(".profile-landing-bg").removeClass("fading" + blur);
+                blur--;
             }
-            $(".main-container").scroll(calculateBlur);
-            calculateBlur();
-            $("#trackcard").on('hidden.bs.modal', function () {
-                $(this).data('bs.modal', null);
-            });
-        });
+            if (scrollTop == 0) {
+                $(".profile-landing-bg").removeClass("fading0");
+                $(".profile-landing-bg").removeClass("fading1");
+                $(".profile-landing-bg").removeClass("fading2");
+                $(".profile-landing-bg").removeClass("fading3");
+                $(".profile-landing-bg").removeClass("fading4");
+                scroll = 0;
+                blur = 1;
+                scrollflag = 0;
+                return;
+            }
+            scrollflag = 1;
+        }
+        lastscroll = scrollTop;
+    }
+
+    $(".main-container").scroll(calculateBlur);
+    $("#trackcard").on('hidden.bs.modal', function () {
+        $(this).data('bs.modal', null);
+    });
+});
         var getUrlParameter = function getUrlParameter(sParam) {
-            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                     sURLVariables = sPageURL.split('&'),
                     sParameterName,
                     i;
@@ -394,7 +435,6 @@
         if (soundcloud_success || spotify_success || mixcloud_success) {
             $('#add_audio_lnk').trigger('click');
         }
-
 
 
     </script>

@@ -35,7 +35,7 @@ urlpatterns = [
 
     # Messaging
     url(r'^conversations/$', conversations, name="api_conversation"),
-    url(r'^conversations/(?P<pk>[0-9]+)$', single_conversation, name="api_single_conversation"),
+    url(r'^conversations/(?P<pk>[0-9]+)/$', single_conversation, name="api_single_conversation"),
     url(r'^messages/(?P<pk>[0-9]+)/$', message, name="api_message"),
     url(r'^connections/$', connections, name="api_connections"),
 

@@ -6,6 +6,7 @@ html, body, div, span, hr, p, h1, h2, h3, h4, h5, h6, ul, ol, li, section, heade
 section, header, footer, detail, figure, figcaption, aside, time {
 	display: block;
 }
+
 body {
 	border-top: 0px solid #343434;
 	font-family: 'Montserrat', sans-serif, arial;
@@ -662,14 +663,14 @@ ul.after-banner-strip li.first {
 .nav-top {
 	background-color: #43cb83;
 	height: 48px;
-	position: relative;
+	position: relative !important;
 	z-index: 99999
 }
 .nav-top ul {
 	padding: 0 20px 0 0;
 	margin: 0;
 	list-style: none;
-	float: right
+	float: right;
 }
 .nav-top ul li {
 	padding: 0;
@@ -763,7 +764,7 @@ ul.after-banner-strip li.first {
 .fame-music-logo-block {
 	border-bottom: solid 1px #d7d7d7;
 	height: 150px;
-	padding-top: 30px;
+	padding-top: 20px;
 	margin-bottom: 10px
 }
 .fame-music-logo {
@@ -814,13 +815,6 @@ ul.after-banner-strip li.first {
 	color: #fff;
 	border-radius: 15px;
 	min-width: 145px
-}
-.has-success .form-control {
-	background: url(../images/check-grn.png) no-repeat right;
-	border-color: #41cc83
-}
-.has-warning .form-control {
-	border-color: #00a0ec
 }
 .drag-drop-pic-holder {
 	width: 112px;
@@ -1058,7 +1052,10 @@ textarea.form-control {
 }
 .hey-txt {
 	font-size: 30px;
-	padding-top: 20px
+	padding-top: 20px;
+	word-break: break-all;
+    line-height: 1;
+	text-overflow: ellipsis;
 }
 .fame-music-modal .welcome-txt-block {
 	padding: 0 50px
@@ -1126,7 +1123,6 @@ textarea.form-control {
 }
 .nav-top.blue-bg {
 	background-color: #00a0ec;
-		/*z-index: 999999 !important;*/
 }
 .nav-top.yellow-bg {
 	background-color: #f0cc24;
@@ -1374,6 +1370,15 @@ h2.title {
 	height: 100%;
 	top: 0;
 	bottom: 0
+}
+ul.pl-list-controls {
+	float: right;
+    margin-right: 10px;
+    list-style: none;
+    font-size: 15px;
+}
+ul.pl-list-controls li a {
+	color: white;
 }
 ul.pl-list {
 	padding: 0;
@@ -1666,11 +1671,11 @@ ul.playing-wrap li .toggle-down {
 	transform: translateY(100%);
 }
 .home-header-banner-bottom {
-	bottom: 0;
-	background: #f10950;
-	min-height: 116px;
-	text-align: center;
-	color: #fff;
+  bottom: 0;
+  background: #f10950;
+/*  min-height: 116px;*/
+  text-align: center;
+  color: #fff;
 	display: table-footer-group;
 }
 .home-header-banner-bottom h2 {
@@ -1686,8 +1691,7 @@ ul.playing-wrap li .toggle-down {
 	height: 35px;
 }
 .home-header-banner-menu {
-	/*	position: absolute;
-	top: 50%;
+	/*top: 50%;
 	transform: translateY(-50%);
 	width: 100%;*/
 	position: relative;
@@ -2260,89 +2264,40 @@ ul.reply-options li a {
 .faq-seach-block {
 	width: 220px
 }
-.steps-count {
-	height: 80px;
-	padding-top: 40px;
-	position: relative;
-	z-index: 99;
-	margin-top: 15px
-}
-.steps-count ul {
-	padding: 0;
-	margin: 0;
-	list-style: none
-}
-.steps-count ul li {
-	float: left;
-	width: 20%;
-	position: relative;
-	text-align: center;
-}
-.steps-count ul li a {
-	display: block;
-	text-align: center;
-	color: #232326;
-	font-size: 10px
-}
-.steps-count ul li.active a {
-	color: #f10950
-}
-.steps-count ul li span.cricle {
-	width: 28px;
-	height: 28px;
-	border: solid 1px #d7d7d7;
-	border-radius: 30px;
-	text-align: center;
-	line-height: 25px;
-	display: block;
-	color: #5d5d5d;
-	position: absolute;
-	top: -35px;
-	left: 37%;
-	font-size: 12px;
-	background-color: #fff;
-	z-index: 999
-}
-.steps-count ul li.active span.cricle {
-	border: solid 1px #f10950;
-	color: #f10950;
-}
-.steps-count .line {
-	position: absolute;
-	width: 82%;
-	height: 2px;
-	top: 18px;
-	z-index: 1;
-	left: 8%;
-	background-color: #d7d7d7
-}
-.enter-competition h4 {
-	font-size: 20px;
-	margin: 0;
-	padding: 0;
-	color: #2e2e31
-}
-.enter-competition h5 {
-	font-size: 16px;
-	margin: 0;
-	padding: 0;
-	color: #2e2e31
-}
-.enter-competition .wemc-img {
-	padding: 10px 0 10px 0
-}
-.enter-competition p {
-	padding: 10px 0;
-	margin-bottom: 0;
-}
-.steps-count .step2-filled {
-	height: 1px;
-	background-color: #f10950;
-	width: 25%
-}
-.enter-competition .upload-track-thumb p {
-	padding: 0
-}
+
+.steps-count{ height:80px; padding-top:40px; position:relative; z-index:99; margin-top:15px}
+
+.steps-count ul{padding:0; margin:0; list-style:none}
+
+.steps-count ul li{ float:left; width:20%; position:relative; text-align:center;}
+
+.steps-count ul li a{ display:block; text-align:center; color:#232326; font-size:10px}
+
+.steps-count ul li.active a{  color:#f10950}
+
+.steps-count ul li span.cricle{ width:28px; height:28px; border:solid 1px #d7d7d7; border-radius:30px; text-align:center; line-height:25px; display:block; color:#5d5d5d; position:absolute; top:-35px; left:37%; font-size:12px; background-color:#fff; z-index:999  }
+
+.steps-count ul li.active span.cricle{  border:solid 1px #f10950;  color:#f10950; transition-duration: 3s; transition-property: all;}
+
+.steps-count .line{position:absolute; width:82%; height:2px; top:18px; z-index:1; left:8%; background-color:#d7d7d7;}
+
+
+.enter-competition h4{ font-size:20px; margin:0; padding:0; color:#2e2e31}
+.enter-competition h5{ font-size:16px; margin:0; padding:0; color:#2e2e31}
+
+.enter-competition .wemc-img{ padding:10px 0 10px 0}
+.enter-competition p{ padding:10px 0; margin-bottom:0}
+
+
+.steps-count .step2-filled{height:1px; background-color:#f10950; width:0%; transition-duration: 3s; transition-property: width;}
+
+
+
+
+.enter-competition .upload-track-thumb p { padding:0}
+
+
+
 .btn.btn-bdr-red {
 	background-color: transparent;
 	border: 1px solid #f10950;
@@ -2658,7 +2613,7 @@ ul.reply-options li a {
 
 
 .dm-famebox {
-	padding: 50px 0;
+	padding: 25px 0;
 	min-height: 1100px
 }
 .dm-famebox h2.title {
@@ -3028,6 +2983,9 @@ ul.reply-options li a {
 	position: absolute;
 	left: 0;
 	top: 15px
+}
+.my-task-check-icon.complete {
+	background: url(../images/checklist-arrow-grn.png) no-repeat;
 }
 .fame-chart-section {
 	padding: 25px
@@ -6747,6 +6705,21 @@ ul.tab-wrap li a {
 
 
 
+
+	.create-own-space h2 {
+		text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+	}
+	.home-header-banner {
+/*		padding-left: 20px;
+		padding-right: 20px*/
+	}
+	.home-header-banner h2 {
+/*		font-size: 31px;*/
+	}
+	.news-banner-bg {
+		height: auto;
+	}
+
  @media only screen and (max-width:480px) {
 .fame-music-model {
 	width: 94%;
@@ -6763,4 +6736,85 @@ ul.tab-wrap li a {
 .fame-my-task-model img {
 	width: 100%;
 }
+
+}
+.animated {
+	visibility: hidden;
+}
+.visible_animate {
+	visibility: visible;
+}
+
+.bgvideo {
+	position: absolute;
+	object-fit: cover;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	z-index: -9999;
+}
+
+.bgvideo source {
+	display: block;
+	top: 0px;
+	left: -219px;
+	width: 1362px;
+	height: 766px;
+}
+
+@keyframes animatedSuccess {
+	0%   { background-size: 0px;}
+    20%  { background-size: 16px; }
+    40%  { background-size: 6px; }
+    60%  { background-size: 16px; }
+    80% { background-size: 10px; }
+	100% { background-size: 16px; }
+}
+@keyframes animatedWarning {
+	0%   { background-size: 0px;}
+    20%  { background-size: 10px; }
+    40%  { background-size: 4px; }
+    60%  { background-size: 10px; }
+    80% { background-size: 6px; }
+	100% { background-size: 10px; }
+}
+@-webkit-keyframes animatedSuccess {
+	0%   { background-size: 0px;}
+    20%  { background-size: 16px; }
+    40%  { background-size: 6px; }
+    60%  { background-size: 16px; }
+    80% { background-size: 10px; }
+	100% { background-size: 16px; }
+}
+@-webkit-keyframes animatedWarning {
+	0%   { background-size: 0px;}
+    20%  { background-size: 10px; }
+    40%  { background-size: 4px; }
+    60%  { background-size: 10px; }
+    80% { background-size: 6px; }
+	100% { background-size: 10px; }
+}
+.has-success {
+	background: url(../images/check-grn.png) no-repeat right;
+	background-size: 16px;
+	border-color: #41cc83 !important;
+	animation-name: animatedSuccess;
+	animation-duration: 900ms;
+	-webkit-animation: animatedSuccess 900ms;
+	-moz-animation: animatedSuccess 900ms;
+	-o-animation: animatedWarning 900ms;
+}
+.has-warning {
+	background: url(../images/cross-red.png) no-repeat right;
+	background-size: 10px;
+	border-color: rgba(236, 38, 38, 0.66) !important;
+	background-position-x: 98%;
+	background-position: 98%;
+	animation-name: animatedWarning;
+	animation-duration: 900ms;
+	-webkit-animation: animatedWarning 900ms;
+	-moz-animation: animatedWarning 900ms;
+	-o-animation: animatedWarning 900ms;
 }

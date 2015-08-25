@@ -22,6 +22,7 @@ import mixcloud
 
 from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm
 from apps.media.models import Audio, AudioPlaylist, Video, PlaylistItem, AudioComment
+from apps.userprofile.models import Task1
 
 
 class AudioFileView(FormView):
@@ -105,6 +106,13 @@ class AudioView(UpdateView):
             'success': True,
             'redirect_to': reverse('profile')
         }
+        try:
+            t = Task1.objects.get(user=self.request.user)
+            t.task2 = True
+            t.save()
+        except Task1.DoesNotExist:
+            Task1.objects.create(user=self.request.user, task2=True)
+
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
     def form_invalid(self, form):
@@ -297,6 +305,12 @@ class VideoView(UpdateView):
             'success': True,
             'redirect_to': reverse('profile')
         }
+        try:
+            t = Task1.objects.get(user=self.request.user)
+            t.task2 = True
+            t.save()
+        except Task1.DoesNotExist:
+            Task1.objects.create(user=self.request.user, task5=True)
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
     def form_invalid(self, form):

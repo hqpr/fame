@@ -1,5 +1,18 @@
 'use strict';
 
+var fameMusicMainCtrl = function($scope) {
+
+}
+
+var fameMusicApp = angular.module('fameMusicApp', []);
+
+fameMusicApp
+    .config(function($httpProvider) {
+  $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+})
+    .controller('fameMusicMainCtrl', fameMusicMainCtrl);
+
+
 var ChartApp = angular.module('ChartApp', [
   'ui.bootstrap'
 ]);

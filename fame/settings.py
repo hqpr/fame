@@ -78,6 +78,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
 )
 
+THUMBNAIL_DEBUG = True
+
 ROOT_URLCONF = 'fame.urls'
 
 TEMPLATES = [
@@ -95,6 +97,7 @@ TEMPLATES = [
                 'apps.userprofile.context_processors.check_profile',
                 'apps.userprofile.context_processors.sidebar_details',
                 'apps.userprofile.context_processors.home_tutorial',
+                'apps.userprofile.context_processors.task1_badge',
             ],
         },
     },

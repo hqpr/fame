@@ -21,22 +21,22 @@
   background-attachment: fixed;
   background: none; }
 
-.main-wrap .profile-landing-bg::before {
+/*.main-wrap .profile-landing-bg::before {
   -webkit-transition: all 0.3s;
-  /*transition: all 2s;*/
+  /!*transition: all 2s;*!/
   content: "";
-  background: #FFF url(../images/landing-bg.png) no-repeat top center;
+/!*  background: #FFF url(../images/landing-bg.png) no-repeat top center;*!/
   position: absolute;
   width: 110%;
   height: 110%;
   display: block;
-  /*top: 0;*/
-  /*left: 0;*/
+  /!*top: 0;*!/
+  /!*left: 0;*!/
   z-index: 0;
   top: -30px;
   left: -30px;
   background-size: cover;
-  background-attachment: fixed; }
+  background-attachment: fixed; }*/
 
 .main-wrap .profile-landing-bg.fading::before {
   -webkit-filter: blur(15px);
@@ -526,7 +526,8 @@
 /* Generic */
 .nav-top ul {
   -webkit-transition: width 2s;
-  transition: width 2s; }
+  transition: width 2s;
+}
 
 .extended-visible {
   width: 0;
@@ -558,6 +559,8 @@
 .sidr {
   height: 100vh;
   overflow: scroll;
+  /*float: left;*/
+  /*overflow: scroll;*/
   min-height: 0; }
 
 /* Key areas */
@@ -590,9 +593,9 @@
 .fading .frame.badges h3 {
   color: #2e2e31; }
 
-.nav-top {
-  position: fixed;
-  width: calc(100% - 520px); }
+/*.nav-top {*/
+  /*position: fixed;*/
+  /*width: calc(100% - 520px); }*/
 
 .add-icon {
   float: right;

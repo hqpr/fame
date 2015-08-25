@@ -8,7 +8,7 @@
 <div class="" id="audio_description">
     <h3>Upload a track to Fame</h3>
 
-    <form role="form" method="post" action="{{ form_action }}" id="audio_step2_form">
+    <form role="form" method="post" action="{{ form_action }}" id="audio_step2_form" onsubmit="clearInterval(intervalID);">
         <div class="row">
             <div class="col-sm-4">
                 <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="clearfix form-btn">
-            <button type="submit" class="btn btn-default btn-green" id="submit-audio-2"><i class="fa fa-check"></i> SUBMIT</button>
+            <button type="submit" class="btn btn-default btn-green" id="submit-audio-2" disabled><i class="fa fa-check"></i> SUBMIT</button>
         </div>
     </form>
 </div>
@@ -73,6 +73,29 @@
     <script src="{% static 'js/bootstrap-select.js' %}"></script>
 
 <script>
+    var form = [$('#id_cover'),
+                $('#id_name'),
+                $('#id_artist'),
+                $('#id_type'),
+                $('#id_genre'),
+                $('#id_description'),
+                $('#id_bpm'),
+                $('#id_privacy')];
+    function validateForm() {
+        console.log('validate')
+        var invalidForm = false;
+        for(var i = 0; i < form.length; i++) {
+            if(!form[i].val()) invalidForm = true;
+        }
+        if(invalidForm) $('#submit-audio-2')[0].disabled = true;
+        else $('#submit-audio-2')[0].disabled = false;
+    }
+    var intervalID = setInterval(validateForm, 1000);
+/*    for(var i = 0; i < form.length; i++) {
+        form[i].on('input propertychange', function() {
+            validateForm();
+        });
+    }*/
     $('.dropzone').html5imageupload();
     $('.selectpicker').selectpicker();
 </script>

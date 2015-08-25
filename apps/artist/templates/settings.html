@@ -7,102 +7,102 @@
 {% endblock %}
 
 {% block header %}
-    <div class="nav-top red-bg mobnav">
-        <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
-        <ul>
-            <li class="hidden-xs">WEMC FRANCE</li>
-            <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
-            <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
-        </ul>
-    </div>
+<div class="nav-top red-bg mobnav">
+  <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+    <ul>  
+   <li class="hidden-xs">WEMC FRANCE</li>
+     <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+     <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+    </ul>
+  </div>
 {% endblock header %}
 
 {% block content %}
-    <div class="content account-settins">
+<div class="content account-settins">
         <h4>Account Overview</h4>
         <div class="frame">
-            <div class="row">
-                <div class="col-sm-6">
-                    <form action="{% url 'settings' %}" method="post" id="settingsForm">
-                        <div class="settings-block line-right">
-                            {{user_form.errors}}
-                            {{user_profile_form.errors}}
-                            <div class="form-group">
-                                <label>Username</label>
-                                {{user_form.username}}
-                            </div>
-                            <div class="form-group">
-                                <label>E-mail</label>
-                                {{user_form.email}}
-                            </div>
-                            <div class="form-group">
-                                <label>Date of Birth</label>
-                                {{user_profile_form.birthday}}
-                            </div>
-                            <div class="form-group">
-                                <label>Country</label>
-                                {{user_profile_form.country}}
-                            </div>
-                            <div class="form-group">
-                                <label>City</label>
-                                {{user_profile_form.city}}
-                            </div>
-                            <div class="form-group">
-                                <label>Language</label>
-                                {{user_profile_form.language}}
-                            </div>
-                            <div class="form-group">
-                                <label>Password (leave blank unless changing)</label>
-                                <input type="password" name="password" class="form-control" placeholder="" id="password">
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="" id="confirm_password">
-                            </div>
-                            {% csrf_token %}
-                            <!-- <div class="form-group">
-                              <label>Custom URL</label>
-                              <input type="text" class="form-control" placeholder="famemusic.com/madeon">
-                            </div> -->
-                            <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green" id="settingsSave">SAVE</a> </div>
-                        </div>
-                    </form>
+          <div class="row">
+            <div class="col-sm-6">
+              <form action="{% url 'settings' %}" method="post" id="settingsForm">
+                <div class="settings-block line-right">
+                  {{user_form.errors}}
+                  {{user_profile_form.errors}}
+                  <div class="form-group">
+                    <label>Username</label>
+                    {{user_form.username}}
+                  </div>
+                  <div class="form-group">
+                    <label>E-mail</label>
+                    {{user_form.email}}
+                  </div>
+                  <div class="form-group">
+                    <label>Date of Birth</label>
+                    {{user_profile_form.birthday}}
+                  </div>
+                  <div class="form-group">
+                    <label>Country</label>
+                    {{user_profile_form.country}}
+                  </div>
+                  <div class="form-group">
+                    <label>City</label>
+                    {{user_profile_form.city}}
+                  </div>
+                  <div class="form-group">
+                    <label>Language</label>
+                    {{user_profile_form.language}}
+                  </div>
+                  <div class="form-group">
+                    <label>Password (leave blank unless changing)</label>
+                    <input type="password" name="password" class="form-control" placeholder="" id="password">
+                  </div>
+                  <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="" id="confirm_password">
+                  </div>
+                  {% csrf_token %}
+                  <!-- <div class="form-group">
+                    <label>Custom URL</label>
+                    <input type="text" class="form-control" placeholder="famemusic.com/madeon">
+                  </div> -->
+                  <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green" id="settingsSave">SAVE</a> </div>
                 </div>
-                {% if request.user.userprofile.is_pro %}
-                    <div class="col-sm-6">
-                        <div class="proplan-active-container">
-                            <h3 class="pro-plan-active-title"> <span class="icon-check grn-check"></span> Pro Plan Active</h3>
-                            <p class="pro-active-plan"> You currently have a <span class="pro-plan-txt">Pro Plan</span> account.<br />
-                                It will be renewed <span class="date">{{ end_date|date:"d M Y" }}</span>. <br />
-                                This plan includes: </p>
-                            <ul class="checklist checklist-grn">
-                                <li>Free whatever forever and ever</li>
-                                <li>God mode</li>
-                                <li>Super insights!</li>
-                                <li>Win all the competitions without having event to take part to thhem</li>
-                            </ul>
-                            <a href="#" class="btn btn-grn-bdr">UNSUBSCRIBE</a></div>
-                    </div>
-                {% else %}
-                    <div class="col-sm-6">
-                        <div class="proplan-active-container">
-                            <h3 class="pro-plan-active-title"> <span class="icon-check"></span> Pro Plan</h3>
-                            <p class="pro-active-plan">
-                                {#                              You currently have a <span class="pro-plan-txt blue-text">Pro Plan</span> account.<br />#}
-                                {#                              It will be renewed <span class="date"> 24th of May 2015</span>. <br />#}
-                                This plan includes: </p>
-                            <ul class="checklist">
-                                <li>Free whatever forever and ever</li>
-                                <li>God mode</li>
-                                <li>Super insights!</li>
-                                <li>Win all the competitions without having event to take part to thhem</li>
-                            </ul>
-                            <a href="#" class="btn btn-blu-bdr" id="subscribe_button">SUBSCRIBE</a></div>
-                    </div>
-                {% endif %}
+              </form>
+            </div>
+              {% if request.user.userprofile.is_pro %}
+                  <div class="col-sm-6">
+                      <div class="proplan-active-container">
+                          <h3 class="pro-plan-active-title"> <span class="icon-check grn-check"></span> Pro Plan Active</h3>
+                          <p class="pro-active-plan"> You currently have a <span class="pro-plan-txt">Pro Plan</span> account.<br />
+                              It will be renewed <span class="date">{{ charge_date|date:"d M Y" }}</span>. <br />
+                              This plan includes: </p>
+                          <ul class="checklist checklist-grn">
+                              <li>Free whatever forever and ever</li>
+                              <li>God mode</li>
+                              <li>Super insights!</li>
+                              <li>Win all the competitions without having event to take part to thhem</li>
+                          </ul>
+                          <a href="#" class="btn btn-grn-bdr">UNSUBSCRIBE</a></div>
+                  </div>
+              {% else %}
+                  <div class="col-sm-6">
+                      <div class="proplan-active-container">
+                          <h3 class="pro-plan-active-title"> <span class="icon-check"></span> Activate Pro Plan</h3>
+                          <p class="pro-active-plan"> You currently don't have a Pro Plan account.<br />
+                              Sign up now to get the following:</p>
+                          <ul class="checklist">
+                              <li>Free whatever forever and ever</li>
+                              <li>God mode</li>
+                              <li>Super insights!</li>
+                              <li>Win all the competitions without having event to take part to thhem</li>
+                          </ul>
+                          <a href="#" class="btn btn-blu-bdr" id="subscribe_button">SUBSCRIBE</a></div></div>
+                  </div>
+              {% endif %}
 
           </div>
         </div>
+
+    <div class="content account-settins">
         <h4>New Box</h4>
         <div class="frame">
             <div class="row">
@@ -113,24 +113,26 @@
                                 <label>Description</label>
                                 <textarea class="form-control" name="" id="ta" cols="30" rows="10" placeholder=""></textarea>
                             </div>
-                    {# toDo  #}
-                    <form action="{% url 'profile_details' %}" method="post" id="about_form">
-                        {% csrf_token %}
-                            <div class="form-group">
-                                <label>Genres</label>
-                                <input class="form-control" type="text"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Influences</label>
-                                <input class="form-control" type="text"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Artist types</label>
-                                <input class="form-control" type="text"/>
-                            </div>
-                    </form>
-{#                        <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green">SAVE</a> </div>#}
+                            {# toDo  #}
+                            <form action="{% url 'profile_details' %}" method="post" id="about_form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>Genres</label>
+                                    <input class="form-control" type="text"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Influences</label>
+                                    <input class="form-control" type="text"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Artist types</label>
+                                    <input class="form-control" type="text"/>
+                                </div>
+                            </form>
+                            {#                        <div class="form-btn"> <a href="#" class="btn btn-cancel">CANCEL</a> <a href="#" class="btn btn-green">SAVE</a> </div>#}
+                        </div>
                     </div>
+
                 </div>
                 <div class="col-sm-6">
                     <div style="padding:10px 40px">
@@ -148,7 +150,10 @@
                 </div>
             </div>
         </div>
+    </div>
 
+
+        <div class="content account-settins">
         <h4>Notification Settings</h4>
         <div class="frame">
             <div class="row">
@@ -199,9 +204,11 @@
                   <div class="notif-label">New Comment</div>
                   <input type="checkbox" data-label=""  class="pull-right myClass" name="checkbox" checked id="checkbox1" />
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 {% endblock %}
 
 {% block extra-script %}

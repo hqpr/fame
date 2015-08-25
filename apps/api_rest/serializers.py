@@ -239,6 +239,11 @@ class PlaylistItemSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
+    picture_200 = serializers.SerializerMethodField('get_200_thumbnail')
+
+    def get_200_thumbnail(self, artist):
+        im = get_thumbnail(artist.picture, '200x200', crop='center', quality=99)
+        return im.url
 
     class Meta:
         model = UserProfile

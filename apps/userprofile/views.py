@@ -151,7 +151,7 @@ def upload_avatar(request, object_id):
         f.write(decodestring(b64data))
         f.close()
         u = UserProfile.objects.get(user_id=object_id)
-        u.picture = 'cover/%s/%s/%s/%s' % (time.strftime("%y"),
+        u.picture = 'avatars/%s/%s/%s/%s' % (time.strftime("%y"),
                                            time.strftime("%m"),
                                            time.strftime("%d"),
                                            f_name)
@@ -166,6 +166,10 @@ def complete_registration(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+def user_home(request):
+    return render(request, 'homepage.html', {})
 
 
 class SocialView(FormView):

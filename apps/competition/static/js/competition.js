@@ -24,18 +24,27 @@ $(function()
         $('#modal-body').modal('hide');
     });
     $('#cancel').on('click', function(){
-        $('#modal-body').modal('hide');
+        //$('#modal-body').modal('hide');
+        $('#li_step2').removeClass('active');
     });
 
     // steps
     $('#to-2-step').on('click', function(){
         $('#competition_step1').hide();
-        $('#competition_step2').show();
+        $('#competition_step2').show(0, function() {
+            $('#line_1').css('width', '25%');
+            setTimeout(function() {
+                $('#li_step2').addClass('active');
+            }, 2000)
+        });
+        console.log('to 2 step');
     });
     $('#back_to_step1').on('click', function(){
         $('#competition_step2').hide();
         $('#competition_select_track').hide();
         $('#competition_step1').show();
+        $('#li_step2').removeClass('active');
+        $('#line_1').css('width', '0%');
     });
 
     $('#pick_a_track').on('click', function(){
@@ -56,7 +65,12 @@ $(function()
                     console.log('success');
                     $('#competition_select_track').hide();
                     $('#competition_step2').hide();
-                    $('#competition_step3').show();
+                    $('#competition_step3').show(0, function() {
+                        $('#line_2').css('width', '50%');
+                        setTimeout(function() {
+                            $('#li_step3').addClass('active');
+                        }, 2000)
+                    });
                 } else {
                     console.log('error');
                     $('#pick_error').hide().show();
