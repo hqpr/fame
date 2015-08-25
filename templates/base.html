@@ -306,6 +306,16 @@
     <h3 class="toggle-container"><a href="#">Tasks <span class="task-num">1</span> <span class="arrow-direction arrow-up"></span></a></h3>
     <div class="fame-toggle-container">
 
+    {% if task1_badge %}
+      <div class="last-list-block">
+        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon3.png" class="img-responsive" alt=""></div>
+        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
+        <div class="task-details">
+          <h5>Complete!</h5>
+          <p>Complete your profile</p>
+        </div>
+      </div>
+    {% else %}
       <div class="last-list-block">
         <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon1.png" class="img-responsive" alt=""></div>
         <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>
@@ -314,7 +324,7 @@
           <p>Lorem ipsum dolor sit amet</p>
         </div>
       </div>
-
+    {% endif %}
 {#      <div class="last-list-block">#}
 {#        <div class="task-icon"><img src="{{MEDIA_URL}}images/task-icon2.png" class="img-responsive" alt=""></div>#}
 {#        <div class="task-circle-img"> <i  class="fa fa-circle"></i></div>#}

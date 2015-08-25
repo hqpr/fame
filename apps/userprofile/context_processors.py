@@ -38,7 +38,7 @@ def home_tutorial(request):
 def task1_badge(request):
     if request.user.is_authenticated():
         try:
-            task1_badge = UserBadges.objects.filter(user=request.user)
+            task1_badge = UserBadges.objects.get(user=request.user, badge_id=1)
             return {'task1_badge': task1_badge}
         except UserBadges.DoesNotExist:
             return {'task1_badge': 0}
