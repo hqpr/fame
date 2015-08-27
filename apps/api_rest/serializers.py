@@ -36,7 +36,9 @@ class AudioSerializer(serializers.ModelSerializer):
 
     def get_200_thumbnail(self, audio):
         im = get_thumbnail(audio.cover, '200x200', crop='center', quality=99)
-        return im.url
+        if im:
+            return im.url
+        return ""
 
     class Meta:
         model = Audio
@@ -51,7 +53,9 @@ class VideoSerializer(serializers.ModelSerializer):
 
     def get_400_thumbnail(self, audio):
         im = get_thumbnail(audio.cover, '400x200', crop='center', quality=99)
-        return im.url
+        if im:
+            return im.url
+        return ""
 
     class Meta:
         model = Video
@@ -104,7 +108,9 @@ class AudioPlaylistSerializer(serializers.ModelSerializer):
 
     def get_200_thumbnail(self, playlist):
         im = get_thumbnail(playlist.cover, '200x200', crop='center', quality=99)
-        return im.url
+        if im:
+            return im.url
+        return ""
 
     def get_playlist_tracks(self, playlist):
         items = PlaylistItem.objects.filter(playlist=playlist)
@@ -243,7 +249,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_200_thumbnail(self, artist):
         im = get_thumbnail(artist.picture, '200x200', crop='center', quality=99)
-        return im.url
+        if im:
+            return im.url
+        return ""
 
     class Meta:
         model = UserProfile

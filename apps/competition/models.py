@@ -877,7 +877,6 @@ class CompetitionChart(models.Model):
         entry.save()
         return True
 
-
     def create_entry(self, entry):
         """Create entry
 

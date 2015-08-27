@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block header %}
+    <!--Start: Header-->
+    
+      <div class="nav-top yellow-bg mobnav">
+      <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
+      <ul>
+        <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
+        <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
+        <li><a href="">News</a></li>
+      </ul>
+    </div>
+      <!--End: Header-->
+
+{% endblock header %}
+{% block content %}
+
+<div class="content faq-bg news-page">
+      <div class="news2-banner-bg">
+        <div class="relative"><img src="{% static "images/News2-banner.jpg" %}" class="img-responsive" alt="">
+          <div class="banner-sticker-hot"></div>
+        </div>
+        <div class="post-container">
+          <h3>{{resource.title}}</h3>
+          <div class="post-info-section"> {% if resource_authors %}<span class="posted-by"> by {% for author in resource_authors %}{% if forloop.counter > 1 %}, {% endif %}{{author.author.username}}{% endfor %}</span>{% endif %}
+            <ul class="post-info">
+              {% if resource_categories %}{% for i in resource_categories %}{% if forloop.counter > 1 %}, {% endif %}<li class="news"><a href="{% url "all_blogs" %}?category={{i.resource_category.slug}}">{{i.resource_category.title}}</a></li>{% endfor %}
+              <li>|</li>
+              {% endif %}
+              <li>12 Jun 2015</li>
+              <li>{% if resource_tags %}{% for i in resource_tags %}<a href="{% url "all_blogs" %}?tag={{i.resource_tag.slug}}" class="tag">{{i.resource_tag.title}}</a> {% endfor %} {% endif %}</li>
+            </ul>
+            <ul class="social">
+              <li><a href="#" class="fb">Facebook</a></li>
+              <li><a href="#" class="twitter">Twitter</a></li>
+              <li><a href="#" class="gp">Google Plus</a></li>
+            </ul>
+          </div>
+          <div class="post">
+            {{resource.content|safe}}
+          </div>
+          <div class="share-post"><img src="{% static "images/post-share.png" %}" class="img-responsive" alt=""></div>
+          <div class="post-reply-container">
+            {% for comment in resource_comments %}
+            <div class="post-reply">
+              <div class="reply-thumb"><img src="{% static "images/reply-pic.png" %}" class="img-responsive img-circle"  alt=""></div>
+              <div class="reply-details">
+                <div class="replied-by"><a href="{% url "single_artist" comment.0.user.username %}">{{comment.0.user.username}}</a> said:</div>
+                <div class="reply-text">
+                  <p>{{comment.0.comment}}</p>
+                </div>
+                <ul class="reply-options">
+                  <li><a href="#">REPLY</a>|</li>
+                  <li><a href="#">LIKE</a>|</li>
+                  <li><a href="#">SHARE</a></li>
+                </ul>
+              </div>
+            </div>
+            {% if comment.1 %}
+              {% for sub_comment in comment.1 %}
+                <div class="post-reply sub-reply">
+                  <div class="reply-thumb"><img src="{% static "images/post-reply-thumb2.png" %}" class="img-responsive img-circle"  alt=""></div>
+                  <div class="reply-details">
+                    <div class="replied-by"><a href="{% url "single_artist" sub_comment.user.username %}">{{sub_comment.user.username}}</a> said:</div>
+                    <div class="reply-text">
+                      <p>{{sub_comment.comment}}</p>
+                    </div>
+                    <ul class="reply-options">
+                      <li><a href="#">REPLY</a>|</li>
+                      <li><a href="#">LIKE</a>|</li>
+                      <li><a href="#">SHARE</a></li>
+                    </ul>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% endfor %}
+            
+            {% if resource.comments_open %}
+            <div class="post-reply reply-comment">
+              <div class="reply-thumb"><img src="{% static "images/reply-pic.png" %}" class="img-responsive img-circle"  alt=""></div>
+              <div class="reply-details">
+                <textarea name="" cols="" rows="" class="form-control comment-field" placeholder="Comment"></textarea>
+              <a href="#" class="btn btn-yellow pull-right"> SUBMIT</a> </div>
+            </div>
+            {% endif %}
+            
+            
+            
+          </div>
+        </div>
+      </div>
+      
+      <!--Start: Bannner--> 
+      
+    </div>
+{% endblock content %}

@@ -2648,6 +2648,7 @@ ul.reply-options li a {
 .dm-famebox .messages-list {
 	float: left;
 	width: 35%;
+	min-height: 100px;
 }
 .dm-famebox .chat-list {
 	float: left;
@@ -4485,26 +4486,26 @@ ul.tab-wrap .active {
 	float: right;
 	background-size: 100%
 }
-ul.paging {
+ul.paging, .pagination-wrapper {
 	text-align: center;
 	margin: 20px 0px;
 	padding: 0px;
 }
-ul.paging li {
+ul.paging li, .pagination-wrapper li {
 	display: inline-block;
 	list-style: none;
 }
-ul.paging li a {
+ul.paging li a, .pagination-wrapper li a {
 	color: #5d5d5d;
 	text-decoration: none;
 	text-transform: uppercase;
 	padding: 0px 8px;
 	font-size: 16px;
 }
-ul.paging li a:hover {
+ul.paging li a:hover, .pagination-wrapper li a:hover  {
 	color: #f10950
 }
-ul.paging li .active {
+ul.paging li .active, .pagination-wrapper li .active {
 	color: #f10950
 }
 .about-song-footer {   /* Safari 5.1+, Chrome 10+ */

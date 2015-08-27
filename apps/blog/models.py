@@ -5,16 +5,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
-# Create your models here.
-
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super(PublishedManager, self).get_queryset().filter(published=True,publish_date__lte=datetime.now(tz=pytz.UTC))
+        return super(PublishedManager, self).get_queryset().filter(published=True,
+                                                                   publish_date__lte=datetime.now(tz=pytz.UTC))
+
 
 class BlogItemPublishedManager(models.Manager):
     def get_queryset(self):
-        return super(BlogItemPublishedManager, self).get_queryset().filter(blog_item__published=True,blog_item__publish_date__lte=datetime.now(tz=pytz.UTC))
+        return super(BlogItemPublishedManager, self).get_queryset().\
+            filter(blog_item__published=True, blog_item__publish_date__lte=datetime.now(tz=pytz.UTC))
+
 
 class BlogItem(models.Model):
     """Model for blog"""
@@ -44,6 +45,7 @@ class BlogAuthor(models.Model):
     author = models.ForeignKey(User)
     ordering = models.IntegerField()
 
+
 class BlogCategory(models.Model):
     """Handle overall categories"""
     title = models.CharField(max_length=255, unique=True)
@@ -64,6 +66,7 @@ class BlogItemCategory(models.Model):
     def __unicode__(self):
         return "%s" % self.blog_category.title
 
+
 class BlogTag(models.Model):
     """Handle overall categories"""
     title = models.CharField(max_length=255,unique=True)
@@ -74,6 +77,7 @@ class BlogTag(models.Model):
 
     def __unicode__(self):
         return "%s" % self.title
+
 
 class BlogItemTag(models.Model):
     """Handle Blog Categories"""
@@ -88,6 +92,7 @@ class PublishedCommentManager(models.Manager):
     def get_queryset(self):
         return super(PublishedCommentManager, self).get_queryset().filter(approved=True)
 
+
 class BlogItemComment(models.Model):
     """Handle Blog Item Comment"""
     blog_item = models.ForeignKey(BlogItem)
@@ -99,6 +104,7 @@ class BlogItemComment(models.Model):
 
     objects = models.Manager()
     published_objects = PublishedCommentManager()
+
 
 class BlogCompetitionLinks(models.Model):
     """Handle blog competition link"""

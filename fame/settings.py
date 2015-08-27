@@ -63,7 +63,8 @@ INSTALLED_APPS = (
     'apps.widgets',
     'apps.messaging',
     'apps.subscription',
-    'apps.home'
+    'apps.home',
+    'apps.resources'
 )
 
 MIDDLEWARE_CLASSES = (

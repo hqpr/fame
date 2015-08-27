@@ -25,6 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
+
 urlpatterns = [
     # Examples:
     url(r'^$', home, name='home'),
@@ -39,6 +40,13 @@ urlpatterns = [
     url(r'^connect/', include('apps.socialconnector.urls')),
     url(r'^media/', include('apps.media.urls')),
     url(r'^blog/', include('apps.blog.urls')),
+
+    url(r'^insights/', include('apps.insights.urls')),
+    url(r'^widget/', include('apps.widgets.urls')),
+    url(r'^subscribe/', include('apps.subscription.urls')),
+    url(r'^home/', include('apps.home.urls')),
+    url(r'^messages/', include('apps.messaging.urls')),
+    url(r'^resources/', include('apps.resources.urls')),
 
     #  userprofile
     url(r'^user/', include('apps.userprofile.urls')),
@@ -60,14 +68,8 @@ urlpatterns = [
     url(r'^404/$', handler404, {}, name="handler404"),
     url(r'^404-2/$', handler4042, {}, name="handler404_2"),
 
-    url(r'^insights/', include('apps.insights.urls')),
-    url(r'^widget/', include('apps.widgets.urls')),
-    url(r'^subscribe/', include('apps.subscription.urls')),
-    url(r'^home/', include('apps.home.urls')),
-    url(r'^messages/', include('apps.messaging.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

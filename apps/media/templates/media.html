@@ -39,7 +39,7 @@
                       <li><a href="/apps/media/playlist/addtrack/{{track.id}}" data-toggle="modal" data-target="#upload_music_modal" class="playlist-play">ddd</a></li>
                       <li><a href="/apps/media/share/{{ track.uid }}/" data-toggle="modal" data-target="#upload_music_modal" class="share">ddd</a></li>
                   </ul>
-                  <div class="play-pl-cont"> <a href="/apps/media/trackcard/{{track.id}}/" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
+                  <div class="play-pl-cont"> <a href="/media/trackcard/{{track.id}}/" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
                   <div class="hover-title">
                       <h5>{{ track.name }}</h5>
                       <span class="subtxt">{{ track.artist.name }}</span> </div>
@@ -75,7 +75,7 @@
                                     <li><a href="#" class="comment">ddd</a></li>
                                     <li><a href="#" class="share">ddd</a></li>
                                 </ul>
-                                <div class="play-pl-cont"> <a href="/apps/media/videocard/{{video.id}}/" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
+                                <div class="play-pl-cont"> <a href="/media/videocard/{{video.id}}/" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
                                 <div class="hover-title">
                                     <h5>{{ video.name }}</h5>
                                     <span class="subtxt">{{ video.artist }}</span> </div>
@@ -177,29 +177,11 @@
     </div>
 <script>
   $(function() {
-    $(".music_box").on({
-        mouseenter: function () {
-            $( this ).find('div').fadeIn(200);
-        },
-        mouseleave: function () {
-            $( this ).find('div').fadeOut(200);
-        }
+    $("body").delegate(".music_box, .video_box, .playlist_box", "mouseenter", function() {
+      $( this ).find('div').fadeIn(200);
     });
-    $(".video_box").on({
-        mouseenter: function () {
-            $( this ).find('div').fadeIn(200);
-        },
-        mouseleave: function () {
-            $( this ).find('div').fadeOut(200);
-        }
-    });
-    $(".playlist_box").on({
-        mouseenter: function () {
-            $( this ).find('div').fadeIn(200);
-        },
-        mouseleave: function () {
-            $( this ).find('div').fadeOut(200);
-        }
+    $("body").delegate(".music_box, .video_box, .playlist_box", "mouseleave", function() {
+      $( this ).find('div').fadeOut(200);
     });
   });
 </script>

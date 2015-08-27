@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
+{% load thumbnail %}
 
 {% block header %}
     <!--Start: Header-->
@@ -49,7 +50,11 @@
                 <div class="chat-list-details">
                     <div class="chat-list-block">
                         <div class="chat-filed-area">
-                            <div class="icon-me"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.picture }}" class="img-circle img-responsive" alt=""></div>
+                            <div class="icon-me">
+                                {% thumbnail request.user.userprofile.picture "130x130" crop="center" as im %}
+                                <img src="{{im.url}}" class="img-circle img-responsive" alt="">
+                                {% endthumbnail %}
+                            </div>
                             <div class="text-field-chat-block">
                                 <textarea name="" cols="" class="form-control text-field-chat" rows="" placeholder="Enter a message"></textarea>
                             </div>
