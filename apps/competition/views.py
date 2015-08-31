@@ -14,6 +14,7 @@ from apps.competition.models import Competition, CompetitionEntry, CompetitionEn
 from apps.blog.models import BlogCompetitionLinks
 from apps.media.models import Audio, Video
 from apps.media.forms import AudioForm
+from apps.userprofile.models import ConnectionFeed
 
 
 def competitions(request, *args, **kwargs):
@@ -154,6 +155,7 @@ class SingleCompetitionEnter(FormView):
             'success': True,
             'slug': self.kwargs['slug']
         }
+        ConnectionFeed.objects.create(user=self.request.user, action_type='entered_competition')
         print self.kwargs['slug'], 'here'
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 

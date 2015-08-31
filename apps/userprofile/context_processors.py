@@ -1,5 +1,5 @@
-from apps.userprofile.models import UserProfile, UserBadges
-from apps.artist.views import UserConnections
+from apps.userprofile.models import UserProfile, UserBadges, ConnectionFeed
+from apps.artist.models import UserConnections
 from apps.home.models import Tutorial
 
 def check_profile(request):
@@ -44,3 +44,13 @@ def task1_badge(request):
             return {'task1_badge': 0}
     return {'task1_badge': 1}
 
+def connection_feed(request):
+    if request.user.is_authenticated():
+        connections = UserConnections.objects.filter(user=request.user)
+        ids = []
+        for connection in connections:
+            ids.append(connection.connection.id)
+        feed = ConnectionFeed.objects.filter(user__in=ids)
+        return {'connections': connections, 'feed': feed}
+
+    return {'connections': 0, 'feed': 0}

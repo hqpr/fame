@@ -966,11 +966,13 @@ ul.checklist.checklist-grn li {
 }
 .upload-track-thumb .btn-blue {
 	font-size: 11px;
-	padding: 10px
+	padding: 10px;
+	position: relative!important;
 }
 .upload-track-thumb p {
 	color: #d7d7d7;
-	margin-top: 10px
+	margin-top: 10px;
+	position: relative!important;
 }
 .loading-cross {
 	background: url(../images/loading-cross.png) no-repeat;
@@ -1375,7 +1377,10 @@ ul.pl-list-controls {
 	float: right;
     margin-right: 10px;
     list-style: none;
-    font-size: 15px;
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    top: 10px;
 }
 ul.pl-list-controls li a {
 	color: white;
@@ -2923,6 +2928,11 @@ ul.reply-options li a {
 	background: url(../images/tick-icon.png) no-repeat 10px 6px;
 	background-color: transparent
 }
+
+.chart-dropdown .filter-menu>li>a {
+    padding-left: 40px;
+}
+
 .chart-dropdown .search-bar .search-input {
 	margin-top: 1px
 }
@@ -4486,26 +4496,29 @@ ul.tab-wrap .active {
 	float: right;
 	background-size: 100%
 }
-ul.paging, .pagination-wrapper {
+.pagination-wrapper {
+	clear: both;
+}
+ul.paging, .pagination-wrapper ul {
 	text-align: center;
 	margin: 20px 0px;
 	padding: 0px;
 }
-ul.paging li, .pagination-wrapper li {
+ul.paging li, .pagination-wrapper ul li {
 	display: inline-block;
 	list-style: none;
 }
-ul.paging li a, .pagination-wrapper li a {
+ul.paging li a, .pagination-wrapper ul li a {
 	color: #5d5d5d;
 	text-decoration: none;
 	text-transform: uppercase;
 	padding: 0px 8px;
 	font-size: 16px;
 }
-ul.paging li a:hover, .pagination-wrapper li a:hover  {
+ul.paging li a:hover, .pagination-wrapper ul li a:hover {
 	color: #f10950
 }
-ul.paging li .active, .pagination-wrapper li .active {
+ul.paging li .active, .pagination-wrapper ul li .active {
 	color: #f10950
 }
 .about-song-footer {   /* Safari 5.1+, Chrome 10+ */
@@ -4716,7 +4729,7 @@ ul.filter-menu li a {
 	color: #fff;
 	text-decoration: none
 }
-ul.filter-menu .gen-select a {
+ul.filter-menu .gen-select > a {
 	background: #f10950 url(../images/gen-icon-hov.png) no-repeat left;
 	background-position: 15px 6px;
 	border-radius: 25px;
@@ -6433,6 +6446,7 @@ ul.tab-wrap li a {
 }
 .search-filter-nav ul li a {
 	font-size: 11px;
+	margin: 0 !important;
 }
 .search-filter-nav ul li {
 	margin-bottom: 10px
@@ -6818,4 +6832,33 @@ ul.tab-wrap li a {
 	-webkit-animation: animatedWarning 900ms;
 	-moz-animation: animatedWarning 900ms;
 	-o-animation: animatedWarning 900ms;
+}
+
+.pro-overview-thumb:hover:before {
+    position: absolute;
+    content: "";
+    background: url(../images/playicon2.png);
+    background-size: cover;
+    left: 53px;
+    top: 53px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.nav-dropdown-custom {
+	float: none;
+}
+.nav-dropdown-custom li {
+	float: none;
+}
+.nav-dropdown-custom .dropdown-menu li {
+	display: block;
+}
+.nav-dropdown-custom .dropdown-menu li a {
+	background: none;
+}
+
+.music_box img, .video_box img, .playlist_box img {
+	width: 100%;
 }

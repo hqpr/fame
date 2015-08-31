@@ -28,14 +28,30 @@
 {% block content-wrapper-close %}</div>{% endblock content-wrapper-close %}
 {% block filter %}
     {% verbatim %}
-    <div class="filter-wrap" style="padding-top:15px">
+    <div class="filter-wrap" style="padding-top:15px; overflow: visible;">
         <div class="col-lg-2" id="desktop-filter"><h3>Filter By:</h3></div>
         <div class="col-lg-2" id="button"><h3>Filter By:</h3></div>
-        <div class="col-lg-10">
+        <div class="col-lg-10 chart-dropdown">
 
-            <ul class="filter-menu">
-                <li class="geners gen-select"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{genreContent()}}">genres <span class="caret"></span></a></li>
-                <li class="countries"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">countries <span class="caret"></span></a></li>
+            <ul class="filter-menu nav navbar-nav">
+                <!--<li class="geners gen-select"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{genreContent()}}">genres <span class="caret"></span></a></li>-->
+<!--                <li class="countries"><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">countries <span class="caret"></span></a></li>-->
+                <li class="geners gen-select"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">genres <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">CRS ITALY</a></li>
+                        <li><a href="#">AFROBEATS</a></li>
+                        <li><a href="#">WEMC</a></li>
+                        <li><a href="#">GRS AMERICA</a></li>
+                    </ul>
+                </li>
+                <li class="countries"><a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">countries <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">CRS ITALY</a></li>
+                        <li><a href="#">AFROBEATS</a></li>
+                        <li><a href="#">WEMC</a></li>
+                        <li><a href="#">GRS AMERICA</a></li>
+                    </ul>
+                </li>
                 <li class="status"><a href="#">Status</a></li>
                 <li class="entries"><a href="#">Entries</a></li>
             </ul>

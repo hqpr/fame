@@ -22,7 +22,15 @@ import mixcloud
 
 from .forms import AudioForm, AudioFileForm, PlayListForm, VideoFileForm, VideoForm
 from apps.media.models import Audio, AudioPlaylist, Video, PlaylistItem, AudioComment
-from apps.userprofile.models import Task1
+from apps.userprofile.models import Task1, ConnectionFeed
+
+def makedirs(path):
+    try:
+        os.makedirs(path)
+    except OSError as e:
+        if e.errno == 17:
+            # Dir already exists. No biggie.
+            pass
 
 
 class AudioFileView(FormView):
@@ -100,6 +108,8 @@ class AudioView(UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        if "new_image" in self.request.POST and len(self.request.POST["new_image"]):
+            form.instance.cover = self.request.POST["new_image"]
         form.instance.is_complete = True
         form.save()
         data = {
@@ -107,6 +117,7 @@ class AudioView(UpdateView):
             'redirect_to': reverse('profile')
         }
         try:
+            ConnectionFeed.objects.create(user=self.request.user, action_type='uploaded_track')
             t = Task1.objects.get(user=self.request.user)
             t.task2 = True
             t.save()
@@ -140,11 +151,14 @@ class PlayListView(FormView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        if "new_image" in self.request.POST and len(self.request.POST["new_image"]):
+            form.instance.cover = self.request.POST["new_image"]
         form.save()
         data = {
             'success': True,
             'redirect_to': reverse('profile')
         }
+        ConnectionFeed.objects.create(user=self.request.user, action_type='playlist_created')
         return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
     def form_invalid(self, form):
@@ -162,16 +176,63 @@ class PlayListView(FormView):
 def playlist_cover(request):
     f_name = 'img_%s_%d.jpg' % (request.user.id, int(datetime.datetime.now().strftime("%s")))
     if request.POST:
-        f = open("server_media/playlists/%s/%s/%s/%s" % (time.strftime("%y"),
+        directory_name = "playlists/%s/%s/%s" % (time.strftime("%y"),
                                                          time.strftime("%m"),
-                                                         time.strftime("%d"), f_name), "w+")
+                                                         time.strftime("%d"))
+        makedirs("server_media/" + directory_name)
+        file_name = "%s/%s" % (directory_name, f_name)
+        f = open("server_media/" + file_name, "w+")
         _, b64data = request.POST['data'].split(',')
         f.write(decodestring(b64data))
         f.close()
-        AudioPlaylist.objects.create(user=request.user, cover='playlists/%s/%s/%s/%s' % (time.strftime("%y"),
-                                                                                         time.strftime("%m"),
-                                                                                         time.strftime("%d"), f_name))
-        return redirect('profile')
+        data = {
+                "status": "success",
+                "url": file_name + '?' + str(datetime.datetime.now()),
+                "filename": file_name
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+    pass
+
+@csrf_exempt
+def audio_cover(request):
+    f_name = 'img_%s_%d.jpg' % (request.user.id, int(datetime.datetime.now().strftime("%s")))
+    if request.POST:
+        directory_name = "audios/%s/%s/%s" % (time.strftime("%y"),
+                                                         time.strftime("%m"),
+                                                         time.strftime("%d"))
+        makedirs("server_media/" + directory_name)
+        file_name = "%s/%s" % (directory_name, f_name)
+        f = open("server_media/" + file_name, "w+")
+        _, b64data = request.POST['data'].split(',')
+        f.write(decodestring(b64data))
+        f.close()
+        data = {
+                "status": "success",
+                "url": file_name + '?' + str(datetime.datetime.now()),
+                "filename": file_name
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+    pass
+
+@csrf_exempt
+def video_cover(request):
+    f_name = 'img_%s_%d.jpg' % (request.user.id, int(datetime.datetime.now().strftime("%s")))
+    if request.POST:
+        directory_name = "videos/%s/%s/%s" % (time.strftime("%y"),
+                                                         time.strftime("%m"),
+                                                         time.strftime("%d"))
+        makedirs("server_media/" + directory_name)
+        file_name = "%s/%s" % (directory_name, f_name)
+        f = open("server_media/" + file_name, "w+")
+        _, b64data = request.POST['data'].split(',')
+        f.write(decodestring(b64data))
+        f.close()
+        data = {
+                "status": "success",
+                "url": file_name + '?' + str(datetime.datetime.now()),
+                "filename": file_name
+        }
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
     pass
 
 def trackcard(request, track_id):
@@ -198,6 +259,8 @@ class PlayListUpdateView(UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        if "new_image" in self.request.POST and len(self.request.POST["new_image"]):
+            form.instance.cover = self.request.POST["new_image"]
         form.save()
         data = {
             'success': True,
@@ -233,6 +296,8 @@ class AudioUpdateView(UpdateView):
 
     def form_valid(self, form):
         instance = form.save(commit=False)
+        if "new_image" in self.request.POST and len(self.request.POST["new_image"]):
+            instance.cover = self.request.POST["new_image"]
         instance.user = self.request.user
         instance.save()
         data = {
@@ -265,7 +330,6 @@ class VideoFileView(FormView):
     form_class = VideoFileForm
 
     def form_valid(self, form):
-
         form.instance.user = self.request.user
         fs = form.save()
         data = {
@@ -299,6 +363,8 @@ class VideoView(UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        if "new_image" in self.request.POST and len(self.request.POST["new_image"]):
+            form.instance.cover = self.request.POST["new_image"]
         form.instance.is_complete = True
         form.save()
         data = {
@@ -306,6 +372,7 @@ class VideoView(UpdateView):
             'redirect_to': reverse('profile')
         }
         try:
+            ConnectionFeed.objects.create(user=self.request.user, action_type='uploaded_video')
             t = Task1.objects.get(user=self.request.user)
             t.task2 = True
             t.save()

@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load thumbnail %}
 {% block extrahead %}
     <link rel="stylesheet" href="{% static "assets/css/html5imageupload.css" %}"/>
     <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
@@ -11,9 +12,13 @@
     <form role="form" method="post" action="{{ form_action }}" id="video_step2_form">
         <div class="row">
             <div class="col-sm-4">
-                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'video_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
                     <p style="position: relative !important;">or DRAG AND DROP</p>
                     <input type="file" name="cover" id="id_cover" />
+                    {% thumbnail form.instance.cover "200x200" crop="center" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive"  style="position: absolute; top: 0;">
+                    {% endthumbnail %}
+                    <input type="hidden" name="new_image" value="" />
                 </div>
             </div>
             <div class="col-sm-8">
@@ -59,14 +64,16 @@
             </div>
         </div>
         <div class="clearfix form-btn">
+            <button type="submit" class="btn btn-default btn-cancel" onclick="return false">CANCEL</button>
             <button type="submit" class="btn btn-default btn-green" id="submit-audio-2"><i class="fa fa-check"></i> SUBMIT</button>
         </div>
     </form>
 </div>
 
 {% block extra-script %}
-    <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <script src="{% static 'assets/js/html5imageupload.js' %}"></script>
     <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
 
 <script>
     $('.dropzone').html5imageupload();

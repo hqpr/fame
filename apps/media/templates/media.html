@@ -7,6 +7,7 @@
 {% block app-controller %} ng-controller="MainCtrl"{% endblock app-controller %}
 
 {% block header %}
+<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
 <div class="nav-top blue-bg mobnav">
     <ul>
       <li class="hidden-xs">MEDIA</li>
@@ -18,11 +19,34 @@
 {% block content %}
     <div class="content profile-bg-blue see-artist-page">
         <h2 class="title">All Media</h2>
-        <div class="search-filter-nav">
-          <ul>
-            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> Pop</label></div><div class='checkbox'><label><input type='checkbox'> Rock</label></div><div class='checkbox'><label><input type='checkbox'> Rap</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">genres <span class="caret"></span></a></li>
-            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='radio' name='popular'> Most popular today</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular this week</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular month</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular all time</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">popularity <span class="caret"></span></a></li>
-            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">country <span class="caret"></span></a> </li>
+        <div class="search-filter-nav chart-dropdown">
+          <ul class="nav navbar-nav nav-dropdown-custom">
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">genres <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="#">CRS ITALY</a></li>
+                  <li><a href="#">AFROBEATS</a></li>
+                  <li><a href="#">WEMC</a></li>
+                  <li><a href="#">GRS AMERICA</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">popularity <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="#">CRS ITALY</a></li>
+                  <li><a href="#">AFROBEATS</a></li>
+                  <li><a href="#">WEMC</a></li>
+                  <li><a href="#">GRS AMERICA</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">country <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="#">CRS ITALY</a></li>
+                  <li><a href="#">AFROBEATS</a></li>
+                  <li><a href="#">WEMC</a></li>
+                  <li><a href="#">GRS AMERICA</a></li>
+              </ul>
+            </li>
+<!--            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='radio' name='popular'> Most popular today</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular this week</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular month</label></div><div class='checkbox'><label><input type='radio' name='popular'> Most popular all time</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">popularity <span class="caret"></span></a></li>
+            <li><a href="#" data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<ul><div class='checkbox'><label><input type='checkbox'> France</label></div><div class='checkbox'><label><input type='checkbox'> Italy</label></div><div class='checkbox'><label><input type='checkbox'> Spain</label></div></ul><button id='filterGenre' class='btn btn-blue'>Filter</button>">country <span class="caret"></span></a> </li>-->
           </ul>
         </div>
         <div class="artists-search-section">
@@ -34,12 +58,12 @@
               <div class="music-overview-block music_box">
                 <div class="playlist-thumb-hover" style="display: none">
                   <ul class="pl-list">
-                      <li><a href="#" class="heart">ddd</a></li>
-                      <li><a href="#" class="comment">ddd</a></li>
-                      <li><a href="/apps/media/playlist/addtrack/{{track.id}}" data-toggle="modal" data-target="#upload_music_modal" class="playlist-play">ddd</a></li>
-                      <li><a href="/apps/media/share/{{ track.uid }}/" data-toggle="modal" data-target="#upload_music_modal" class="share">ddd</a></li>
+                        <li><a href="#" toid="{{ track.id }}" id="likeAudioButton" class="heart likeAudioButton">ddd</a></li>
+                        <li><a href="#" toid="{{ track.id }}" class="comment commentAudioButton">ddd</a></li>
+                      <li><a href="/media/playlist/addtrack/{{track.id}}/" data-toggle="modal" data-target="#upload_music_modal" class="playlist-play">ddd</a></li>
+                      <li><a href="/media/share/{{ track.uid }}/" data-toggle="modal" data-target="#upload_music_modal" class="share">ddd</a></li>
                   </ul>
-                  <div class="play-pl-cont"> <a href="/media/trackcard/{{track.id}}/" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
+                  <div class="play-pl-cont"> <a href="/media/trackcard/{{ track.id }}/" class="play-pl" data-toggle="modal" data-target="#trackcard">Play</a> </div>
                   <div class="hover-title">
                       <h5>{{ track.name }}</h5>
                       <span class="subtxt">{{ track.artist.name }}</span> </div>
@@ -75,7 +99,7 @@
                                     <li><a href="#" class="comment">ddd</a></li>
                                     <li><a href="#" class="share">ddd</a></li>
                                 </ul>
-                                <div class="play-pl-cont"> <a href="/media/videocard/{{video.id}}/" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
+                                <div class="play-pl-cont"> <a href="/apps/media/videocard/{{video.id}}/" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
                                 <div class="hover-title">
                                     <h5>{{ video.name }}</h5>
                                     <span class="subtxt">{{ video.artist }}</span> </div>
@@ -105,7 +129,7 @@
             {% verbatim %}
               <div class="col-sm-3" ng-repeat="playlist in playlists">
                   <div class="music-overview-block playlist_box"> 
-                      <img src="{{ playlist.cover_200 }}" class="img-responsive" >
+                      <a href="#" toid="{{playlist.id}}" class="play_playlist"><img src="{{ playlist.cover_200 }}" class="img-responsive" ></a>
 
                       <div class="playlist-list">
                           <ol>
@@ -114,6 +138,16 @@
                       </div>
                   </div>
               </div>
+            <!--Playlist player-->
+             <div class="ap-wrapper center-ap" style="width:100%; padding-top:80px;">
+                <div class="the-bg" style=" background-image: url(/static/audioplayer/img/adg3.jpg);"></div>
+                <div id="ag_playlist" class="audiogallery skin-wave" style="opacity:0; margin-top: 70px;">
+                    <div id="playlist_items" class="items">
+                    </div>
+                </div>
+            </div>
+
+            <!--End Playlist player-->
             {% endverbatim %}
             {% if not audios and not videos %}
             <div class="pagination-wrapper">
@@ -145,7 +179,6 @@
 <script src="{% static 'js/media-app.js' %}"></script>
 <script src="{% static 'js/media.factory.js' %}"></script>
 <script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
-<link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
     <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
 
     <script>
@@ -175,15 +208,143 @@
             </div>
         </div>
     </div>
+<div class="modal modal-absolute" id="modal-comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" style="z-index: 9991">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Comment</h4>
+            </div>
+            <div class="modal-body">
+                <form id="comment_audio_form">
+                    <div class="form-group">
+                        <label for="comment" class="control-label">Enter comment text:</label>
+                        <textarea class="form-control" id="comment" name="comment"></textarea>
+                    </div>
+                    <input type="hidden" name="audio">
+                    <input type="hidden" name="time">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button onclick="send_audio_comment()" type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+      $("body").delegate(".music_box, .video_box, .playlist_box", "mouseenter", function () {
+          $(this).find('div').fadeIn(200);
+      });
+      $("body").delegate(".music_box, .video_box, .playlist_box", "mouseleave", function () {
+          $(this).find('div').fadeOut(200);
+      });
+  });
+        jQuery(document).ready(function ($) {
+          var playerid = 'ag1';
+          var settings_ap = {
+            disable_volume: 'off'
+            , disable_scrub: 'default'
+            , design_skin: 'skin-wave'
+            , skinwave_dynamicwaves: 'on'
+            , skinwave_enableSpectrum: 'off'
+            , settings_backup_type: 'full'
+            , skinwave_enableReflect: 'on'
+            , skinwave_comments_enable: 'on'
+            , skinwave_timer_static: 'off'
+            , disable_player_navigation: 'off'
+            , skinwave_mode: 'normal'
+            , skinwave_comments_retrievefromajax: 'on'
+          };
+          dzsag_init('#' + playerid, {
+            'transition': 'fade'
+            , 'cueFirstMedia': 'on'
+            , 'autoplay': 'on'
+            , 'autoplayNext': 'off'
+            , design_menu_position: 'bottom'
+            , 'settings_ap': settings_ap
+            , design_menu_state: 'open'
+            , design_menu_show_player_state_button: 'off'
+            , embedded: 'off'
+            , enable_easing: 'on'
+
+          });
+        })
+
+</script>
 <script>
   $(function() {
-    $("body").delegate(".music_box, .video_box, .playlist_box", "mouseenter", function() {
-      $( this ).find('div').fadeIn(200);
+
+    $(".music_box").on({
+        mouseenter: function () {
+            $( this ).find('div').fadeIn(200);
+        },
+        mouseleave: function () {
+            $( this ).find('div').fadeOut(200);
+        }
     });
-    $("body").delegate(".music_box, .video_box, .playlist_box", "mouseleave", function() {
-      $( this ).find('div').fadeOut(200);
+    $(".video_box").on({
+        mouseenter: function () {
+            $( this ).find('div').fadeIn(200);
+        },
+        mouseleave: function () {
+            $( this ).find('div').fadeOut(200);
+        }
+    });
+    $(".playlist_box").on({
+        mouseenter: function () {
+            $( this ).find('div').fadeIn(200);
+        },
+        mouseleave: function () {
+            $( this ).find('div').fadeOut(200);
+        }
     });
   });
 </script>
+<script>
+  $("body").delegate(".play_playlist", "click", function () {
+    var id = this.attributes.toid.value;
+        $.ajax({
+            url: '/api/playlist/' + id,
+            type: 'GET',
+            success: function(data) {
+                print_audio(data);
+            },
+            error: function(err) { console.log(err); },
+        });
+  });
+function print_audio(playlist) {
+  var item ='';
+  $("#playlist_items").empty();
+  playlist.forEach(function(item){
+      document.getElementById("playlist_items").innerHTML +=
+        '<div id="'+item.id+'-'+item.audio.id+'" class="audioplayer-tobe" style="width:100%; " data-thumb="' + item.audio.cover_200 + '" data-thumb_link="'+item.audio.cover_200+'" data-bgimage="{% static "audioplayer/img/bgminion.jpg" %}" data-scrubbg="{% static "audioplayer/waves/scrubbg.png" %}" data-scrubprog="{% static "audioplayer/waves/scrubprog.png" %}" data-videoTitle="Audio Video" data-type="normal" data-source="' + item.audio.audio + '"> ' +
+            '<div class="meta-artist"><span class="the-artist">'+item.audio.artist_en+'</span><br/><span class="the-name">'+item.audio.name_en+'</span>' +
+            '</div>' +
+            '<div class="menu-description">' +
+                '<div class="menu-item-thumb-con"><div class="menu-item-thumb" style="background-image: url(' + item.audio.cover_200 + ')"></div></div>' +
+                '<span class="the-artist">' + item.audio.artist_en + '</span>' +
+                '<span class="the-name">' + item.audio.name_en + '</span>' +
+            '</div>' +
+        '</div>';
+  });
 
+  var settings_ap = {
+    disable_volume: 'off'
+    ,disable_scrub: 'default'
+    ,design_skin: 'skin-wave'
+    ,skinwave_dynamicwaves:'off'
+    ,skinwave_enableSpectrum:'off'
+    ,settings_backup_type:'full'
+    ,skinwave_enableReflect:'on'
+    ,skinwave_comments_enable:'on'
+  };
+  dzsag_init('#ag_playlist',{
+    'transition':'fade'
+    ,'autoplay' : 'on'
+    ,'settings_ap':settings_ap
+  });
+}
+</script>
 {% endblock %}

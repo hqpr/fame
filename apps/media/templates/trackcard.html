@@ -29,8 +29,8 @@
                 <h3>{{ track.name }}</h3>
                 <p>{{ track.artist }}</p>
                 <ul class="pl-opt">
-                    <li><a href="#" class="pl-icons like">like</a></li>
-                    <li><a href="#" class="pl-icons comment">Comments</a></li>
+                    <li><a href="#" toid="{{ track.id }}" class="pl-icons like likeAudioButton">like</a></li>
+                    <li><a href="#" toid="{{ track.id }}" class="pl-icons comment commentAudioButton">Comments</a></li>
                     <li><a href="#" class="pl-icons music">Music</a></li>
                     <li><a href="{% url 'share' uid=track.uid %}" data-toggle="modal" data-target="#upload_music_modal" class="pl-icons share">Share</a></li>
                 </ul>

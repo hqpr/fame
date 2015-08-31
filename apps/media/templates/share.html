@@ -1,6 +1,12 @@
 {% load static from staticfiles %}
+    <style>
+    .audioplayer.skin-wave .ap-controls .con-controls {
+        display: none;
+    }
+    .btn-embed-code {display: none}
+    </style>
 
-<div class="modal-body share-profile"><a href="#" class="close-icon">close</a>
+<div class="modal-body share-profile" id="share-profile"><a href="#" class="close-icon" data-dismiss="modal" aria-label="Close">close</a>
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs mytabs" role="tablist">
@@ -16,7 +22,14 @@
                     <div class="track-thumb-details">
                         <h5>{{ obj.name }}</h5>
                         <div class="time-row"> <span class="pull-left">{{ obj.artist }}</span> <span class="pull-right">{{ obj.length }}</span> </div>
-                        <div><img src="{% static 'images/track-embed.png' %}" class="img-responsive" alt=""></div>
+                        <div>                            <div id="ag2" class="audiogallery skin-default" style="opacity:0;">
+                                <div class="sound-track">
+                                    <div class="items">
+                                        <div id="{{ obj.id }}" class="audioplayer-tobe " style="width:100%; " data-thumb_link="{% static 'audioplayer/img/adg3.jpg' %}" data-bgimage="{% static 'audioplayer/img/bgminion.jpg' %}" data-scrubbg="{% static 'audioplayer/waves/scrubbg.png' %}" data-scrubprog="{% static 'audioplayer/waves/scrubprog.png' %}" data-videoTitle="Audio Video" data-type="audio" data-source="{{ MEDIA_URL }}{{ obj.audio }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></div>
                     </div>
                 </div>
                 <div class="social-share">
@@ -28,7 +41,7 @@
                 </div>
                 <div>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="{{ request.get_host }}{% url 'widget_trackcard' uid=obj.uid %}">
+                        <input type="text" class="form-control" value="{{ request.get_host }}{% url 'widget_trackcard' uid=obj.uid %}">
           <span class="input-group-btn">
           <button class="btn btn-default share-btn" type="button">Share</button>
           </span> </div>
@@ -39,7 +52,7 @@
             <div role="tabpanel" class="tab-pane" id="embed">
                 <h5>Code &amp; Preview </h5>
                 <div class="code-n-preview-section">
-                    <input type="text" class="form-control" placeholder="{{ request.get_host }}{% url 'widget_trackcard' uid=obj.uid %}">
+                    <input type="text" class="form-control" value="{{ request.get_host }}{% url 'widget_trackcard' uid=obj.uid %}">
                 </div>
                 <div class="widget-holder"> <img src="{% static 'images/music-artist-widget.png' %}" class="img-responsive" alt=""> </div>
                 <form class="form-inline">
@@ -61,3 +74,44 @@
         </div>
     </div>
 </div>
+<script>
+    jQuery(document).ready(function () {
+        $("#share-profile").on('hidden.bs.modal', function () {
+            $(this).data('bs.modal', null);
+        });
+        var playerid = 'ag2';
+        var settings_ap = {
+            disable_volume: 'off'
+            ,disable_scrub: 'default'
+            ,design_skin: 'skin-wave'
+            ,skinwave_dynamicwaves:'on'
+            ,skinwave_enableSpectrum:'off'
+            ,settings_backup_type:'full'
+            ,skinwave_enableReflect:'on'
+            ,skinwave_comments_enable:'on'
+            ,skinwave_timer_static:'off'
+            ,disable_player_navigation: 'off'
+            ,skinwave_mode: 'normal'
+            ,skinwave_comments_retrievefromajax:'on'
+        };
+        dzsag_init('#'+playerid,{
+            'transition':'fade'
+            ,'cueFirstMedia' : 'on'
+            ,'autoplay' : 'on'
+            ,'autoplayNext' : 'off'
+            ,design_menu_position:'bottom'
+            ,'settings_ap':settings_ap
+            ,design_menu_state:'open'
+            ,design_menu_show_player_state_button: 'off'
+            ,embedded: 'off'
+            ,enable_easing: 'on'
+
+        });
+
+
+//        setTimeout(function(){
+//            document.getElementById('ap1').api_destroy();
+//        }, 3000);
+    });
+    $('#comment-email').val('{{ request.user.email }}');
+</script>

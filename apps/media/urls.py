@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from apps.media.views import AudioView, AudioFileView, PlayListView, trackcard, AudioUpdateView, \
-    playlist_cover, VideoFileView, VideoView, videocard, all_media, all_tracks, all_videos, all_playlists, add_to_playlist, playlistcard,\
+    playlist_cover, audio_cover, video_cover, VideoFileView, VideoView, videocard, all_media, all_tracks, all_videos, all_playlists, add_to_playlist, playlistcard,\
     PlayListUpdateView, publisher, soundcloud_import, share
 
 urlpatterns = [
@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^share/(?P<uid>\w+)/$', share, name='share'),
 
     # image upload
+    url(r'^audio/cover/$', audio_cover, name='audio_cover'),
+    url(r'^video/cover/$', video_cover, name='video_cover'),
     url(r'^playlist/cover/$', playlist_cover, name='playlist_cover'),
 
     url(r'^publisher/$', publisher, name='publisher'),

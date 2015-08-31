@@ -54,8 +54,8 @@ def single_artist(request, *args, **kwargs):
 
     string = get_profile_string(kwargs, user)
     audios = Audio.objects.filter(user=user, is_complete=True).order_by('-added')
-    playlists = AudioPlaylist.objects.filter(user=user)[:4]
-    videos = Video.objects.filter(user=user, is_complete=True).order_by('-added')[:2]
+    playlists = AudioPlaylist.objects.filter(user=user).order_by('-added')
+    videos = Video.objects.filter(user=user, is_complete=True).order_by('-added')
     social = UserSocial.objects.filter(user=UserProfile.objects.get(user=user))
     if len(social):
         social = {i.account:i.link for i in social}

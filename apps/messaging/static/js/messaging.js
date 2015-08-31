@@ -1,7 +1,7 @@
 (function($) {
 
     var conversation_url = $('#api').data('url');
-    //var user_id = $('#user_id').data('user');
+    var user_id = $('#user_id').data('user');
 
     //$('.enter-btn').on('click', function(){
     //    $.ajax({
@@ -52,6 +52,79 @@
                 //console.log(index);
                 //console.log(element);
             //})
+        //});
+    });
+
+    $('.add-conv-title').on('click', function(){
+       //$.ajax({
+       //   type: "POST",
+       //   url: '/api/conversations/',
+       //   data: {"user_id":user_id},
+       //   success: function(data){
+       //     console.log(data);
+       //   },
+       //   dataType: 'json'
+       // });
+        //$.ajax({
+        //  type: "GET",
+        //  url: '/api/conversations/',
+        //  success: function(data){
+        //    console.log(data);
+        //  },
+        //  dataType: 'json'
+        //});
+        //
+        $.ajax({
+          type: "POST",
+          url: '/api/conversations/2/',
+          data: {"text":"Hi there"},
+          success: function(data){
+            console.log(data);
+             $.ajax({
+                type: "GET",
+                url: '/api/conversations/',
+                success: function(data){
+                  console.log(data);
+                },
+                dataType: 'json'
+              });
+          },
+          dataType: 'json'
+        });
+
+        //$.ajax({
+        //  type: "DELETE",
+        //  url: '/api/conversations/10/',
+        //  success: function(data){
+        //    console.log(data);
+        //  },
+        //  dataType: 'json'
+        //});
+        //
+        //$.ajax({
+        //  type: "GET",
+        //  url: '/api/messages/1/',
+        //  success: function(data){
+        //    console.log(data);
+        //  },
+        //  dataType: 'json'
+        //});
+        //$.ajax({
+        //  type: "DELETE",
+        //  url: '/api/messages/1/',
+        //  success: function(data){
+        //    console.log(data);
+        //  },
+        //  dataType: 'json'
+        //});
+        //
+        //$.ajax({
+        //  type: "GET",
+        //  url: "/api/connections/",
+        //  success: function(data){
+        //    console.log(data);
+        //  },
+        //  dataType: 'json'
         //});
     })
 

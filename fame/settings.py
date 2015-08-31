@@ -99,6 +99,8 @@ TEMPLATES = [
                 'apps.userprofile.context_processors.sidebar_details',
                 'apps.userprofile.context_processors.home_tutorial',
                 'apps.userprofile.context_processors.task1_badge',
+                # 'apps.competition.context_processors.competition_chart',
+                'apps.userprofile.context_processors.connection_feed',
             ],
         },
     },

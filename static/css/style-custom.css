@@ -464,8 +464,8 @@ rgba(0,0,0,.2); background-color:#fff; padding:10px; min-height:380px}
  * Profile area 
  */
 .frame.badges { -webkit-transition: all 1s; transition: all .5s ease-in-out; }
-.fading .frame.badges { background: white; }
-.fading .frame.badges h3 { color: #2e2e31; }
+.fading4 .frame.badges { background: white; }
+.fading4 .frame.badges h3 { color: #2e2e31; }
 .nav-top { position: fixed; width: 100%; }
 /*.nav-top { position: fixed; width: calc(100% - 520px); }*/
 .add-icon { float: right; font-size: 16px; color: #2e2e31; margin-right: 15px;}
@@ -499,3 +499,7 @@ rgba(0,0,0,.2); background-color:#fff; padding:10px; min-height:380px}
 }
 
 .modal-body .vjs-default-skin .vjs-big-play-button { left: 39%; top: 39%; }
+
+.title a {
+    color: white;
+}

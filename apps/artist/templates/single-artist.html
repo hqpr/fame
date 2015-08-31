@@ -5,13 +5,8 @@
 {% load thumbnail %}
 
 {% block extrahead %}
+    <link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
     <style>
-        {% if audios %}
-            .main-wrap .profile-landing-bg::before {
-                background: url('{{ MEDIA_URL }}{{ audios.0.cover }}') no-repeat top center;
-                background-size: cover;
-            }
-        {% endif %}
         {#{% if request.user.userprofile.background_image %}#}
         /*.main-wrap .profile-landing-bg::before {
             background: url('{{ MEDIA_URL }}{{ request.user.userprofile.background_image }}') no-repeat top center;
@@ -21,11 +16,15 @@
         background-color: rgba(0,0,0,.5) !important;
         position: absolute;
     }
-    .dropzone .cropWrapper {
+    .profile-pic .dropzone .cropWrapper,
+    .profile-pic .final {
         border-radius: 50%;
     }
-    .final {
-        border-radius: 50%;
+    .modal .dropzone .cropWrapper {
+        border-radius: 0;
+    }
+    .modal .btn-select {
+        color: #555;
     }
     </style>
     <style id="blurStyleToChange">
@@ -82,8 +81,6 @@
                         {% csrf_token %}
                             <div class="click-to-move dropzone" data-width="170" data-height="170" data-resize="true" data-url="{% url 'upload_avatar' object_id=request.user.id %}" id="change_avatar" style="display: none">
                                 DRAG AND DROP
-                                <span class="or">OR</span>
-                                CLICK TO MOVE!
                                 <input type="file" name="picture" id="id_picture" />
                             </div>
                         </form>
@@ -241,6 +238,9 @@
                         <div class="music-overview-block video_box">
                             {% if display == "profile" %}
                                 <div class="hover-frame" style="display: none">
+                                    <ul class="pl-list-controls">
+                                        <li><a href="{% url 'api_video' v.id %}" class="delete" style="background: none;"><span class="glyphicon glyphicon-remove"></span></a></li>
+                                    </ul>
                                     <div class="hover-frame-contaiiner">
                                         <div class="hover-frame-cell"> <a href="{% url 'edit_video' object_id=v.id %}" data-toggle="modal" data-target="#upload_music_modal" class="btn btn-bdr-white"> Change Video</a> </div>
                                     </div>
@@ -252,9 +252,6 @@
                                     <li><a href="#" class="comment">ddd</a></li>
                                     <li><a href="#" class="playlist-play">ddd</a></li>
                                     <li><a href="#" class="share">ddd</a></li>
-                                </ul>
-                                <ul class="pl-list-controls">
-                                    <li><a href="#" style="background: none;"><span class="glyphicon glyphicon-remove"></span></a></li>
                                 </ul>
                                 <div class="play-pl-cont"> <a href="{% url 'videocard' video_id=v.id %}" data-toggle="modal" data-target="#trackcard" class="play-pl">Play</a> </div>
                                 <div class="hover-title">
@@ -279,14 +276,19 @@
                         <div class="music-overview-block playlist_box">
                             {% if display == "profile" %}
                                 <div class="hover-frame" style="display: none">
+                                    <ul class="pl-list-controls">
+                                        <li><a href="{% url 'api_playlist' p.id %}" class="delete" style="background: none;"><span class="glyphicon glyphicon-remove"></span></a></li>
+                                    </ul>
                                     <div class="hover-frame-contaiiner">
                                         <div class="hover-frame-cell"> <a href="{% url 'edit_playlist' object_id=p.id %}" data-toggle="modal" data-target="#upload_music_modal" class="btn btn-bdr-white"> Change Playlist</a> </div>
                                     </div>
                                 </div>
                             {% endif %}
+                             <a href="#" toid="{{p.id}}" class="play_playlist">
                             {% thumbnail p.cover "200x200" crop="center" as im %}
-                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
+                               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive" >
                             {% endthumbnail %}
+                             </a>
 
                             <div class="playlist-list">
                                 <ol>
@@ -328,6 +330,17 @@
 
     </div>
 
+<!--Playlist player-->
+ <div class="ap-wrapper center-ap" style="width:100%; padding-top:80px;">
+    <div class="the-bg" style=" background-image: url(/static/audioplayer/img/adg3.jpg);"></div>
+    <div id="ag_playlist" class="audiogallery skin-wave" style="opacity:0; margin-top: 70px;">
+        <div id="playlist_items" class="items">
+        </div>
+    </div>
+</div>
+
+<!--End Playlist player-->
+
     <!--End: Inner Main Wrap-->
 
     <!--Start: Check if profile is valid-->
@@ -360,8 +373,8 @@
     <script>
 
         $('.dropzone').html5imageupload();
+$(function() {
 
-        $(function() {
     var scrollflag = 0;
     var scroll = 0;
     var blur = 1;
@@ -439,8 +452,68 @@
 
     </script>
     <script src='{% static "audioplayer/audioplayer.js" %}' type="text/javascript"></script>
-    <link rel='stylesheet' type="text/css" href="{% static 'audioplayer/audioplayer.css' %}"/>
     <script src='{% static "js/profile.js" %}' type="text/javascript"></script>
 
+<script>
+  jQuery(document).ready(function ($) {
+    $(".play_playlist").click(function(){
+        var id = this.attributes.toid.value;
+        $.ajax({
+            url: '/api/playlist/' + id,
+            type: 'GET',
+            success: function(data) {
+                print_audio(data);
+            },
+            error: function(err) { console.log(err); },
+        });
+    });
+    $(".delete").click(function(evt) {
+        evt.preventDefault();
+        var me = $(this);
+        $.ajax({
+            'url': me.attr("href"),
+            'type': 'delete',
+            'success': function() {
+                me.parents('.music-overview-block').slideUp(function() {
+                    $(this).parent().remove();
+                });
+            }
+        });
+        return false;
+    });
 
+  });
+function print_audio(playlist) {
+  var item ='';
+  document.getElementById("playlist_items").innerHTML = "";
+  playlist.forEach(function(item){
+      document.getElementById("playlist_items").innerHTML +=
+        '<div id="'+item.id+'-'+item.audio.id+'" class="audioplayer-tobe" style="width:100%; " data-thumb="' + item.audio.cover_200 + '" data-thumb_link="'+item.audio.cover_200+'" data-bgimage="{% static "audioplayer/img/bgminion.jpg" %}" data-scrubbg="{% static "audioplayer/waves/scrubbg.png" %}" data-scrubprog="{% static "audioplayer/waves/scrubprog.png" %}" data-videoTitle="Audio Video" data-type="normal" data-source="' + item.audio.audio + '"> ' +
+            '<div class="meta-artist"><span class="the-artist">'+item.audio.artist_en+'</span><br/><span class="the-name">'+item.audio.name_en+'</span>' +
+            '</div>' +
+            '<div class="menu-description">' +
+                '<div class="menu-item-thumb-con"><div class="menu-item-thumb" style="background-image: url(' + item.audio.cover_200 + ')"></div></div>' +
+                '<span class="the-artist">' + item.audio.artist_en + '</span>' +
+                '<span class="the-name">' + item.audio.name_en + '</span>' +
+            '</div>' +
+        '</div>';
+  });
+
+  var settings_ap = {
+    disable_volume: 'off'
+    ,disable_scrub: 'default'
+    ,design_skin: 'skin-wave'
+    ,skinwave_dynamicwaves:'off'
+    ,skinwave_enableSpectrum:'off'
+    ,settings_backup_type:'full'
+    ,skinwave_enableReflect:'on'
+    ,skinwave_comments_enable:'on'
+  };
+  dzsag_init('#ag_playlist',{
+    'transition':'fade'
+    ,'autoplay' : 'on'
+    ,'settings_ap':settings_ap
+  });
+}
+</script>
 {% endblock extra-script %}

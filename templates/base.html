@@ -269,9 +269,9 @@
 <div class="sidebar-right" id="sidr-right">
   {% if user.is_authenticated %}
     <div class="pic-container">
-      <div class="db-pic"> {% thumbnail request.user.userprofile.picture "130x130" crop="center" as im %}
+      <div class="db-pic"> <a href="{% url 'profile' %}">{% thumbnail request.user.userprofile.picture "130x130" crop="center" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle" >
-                        {% endthumbnail %} <span class="db-pic-circle"></span> </div>
+                        {% endthumbnail %} <span class="db-pic-circle"></span> </a></div>
       <div class="db-info-container">
         <h3>{{ request.user.userprofile.display_name }}</h3>
         <p class="user-type">Artist</p>
@@ -360,51 +360,20 @@
       </div> -->
     </div>
     <h3 class="toggle-container"><a href="#">Feed <span class="arrow-direction arrow-up"></span></a></h3>
+
     <div class="fame-toggle-container">
-      <div class="feed-block">
-        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
 
-        <div class="task-details">
-         <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue">Alex Pluda</span> has reached <span class="name-txt-red">Level 5</span></p>
-        </div>
-      </div>
-      <div class="feed-block">
-        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
-
-        <div class="task-details">
-         <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp
-etition adoih aodsjd poaisj </p>
-        </div>
-
-      </div>
-      <div class="feed-block">
-        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
-
-        <div class="task-details">
-         <span class="pull-right">20:34</span>
-          <p><span class="name-txt-green">Dj Cosnic</span> has just won the comp     </p>
-        </div>
-      </div>
-      <div class="feed-block">
-        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
-
-        <div class="task-details">
-         <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue">Dj Cosnic</span>  has just won the comp
-etition adoih aodsjd poaisj     </p>
-        </div>
-      </div>
-      <div class="feed-block">
-        <div class="task-icon"><img src="{{MEDIA_URL}}images/feed-icon.png" class="img-responsive" alt=""></div>
-
-        <div class="task-details">
-         <span class="pull-right">20:34</span>
-          <p><span class="name-txt-blue"> Dj Cosnic</span> has just won the comp
-etition adoih aodsjd poaisj </p>
-        </div>
-      </div>
+    {% if feed %}
+        {% for f in feed %}
+            <div class="feed-block">
+                <div class="task-icon"><img src="{{ MEDIA_URL }}{{ f.user.userprofile.picture }}" class="img-responsive" alt=""></div>
+                <div class="task-details">
+                    <span class="pull-right">{{ f.created|date:"g:i" }}</span>
+                    <p><span class="name-txt-blue">{{ f.user }}</span> has just <span class="name-txt-red">{{ f.get_action_type_display }}</span></p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
     </div>
     {% endif %}
   </div>
@@ -429,7 +398,30 @@ etition adoih aodsjd poaisj </p>
     </div>
 </div>
 <div class="myClass"></div>
-
+<div class="modal modal-absolute" id="modal-comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" style="z-index: 9991">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Comment</h4>
+            </div>
+            <div class="modal-body">
+                <form id="comment_audio_form">
+                    <div class="form-group">
+                        <label for="comment" class="control-label">Enter comment text:</label>
+                        <textarea class="form-control" id="comment" name="comment"></textarea>
+                    </div>
+                    <input type="hidden" name="audio">
+                    <input type="hidden" name="time">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button onclick="send_audio_comment()" type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% block script %}
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -470,6 +462,38 @@ etition adoih aodsjd poaisj </p>
 <script defer src="{% static 'js/CircularProgressButton/uiProgressButton.js' %}"></script>
 
 <script>
+  //Audio buttons
+  $(document).ready(function() {
+    // $("body").delegate(".modal", "click", function() {
+    //   $(this).find('form')[0].reset();
+    // });
+    $("body").delegate(".commentAudioButton", "click", function() {
+      var modalComment = $('#modal-comment');
+      modalComment.modal('show');
+      modalComment.find('[name=audio]').val(this.attributes.toid.value);
+      modalComment.find('[name=time]').val($.now());
+    });
+    $("body").delegate(".likeAudioButton", "click", function() {
+      var id = $(".like")[0].attributes.toid.value;
+      $.ajax({
+        method: "POST",
+        url: "http://52.18.236.59/api/audio/like",
+        data: {"audio": id},
+        dataType: "application/json"
+      })
+      .done(function (msg) {
+        console.log(msg);
+      })
+      .fail(function (jqXHR, textStatus) {
+        console.log(jqXHR.responseText);
+      });
+    });
+  });
+  function send_audio_comment() {
+    $("#comment_audio_form").ajaxSubmit({url: '/api/audio/comment', type: 'post'});
+    $('#modal-comment').modal('hide');
+  }
+  //End audio buttons
 $( window ).on( 'shown.bs.modal', function() {
     var $modal     = $('.modal-dialog')
       , $backdrop  = $('.modal-backdrop')

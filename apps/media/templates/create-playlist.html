@@ -15,6 +15,7 @@
                 <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
                     <p style="position: relative !important;">or DRAG AND DROP</p>
                     <input type="file" name="cover" id="id_cover" />
+                    <input type="hidden" name="new_image" value="" />
                 </div>
             </div>
             <div class="col-sm-8">
@@ -36,7 +37,7 @@
     </form>
 </div>
 {% block extra-script %}
-<script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+<script src="{% static 'assets/js/html5imageupload.js' %}"></script>
     <script src="{% static 'js/bootstrap-select.js' %}"></script>
     <script src="{% static 'js/profile.js' %}"></script>
 <script>

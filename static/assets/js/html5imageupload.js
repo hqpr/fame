@@ -259,6 +259,7 @@
 					url: options.removeurl,
 					data: {image: $(element).data('name') },
 					success: function(response) {
+						debugger;
 						if (_self.options.onAfterRemoveImage) _self.options.onAfterRemoveImage.call(_self, response, _self);
 					}
 				})
@@ -650,7 +651,7 @@
 				url: options.url,
 				data: $.extend(obj, options.data),
 				success: function(response) {
-					
+					debugger;
 					if (response.status == "success") {
 						var file		= response.url.split('?');
 						$(element).find('.tools .saving').remove();
@@ -660,6 +661,7 @@
 						if (options.canvas != true) {
 							$(element).append($('<img src="' + file[0] + '" class="final" style="width: 100%" />'));
 						}
+						$(element).find("input[name=new_image]").val(response.filename);
 						
 						_self.imageFinal();
 					} else {

@@ -11,9 +11,10 @@
     <form role="form" method="post" action="{{ form_action }}" id="audio_step2_form" onsubmit="clearInterval(intervalID);">
         <div class="row">
             <div class="col-sm-4">
-                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'playlist_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
+                <div class="track-thumb upload-track-thumb dropzone" data-width="165" data-height="165" data-resize="true" data-url="{% url 'audio_cover' %}" > <a href="#" class="btn btn-blue btn-sm" style="position: relative !important;"> UPLOAD AN IMAGE</a>
                     <p style="position: relative !important;">or DRAG AND DROP</p>
                     <input type="file" name="cover" id="id_cover" />
+                    <input type="hidden" name="new_image" value="" />
                 </div>
             </div>
             <div class="col-sm-8">
@@ -69,12 +70,11 @@
 </div>
 
 {% block extra-script %}
-    <script src="{% static 'assets/js/html5imageupload.min.js' %}"></script>
+    <script src="{% static 'assets/js/html5imageupload.js' %}"></script>
     <script src="{% static 'js/bootstrap-select.js' %}"></script>
 
 <script>
-    var form = [$('#id_cover'),
-                $('#id_name'),
+    var form = [$('#id_name'),
                 $('#id_artist'),
                 $('#id_type'),
                 $('#id_genre'),
@@ -82,7 +82,6 @@
                 $('#id_bpm'),
                 $('#id_privacy')];
     function validateForm() {
-        console.log('validate')
         var invalidForm = false;
         for(var i = 0; i < form.length; i++) {
             if(!form[i].val()) invalidForm = true;

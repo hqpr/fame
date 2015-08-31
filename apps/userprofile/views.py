@@ -1,3 +1,4 @@
+import os
 from base64 import decodestring
 import datetime
 import time
@@ -15,6 +16,14 @@ from django.core.exceptions import PermissionDenied
 
 from apps.userprofile.forms import UserForm, UserProfileForm, UserSocialForm
 from .models import UserProfile, UserSocial
+
+def makedirs(path):
+    try:
+        os.makedirs(path)
+    except OSError as e:
+        if e.errno == 17:
+            # Dir already exists. No biggie.
+            pass
 
 
 def login_view(request):
@@ -143,10 +152,12 @@ def upload_avatar(request, object_id):
     """ for drag-n-drop """
     if request.POST:
         f_name = 'img_%s_%d.jpg' % (request.user.id, int(datetime.datetime.now().strftime("%s")))
-        f = open("server_media/avatars/%s/%s/%s/%s" % (time.strftime("%y"),
-                                                       time.strftime("%m"),
-                                                       time.strftime("%d"),
-                                                       f_name), "w")
+        directory_name = "avatars/%s/%s/%s" % (time.strftime("%y"),
+                                                         time.strftime("%m"),
+                                                         time.strftime("%d"))
+        makedirs("server_media/" + directory_name)
+        file_name = "%s/%s" % (directory_name, f_name)
+        f = open("server_media/" + file_name, "w+")
         _, b64data = request.POST['data'].split(',')
         f.write(decodestring(b64data))
         f.close()
@@ -156,7 +167,12 @@ def upload_avatar(request, object_id):
                                            time.strftime("%d"),
                                            f_name)
         u.save()
-    return HttpResponse(simplejson.dumps({'success': True}), content_type='application/json')
+        data = {
+                "status": "success",
+                "url": file_name + '?' + str(datetime.datetime.now()),
+                "filename": file_name
+        }
+    return HttpResponse(simplejson.dumps(data), content_type='application/json')
 
 def complete_registration(request):
     user = UserProfile.objects.get(user=request.user)

@@ -648,7 +648,7 @@ text-decoration:none;
 
 .search-filter-nav ul li{ display:inline-block;}
 
-.search-filter-nav ul li a{ color:#fff; background-color:#657584; border-radius:12px;  -moz-border-radius:12px; -moz-border-radius:12px; display:block; padding:5px 10px; font-size:13px; margin:0 5px; text-transform:uppercase}
+.search-filter-nav ul li a{ color:#fff; background-color:#657584; border-radius:12px;  -moz-border-radius:12px; -moz-border-radius:12px; display:block; padding:5px 10px; font-size:13px; margin-right: 5px; text-transform:uppercase}
 
 .search-filter-nav ul li a:hover, .search-filter-nav ul li a:focus{ text-decoration:none}
 

@@ -10,6 +10,13 @@ ACCOUNT_TYPES = (
 )
 
 
+FEED_TYPES = (
+    ('uploaded_track', 'Uploaded a track'),
+    ('uploaded_video', 'Uploaded a video'),
+    ('playlist_created', 'Created a playlist'),
+    ('entered_competition', 'Entered a competition'),
+)
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     account_type = models.CharField(choices=ACCOUNT_TYPES, max_length=100)
@@ -155,3 +162,12 @@ class Task1(models.Model):
         if self.task1 and self.task2 and self.task3 and self.task4 and self.task5:
             UserBadges.objects.create(user=self.user, badge_id=1)
         return super(Task1, self).save(*args, **kwargs)
+
+
+class ConnectionFeed(models.Model):
+    user = models.ForeignKey(User)
+    action_type = models.CharField(max_length=255, choices=FEED_TYPES)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return "%s: %s" % (self.user, self.type)
