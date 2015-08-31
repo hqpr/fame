@@ -57,14 +57,14 @@ $(document).ready(function(){
             $( this ).find('div').fadeOut(200);
         }
     });
-    $(".playlist_box").on({
-        mouseenter: function () {
-            $( this ).find('div').fadeIn(200);
-        },
-        mouseleave: function () {
-            $( this ).find('div').fadeOut(200);
-        }
-    });
+    // $(".playlist_box").on({
+    //     mouseenter: function () {
+    //         $( this ).find('div').fadeIn(200);
+    //     },
+    //     mouseleave: function () {
+    //         $( this ).find('div').fadeOut(200);
+    //     }
+    // });
 
     $('#update_audio').on('click', function(){
         $('#edit_audio_form').ajaxSubmit({

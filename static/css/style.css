@@ -1396,21 +1396,37 @@ ul.pl-list li {
 ul.pl-list li a {
 	background: url(../images/icon-thumb-hover.png) no-repeat;
 	width: 20px;
-	height: 20px;
+	height: 16px;
 	display: block;
 	text-indent: -9999px
 }
 ul.pl-list li a.heart {
 	background-position: 0 0
 }
+ul.pl-list li a.heart:hover,
+ul.pl-list li a.heart.active {
+	background-position: 0 -17px;
+}
 ul.pl-list li a.comment {
 	background-position: -27px 0
+}
+ul.pl-list li a.comment:hover,
+ul.pl-list li a.comment.active {
+	background-position: -27px -17px;
 }
 ul.pl-list li a.playlist-play {
 	background-position: -53px 0
 }
+ul.pl-list li a.playlist-play:hover,
+ul.pl-list li a.playlist-play.active {
+	background-position: -53px -17px
+}
 ul.pl-list li a.share {
 	background-position: -78px 0
+}
+ul.pl-list li a.share:hover,
+ul.pl-list li a.share.active {
+	background-position: -78px -17px
 }
 .playlist-thumb-hover .play-pl {
 	background: url(../images/playicon2.png) no-repeat;
@@ -1560,13 +1576,23 @@ ul.pl-list li a.share {
 	z-index: 99999;
 	display: block
 }
-ul.playing-wrap li .toggle-down {
+ul.playing-wrap li .toggle-down,
+.minimise-btn {
 	background: url(../images/arrow-viewplaylist.png) no-repeat;
 	width: 20px;
 	height: 12px;
 	background-size: 100%;
 	display: block;
 	margin: 5px 0 0 5px
+}
+.minimise-btn {
+	position: absolute;
+	right: 20px;
+	z-index: 10;
+}
+.minimise-btn.active {
+	background: url(../images/arrow-viewplaylist-up.png) no-repeat;
+	background-size: 100%;
 }
 .fame-position-block .green-txt {
 	color: #43cb83
@@ -2940,7 +2966,8 @@ ul.reply-options li a {
 	padding: 10px 0 20px 35px;
 	position: relative
 }
-.dm-famebox .my-task-phase h5 {
+.dm-famebox .my-task-phase h5,
+.dm-famebox .my-task-phase h5 a {
 	font-size: 14px;
 	font-weight: 400;
 	color: #2e2e2e
@@ -2996,7 +3023,7 @@ ul.reply-options li a {
 	top: 15px
 }
 .my-task-check-icon.complete {
-	background: url(../images/checklist-arrow-grn.png) no-repeat;
+	background: url(../images/check-icon-task-complete.png) no-repeat;
 }
 .fame-chart-section {
 	padding: 25px
@@ -6861,4 +6888,71 @@ ul.tab-wrap li a {
 
 .music_box img, .video_box img, .playlist_box img {
 	width: 100%;
+}
+body .ap-wrapper {
+	position: fixed;
+	z-index: 1;
+	bottom: 0;
+	width: 100%;
+}
+body .ap-wrapper .the-bg {
+	background: #606060;
+	background-image: none!important;
+}
+body .audioplayer.skin-wave .audioplayer-inner .the-thumb {
+	height: 120px;
+	width: 120px;
+}
+body .audiogallery.skin-wave .nav-main {
+	height: 110px!important;
+}
+body .audiogallery.skin-wave .nav-main .menu-item .the-artist,
+body .audiogallery.skin-wave .nav-main .menu-item .the-name {
+	color: #d7d7d7;
+	left: 100px;
+}
+body .audiogallery .nav-main .menu-item {
+	height: 45px;
+}
+body .audioplayer.skin-wave .ap-controls .scrubbar {
+	width: 60%;
+	float: left;
+}
+body .audioplayer.skin-wave .ap-controls .con-controls {
+	float: right;
+	width: 100px;
+	margin-top: 40px;
+}
+body .audioplayer.skin-wave .prev-btn, body .audioplayer.skin-wave .next-btn {
+	top: 49px!important;
+	left: auto!important;
+	right: 108px!important;
+}
+body .audioplayer.skin-wave .next-btn {
+	right: 18px!important;
+}
+body .ap-wrapper.center-ap > *[class*="audio"] {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+body .audiogallery.menu-position-bottom .nav-main {
+	margin-top: 0;
+}
+body .slider-clipper {
+	height: 120px!important;
+}
+body .audioplayer .meta-artist-con  {
+	left: 141px!important;top: 107px;z-index: 10;
+}
+body .audioplayer.skin-wave .meta-artist span {
+	float: left;
+	margin-right: 20px;
+}
+body .ap-wrapper.center-ap > *[class*="audio"] {
+	max-width: 1020px;
+}
+.prettyundefined {
+	opacity: 0;
+	position: absolute;
+	left: -99999px;
 }

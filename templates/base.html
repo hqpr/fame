@@ -38,7 +38,7 @@
 {% block sidebar-left %}
 
 
-<div class="left-nav" id="sidr-left">
+<div class="sidr left-nav" id="sidr-left">
     <h1 class="fame-logo"><a href="#">Fame Music</a></h1>
 
     <div class="input-group left-col-search">
@@ -266,7 +266,7 @@
 {% endblock container-main %}
 
 {% block sidebar-right %}
-<div class="sidebar-right" id="sidr-right">
+<div class="sidebar-right sidr" id="sidr-right">
   {% if user.is_authenticated %}
     <div class="pic-container">
       <div class="db-pic"> <a href="{% url 'profile' %}">{% thumbnail request.user.userprofile.picture "130x130" crop="center" as im %}
@@ -397,7 +397,18 @@
         </div>
     </div>
 </div>
-<div class="myClass"></div>
+<!--Playlist player-->
+ <div class="ap-wrapper center-ap">
+    <div class="the-bg"></div>
+    <div id="ag_playlist" class="audiogallery skin-wave">
+        <div class="minimise-btn"></div>
+        <div id="playlist_items" class="items">
+        </div>
+    </div>
+</div>
+
+<!--End Playlist player-->
+<div class="myClass" style="opacity: 0; height: 0; position: absolute;"></div>
 <div class="modal modal-absolute" id="modal-comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" style="z-index: 9991">
         <div class="modal-content">
@@ -467,6 +478,16 @@
     // $("body").delegate(".modal", "click", function() {
     //   $(this).find('form')[0].reset();
     // });
+  $(".toggle-container").click(function() {
+      var visibleDiv = $(this).next();
+      if (visibleDiv.css("display") == "none") {
+        visibleDiv.slideDown();
+        $(this).find(".arrow-direction").removeClass("arrow-down");
+      } else {
+        visibleDiv.slideUp()
+        $(this).find(".arrow-direction").addClass("arrow-down");
+      }
+    });
     $("body").delegate(".commentAudioButton", "click", function() {
       var modalComment = $('#modal-comment');
       modalComment.modal('show');
@@ -474,18 +495,25 @@
       modalComment.find('[name=time]').val($.now());
     });
     $("body").delegate(".likeAudioButton", "click", function() {
-      var id = $(".like")[0].attributes.toid.value;
+      var id = $(this).attr("toid");
+      var me = $(this);
       $.ajax({
         method: "POST",
-        url: "http://52.18.236.59/api/audio/like",
+        url: "/api/audio/like",
         data: {"audio": id},
         dataType: "application/json"
       })
       .done(function (msg) {
         console.log(msg);
+        $(this).addClass("active");
       })
       .fail(function (jqXHR, textStatus) {
         console.log(jqXHR.responseText);
+        if (jqXHR.status == 201) {
+          me.addClass("active");
+        } else {
+          alert("You can't like the same track more than once");
+        }
       });
     });
   });
@@ -553,16 +581,7 @@ $(document).ready(function() {
         }
       }
     });
-    $(".toggle-container").click(function() {
-      var visibleDiv = $(this).next();
-      if (visibleDiv.css("display") == "none") {
-        visibleDiv.slideDown();
-        $(this).find(".arrow-direction").removeClass("arrow-down");
-      } else {
-        visibleDiv.slideUp()
-        $(this).find(".arrow-direction").addClass("arrow-down");
-      }
-    });
+    
     $("#statusUpdate").on("blur", function() {
       if ($(this).val()) {
         $('#statusDetailsForm').ajaxSubmit({

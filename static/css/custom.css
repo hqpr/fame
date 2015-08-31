@@ -28,3 +28,9 @@
 .btn.btn-red {
     margin-left: -70px;
 }
+#social_networks {
+    padding: 20px 60px;
+}
+#social_networks a {
+    margin-bottom: 20px;
+}

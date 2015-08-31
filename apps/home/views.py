@@ -5,6 +5,9 @@ from .models import Tutorial
 from apps.userprofile.models import Task1
 from social.apps.django_app.default.models import UserSocialAuth
 
+from apps.blog.models import BlogItem
+from apps.resources.models import ResourcesItem
+
 def home(request):
     if request.user.is_authenticated():
         try:
@@ -22,7 +25,16 @@ def home(request):
                     Task1.objects.create(user=request.user, task3=True)
         except UserSocialAuth.DoesNotExist:
             pass
-        return render(request, 'homepage.html', {'task1': task1})
+        
+        news = BlogItem.published_objects.order_by('-publish_date')[:4]
+        resources = ResourcesItem.published_objects.order_by('-publish_date')[:4]
+
+        template_data = {
+            "news": news,
+            "resources": resources,
+            'task1': task1
+        }
+        return render(request, 'homepage.html', template_data)
     return render(request, 'home.html', {})
 
 

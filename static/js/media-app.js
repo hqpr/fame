@@ -43,7 +43,6 @@ function MainCtrl($scope, Medias) {
       $scope.totalVideosCount = result.totalVideosCount;
       $scope.playlists = result.playlists;
       $scope.totalPlaylistsCount = result.totalPlaylistsCount;
-      debugger;
     })
     .catch(function(err) {
       console.log(err);
@@ -66,7 +65,6 @@ function MainCtrl($scope, Medias) {
         $scope.totalVideosCount = result.totalVideosCount;
         $scope.playlists = result.playlists;
         $scope.totalPlaylistsCount = result.totalPlaylistsCount;
-        debugger;
       })
       .catch(function(err) {
         console.log(err);
@@ -93,6 +91,12 @@ function MainCtrl($scope, Medias) {
     });
     tempHtml += "</ul><button id='filterGenre' class='btn btn-blue' ng-click='loadMedias()'>Filter</button>";
     return tempHtml;
+  }
+  $scope.user_likes = function(user_likes) {
+    if (user_likes) {
+      return "active";
+    }
+    return "";
   }
 
   $scope.visible = true;

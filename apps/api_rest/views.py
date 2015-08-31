@@ -214,7 +214,7 @@ def chart_list_fame(request, *args, **kwargs):
     except:
         return Response("No entries", status=status.HTTP_400_BAD_REQUEST)
     
-    serializer = AudioSerializer(snippets, many=True)
+    serializer = AudioSerializer(snippets, many=True, context={'user_id': request.user.id})
     # return Response(chart_items, status=status.HTTP_201_CREATED)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -278,7 +278,7 @@ def all_media(request, *args, **kwargs):
 
     if not "media_type" in kwargs or kwargs["media_type"] == "track":
         audio_objects = Audio.public_objects.all().order_by('-added')
-        tracks = AudioSerializer(audio_objects, many=True).data
+        tracks = AudioSerializer(audio_objects, many=True, context={'user_id': request.user.id}).data
 
     if not "media_type" in kwargs or kwargs["media_type"] == "video":
         video_objects = Video.public_objects.all().order_by('-added')
@@ -348,7 +348,7 @@ def audio_like(request):
         if serializer.is_valid():
             try:
                 serializer.save(fan=request.user)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response("liked", status=status.HTTP_201_CREATED)
             except:
                 return Response("Can't like the same track twice", status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

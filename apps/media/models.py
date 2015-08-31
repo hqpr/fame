@@ -89,6 +89,10 @@ class Audio(models.Model):
                 self.length = "%d:%02d:%02d" % (h, m, s)
             self.save()
 
+    @property
+    def likes(self):
+        return len(AudioLike.objects.filter(audio=self))
+
     class Meta:
         db_table = "media_audio"
 

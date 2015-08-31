@@ -330,17 +330,6 @@
 
     </div>
 
-<!--Playlist player-->
- <div class="ap-wrapper center-ap" style="width:100%; padding-top:80px;">
-    <div class="the-bg" style=" background-image: url(/static/audioplayer/img/adg3.jpg);"></div>
-    <div id="ag_playlist" class="audiogallery skin-wave" style="opacity:0; margin-top: 70px;">
-        <div id="playlist_items" class="items">
-        </div>
-    </div>
-</div>
-
-<!--End Playlist player-->
-
     <!--End: Inner Main Wrap-->
 
     <!--Start: Check if profile is valid-->
@@ -486,21 +475,29 @@ $(function() {
 function print_audio(playlist) {
   var item ='';
   document.getElementById("playlist_items").innerHTML = "";
+  var index = 1;
+  $(".nav-main").remove();
   playlist.forEach(function(item){
       document.getElementById("playlist_items").innerHTML +=
         '<div id="'+item.id+'-'+item.audio.id+'" class="audioplayer-tobe" style="width:100%; " data-thumb="' + item.audio.cover_200 + '" data-thumb_link="'+item.audio.cover_200+'" data-bgimage="{% static "audioplayer/img/bgminion.jpg" %}" data-scrubbg="{% static "audioplayer/waves/scrubbg.png" %}" data-scrubprog="{% static "audioplayer/waves/scrubprog.png" %}" data-videoTitle="Audio Video" data-type="normal" data-source="' + item.audio.audio + '"> ' +
             '<div class="meta-artist"><span class="the-artist">'+item.audio.artist_en+'</span><br/><span class="the-name">'+item.audio.name_en+'</span>' +
             '</div>' +
             '<div class="menu-description">' +
-                '<div class="menu-item-thumb-con"><div class="menu-item-thumb" style="background-image: url(' + item.audio.cover_200 + ')"></div></div>' +
-                '<span class="the-artist">' + item.audio.artist_en + '</span>' +
-                '<span class="the-name">' + item.audio.name_en + '</span>' +
+                '<div class="the-artist">' +
+                        "<div class=\"index\" style='float: left; width: 4%'>" + index + "</div>" + 
+                        "<div class=\"index\" style='float: left; width: 31%'>" + item.audio.name + "</div>" + 
+                        "<div class=\"index\" style='float: left; width: 27%'>" + item.audio.artist + "</div>" + 
+                        "<div class=\"index\" style='float: left; width: 13%'>" + item.audio.length + "</div>" + 
+                        "<div class=\"index\" style='float: left; width: 14%'>" + item.audio.plays + "</div>" + 
+                        "<div class=\"index\" style='float: left; width: 11%'><a href=\"#\" class=\"minus-icon\">minus</a></div>" + 
+                '</div>' +
             '</div>' +
         '</div>';
+        index+=1;
   });
 
   var settings_ap = {
-    disable_volume: 'off'
+    disable_volume: 'on'
     ,disable_scrub: 'default'
     ,design_skin: 'skin-wave'
     ,skinwave_dynamicwaves:'off'
@@ -511,7 +508,7 @@ function print_audio(playlist) {
   };
   dzsag_init('#ag_playlist',{
     'transition':'fade'
-    ,'autoplay' : 'on'
+    ,'autoplay' : 'off'
     ,'settings_ap':settings_ap
   });
 }

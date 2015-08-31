@@ -6,7 +6,7 @@
     <div class="nav-top blue-bg mobnav">
         <div class="back-icon-headbar hidden-xs"><a href="#"><i class="fa fa-chevron-circle-left fa-4"></i></a></div>
         <ul>
-            <li class="hidden-xs">MADEON</li>
+            <li class="hidden-xs">{{request.user.first_name|upper}}</li>
             <li class="pull-left"><a id="left-menu" href="#left-menu" class="menu-icon">menu</a></li>
             <li class="pull-right"><a id="right-menu" href="#right-menu" class="dashboard-icon">Dashboard menu</a></li>
         </ul>
@@ -21,8 +21,7 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <div class="my-task-col"> <a href="#" class="view-all-link">View All</a> <br/>
-                    <h3>My Tasks</h3>
+                <div class="my-task-col"> <a href="#" class="view-all-link">View All</a><h3>My Tasks</h3>
 
                     <div class="phase-title"> Phase 1</div>
                     <p class="profile-heading">Complete Your Profile</p>
@@ -32,52 +31,52 @@
 
                     {% if task1.task1 %}
                         <div class="my-task-phase"><span class="my-task-check-icon complete"></span>
-                            <h5>Describe yourself in 300 words.</h5>
+                            <h5><a href="{% url 'settings' %}">Describe yourself in 300 words</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% else %}
                         <div class="my-task-phase"><span class="my-task-check-icon"></span>
-                            <h5>Describe yourself in 300 words.</h5>
+                            <h5><a href="{% url 'settings' %}">Describe yourself in 300 words.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% endif %}
 
                     {% if task1.task2 %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5>Add a track.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5><a href="{% url 'profile' %}">Add a track.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% else %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Add a track.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5><a href="{% url 'profile' %}">Add a track.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% endif %}
 
                     {% if task1.task3 %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5>Connect 3 social networks.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5><a href="{% url 'settings' %}">Connect 3 social networks.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% else %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Connect 3 social networks.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5><a href="{% url 'settings' %}">Connect 3 social networks.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% endif %}
 
                     {% if task1.task4 %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5>Follow 3 artists.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5><a href="{% url 'all_artists' %}">Follow 3 artists.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% else %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Follow 3 artists.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5><a href="{% url 'all_artists' %}">Follow 3 artists.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% endif %}
 
                     {% if task1.task5 %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5>Add a video.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon complete"></span><h5><a href="{% url 'profile' %}">Add a video.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% else %}
-                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5>Add a video.</h5>
+                        <div  class="my-task-phase"><span class="my-task-check-icon"></span><h5><a href="{% url 'profile' %}">Add a video.</a></h5>
                             <p>aiuh aoiusdah aispudh aoisudh asiduh aosiduha sodiuhas dipaush a </p>
                         </div>
                     {% endif %}
@@ -226,120 +225,53 @@
         <div class="content" style="padding-top:0px;">
             <div class="hot-news-section" style="padding-top:0px;">
                 <div class="latest-fame-resources">
-                    <!----Start: Fame Resources----->
+                    <!----Start: Fame Resources-->
                     <h3>Latest Fame Resources</h3>
-                    <div class="row">
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-
+                        <div class="row">
+                        {% for item in resources %}
+                            <div class="col-sm-3 news-section">
+                                <div class="news-thumb relative"><a href="{% url 'single_resource' item.slug %}"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></a>
+                                </div>
+                                <div class="news-block active">
+                                    <ul class="news-date">
+                                        <li class="hot">NEWS</li>
+                                        <li>|</li>
+                                        <li class="date">{{item.publish_date|date:"d M Y"}}</li>
+                                    </ul>
+                                    <h5>{{item.title}}</h5>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
+                    <div class="view-all-posts-block"><a href="{% url 'all_resources' %}" class="btn btn-blue">VIEW ALL</a></div>
+                    <!----End: Fame Resources-->
 
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb relative"><img src="{% static 'images/news-holder-lock-thumb.png' %}" class="img-responsive" alt="">
-                                <div class="banner-sticker-hot-small"></div>
-                            </div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="view-all-posts-block"><a href="#" class="btn btn-blue">VIEW ALL</a></div>
-                    <!----End: Fame Resources----->
-
-                    <!----Start: Fame News----->
+                    <!----Start: Fame News-->
                     <h3>Latest Fame News</h3>
 
                     <div class="row">
+                        {% for item in news %}
                         <div class="col-sm-3 news-section">
-                            <div class="news-thumb relative"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt="">
+                            <div class="news-thumb relative"><a href="{% url 'single_blog' item.slug %}"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></a>
                             </div>
                             <div class="news-block active">
                                 <ul class="news-date">
                                     <li class="hot">NEWS</li>
                                     <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
+                                    <li class="date">{{item.publish_date|date:"d M Y"}}</li>
                                 </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
+                                <h5>{{item.title}}</h5>
                             </div>
                         </div>
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 news-section">
-                            <div class="news-thumb"><img src="{% static 'images/news-holder-thumb.png' %}" class="img-responsive" alt=""></div>
-                            <div class="news-block active">
-                                <ul class="news-date">
-                                    <li class="hot">NEWS</li>
-                                    <li>|</li>
-                                    <li class="date">12 Jun 2015</li>
-                                </ul>
-                                <h5>Deadmau5 NEW LIVESET Is sold out bef ore bvla bal oah aoisha soidah aosiha saoihas aodsi</h5>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="view-all-posts-block"><a href="#" class="btn btn-blue">VIEW ALL</a></div>
-                    <!----End: Fame News----->
+                    <div class="view-all-posts-block"><a href="{% url 'all_blogs' %}" class="btn btn-blue">VIEW ALL</a></div>
+                    <!----End: Fame News-->
 
                     <div class="row">
                         <div class="col-sm-8">
 
-                            <!----Start: Subscribe Wrap----->
+                            <!----Start: Subscribe Wrap-->
                             <div class="frame">
                                 <div class="distribute-music-block clearfix">
                                     <div class="img-section"><img src="{% static 'images/distribute-music-img.jpg' %}" alt=""></div>
@@ -358,7 +290,7 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                            <!----End: Subscribe Wrap----->
+                            <!----End: Subscribe Wrap-->
                         </div>
                     </div>
                 </div>

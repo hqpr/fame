@@ -234,5 +234,14 @@ $(document).ready(function(){
         modalComment.find('[name=audio]').val(this.attributes.toid.value);
         modalComment.find('[name=time]').val($.now());
     });
+    $(".minimise-btn").click(function() {
+        if ($(".nav-main").height() < 10) {
+            $(this).removeClass("active");
+            $(".nav-main").attr("style", "height:110px!important");
+        } else {
+            $(this).addClass("active");
+            $(".nav-main").attr("style", "height:0px!important");
+        }
+    });
 
 });

@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-html, body						{ font-family: arial; }
+/*html, body						{ font-family: arial; }*/
 
 .dropzone						{ background-color: #eeeeee; text-align: center; position: relative; border: 1px solid #dddddd; display: inline-block;  }
 .dropzone:after					{ content: 'Drop your image here or click to add one!'; font-size: 30px; color: #bbbbbb; position: absolute; bottom: 60%; left: 0; width: 100%; text-align: center; z-index:0;}

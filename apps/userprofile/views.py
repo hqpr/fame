@@ -185,7 +185,11 @@ def logout_view(request):
 
 
 def user_home(request):
-    return render(request, 'homepage.html', {})
+    news = BlogItem.published_objects.order_by('-publish_date')[:4]
+    template_data = {
+        "news": news
+    }
+    return render(request, 'homepage.html', template_data)
 
 
 class SocialView(FormView):

@@ -29,6 +29,7 @@ class AudioSerializer(serializers.ModelSerializer):
     user = UserNameSerializer()
     genre = serializers.ReadOnlyField(source='genre.name')
     likes = serializers.SerializerMethodField('get_total_likes')
+    user_like = serializers.SerializerMethodField('get_current_user_like')
     cover_200 = serializers.SerializerMethodField('get_200_thumbnail')
 
     def get_total_likes(self, audio):
@@ -39,6 +40,13 @@ class AudioSerializer(serializers.ModelSerializer):
         if im:
             return im.url
         return ""
+
+    def get_current_user_like(self, audio):
+        try:
+            like = AudioLike.objects.get(audio=audio, fan=self.context['user_id'])
+        except:
+            return 0
+        return 1
 
     class Meta:
         model = Audio

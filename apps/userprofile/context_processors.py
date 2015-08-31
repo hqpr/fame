@@ -50,7 +50,7 @@ def connection_feed(request):
         ids = []
         for connection in connections:
             ids.append(connection.connection.id)
-        feed = ConnectionFeed.objects.filter(user__in=ids)
+        feed = ConnectionFeed.objects.filter(user__in=ids)[:5]
         return {'connections': connections, 'feed': feed}
 
     return {'connections': 0, 'feed': 0}
